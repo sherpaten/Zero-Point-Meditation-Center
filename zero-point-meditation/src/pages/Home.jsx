@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Calendar, MapPin, ArrowRight, Sparkles, Compass, HeartHandshake, ShieldCheck, Flame, Users, BookOpen, Award } from 'lucide-react';
 
 // Assets (Convert heavy images to .webp in src/assets for maximum speed on Vercel)
-import buddhaLotus from '../assets/buddha-lotus.webp'; 
+import buddhaLotus from "../assets/buddha-lotus.webp"; 
 import rinpocheProfile from '../assets/profile.jpg';
 import event1 from '../assets/Event 1.jpeg';
 import event2 from '../assets/Event 2.jpeg';
