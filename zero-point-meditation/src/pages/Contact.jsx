@@ -33,8 +33,8 @@ export default function Contact() {
               <div className="flex items-start gap-3">
                 <MapPin className="text-buddhist-gold shrink-0 mt-0.5" size={18} />
                 <div>
-                  <p className="font-bold text-amber-50">Zero Point Center</p>
-                  <p>Kathmandu, Nepal & Regional Peace Hubs</p>
+                  <p className="font-bold text-amber-50">Zero Point meditation Center</p>
+                  <p>New York, United Statess</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -45,7 +45,7 @@ export default function Contact() {
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="text-buddhist-gold shrink-0" size={18} />
-                <span>+977 (1) 400-0000</span>
+                <span>+1 (347) 804-4551</span>
               </div>
               <div className="flex items-start gap-3">
                 <Clock className="text-buddhist-gold shrink-0 mt-0.5" size={18} />
