@@ -1,0 +1,24 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+@theme {
+  --font-serif: 'Cinzel', serif;
+  --font-sans: 'Inter', sans-serif;
+
+  /* Updated from white #FDFBF7 to warm parchment #FAF6F0 */
+  --color-buddhist-bg: #FAF6F0;
+  --color-buddhist-card: #F2EBDC;
+  --color-buddhist-burgundy: #6B1C23;
+  --color-buddhist-burgundy-hover: #521319;
+  --color-buddhist-gold: #D97706;
+  --color-buddhist-gold-light: #FEF3C7;
+  --color-buddhist-charcoal: #27272A;
+  --color-buddhist-muted: #71717A;
+}
+
+/* Global page background anchor */
+body {
+  background-color: var(--color-buddhist-bg);
+  color: var(--color-buddhist-charcoal);
+  margin: 0;
+}
