@@ -15,6 +15,7 @@ import event10 from '../assets/Event 10.webp';
 import event11 from '../assets/Event 11.jpeg';
 
 import news1 from '../assets/News 1.webp';
+import post3 from '../assets/post 3.jpg';
 import poster1 from '../assets/Poste 1.webp';
 import poster2 from '../assets/Poste 2.jpeg';
 
@@ -46,19 +47,32 @@ const galleryItems = [
     keywords: "Manhattan Buddhist Gathering, Amitabha Society of Philadelphia, A&C Culture Center, Free Spiritual Classes, Shu Hong Liang, Mind Training"
   },
 
+  // --- RECENT UPDATE: PRAY FOR NEPAL ---
+  {
+    id: 3,
+    title: "Healing and Prayers for Nepal: Standing Together in Compassion",
+    type: "news",
+    category: "News",
+    date: "August 2026",
+    location: "Global / Nepal",
+    image: post3,
+    description: "With a deeply saddened heart, we offer our thoughts and prayers for Nepal and everyone impacted by this devastating natural disaster. May all those affected receive swift support, strength, and healing. Honoring lives lost, strength for families, safety and care, and a collective call to compassion through the blessings of the Three Jewels. Om Mani Padme Hum. 🙏🙏🙏",
+    keywords: "Pray for Nepal, Natural Disaster Relief, Buddhist Prayers, H.E. Gegye Yongyal Rinpoche, Compassion, Om Mani Padme Hum"
+  },
+
   // --- POSTERS & OTHER ARCHIVE ITEMS ---
-  { id: 3, title: "Global Peace & Dharma Discourse Poster", type: "poster", category: "Posters", date: "2024", location: "Taipei, Taiwan", image: poster1, description: "Official promotional poster for upcoming international peace rally and mind-training retreat." },
-  { id: 4, title: "Retreat & Meditation Workshop Announcement", type: "poster", category: "Posters", date: "2023", location: "New York, USA", image: poster2, description: "Event announcement flyer for public lectures on Buddhist philosophy." },
-  { id: 5, title: "Interfaith Prayer & Unity Assembly", type: "photo", category: "Event Photos", date: "2023", location: "UN Plaza, NY", image: event2, description: "Interfaith dialogue promoting global harmony and community peace." },
-  { id: 6, title: "Lamp Offering & Blessing Ceremony", type: "photo", category: "Event Photos", date: "2023", location: "New York Center", image: event3, description: "Traditional butter lamp offerings led by Rinpoche for world peace." },
-  { id: 7, title: "Youth Mind-Training & Meditation Session", type: "photo", category: "Event Photos", date: "2023", location: "Community Hall", image: event4, description: "Interactive workshop introducing young adults to modern mindfulness techniques." },
-  { id: 8, title: "Rubin Museum Public Discourse", type: "photo", category: "Event Photos", date: "2022", location: "Rubin Museum of Art, NY", image: event5, description: "Public talk on timeless wisdom and compassion in modern daily life." },
-  { id: 9, title: "Community Health & Culture Assembly", type: "photo", category: "Event Photos", date: "2023", location: "Long Island, NY", image: event6, description: "Supporters gathering to foster cultural exchange and local wellness initiatives." },
-  { id: 10, title: "Sacred Chanting & Meditation Assembly", type: "photo", category: "Event Photos", date: "2022", location: "Monastery Center", image: event7, description: "Traditional Tibetan Buddhist chanting and group contemplation." },
-  { id: 11, title: "Individual Blessings & Sangha Meet", type: "photo", category: "Event Photos", date: "2022", location: "Taipei, Taiwan", image: event8, description: "Personal blessings and spiritual guidance offered to community members." },
-  { id: 12, title: "Guided Meditation Instruction", type: "photo", category: "Event Photos", date: "2021", location: "Online Center", image: event9, description: "Demonstrating posture, breathwork, and posture alignment for beginners." },
-  { id: 13, title: "Annual Peace Gathering Highlights", type: "photo", category: "Event Photos", date: "2021", location: "New York", image: event10, description: "Group portrait of practitioners, guests, and community supporters." },
-  { id: 14, title: "Dharma & Wisdom Exchange", type: "photo", category: "Event Photos", date: "2021", location: "New York", image: event11, description: "Open forum exploring Buddhist philosophy and stress-reduction methods." }
+  { id: 4, title: "Global Peace & Dharma Discourse Poster", type: "poster", category: "Posters", date: "2024", location: "Taipei, Taiwan", image: poster1, description: "Official promotional poster for upcoming international peace rally and mind-training retreat." },
+  { id: 5, title: "Retreat & Meditation Workshop Announcement", type: "poster", category: "Posters", date: "2023", location: "New York, USA", image: poster2, description: "Event announcement flyer for public lectures on Buddhist philosophy." },
+  { id: 6, title: "Interfaith Prayer & Unity Assembly", type: "photo", category: "Event Photos", date: "2023", location: "UN Plaza, NY", image: event2, description: "Interfaith dialogue promoting global harmony and community peace." },
+  { id: 7, title: "Lamp Offering & Blessing Ceremony", type: "photo", category: "Event Photos", date: "2023", location: "New York Center", image: event3, description: "Traditional butter lamp offerings led by Rinpoche for world peace." },
+  { id: 8, title: "Youth Mind-Training & Meditation Session", type: "photo", category: "Event Photos", date: "2023", location: "Community Hall", image: event4, description: "Interactive workshop introducing young adults to modern mindfulness techniques." },
+  { id: 9, title: "Rubin Museum Public Discourse", type: "photo", category: "Event Photos", date: "2022", location: "Rubin Museum of Art, NY", image: event5, description: "Public talk on timeless wisdom and compassion in modern daily life." },
+  { id: 10, title: "Community Health & Culture Assembly", type: "photo", category: "Event Photos", date: "2023", location: "Long Island, NY", image: event6, description: "Supporters gathering to foster cultural exchange and local wellness initiatives." },
+  { id: 11, title: "Sacred Chanting & Meditation Assembly", type: "photo", category: "Event Photos", date: "2022", location: "Monastery Center", image: event7, description: "Traditional Tibetan Buddhist chanting and group contemplation." },
+  { id: 12, title: "Individual Blessings & Sangha Meet", type: "photo", category: "Event Photos", date: "2022", location: "Taipei, Taiwan", image: event8, description: "Personal blessings and spiritual guidance offered to community members." },
+  { id: 13, title: "Guided Meditation Instruction", type: "photo", category: "Event Photos", date: "2021", location: "Online Center", image: event9, description: "Demonstrating posture, breathwork, and posture alignment for beginners." },
+  { id: 14, title: "Annual Peace Gathering Highlights", type: "photo", category: "Event Photos", date: "2021", location: "New York", image: event10, description: "Group portrait of practitioners, guests, and community supporters." },
+  { id: 15, title: "Dharma & Wisdom Exchange", type: "photo", category: "Event Photos", date: "2021", location: "New York", image: event11, description: "Open forum exploring Buddhist philosophy and stress-reduction methods." }
 ];
 
 const containerVariants = {
