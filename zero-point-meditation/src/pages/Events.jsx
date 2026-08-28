@@ -15,7 +15,7 @@ import event10 from '../assets/Event 10.webp';
 import event11 from '../assets/Event 11.jpeg';
 
 import news1 from '../assets/News 1.webp';
-import post3 from '../assets/post 3.jpg';
+import post3 from '../assets/Post 3.jpg';
 import poster1 from '../assets/Poste 1.webp';
 import poster2 from '../assets/Poste 2.jpeg';
 
