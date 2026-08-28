@@ -52,7 +52,7 @@ const galleryItems = [
     id: 3,
     title: "Healing and Prayers for Nepal: Standing Together in Compassion",
     type: "news",
-    category: "News",
+    category: "New News",
     date: "August 2026",
     location: "Global / Nepal",
     image: post3,
