@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Sparkles } from 'lucide-react';
-import logo from '../public/LOGO.png';
+import logo from '../assets/LOGO.svg';
 
 export default function Navbar() {
   const linkStyles = ({ isActive }) =>
