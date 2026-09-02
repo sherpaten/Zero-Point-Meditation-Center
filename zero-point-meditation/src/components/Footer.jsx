@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 // Import LOGO asset (uses LOGO.svg, update extension if using LOGO.png)
-import logo from '../assets/LOGO.png'; 
+import logo from '../public/LOGO.png'; 
 
 // Custom icons imported directly from src/assets/Icons/
 import facebookIcon from '../assets/Icons/facebook.jpg';
