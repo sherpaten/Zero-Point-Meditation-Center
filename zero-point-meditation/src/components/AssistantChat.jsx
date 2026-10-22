@@ -9,16 +9,18 @@ const starterPrompts = [
 ];
 
 function demoReply(question) {
-  const q = question.toLowerCase();
+  const q = question.toLowerCase().replace(/[^a-z0-9\\s]/g, ' ');
+  const asksAboutServices = /\\b(service|services|offer|offers|provide|provided|available|what do you do|what can i do|help with)\\b/.test(q);
+  if (asksAboutServices) return 'Here are the services and activities currently listed on our website:\\n\\n• Meditation & Mindfulness — meditation practice and guidance for developing a personal practice.\\n• Prayer & Spiritual Guidance — spiritual learning, prayer, and guidance within the centre’s Buddhist tradition.\\n• Emotional Well-being — a compassionate community space and information about support resources.\\n• Community Gatherings — shared practice, cultural activities, and community events.\\n• Counselling Information — contact the centre to ask about current availability and verified referrals.\\n• Yoga — coming soon; the start date and schedule have not yet been confirmed.\\n\\nFor current class times, bookings, and availability, please contact the centre directly. Spiritual activities do not replace licensed mental-health care.';
   if (q.includes('meditat') || q.includes('mindful') || q.includes('start')) return 'Meditation and mindfulness are among the centre’s services. Ask the team about beginner-friendly guided practice and the next available class. Please confirm current times directly with the centre.';
   if (q.includes('class') || q.includes('schedule') || q.includes('sunday') || q.includes('when')) return 'The website lists a free Sunday community class, but its time and format still need confirmation. Please contact the centre before making plans to attend.';
   if (q.includes('contact') || q.includes('email') || q.includes('phone') || q.includes('address')) return 'You can use the contact details and enquiry form on this page to reach the centre.';
   if (q.includes('prayer') || q.includes('spiritual') || q.includes('guidance') || q.includes('teach')) return 'The centre describes spiritual learning, prayer, and guidance as areas to explore. Please contact the team to confirm what is currently offered.';
-  if (q.includes('counsel') || q.includes('mental health') || q.includes('anxious') || q.includes('depress') || q.includes('emotional')) return 'Spiritual activities are not a replacement for licensed mental-health care. For clinical concerns, contact a qualified professional or local health service.';
+  if (q.includes('counsel') || q.includes('mental health') || q.includes('anxious') || q.includes('depress') || q.includes('emotional')) return 'The centre lists emotional well-being information and counselling enquiries. Please contact the centre to confirm available support and any verified referrals. Spiritual activities are not a replacement for licensed mental-health care.';
   if (q.includes('yoga')) return 'Yoga is marked as coming soon. There is not yet a confirmed start date or schedule.';
   if (q.includes('event') || q.includes('gather') || q.includes('community')) return 'Please explore the Events page and contact the centre to confirm upcoming dates and registration requirements.';
   if (q.includes('merch') || q.includes('art') || q.includes('shop') || q.includes('product')) return 'Please visit the Merchandise page to explore the centre’s art and merchandise.';
-  return 'Thanks for your question. This is a chatbot interface preview and is not connected to a live AI service yet. I can show sample responses for common topics. Please contact the centre for confirmed information.';
+  return 'I can answer common questions about the centre’s listed services, classes, events, spiritual learning, and merchandise. Try asking “What services do you offer?” or choose one of the topics above. This preview uses prepared replies and is not connected to a live AI model yet.';
 }
 
 export default function AssistantChat() {
