@@ -38,7 +38,7 @@ export default function Navbar() {
             About
           </NavLink>
           <NavLink to="/services" className={linkStyles}>
-            Services & Classes
+            Services 
           </NavLink>
           <NavLink to="/events" className={linkStyles}>
             Events
