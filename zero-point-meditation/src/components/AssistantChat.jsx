@@ -9,9 +9,12 @@ const starterPrompts = [
 ];
 
 function demoReply(question) {
-  const q = question.toLowerCase().replace(/[^a-z0-9\\s]/g, ' ');
-  const asksAboutServices = /\\b(service|services|offer|offers|provide|provided|available|what do you do|what can i do|help with)\\b/.test(q);
-  if (asksAboutServices) return 'Here are the services and activities currently listed on our website:\\n\\n• Meditation & Mindfulness — meditation practice and guidance for developing a personal practice.\\n• Prayer & Spiritual Guidance — spiritual learning, prayer, and guidance within the centre’s Buddhist tradition.\\n• Emotional Well-being — a compassionate community space and information about support resources.\\n• Community Gatherings — shared practice, cultural activities, and community events.\\n• Counselling Information — contact the centre to ask about current availability and verified referrals.\\n• Yoga — coming soon; the start date and schedule have not yet been confirmed.\\n\\nFor current class times, bookings, and availability, please contact the centre directly. Spiritual activities do not replace licensed mental-health care.';
+  const q = question.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+  const asksAboutServices =
+    /\b(services?|offer(?:s|ing)?|provide(?:s|d)?|what do you do|what can (?:you|u) do|what can (?:you|u) help|help with|available services)\b/.test(q) ||
+    /\bwhat\b.*\b(you|u|centre|center)\b.*\b(do|offer|provide|services?)\b/.test(q) ||
+    /\b(you|u)\b.*\b(offer|provide|services?)\b/.test(q);
+  if (asksAboutServices) return 'Here are the services and activities currently listed on our website:\n\n• Meditation & Mindfulness — meditation practice and guidance for developing a personal practice.\n• Prayer & Spiritual Guidance — spiritual learning, prayer, and guidance within the centre’s Buddhist tradition.\n• Emotional Well-being — a compassionate community space and information about support resources.\n• Community Gatherings — shared practice, cultural activities, and community events.\n• Counselling Information — contact the centre to ask about current availability and verified referrals.\n• Yoga — coming soon; the start date and schedule have not yet been confirmed.\n\nFor current class times, bookings, and availability, please contact the centre directly. Spiritual activities do not replace licensed mental-health care.';
   if (q.includes('meditat') || q.includes('mindful') || q.includes('start')) return 'Meditation and mindfulness are among the centre’s services. Ask the team about beginner-friendly guided practice and the next available class. Please confirm current times directly with the centre.';
   if (q.includes('class') || q.includes('schedule') || q.includes('sunday') || q.includes('when')) return 'The website lists a free Sunday community class, but its time and format still need confirmation. Please contact the centre before making plans to attend.';
   if (q.includes('contact') || q.includes('email') || q.includes('phone') || q.includes('address')) return 'You can use the contact details and enquiry form on this page to reach the centre.';
