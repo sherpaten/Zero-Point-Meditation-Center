@@ -201,13 +201,13 @@ const galleryItems = [
   {
     id: 23, group: '2025', title: 'Dharma Teaching: The Jewel Ornament of Liberation',
     type: 'photo', category: 'Event Photos', date: '2025',
-    location: 'Location to confirm', image: jewel2025a, images: [jewel2025a, jewel2025b],
+    location: 'Tibetan Museum, New York, USA', image: jewel2025a, images: [jewel2025a, jewel2025b],
     description: 'Dharma teaching on The Jewel Ornament of Liberation. The exact date, venue, and additional event details are to be confirmed.'
   },
   {
     id: 24, group: '2025', title: 'Global Peace Prayer: More Love, Peace, Understanding, Compassion & Unity',
     type: 'photo', category: 'Event Photos', date: '2025 — date to confirm',
-    location: 'Location to confirm', image: globalPeace2025a, images: [globalPeace2025a, globalPeace2025b],
+    location: 'Kathmandu, Nepal', image: globalPeace2025a, images: [globalPeace2025a, globalPeace2025b],
     description: 'World Peace Prayer for more love, peace, understanding, compassion, and unity in our world. Namaste. May our prayers and shared intentions help bring greater kindness, harmony, and peace to all beings.'
   },
   {
