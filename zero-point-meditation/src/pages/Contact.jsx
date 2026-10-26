@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Clock, Send, Sparkles, HeartHandshake } from 'lucide-react';
+import AssistantChat from '../components/AssistantChat';
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', subject: 'General Inquiry', message: '' });
@@ -23,6 +24,8 @@ export default function Contact() {
           Have questions about our meditation retreats, weekly prayer sessions, or teachings? We welcome your message.
         </p>
       </motion.div>
+
+      <AssistantChat />
 
       <div className="grid md:grid-cols-12 gap-10">
         {/* Left Column: Contact Info */}

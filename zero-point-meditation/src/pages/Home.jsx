@@ -116,7 +116,7 @@ export default function Home() {
             </h1>
 
             <p className="text-stone-800 text-base sm:text-lg leading-relaxed max-w-3xl mx-auto font-medium drop-shadow-sm">
-              A non-profit spiritual refuge dedicated to authentic Himalayan mindfulness meditation, peace prayer assemblies, and ecological stewardship under the guidance of <strong>H.E. Gegye Yongyal Tulku Rinpoche</strong>.
+              A welcoming community centered on meditation, spiritual learning, compassionate connection, and emotional well-being. Explore our teachings, community activities, and opportunities to practise together. Our team is preparing more information about services and professional guidance.
             </p>
 
             <div className="flex flex-wrap justify-center gap-4 pt-4">

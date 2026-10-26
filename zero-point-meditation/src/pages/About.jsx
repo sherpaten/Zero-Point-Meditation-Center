@@ -220,6 +220,61 @@ export default function About() {
         </div>
       </div>
 
+      {/* Team & Contributors Section */}
+      <section className="space-y-8 pt-4" aria-labelledby="team-heading">
+        <div className="text-center max-w-2xl mx-auto space-y-3">
+          <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-1.5">
+            <Users size={14} /> People Behind the Practice
+          </span>
+          <h2 id="team-heading" className="font-serif text-3xl font-bold text-buddhist-burgundy">
+            Our Team & Contributors
+          </h2>
+          <p className="text-stone-600 text-sm leading-relaxed">
+            The center’s work can bring together spiritual guidance, research and learning, mindful movement, and well-being support. Individual names, photographs, biographies, and qualifications will be added after they are confirmed with the center.
+          </p>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {[
+            {
+              icon: <BookOpen size={23} className="text-buddhist-burgundy" />,
+              title: 'Research & Dharma Study',
+              description: 'Researchers and study contributors supporting learning, reference materials, and the exploration of Buddhist teachings.'
+            },
+            {
+              icon: <Trees size={23} className="text-emerald-700" />,
+              title: 'Yoga & Mindful Movement',
+              description: 'Yoga instructors and movement facilitators, with teaching backgrounds and class details to be confirmed before publication.'
+            },
+            {
+              icon: <Compass size={23} className="text-buddhist-gold" />,
+              title: 'Lamas & Spiritual Teachers',
+              description: 'Lamas and invited teachers who may contribute spiritual guidance, teachings, prayers, or meditation sessions.'
+            },
+            {
+              icon: <HeartHandshake size={23} className="text-rose-700" />,
+              title: 'Medical & Well-being Contributors',
+              description: 'Qualified medical or well-being professionals, if affiliated with the center, with roles and credentials displayed only after verification.'
+            }
+          ].map((memberGroup) => (
+            <motion.article
+              key={memberGroup.title}
+              whileHover={{ y: -4 }}
+              className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-lg space-y-4"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-amber-200/70 bg-amber-50">
+                {memberGroup.icon}
+              </div>
+              <h3 className="font-serif text-lg font-bold leading-snug text-stone-900">{memberGroup.title}</h3>
+              <p className="text-xs leading-relaxed text-stone-600">{memberGroup.description}</p>
+              <p className="border-t border-stone-100 pt-3 text-[11px] font-semibold uppercase tracking-wide text-stone-400">
+                Team profiles coming soon
+              </p>
+            </motion.article>
+          ))}
+        </div>
+      </section>
+
       {/* Zero Point Center Core Pillars Section */}
       <div className="space-y-8 pt-4">
         <div className="text-center max-w-xl mx-auto space-y-2">

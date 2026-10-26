@@ -125,6 +125,7 @@ export default function Events() {
         </h1>
         <p className="text-stone-600 text-sm leading-relaxed">
           Explore Zero Point Meditation Center’s events—from Long Island cultural celebrations and Manhattan interfaith prayer assemblies to free community spiritual classes led by H.E. Gegye Yongyal Rinpoche.
+          Our archive will continue to grow as additional event photographs and details are gathered and verified.
         </p>
       </motion.div>
 

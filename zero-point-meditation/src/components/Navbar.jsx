@@ -37,6 +37,9 @@ export default function Navbar() {
           <NavLink to="/about" className={linkStyles}>
             About
           </NavLink>
+          <NavLink to="/services" className={linkStyles}>
+            Services 
+          </NavLink>
           <NavLink to="/events" className={linkStyles}>
             Events
           </NavLink>
