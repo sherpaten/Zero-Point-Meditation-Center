@@ -6,57 +6,37 @@ import { Calendar, MapPin, ArrowRight, Sparkles, Compass, HeartHandshake, Shield
 // Assets (Convert heavy images to .webp in src/assets for maximum speed on Vercel)
 import buddhaLotus from "../assets/buddha-lotus.webp"; 
 import rinpocheProfile from '../assets/profile.jpg';
-import event1 from '../assets/Event 1.jpeg';
-import event2 from '../assets/Event 2.jpeg';
-import event3 from '../assets/Event 3.jpeg';
-import event4 from '../assets/Event 4.jpeg';
-import event5 from '../assets/Event 5.jpeg';
+import event2025 from '../assets/Event 1.jpeg';
+import event2024 from '../assets/Event 2.jpeg';
+import taraPrayerPoster from '../assets/poste/2026 the sacred Zabtik Dolma (Green Tara) Prayer.jpg';
 
 const eventGallery = [
   {
     id: 1,
-    category: 'Peace Rally',
-    title: 'World Peace Prayer Gathering',
-    location: 'Taipei, Taiwan',
-    date: '2025',
-    image: event1,
-    description: 'International interfaith gathering bringing together spiritual leaders to chant sacred mantras and promote global ecological harmony.'
+    category: 'Community Event',
+    title: 'Dharma Teaching & Mindfulness',
+    location: 'Rubin Museum of Art, New York',
+    date: '2024',
+    image: event2024,
+    description: 'A moment from the center’s wider community of Buddhist teachings, mindfulness, and shared learning.'
   },
   {
     id: 2,
-    category: 'Public Teaching',
-    title: 'Dharma & Mindfulness Discourse',
-    location: 'Rubin Museum of Art, NY',
-    date: '2024',
-    image: event2,
-    description: 'An illuminating lecture on integrating ancient Tibetan Lojong (Mind Training) practices into modern urban lifestyles.'
+    category: 'World Peace Gathering',
+    title: 'World Peace Prayer Day',
+    location: 'Community gathering',
+    date: '2025',
+    image: event2025,
+    description: 'A gathering focused on prayer, compassion, and the shared aspiration for peace around the world.'
   },
   {
     id: 3,
-    category: 'Retreat',
-    title: 'Annual Meditation & Bodhicitta Retreat',
-    location: 'Connecticut Monastery, US',
-    date: '2024',
-    image: event3,
-    description: 'An intensive weekend immersion in Shamatha quietude, breath awareness, and compassionate mind-training meditation.'
-  },
-  {
-    id: 4,
-    category: 'Ceremony',
-    title: 'Sacred Himalayan Sangha Assembly',
-    location: 'Kathmandu, Nepal',
-    date: '2023',
-    image: event4,
-    description: 'Traditional ceremonial blessings, butter lamp offerings, and monastic rituals for world peace and individual purification.'
-  },
-  {
-    id: 5,
-    category: 'Workshop',
-    title: 'Youth Mindfulness & Interfaith Symposium',
-    location: 'Zero Point Center, Online',
-    date: '2025',
-    image: event5,
-    description: 'Empowering the next generation with practical emotional resilience tools, stress relief breathwork, and cross-cultural dialogue.'
+    category: 'Prayer Poster',
+    title: 'The Sacred Zabtik Dolma (Green Tara) Prayer',
+    location: 'Prayer & spiritual practice',
+    date: '2026',
+    image: taraPrayerPoster,
+    description: 'A prayer poster highlighting the sacred Zabtik Dolma (Green Tara) practice.'
   }
 ];
 
