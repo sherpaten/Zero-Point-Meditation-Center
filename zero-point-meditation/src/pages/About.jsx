@@ -213,7 +213,7 @@ export default function About() {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 max-w-5xl mx-auto">
           {[
             {
               name: "Gegye Yongyal Rinpoche",
@@ -233,7 +233,7 @@ export default function About() {
               whileHover={{ y: -4 }}
               className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-shadow hover:shadow-lg"
             >
-              <div className="aspect-[4/5] overflow-hidden bg-amber-50">
+              <div className="aspect-square overflow-hidden bg-amber-50">
                 <img
                   src={member.image}
                   alt={member.alt}
@@ -241,9 +241,9 @@ export default function About() {
                   className="h-full w-full object-cover object-center transition-transform duration-500 hover:scale-105"
                 />
               </div>
-              <div className="space-y-2 p-5 text-center">
-                <h3 className="font-serif text-xl font-bold text-stone-900">{member.name}</h3>
-                <p className="text-xs font-semibold uppercase tracking-wide text-buddhist-gold">{member.role}</p>
+              <div className="space-y-1.5 p-3 sm:p-4 text-center">
+                <h3 className="font-serif text-sm sm:text-base font-bold text-stone-900 leading-snug">{member.name}</h3>
+                <p className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wide text-buddhist-gold">{member.role}</p>
               </div>
             </motion.article>
           ))}
