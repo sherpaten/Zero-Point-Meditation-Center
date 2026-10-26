@@ -216,7 +216,7 @@ const galleryItems = [
   },
 
   // ==================== CURRENT EVENTS — 2026 ====================
-  { id: 31, group: 'Current', title: 'ADD 2026 EVENT TITLE — BBC', type: 'photo', category: 'Event Photos', date: '2026 — ADD DATE', location: 'ADD LOCATION', image: bbc2026, description: 'ADD VERIFIED DESCRIPTION.' },
+  { id: 31, group: 'Current', title: '2026 Gathering at Boudhanath Stupa', type: 'photo', category: 'Event Photos', date: 'April 25, 2026', location: 'Boudhanath Stupa, Kathmandu, Nepal', image: bbc2026, description: 'A 2026 event at Boudhanath Stupa in Kathmandu, Nepal. This photograph has been added to the current events gallery.' },
 
   // ==================== POSTERS & NEWS ====================
   // Edit poster/news titles and descriptions. Year-specific posters stay in their matching collection.
