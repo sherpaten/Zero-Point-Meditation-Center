@@ -71,10 +71,10 @@ export default function About() {
           <p className="text-stone-600 text-xs">Explore free community classes, weekly discourses, and ritual gatherings.</p>
           <div className="pt-2">
             <a 
-              href="/events" 
+              href="/services" 
               className="inline-block px-5 py-2.5 bg-buddhist-burgundy text-amber-50 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-red-900 transition-colors"
             >
-              For Upcoming Events, Check Our Calendar
+              Check Our Events Calendar
             </a>
           </div>
         </div>
