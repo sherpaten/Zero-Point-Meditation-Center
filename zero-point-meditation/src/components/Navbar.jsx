@@ -1,72 +1,116 @@
-import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
-import { Sparkles } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Menu, X, Sparkles } from 'lucide-react';
 import logo from '../assets/LOGO.svg';
 
+const navigation = [
+  { to: '/', label: 'Home', end: true },
+  { to: '/about', label: 'About' },
+  { to: '/services', label: 'Services' },
+  { to: '/events', label: 'Events' },
+  { to: '/teachings', label: 'Teachings' },
+  { to: '/merchandise', label: 'Merchandise' },
+  { to: '/contact', label: 'Contact' },
+];
+
 export default function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (!menuOpen) return undefined;
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') setMenuOpen(false);
+    };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [menuOpen]);
+
   const linkStyles = ({ isActive }) =>
-    `transition-colors duration-200 ${
+    `block rounded-md px-3 py-2.5 text-sm font-semibold transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-buddhist-gold ${
       isActive
-        ? 'text-buddhist-burgundy font-bold border-b-2 border-buddhist-gold pb-1'
-        : 'text-stone-700 hover:text-buddhist-burgundy font-semibold'
+        ? 'bg-amber-50 text-buddhist-burgundy'
+        : 'text-stone-700 hover:bg-stone-100 hover:text-buddhist-burgundy'
     }`;
 
   return (
-    <header className="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-stone-200">
-      <div className="max-w-6xl mx-auto px-6 py-3.5 flex items-center justify-between">
-        
-        {/* Brand Logo & Title */}
-        <Link to="/" className="flex items-center gap-3 group">
-          <img 
-            src={logo} 
-            alt="Zero Point Meditation Center Logo" 
-            className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105" 
+    <header className="sticky top-0 z-50 border-b border-stone-200 bg-white/95 backdrop-blur-md">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
+        <Link
+          to="/"
+          className="group flex min-w-0 items-center gap-2.5 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-buddhist-gold sm:gap-3"
+          aria-label="Zero Point Meditation Center home"
+        >
+          <img
+            src={logo}
+            alt="Zero Point Meditation Center"
+            className="h-9 w-auto shrink-0 object-contain transition-transform duration-300 group-hover:scale-105 sm:h-10"
+            width="40"
+            height="40"
           />
-          <span className="font-serif font-bold text-xl text-buddhist-burgundy tracking-tight">
+          <span className="font-serif text-base font-bold leading-tight tracking-tight text-buddhist-burgundy sm:text-xl">
             Zero Point
-            Meditation Center
+            <span className="block">Meditation Center</span>
           </span>
-          
         </Link>
 
-        {/* Navigation Menu */}
-        <nav className="hidden md:flex items-center gap-7 text-xs uppercase tracking-wider">
-          <NavLink to="/" className={linkStyles}>
-            Home
-          </NavLink>
-          <NavLink to="/about" className={linkStyles}>
-            About
-          </NavLink>
-          <NavLink to="/services" className={linkStyles}>
-            Services 
-          </NavLink>
-          <NavLink to="/events" className={linkStyles}>
-            Events
-          </NavLink>
-          <NavLink to="/teachings" className={linkStyles}>
-            Teachings
-          </NavLink>
-          <NavLink to="/merchandise" className={linkStyles}>
-            Merchandise
-          </NavLink>
-
-          {/* Special Contact Link with Glow & Scale Effect */}
-          <NavLink
-            to="/contact"
-            className={({ isActive }) =>
-              `relative inline-flex items-center gap-1.5 px-4 py-2 rounded-full font-bold transition-all duration-300 shadow-sm ${
-                isActive
-                  ? 'bg-buddhist-burgundy text-amber-50 ring-2 ring-buddhist-gold ring-offset-2'
-                  : 'bg-stone-900 text-amber-100 hover:bg-buddhist-burgundy hover:text-amber-50 hover:shadow-md hover:scale-105 border border-amber-500/40'
-              }`
-            }
-          >
-            <Sparkles size={13} className="text-buddhist-gold animate-pulse" />
-            <span>Contact</span>
-          </NavLink>
+        <nav aria-label="Main navigation" className="hidden items-center gap-5 text-xs uppercase tracking-wider md:flex lg:gap-7">
+          {navigation.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.end}
+              className={({ isActive }) =>
+                `transition-colors duration-200 focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-buddhist-gold ${
+                  isActive
+                    ? 'border-b-2 border-buddhist-gold pb-1 font-bold text-buddhist-burgundy'
+                    : 'font-semibold text-stone-700 hover:text-buddhist-burgundy'
+                }`
+              }
+            >
+              {item.label}
+            </NavLink>
+          ))}
         </nav>
 
+        <button
+          type="button"
+          className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg border border-stone-200 text-buddhist-burgundy transition-colors hover:bg-amber-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-buddhist-gold md:hidden"
+          aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-controls="mobile-primary-navigation"
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          {menuOpen ? <X size={25} aria-hidden="true" /> : <Menu size={25} aria-hidden="true" />}
+        </button>
       </div>
+
+      {menuOpen && (
+        <nav
+          id="mobile-primary-navigation"
+          aria-label="Mobile navigation"
+          className="border-t border-stone-200 bg-white px-4 pb-4 pt-2 shadow-lg md:hidden sm:px-6"
+        >
+          <ul className="mx-auto max-w-6xl space-y-1">
+            {navigation.map((item) => (
+              <li key={item.to}>
+                <NavLink
+                  to={item.to}
+                  end={item.end}
+                  className={linkStyles}
+                >
+                  {item.label}
+                  {item.to === '/contact' && <Sparkles size={15} className="ml-2 inline text-buddhist-gold" aria-hidden="true" />}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
     </header>
   );
 }
