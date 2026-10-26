@@ -43,7 +43,7 @@ export default function About() {
         className="text-center max-w-3xl mx-auto space-y-4"
       >
         <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-1.5">
-          <Building2 size={14} /> 
+          <Building2 size={14} /> Tibetan Buddhist Sanctuary & Meditation Center
         </span>
         <h1 className="font-serif text-4xl sm:text-5xl font-bold text-buddhist-burgundy">
           About Zero Point Meditation Center
@@ -203,7 +203,7 @@ export default function About() {
       <section className="space-y-8 pt-4" aria-labelledby="team-heading">
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-1.5">
-            <Users size={14} />
+            <Users size={14} /> The People Behind the Center
           </span>
           <h2 id="team-heading" className="font-serif text-3xl font-bold text-buddhist-burgundy">
             Our Team
