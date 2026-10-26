@@ -184,7 +184,7 @@ const galleryItems = [
   { id: 22, group: '2025', title: 'World Peace Prayer Day — EDIT TITLE', type: 'photo', category: 'Event Photos', date: '2025 — ADD DATE', location: 'ADD LOCATION', image: peace2025a, images: [peace2025a, peace2025b, peace2025c], description: 'ADD VERIFIED DESCRIPTION.' },
   {
     id: 23, group: '2025', title: 'Dharma Teaching: The Jewel Ornament of Liberation',
-    type: 'photo', category: 'Event Photos', date: '2025 — date to confirm',
+    type: 'photo', category: 'Event Photos', date: '2025',
     location: 'Location to confirm', image: jewel2025a, images: [jewel2025a, jewel2025b],
     description: 'Dharma teaching on The Jewel Ornament of Liberation. The exact date, venue, and additional event details are to be confirmed.'
   },
