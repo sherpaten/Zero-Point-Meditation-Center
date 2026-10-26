@@ -25,13 +25,13 @@ export default function Services() {
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {[
           { icon: <Flower2 size={24}/>, title: 'Meditation & Mindfulness', text: 'Group practice, meditation instruction, and opportunities to build a personal practice.', price: 'Contact us for pricing' },
-          { icon: <BookOpen size={24}/>, image: gegyeYongyalRinpoche, imageAlt: 'Gegye Yongyal Rinpoche', title: 'Prayers & Spiritual Guidance', text: 'Traditional prayers and spiritual guidance offered by lamas. Pricing varies according to the lama’s rank.', price: 'From $350 per lama' },
+          { icon: <BookOpen size={24}/>, title: 'Prayers & Spiritual Guidance', text: 'Traditional prayers and spiritual guidance offered by lamas. Pricing varies according to the lama’s rank.', price: 'From $350 per lama' },
           { icon: <HeartHandshake size={24}/>, title: 'Emotional Well-being', text: 'A compassionate, welcoming space and information about available support resources.', price: 'Contact us for pricing' },
           { icon: <Users size={24}/>, title: 'Community Gatherings', text: 'Shared practice, cultural activities, and community events.', price: 'Contact us for pricing' },
           { icon: <HeartHandshake size={24}/>, title: 'Counselling Information', text: 'Ask the centre about qualified professionals and verified counselling referrals before booking.', price: 'Contact us for pricing' },
           { icon: <Sparkles size={24}/>, title: 'Yoga — Coming Soon', text: 'Yoga sessions are being planned. Details will be added once the schedule is confirmed.', price: 'Price to be announced' },
         ].map(item => <article key={item.title} className="rounded-2xl border border-amber-100 bg-white p-4 sm:p-5 shadow-sm space-y-3">
-          {item.image ? <img src={item.image} alt={item.imageAlt || item.title} loading="lazy" className="h-20 w-20 rounded-xl object-cover object-top border border-amber-100"/> : <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-buddhist-gold">{item.icon}</div>}
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-buddhist-gold">{item.icon}</div>
           <h2 className="font-serif text-xl font-bold text-buddhist-burgundy">{item.title}</h2>
           <p className="text-sm leading-relaxed text-stone-600">{item.text}</p>
           <div className="border-t border-amber-100 pt-3"><p className="text-sm font-bold text-buddhist-burgundy">{item.price}</p></div>
@@ -52,7 +52,7 @@ export default function Services() {
           <div className="p-6 sm:p-8 flex flex-col justify-center gap-4">
             <div><p className="text-xs font-bold uppercase tracking-widest text-buddhist-gold">Service provider</p><h3 className="mt-2 font-serif text-2xl font-bold text-buddhist-burgundy">Gegye Yongyal Rinpoche</h3><p className="mt-1 text-sm text-stone-500">Rinpoche · Lama</p></div>
             <p className="text-sm leading-relaxed text-stone-600">Prayer services and Buddhist spiritual guidance. Please contact the centre to discuss the prayer you need, availability, and final pricing.</p>
-            <div className="rounded-xl bg-amber-50 border border-amber-200 p-4"><p className="text-xs uppercase tracking-wide text-stone-600">Prayer service starting price</p><p className="mt-1 text-2xl font-bold text-buddhist-burgundy">$350 <span className="text-sm font-medium">per lama, starting from</span></p><p className="mt-1 text-xs leading-relaxed text-stone-600">Final price depends on the lama’s rank and the specific prayer requested.</p></div>
+            <div className="rounded-xl bg-amber-50 border border-amber-200 p-4"><p className="text-xs uppercase tracking-wide text-stone-600">Prayer service starting price</p><p className="mt-1 text-2xl font-bold text-buddhist-burgundy">$350 <span className="text-sm font-medium">per lama</span></p><p className="mt-2 text-lg font-bold text-buddhist-burgundy">$1,755 <span className="text-sm font-medium">for 5 lamas</span></p><p className="mt-1 text-xs leading-relaxed text-stone-600">Prices are indicative. Final pricing may vary depending on each lama’s rank and the specific prayer requested. Please contact the centre to confirm availability and total cost.</p></div>
             <a href="/contact" className="inline-flex w-fit items-center justify-center rounded-full bg-buddhist-burgundy px-5 py-3 text-sm font-semibold text-white hover:opacity-90">Enquire about prayer services</a>
           </div>
         </article>
