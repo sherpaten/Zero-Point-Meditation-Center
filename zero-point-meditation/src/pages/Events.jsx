@@ -34,6 +34,14 @@ import vesak2024b from '../assets/Events/2024/2024 Vesak Day Celebration 1.jpg';
 import peace2025a from '../assets/Events/2025/2025 World Peace Prayer Day.jpg';
 import peace2025b from '../assets/Events/2025/2025 World Peace Prayer Day 1.jpg';
 import peace2025c from '../assets/Events/2025/2025 World Peace Prayer Day 2.jpg';
+import jewel2025a from '../assets/Events/2025/2025 Dharma Teaching Jewel Ornament of Liberation.jpg';
+import jewel2025b from '../assets/Events/2025/2025 Dharma Teaching Jewel Ornament of Liberation 1.jpg';
+import globalPeace2025a from '../assets/Events/2025/2025 Global Peace Prayer Day.jpg';
+import globalPeace2025b from '../assets/Events/2025/2025 Global Peace Prayer Day 1.jpg';
+import mindful2025a from '../assets/Events/2025/2025 Mindfulness Meditation.jpg';
+import mindful2025b from '../assets/Events/2025/2025 Mindfulness Meditation 1.jpg';
+import vesak2025a from '../assets/Events/2025/2025 Vesak Celeberation.jpg';
+import vesak2025b from '../assets/Events/2025/2025 Vesak Celeberation  1.jpg';
 import bbc2026 from '../assets/Events/2026/2026 BBC.jpg';
 
 import poster2024 from '../assets/poste/2024 poste5.jpg';
@@ -174,6 +182,30 @@ const galleryItems = [
 
   // ==================== NEW 2025 EVENT PHOTOS ====================
   { id: 22, group: '2025', title: 'World Peace Prayer Day — EDIT TITLE', type: 'photo', category: 'Event Photos', date: '2025 — ADD DATE', location: 'ADD LOCATION', image: peace2025a, images: [peace2025a, peace2025b, peace2025c], description: 'ADD VERIFIED DESCRIPTION.' },
+  {
+    id: 23, group: '2025', title: 'Dharma Teaching: The Jewel Ornament of Liberation',
+    type: 'photo', category: 'Event Photos', date: '2025',
+    location: 'Location to confirm', image: jewel2025a, images: [jewel2025a, jewel2025b],
+    description: 'Dharma teaching on The Jewel Ornament of Liberation. The exact date, venue, and additional event details are to be confirmed.'
+  },
+  {
+    id: 24, group: '2025', title: 'Global Peace Prayer Day',
+    type: 'photo', category: 'Event Photos', date: '2025 — date to confirm',
+    location: 'Location to confirm', image: globalPeace2025a, images: [globalPeace2025a, globalPeace2025b],
+    description: 'Photographs from Global Peace Prayer Day 2025. The exact date, venue, and additional event details are to be confirmed.'
+  },
+  {
+    id: 25, group: '2025', title: 'Mindfulness Meditation',
+    type: 'photo', category: 'Event Photos', date: '2025 — date to confirm',
+    location: 'Location to confirm', image: mindful2025a, images: [mindful2025a, mindful2025b],
+    description: 'Photographs from a mindfulness meditation event in 2025. The exact date, venue, and additional event details are to be confirmed.'
+  },
+  {
+    id: 26, group: '2025', title: 'Vesak Day Celebration',
+    type: 'photo', category: 'Event Photos', date: '2025 — date to confirm',
+    location: 'Location to confirm', image: vesak2025a, images: [vesak2025a, vesak2025b],
+    description: 'Photographs from a Vesak Day celebration in 2025. The exact date, venue, and additional event details are to be confirmed.'
+  },
 
   // ==================== CURRENT EVENTS — 2026 ====================
   { id: 31, group: 'Current', title: 'ADD 2026 EVENT TITLE — BBC', type: 'photo', category: 'Event Photos', date: '2026 — ADD DATE', location: 'ADD LOCATION', image: bbc2026, description: 'ADD VERIFIED DESCRIPTION.' },
