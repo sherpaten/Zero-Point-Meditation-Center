@@ -324,27 +324,32 @@ export default function Events() {
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedMedia(item); } }}
               role="button" tabIndex={0} aria-label={`View details for ${item.title}`}
               className="bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm hover:shadow-lg transition-shadow cursor-pointer group flex flex-col">
-              <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
-                <motion.img src={item.image} alt={item.title} loading="lazy"
-                  whileHover={{ scale: 1.05 }} transition={{ duration: 0.35 }}
-                  className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-stone-950/35 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+{/* Posters are displayed as artwork only; event cards retain their details. */}
+              <div className={`relative overflow-hidden bg-stone-100 ${item.type === 'poster' ? 'aspect-[3/4]' : 'aspect-[4/3]'}`}>
+                <motion.img src={item.image} alt={item.type === 'poster' ? 'Event poster — open to view full size' : item.title} loading="lazy"
+                  whileHover={{ scale: 1.04 }} transition={{ duration: 0.35 }}
+                  className={`w-full h-full ${item.type === 'poster' ? 'object-contain' : 'object-cover'}`} />
+                <div className="absolute inset-0 bg-stone-950/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <span className="bg-white/20 backdrop-blur-md text-white p-3 rounded-full border border-white/30"><Eye size={20} /></span>
                 </div>
-                <span className="absolute top-3 left-3 bg-stone-950/80 text-amber-50 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
-                  {getBadgeIcon(item.type)} {item.category}{item.images?.length > 1 ? ` · ${item.images.length} photos` : ''}
-                </span>
+                {item.type !== 'poster' && (
+                  <span className="absolute top-3 left-3 bg-stone-950/80 text-amber-50 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
+                    {getBadgeIcon(item.type)} {item.category}{item.images?.length > 1 ? ` · ${item.images.length} photos` : ''}
+                  </span>
+                )}
               </div>
-              <div className="p-5 flex-1 flex flex-col justify-between gap-3">
-                <div>
-                  <h2 className="font-serif font-bold text-base text-buddhist-burgundy leading-snug group-hover:text-amber-700 transition-colors">{item.title}</h2>
-                  <p className="text-stone-600 text-xs mt-2 leading-relaxed line-clamp-3">{item.description}</p>
+              {item.type !== 'poster' && (
+                <div className="p-5 flex-1 flex flex-col justify-between gap-3">
+                  <div>
+                    <h2 className="font-serif font-bold text-base text-buddhist-burgundy leading-snug group-hover:text-amber-700 transition-colors">{item.title}</h2>
+                    <p className="text-stone-600 text-xs mt-2 leading-relaxed line-clamp-3">{item.description}</p>
+                  </div>
+                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-stone-500 pt-3 border-t border-stone-100">
+                    <span className="flex items-center gap-1"><MapPin size={13} className="text-buddhist-gold" />{item.location}</span>
+                    <span className="flex items-center gap-1"><Calendar size={13} />{item.date}</span>
+                  </div>
                 </div>
-                <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-stone-500 pt-3 border-t border-stone-100">
-                  <span className="flex items-center gap-1"><MapPin size={13} className="text-buddhist-gold" />{item.location}</span>
-                  <span className="flex items-center gap-1"><Calendar size={13} />{item.date}</span>
-                </div>
-              </div>
+              )}
             </motion.article>
           ))}
         </AnimatePresence>
@@ -377,19 +382,21 @@ export default function Events() {
                   ))}
                 </div>
               </div>
-              <div className="p-5 sm:p-6 bg-stone-900 space-y-2 overflow-y-auto">
-                <div className="flex flex-wrap items-center gap-2 text-buddhist-gold font-bold text-xs uppercase tracking-widest">
-                  <span>{selectedMedia.category}</span><span>•</span><span>{selectedMedia.location}</span><span>•</span><span>{selectedMedia.date}</span>
+{selectedMedia.type !== 'poster' && (
+                <div className="p-5 sm:p-6 bg-stone-900 space-y-2 overflow-y-auto">
+                  <div className="flex flex-wrap items-center gap-2 text-buddhist-gold font-bold text-xs uppercase tracking-widest">
+                    <span>{selectedMedia.category}</span><span>•</span><span>{selectedMedia.location}</span><span>•</span><span>{selectedMedia.date}</span>
+                  </div>
+                  <h2 className="font-serif text-xl sm:text-2xl font-bold text-amber-50">{selectedMedia.title}</h2>
+                  <p className="text-stone-300 text-sm leading-relaxed">{selectedMedia.description}</p>
+                  {selectedMedia.videoUrl && (
+                    <a href={selectedMedia.videoUrl} target="_blank" rel="noreferrer"
+                      className="inline-flex mt-3 text-sm font-bold text-amber-300 hover:text-amber-200 underline underline-offset-4">
+                      Watch the Mindfulness Meditation video on YouTube
+                    </a>
+                  )}
                 </div>
-                <h2 className="font-serif text-xl sm:text-2xl font-bold text-amber-50">{selectedMedia.title}</h2>
-                <p className="text-stone-300 text-sm leading-relaxed">{selectedMedia.description}</p>
-                {selectedMedia.videoUrl && (
-                  <a href={selectedMedia.videoUrl} target="_blank" rel="noreferrer"
-                    className="inline-flex mt-3 text-sm font-bold text-amber-300 hover:text-amber-200 underline underline-offset-4">
-                    Watch the Mindfulness Meditation video on YouTube
-                  </a>
-                )}
-              </div>
+              )}
             </motion.div>
           </motion.div>
         )}
