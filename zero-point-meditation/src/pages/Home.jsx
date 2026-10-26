@@ -98,7 +98,7 @@ export default function Home() {
             className="space-y-6"
           >
             <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest inline-flex items-center justify-center gap-1.5 bg-white/90 backdrop-blur-md px-5 py-2 rounded-full border border-amber-300/80 shadow-md">
-              <Sparkles size={14} /> Pause. Breathe. Find Your Center.
+              <Sparkles size={14} /> 
             </span>
 
             <h1 className="font-serif text-4xl sm:text-6xl font-bold text-buddhist-burgundy leading-tight drop-shadow-sm">
@@ -209,7 +209,7 @@ export default function Home() {
         <div className="space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-1.5">
-              <BookOpen size={14} /> Global Sangha Highlights
+              <BookOpen size={14} /> 
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-buddhist-burgundy">
               Event & Practice Gallery
