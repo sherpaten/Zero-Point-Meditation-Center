@@ -41,21 +41,23 @@ export default function Services() {
 
       <section className="space-y-6">
         <div className="text-center max-w-2xl mx-auto space-y-3">
-          <span className="inline-flex items-center gap-2 text-buddhist-gold font-bold text-xs uppercase tracking-widest"><HandHeart size={14}/> Meet your service provider</span>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-buddhist-burgundy">Prayer Services with Gegye Yongyal Rinpoche</h2>
-          <p className="text-stone-600 leading-relaxed">Learn about prayer services led by our Rinpoche. The service has a fixed price of $500 for a four-hour prayer session.</p>
+          <span className="inline-flex items-center gap-2 text-buddhist-gold font-bold text-xs uppercase tracking-widest"><HandHeart size={14}/> Meet your service providers</span>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-buddhist-burgundy">Prayer Services & Spiritual Guidance</h2>
+          <p className="text-stone-600 leading-relaxed">Meet our service providers and learn about their services and individual fixed prices.</p>
         </div>
-        <article className="max-w-4xl mx-auto overflow-hidden rounded-3xl border border-amber-100 bg-white shadow-sm md:grid md:grid-cols-[0.8fr_1.2fr]">
-          <div className="min-h-72 bg-stone-100">
-            <img src={gegyeYongyalRinpoche} alt="Gegye Yongyal Rinpoche" className="h-full min-h-72 w-full object-cover object-top" loading="lazy"/>
-          </div>
-          <div className="p-6 sm:p-8 flex flex-col justify-center gap-4">
-            <div><p className="text-xs font-bold uppercase tracking-widest text-buddhist-gold">Service provider</p><h3 className="mt-2 font-serif text-2xl font-bold text-buddhist-burgundy">Gegye Yongyal Rinpoche</h3><p className="mt-1 text-sm text-stone-500">Rinpoche · Lama</p></div>
-            <p className="text-sm leading-relaxed text-stone-600">Prayer services and Buddhist spiritual guidance, with a fixed four-hour session.</p>
-            <div className="rounded-xl bg-amber-50 border border-amber-200 p-4"><p className="text-xs uppercase tracking-wide text-stone-600">Fixed service price</p><p className="mt-1 text-2xl font-bold text-buddhist-burgundy">$500</p><p className="mt-1 text-sm font-medium text-stone-700">For a 4-hour prayer session</p></div>
-            <a href="/contact" className="inline-flex w-fit items-center justify-center rounded-full bg-buddhist-burgundy px-5 py-3 text-sm font-semibold text-white hover:opacity-90">Enquire about prayer services</a>
-          </div>
-        </article>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <article className="overflow-hidden rounded-2xl border border-amber-100 bg-white shadow-sm">
+            <div className="h-44 sm:h-48 bg-stone-100">
+              <img src={gegyeYongyalRinpoche} alt="Gegye Yongyal Rinpoche" className="h-full w-full object-cover object-top" loading="lazy"/>
+            </div>
+            <div className="p-5 flex flex-col gap-3">
+              <div><p className="text-xs font-bold uppercase tracking-widest text-buddhist-gold">Service provider</p><h3 className="mt-2 font-serif text-xl font-bold text-buddhist-burgundy">Gegye Yongyal Rinpoche</h3><p className="mt-1 text-sm text-stone-500">Rinpoche · Lama</p></div>
+              <p className="text-sm leading-relaxed text-stone-600">Prayer services and Buddhist spiritual guidance, with a fixed four-hour session.</p>
+              <div className="rounded-xl bg-amber-50 border border-amber-200 p-3"><p className="text-xs uppercase tracking-wide text-stone-600">Fixed service price</p><p className="mt-1 text-2xl font-bold text-buddhist-burgundy">$500</p><p className="mt-1 text-sm font-medium text-stone-700">For a 4-hour prayer session</p></div>
+              <a href="/contact" className="inline-flex w-fit items-center justify-center rounded-full bg-buddhist-burgundy px-4 py-2.5 text-sm font-semibold text-white hover:opacity-90">Enquire about prayer services</a>
+            </div>
+          </article>
+        </div>
       </section>
 
       <section className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-start">
