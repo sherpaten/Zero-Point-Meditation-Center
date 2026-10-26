@@ -43,6 +43,16 @@ import mindful2025b from '../assets/Events/2025/2025 Mindfulness Meditation 1.jp
 import vesak2025a from '../assets/Events/2025/2025 Vesak Celeberation.jpg';
 import vesak2025b from '../assets/Events/2025/2025 Vesak Celeberation  1.jpg';
 import bbc2026 from '../assets/Events/2026/2026 BBC.jpg';
+import tara2026 from '../assets/Events/2026/2026  Zabtik Dolma (Green Tara) Prayer.jpg';
+import interfaith2026a from '../assets/Events/2026/2026 Interfaith.jpg';
+import interfaith2026b from '../assets/Events/2026/2026 Interfaith 1.jpg';
+import interfaith2026c from '../assets/Events/2026/2026 Interfaith 2.jpg';
+import hill2026a from '../assets/Events/2026/2026 Mindfulness Meditation Session at Hill.jpg';
+import hill2026b from '../assets/Events/2026/2026 Mindfulness Meditation Session at Hill 1.jpg';
+import shamatha2026a from '../assets/Events/2026/2026 Teachings on The Nine Stages of Shamatha (Calm-Abiding) Meditation.jpg';
+import shamatha2026b from '../assets/Events/2026/2026 Teachings on The Nine Stages of Shamatha (Calm-Abiding) Meditation 1.jpg';
+import inaction2026a from '../assets/Events/2026/2026 The Immorality of Inaction.jpg';
+import inaction2026b from '../assets/Events/2026/2026 The Immorality of Inaction 1.jpg';
 
 import poster2024 from '../assets/poste/2024 poste5.jpg';
 import poster2025 from '../assets/poste/2025 poste4.jpg';
@@ -217,6 +227,35 @@ const galleryItems = [
 
   // ==================== CURRENT EVENTS — 2026 ====================
   { id: 31, group: 'Current', title: '2026 Gathering at Boudhanath Stupa', type: 'photo', category: 'Event Photos', date: 'April 25, 2026', location: 'Boudhanath Stupa, Kathmandu, Nepal', image: bbc2026, description: 'A 2026 event at Boudhanath Stupa in Kathmandu, Nepal. This photograph has been added to the current events gallery.' },
+  {
+    id: 42, group: 'Current', title: 'Zabtik Dolma (Green Tara) Prayer', type: 'poster', category: 'Posters',
+    date: '2026 — date to confirm', location: 'Location to confirm', image: tara2026,
+    description: '2026 Zabtik Dolma (Green Tara) Prayer. Event date and location details are to be confirmed.'
+  },
+  {
+    id: 43, group: 'Current', title: '2026 Interfaith Gathering', type: 'photo', category: 'Event Photos',
+    date: '2026 — date to confirm', location: 'Location to confirm',
+    image: interfaith2026a, images: [interfaith2026a, interfaith2026b, interfaith2026c],
+    description: 'Photos from a 2026 interfaith gathering. The exact date, venue, and additional details are to be confirmed.'
+  },
+  {
+    id: 44, group: 'Current', title: '2026 Mindfulness Meditation Session at Hill', type: 'photo', category: 'Event Photos',
+    date: '2026 — date to confirm', location: 'Location to confirm',
+    image: hill2026a, images: [hill2026a, hill2026b],
+    description: 'Photos from a 2026 mindfulness meditation session at Hill. The exact date, venue, and additional details are to be confirmed.'
+  },
+  {
+    id: 45, group: 'Current', title: '2026 Teachings on the Nine Stages of Shamatha (Calm-Abiding) Meditation', type: 'photo', category: 'Event Photos',
+    date: '2026 — date to confirm', location: 'Location to confirm',
+    image: shamatha2026a, images: [shamatha2026a, shamatha2026b],
+    description: 'Photos from 2026 teachings on the Nine Stages of Shamatha (Calm-Abiding) Meditation. The exact date, venue, and additional details are to be confirmed.'
+  },
+  {
+    id: 46, group: 'Current', title: '2026 The Immorality of Inaction', type: 'photo', category: 'Event Photos',
+    date: '2026 — date to confirm', location: 'Location to confirm',
+    image: inaction2026a, images: [inaction2026a, inaction2026b],
+    description: 'Photos associated with The Immorality of Inaction in 2026. The exact date, venue, and additional event details are to be confirmed.'
+  },
 
   // ==================== POSTERS & NEWS ====================
   // Edit poster/news titles and descriptions. Year-specific posters stay in their matching collection.
