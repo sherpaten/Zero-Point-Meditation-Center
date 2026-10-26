@@ -143,23 +143,15 @@ const galleryItems = [
 
   // ==================== NEW 2024 EVENT PHOTOS ====================
   // TODO: Edit each title/date/location/description below with confirmed details.
-  { id: 16, group: '2024', title: 'ADD TITLE — Dharma Teaching (Photo 1)', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: dharma2024a, description: 'ADD VERIFIED DESCRIPTION.' },
-  { id: 17, group: '2024', title: 'ADD TITLE — Dharma Teaching (Photo 2)', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: dharma2024b, description: 'ADD VERIFIED DESCRIPTION.' },
-  { id: 18, group: '2024', title: 'ADD TITLE — Dharma Teaching (Photo 3)', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: dharma2024c, description: 'ADD VERIFIED DESCRIPTION.' },
-  { id: 19, group: '2024', title: 'ADD TITLE — Mindfulness Meditation (Photo 1)', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: mindful2024a, description: 'ADD VERIFIED DESCRIPTION.' },
-  { id: 20, group: '2024', title: 'ADD TITLE — Mindfulness Meditation (Photo 2)', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: mindful2024b, description: 'ADD VERIFIED DESCRIPTION.' },
+  { id: 16, group: '2024', title: 'ADD TITLE — Dharma Teaching', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: dharma2024a, images: [dharma2024a, dharma2024b, dharma2024c], description: 'ADD VERIFIED DESCRIPTION.' },
+  { id: 17, group: '2024', title: 'ADD TITLE — Mindfulness Meditation', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: mindful2024a, images: [mindful2024a, mindful2024b], description: 'ADD VERIFIED DESCRIPTION.' },
   { id: 21, group: '2024', title: 'ADD TITLE — Rubin Museum', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: rubin2024, description: 'ADD VERIFIED DESCRIPTION.' },
-  { id: 22, group: '2024', title: 'ADD TITLE — RM (Photo 1)', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: rm2024, description: 'ADD VERIFIED DESCRIPTION.' },
-  { id: 23, group: '2024', title: 'ADD TITLE — RM (Photo 2)', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: rm12024, description: 'ADD VERIFIED DESCRIPTION.' },
-  { id: 24, group: '2024', title: 'ADD TITLE — UBS (Photo 1)', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: ubs2024, description: 'ADD VERIFIED DESCRIPTION.' },
-  { id: 25, group: '2024', title: 'ADD TITLE — UBS (Photo 2)', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: ubs12024, description: 'ADD VERIFIED DESCRIPTION.' },
-  { id: 26, group: '2024', title: 'ADD TITLE — Vesak Day Celebration (Photo 1)', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: vesak2024a, description: 'ADD VERIFIED DESCRIPTION.' },
-  { id: 27, group: '2024', title: 'ADD TITLE — Vesak Day Celebration (Photo 2)', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: vesak2024b, description: 'ADD VERIFIED DESCRIPTION.' },
+  { id: 19, group: '2024', title: 'ADD TITLE — RM', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: rm2024, images: [rm2024, rm12024], description: 'ADD VERIFIED DESCRIPTION.' },
+  { id: 20, group: '2024', title: 'ADD TITLE — UBS', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: ubs2024, images: [ubs2024, ubs12024], description: 'ADD VERIFIED DESCRIPTION.' },
+  { id: 21, group: '2024', title: 'ADD TITLE — Vesak Day Celebration', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: vesak2024a, images: [vesak2024a, vesak2024b], description: 'ADD VERIFIED DESCRIPTION.' }
 
   // ==================== NEW 2025 EVENT PHOTOS ====================
-  { id: 28, group: '2025', title: 'World Peace Prayer Day (Photo 1) — EDIT TITLE', type: 'photo', category: 'Event Photos', date: '2025 — ADD DATE', location: 'ADD LOCATION', image: peace2025a, description: 'ADD VERIFIED DESCRIPTION.' },
-  { id: 29, group: '2025', title: 'World Peace Prayer Day (Photo 2) — EDIT TITLE', type: 'photo', category: 'Event Photos', date: '2025 — ADD DATE', location: 'ADD LOCATION', image: peace2025b, description: 'ADD VERIFIED DESCRIPTION.' },
-  { id: 30, group: '2025', title: 'World Peace Prayer Day (Photo 3) — EDIT TITLE', type: 'photo', category: 'Event Photos', date: '2025 — ADD DATE', location: 'ADD LOCATION', image: peace2025c, description: 'ADD VERIFIED DESCRIPTION.' },
+  { id: 22, group: '2025', title: 'World Peace Prayer Day — EDIT TITLE', type: 'photo', category: 'Event Photos', date: '2025 — ADD DATE', location: 'ADD LOCATION', image: peace2025a, images: [peace2025a, peace2025b, peace2025c], description: 'ADD VERIFIED DESCRIPTION.' },
 
   // ==================== CURRENT EVENTS — 2026 ====================
   { id: 31, group: 'Current', title: 'ADD 2026 EVENT TITLE — BBC', type: 'photo', category: 'Event Photos', date: '2026 — ADD DATE', location: 'ADD LOCATION', image: bbc2026, description: 'ADD VERIFIED DESCRIPTION.' },
@@ -278,7 +270,7 @@ export default function Events() {
                   <span className="bg-white/20 backdrop-blur-md text-white p-3 rounded-full border border-white/30"><Eye size={20} /></span>
                 </div>
                 <span className="absolute top-3 left-3 bg-stone-950/80 text-amber-50 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider flex items-center gap-1">
-                  {getBadgeIcon(item.type)} {item.category}
+                  {getBadgeIcon(item.type)} {item.category}{item.images?.length > 1 ? ` · ${item.images.length} photos` : ''}
                 </span>
               </div>
               <div className="p-5 flex-1 flex flex-col justify-between gap-3">
@@ -317,7 +309,11 @@ export default function Events() {
                 <X size={20} />
               </button>
               <div className="bg-black flex items-center justify-center max-h-[60vh] min-h-0">
-                <img src={selectedMedia.image} alt={selectedMedia.title} className="max-w-full max-h-[60vh] object-contain" />
+                <div className="w-full flex flex-wrap items-center justify-center gap-3 p-3 overflow-y-auto">
+                  {(selectedMedia.images || [selectedMedia.image]).map((src, index) => (
+                    <img key={`${selectedMedia.id}-photo-${index}`} src={src} alt={`${selectedMedia.title} — photo ${index + 1}`} className="max-w-full max-h-[55vh] object-contain rounded-lg" />
+                  ))}
+                </div>
               </div>
               <div className="p-5 sm:p-6 bg-stone-900 space-y-2 overflow-y-auto">
                 <div className="flex flex-wrap items-center gap-2 text-buddhist-gold font-bold text-xs uppercase tracking-widest">
