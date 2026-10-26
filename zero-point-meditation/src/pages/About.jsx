@@ -74,7 +74,7 @@ export default function About() {
               href="/events" 
               className="inline-block px-5 py-2.5 bg-buddhist-burgundy text-amber-50 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-red-900 transition-colors"
             >
-              View Upcoming Events
+              For Upcoming Events, Check Our Calendar
             </a>
           </div>
         </div>
