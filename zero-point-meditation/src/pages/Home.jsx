@@ -8,6 +8,7 @@ import buddhaLotus from "../assets/buddha-lotus.webp";
 import rinpocheProfile from '../assets/profile.jpg';
 import event2025 from '../assets/Event 1.jpeg';
 import event2024 from '../assets/Event 2.jpeg';
+import currentEventImage from '../assets/Event 3.jpeg';
 import taraPrayerPoster from '../assets/poste/2026 the sacred Zabtik Dolma (Green Tara) Prayer.jpg';
 
 const eventGallery = [
@@ -31,6 +32,15 @@ const eventGallery = [
   },
   {
     id: 3,
+    category: 'Upcoming Event',
+    title: 'Bardo: After Life & Reincarnation',
+    location: 'Hybrid event',
+    date: 'Nov 20, 2026 · 6 PM',
+    image: currentEventImage,
+    description: 'An upcoming teaching exploring the Buddhist perspectives on the bardo, life after death, and reincarnation.'
+  },
+  {
+    id: 4,
     category: 'Prayer Poster',
     title: 'The Sacred Zabtik Dolma (Green Tara) Prayer',
     location: 'Prayer & spiritual practice',
