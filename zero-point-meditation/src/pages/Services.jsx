@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { CalendarDays, HeartHandshake, Flower2, BookOpen, Sparkles, Users, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
+import { CalendarDays, HeartHandshake, Flower2, BookOpen, Sparkles, Users, Clock, ChevronLeft, ChevronRight, HandHeart } from 'lucide-react';
+import gegyeYongyalRinpoche from "../assets/Teams/Gegye Yongyal Rinpoche's.png";
 
 const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 export default function Services() {
@@ -23,15 +24,36 @@ export default function Services() {
 
       <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
         {[
-          { icon: <Flower2 size={24}/>, title: 'Meditation & Mindfulness', text: 'Group practice, meditation instruction, and opportunities to build a personal practice.' },
-          { icon: <BookOpen size={24}/>, title: 'Prayer & Spiritual Guidance', text: 'Spiritual learning and guidance within the centre’s Buddhist tradition.' },
-          { icon: <HeartHandshake size={24}/>, title: 'Emotional Well-being', text: 'A compassionate, welcoming space and information about available support resources.' },
-          { icon: <Users size={24}/>, title: 'Community Gatherings', text: 'Shared practice, cultural activities, and community events.' },
-          { icon: <HeartHandshake size={24}/>, title: 'Counselling Information', text: 'Ask the centre about qualified professionals and verified counselling referrals before booking.' },
-          { icon: <Sparkles size={24}/>, title: 'Yoga — Coming Soon', text: 'Yoga sessions are being planned. Details will be added once the schedule is confirmed.' },
+          { icon: <Flower2 size={24}/>, title: 'Meditation & Mindfulness', text: 'Group practice, meditation instruction, and opportunities to build a personal practice.', price: 'Contact us for pricing' },
+          { icon: <BookOpen size={24}/>, title: 'Prayers & Spiritual Guidance', text: 'Traditional prayers and spiritual guidance offered by lamas. Pricing varies according to the lama’s rank.', price: 'From $350 per lama' },
+          { icon: <HeartHandshake size={24}/>, title: 'Emotional Well-being', text: 'A compassionate, welcoming space and information about available support resources.', price: 'Contact us for pricing' },
+          { icon: <Users size={24}/>, title: 'Community Gatherings', text: 'Shared practice, cultural activities, and community events.', price: 'Contact us for pricing' },
+          { icon: <HeartHandshake size={24}/>, title: 'Counselling Information', text: 'Ask the centre about qualified professionals and verified counselling referrals before booking.', price: 'Contact us for pricing' },
+          { icon: <Sparkles size={24}/>, title: 'Yoga — Coming Soon', text: 'Yoga sessions are being planned. Details will be added once the schedule is confirmed.', price: 'Price to be announced' },
         ].map(item => <article key={item.title} className="rounded-2xl border border-amber-100 bg-white p-6 shadow-sm space-y-3">
           <div className="text-buddhist-gold">{item.icon}</div><h2 className="font-serif text-xl font-bold text-buddhist-burgundy">{item.title}</h2><p className="text-sm leading-relaxed text-stone-600">{item.text}</p>
+          <div className="border-t border-amber-100 pt-3"><p className="text-sm font-bold text-buddhist-burgundy">{item.price}</p></div>
         </article>)}
+      </section>
+
+
+      <section className="space-y-6">
+        <div className="text-center max-w-2xl mx-auto space-y-3">
+          <span className="inline-flex items-center gap-2 text-buddhist-gold font-bold text-xs uppercase tracking-widest"><HandHeart size={14}/> Meet your service provider</span>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-buddhist-burgundy">Prayer Services with Gegye Yongyal Rinpoche</h2>
+          <p className="text-stone-600 leading-relaxed">Learn about prayer services led by our Rinpoche. The price shown is a starting price; fees may vary depending on the lama’s rank and the requirements of the prayer.</p>
+        </div>
+        <article className="max-w-4xl mx-auto overflow-hidden rounded-3xl border border-amber-100 bg-white shadow-sm md:grid md:grid-cols-[0.8fr_1.2fr]">
+          <div className="min-h-72 bg-stone-100">
+            <img src={gegyeYongyalRinpoche} alt="Gegye Yongyal Rinpoche" className="h-full min-h-72 w-full object-cover object-top" loading="lazy"/>
+          </div>
+          <div className="p-6 sm:p-8 flex flex-col justify-center gap-4">
+            <div><p className="text-xs font-bold uppercase tracking-widest text-buddhist-gold">Service provider</p><h3 className="mt-2 font-serif text-2xl font-bold text-buddhist-burgundy">Gegye Yongyal Rinpoche</h3><p className="mt-1 text-sm text-stone-500">Rinpoche · Lama</p></div>
+            <p className="text-sm leading-relaxed text-stone-600">Prayer services and Buddhist spiritual guidance. Please contact the centre to discuss the prayer you need, availability, and final pricing.</p>
+            <div className="rounded-xl bg-amber-50 border border-amber-200 p-4"><p className="text-xs uppercase tracking-wide text-stone-600">Prayer service starting price</p><p className="mt-1 text-2xl font-bold text-buddhist-burgundy">$350 <span className="text-sm font-medium">per lama, starting from</span></p><p className="mt-1 text-xs leading-relaxed text-stone-600">Final price depends on the lama’s rank and the specific prayer requested.</p></div>
+            <a href="/contact" className="inline-flex w-fit items-center justify-center rounded-full bg-buddhist-burgundy px-5 py-3 text-sm font-semibold text-white hover:opacity-90">Enquire about prayer services</a>
+          </div>
+        </article>
       </section>
 
       <section className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-start">
