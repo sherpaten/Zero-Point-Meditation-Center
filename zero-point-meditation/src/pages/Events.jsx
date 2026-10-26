@@ -228,33 +228,33 @@ const galleryItems = [
   // ==================== CURRENT EVENTS — 2026 ====================
   { id: 31, group: 'Current', title: '2026 Gathering at Boudhanath Stupa', type: 'photo', category: 'Event Photos', date: 'April 25, 2026', location: 'Boudhanath Stupa, Kathmandu, Nepal', image: bbc2026, description: 'A 2026 event at Boudhanath Stupa in Kathmandu, Nepal. This photograph has been added to the current events gallery.' },
   {
-    id: 42, group: 'Current', title: 'Zabtik Dolma (Green Tara) Prayer', type: 'poster', category: 'Posters',
-    date: '2026 — date to confirm', location: 'Location to confirm', image: tara2026,
-    description: '2026 Zabtik Dolma (Green Tara) Prayer. Event date and location details are to be confirmed.'
+    id: 42, group: 'Current', title: 'Zabtik Dolma (Green Tara) Prayer', type: 'photo', category: 'Event Photos',
+    date: 'July 25, 2026', location: 'Tibet House US', image: tara2026,
+    description: 'On July 25, H.E. Gegye Yongyal Rinpoche, together with the monastic sangha, led the sacred Zabtik Dolma (Green Tara) Prayer. Participants experienced a deeply inspiring and peaceful practice, with many expressing great joy and appreciation for the prayers and guided Tara meditation. May the blessings of Noble Tara bring compassion, protection, wisdom, and swift accomplishment to all beings.'
   },
   {
-    id: 43, group: 'Current', title: '2026 Interfaith Gathering', type: 'photo', category: 'Event Photos',
-    date: '2026 — date to confirm', location: 'Location to confirm',
+    id: 43, group: 'Current', title: 'Interfaith Breakfast', type: 'photo', category: 'Event Photos',
+    date: '2026 — exact date to confirm', location: 'New York City, USA',
     image: interfaith2026a, images: [interfaith2026a, interfaith2026b, interfaith2026c],
-    description: 'Photos from a 2026 interfaith gathering. The exact date, venue, and additional details are to be confirmed.'
+    description: 'New Yorkers share a common belief: that our city can be restored. It was an honor to attend an interfaith breakfast alongside many of New York’s faith leaders and chart a path forward where we welcome the stranger among us.'
   },
   {
-    id: 44, group: 'Current', title: '2026 Mindfulness Meditation Session at Hill', type: 'photo', category: 'Event Photos',
-    date: '2026 — date to confirm', location: 'Location to confirm',
+    id: 44, group: 'Current', title: 'Eighty Years on the Hill: Art, Mindfulness & Celebration', type: 'photo', category: 'Event Photos',
+    date: 'August 30, 2026', location: 'Tibetan Museum',
     image: hill2026a, images: [hill2026a, hill2026b],
-    description: 'Photos from a 2026 mindfulness meditation session at Hill. The exact date, venue, and additional details are to be confirmed.'
+    description: 'It was a great honor and privilege to attend “Eighty Years on the Hill: Art, Mindfulness & Celebration,” honoring eight decades of the Tibetan Museum’s dedication to preserving and sharing Tibetan and Himalayan wisdom, art, and cultural heritage. Heartfelt congratulations to Brandon, the newly appointed Executive Director, with prayers and best wishes for his leadership. Surrounded by precious historic art and cultural treasures, H.E. Gegye Yongyal Rinpoche offered blessings and guided a mindfulness meditation session. Deep gratitude to Kathleen Xu for the ride to the museum, and to the museum team, staff, organizers, and everyone who offered such a warm welcome. May the blessings of the Three Jewels continue to illuminate the museum’s work and inspire understanding and world peace.'
   },
   {
-    id: 45, group: 'Current', title: '2026 Teachings on the Nine Stages of Shamatha (Calm-Abiding) Meditation', type: 'photo', category: 'Event Photos',
-    date: '2026 — date to confirm', location: 'Location to confirm',
+    id: 45, group: 'Current', title: 'Teachings on the Nine Stages of Shamatha (Calm-Abiding) Meditation', type: 'photo', category: 'Event Photos',
+    date: 'July 10–11, 2026', location: 'Tibet House US',
     image: shamatha2026a, images: [shamatha2026a, shamatha2026b],
-    description: 'Photos from 2026 teachings on the Nine Stages of Shamatha (Calm-Abiding) Meditation. The exact date, venue, and additional details are to be confirmed.'
+    description: 'On July 10–11, H.E. Gegye Yongyal Rinpoche offered profound teachings on Shamatha Meditation at Tibet House US, with many participants joining both in person and online. The teachings were received with great enthusiasm and provided a meaningful opportunity to deepen meditation practice. Gegye Tashi Choling Monastery warmly invited everyone to join the upcoming Tara Transmission and Tara Meditation Practice on July 24–25 to receive these precious teachings and blessings.'
   },
   {
-    id: 46, group: 'Current', title: '2026 The Immorality of Inaction', type: 'photo', category: 'Event Photos',
-    date: '2026 — date to confirm', location: 'Location to confirm',
+    id: 46, group: 'Current', title: 'The Immorality of Inaction: Voicing Truth on Climate', type: 'photo', category: 'Event Photos',
+    date: 'September 18, 2026', location: 'Riverside Church, New York City, USA',
     image: inaction2026a, images: [inaction2026a, inaction2026b],
-    description: 'Photos associated with The Immorality of Inaction in 2026. The exact date, venue, and additional event details are to be confirmed.'
+    description: 'H.E. Gegye Yongyal Tulku Rinpoche was deeply honored to participate in “The Immorality of Inaction: Voicing Truth on Climate” at Riverside Church in New York City. He offered prayers and shared a reflection from the Buddhist understanding of dependent origination: all life exists through an intricate web of causes and conditions, and no being exists independently. Our relationship with Mother Earth is inseparable from our own lives—the air we breathe, the water we drink, the food we receive, and all living beings are deeply interconnected. To care for the Earth is to care for ourselves and future generations. Compassion must extend to all sentient life and the conditions that sustain life. It was a privilege to stand alongside Vice President Al Gore, Bishop William J. Barber II, and spiritual, environmental, Indigenous, and community leaders. With gratitude to the organizers and everyone who gathered with shared responsibility. May our prayers become compassionate action to protect this precious Earth and all beings. — H.E. Gegye Yongyal Tulku Rinpoche'
   },
 
   // ==================== POSTERS & NEWS ====================
