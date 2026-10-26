@@ -326,9 +326,18 @@ export default function Events() {
               className="bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm hover:shadow-lg transition-shadow cursor-pointer group flex flex-col">
 {/* Posters are displayed as artwork only; event cards retain their details. */}
               <div className={`relative overflow-hidden bg-stone-100 ${item.type === 'poster' ? 'aspect-[3/4]' : 'aspect-[4/3]'}`}>
-                <motion.img src={item.image} alt={item.type === 'poster' ? 'Event poster — open to view full size' : item.title} loading="lazy"
-                  whileHover={{ scale: 1.04 }} transition={{ duration: 0.35 }}
-                  className={`w-full h-full ${item.type === 'poster' ? 'object-contain' : 'object-cover'}`} />
+                {item.images?.length > 1 && item.type !== 'poster' ? (
+                  <div className="absolute inset-0 grid grid-cols-2 gap-1 p-1">
+                    {item.images.map((src, index) => (
+                      <img key={item.id + '-preview-' + index} src={src} alt={item.title + ' — photo ' + (index + 1)} loading="lazy"
+                        className="w-full h-full min-h-0 object-cover rounded-sm" />
+                    ))}
+                  </div>
+                ) : (
+                  <motion.img src={item.image} alt={item.type === 'poster' ? 'Event poster — open to view full size' : item.title} loading="lazy"
+                    whileHover={{ scale: 1.04 }} transition={{ duration: 0.35 }}
+                    className={`w-full h-full ${item.type === 'poster' ? 'object-contain' : 'object-cover'}`} />
+                )}
                 <div className="absolute inset-0 bg-stone-950/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <span className="bg-white/20 backdrop-blur-md text-white p-3 rounded-full border border-white/30"><Eye size={20} /></span>
                 </div>
@@ -376,10 +385,14 @@ export default function Events() {
                 <X size={20} />
               </button>
               <div className="bg-black flex items-center justify-center max-h-[60vh] min-h-0">
-                <div className="w-full flex flex-wrap items-center justify-center gap-3 p-3 overflow-y-auto">
-                  {(selectedMedia.images || [selectedMedia.image]).map((src, index) => (
-                    <img key={`${selectedMedia.id}-photo-${index}`} src={src} alt={`${selectedMedia.title} — photo ${index + 1}`} className="max-w-full max-h-[55vh] object-contain rounded-lg" />
-                  ))}
+                <div className="w-full max-h-[60vh] overflow-y-auto p-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 items-center">
+                    {(selectedMedia.images || [selectedMedia.image]).map((src, index) => (
+                      <div key={selectedMedia.id + '-photo-' + index} className="flex items-center justify-center min-w-0 bg-stone-950 rounded-lg overflow-hidden">
+                        <img src={src} alt={selectedMedia.title + ' — photo ' + (index + 1)} className="w-full h-auto max-h-[42vh] object-contain rounded-lg" />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 {selectedMedia.type !== 'poster' && (
