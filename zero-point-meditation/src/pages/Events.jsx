@@ -141,14 +141,36 @@ const galleryItems = [
   },
 
 
-  // ==================== NEW 2024 EVENT PHOTOS ====================
-  // TODO: Edit each title/date/location/description below with confirmed details.
-  { id: 16, group: '2024', title: 'ADD TITLE — Dharma Teaching', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: dharma2024a, images: [dharma2024a, dharma2024b, dharma2024c], description: 'ADD VERIFIED DESCRIPTION.' },
-  { id: 17, group: '2024', title: 'ADD TITLE — Mindfulness Meditation', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: mindful2024a, images: [mindful2024a, mindful2024b], description: 'ADD VERIFIED DESCRIPTION.' },
-  { id: 21, group: '2024', title: 'ADD TITLE — Rubin Museum', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: rubin2024, description: 'ADD VERIFIED DESCRIPTION.' },
-  { id: 19, group: '2024', title: 'ADD TITLE — RM', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: rm2024, images: [rm2024, rm12024], description: 'ADD VERIFIED DESCRIPTION.' },
-  { id: 20, group: '2024', title: 'ADD TITLE — UBS', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: ubs2024, images: [ubs2024, ubs12024], description: 'ADD VERIFIED DESCRIPTION.' },
-  { id: 21, group: '2024', title: 'ADD TITLE — Vesak Day Celebration', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: vesak2024a, images: [vesak2024a, vesak2024b], description: 'ADD VERIFIED DESCRIPTION.' },
+  // ==================== CONFIRMED 2024 EVENT PHOTOS ====================
+  {
+    id: 16, group: '2024', title: 'Dharma Teaching: The Four Noble Truths & Meditation',
+    type: 'photo', category: 'Event Photos', date: 'August 18, 2024',
+    location: 'Connecticut, USA', image: dharma2024a,
+    images: [dharma2024a, dharma2024b, dharma2024c],
+    description: 'Dharma teaching on The Four Noble Truths and a meditation session led by H.E. Gegye Yongyal Rinpoche in Connecticut, USA, on August 18, 2024.'
+  },
+  {
+    id: 17, group: '2024', title: 'Rubin Museum of Art: Mindfulness Meditation',
+    type: 'photo', category: 'Event Photos', date: 'Thursday, August 8, 2024',
+    location: 'Rubin Museum of Art, New York, USA', image: mindful2024a,
+    images: [mindful2024a, mindful2024b, rubin2024, rm2024, rm12024],
+    videoUrl: 'https://youtu.be/N2XigLNT_Eo?si=rtwVgvYy_m4lVRhp',
+    description: 'Mindfulness Meditation with H.E. Gegye Yongyal Rinpoche at the Rubin Museum of Art on Thursday, August 8, 2024.'
+  },
+  {
+    id: 20, group: '2024', title: 'Long-Life Prayer Ceremony for His Holiness the 14th Dalai Lama',
+    type: 'photo', category: 'Event Photos', date: 'August 22, 2024',
+    location: 'UBS Arena, New York, USA', image: ubs2024,
+    images: [ubs2024, ubs12024],
+    description: 'His Holiness the 14th Dalai Lama attended a long-life prayer ceremony offered by Buddhist communities and lamas, including H.E. Gegye Yongyal Rinpoche, Richard Gere, and many other rinpoches at UBS Arena in New York, USA, on August 22, 2024.'
+  },
+  {
+    id: 21, group: '2024', title: 'Vesak Day Celebration: Dharma Teaching on Interdependent Origin & Non-Violence',
+    type: 'photo', category: 'Event Photos', date: '2024 — date to confirm',
+    location: 'Tịnh Viện Quan Âm (Vietnamese Temple), Boston, USA', image: vesak2024a,
+    images: [vesak2024a, vesak2024b],
+    description: 'H.E. Gegye Yongyal Rinpoche gives a Dharma teaching on interdependent origin and non-violence, foundational principles of Buddhism. The program is held at Tịnh Viện Quan Âm (Vietnamese Temple) in Boston, alongside the holy presence of Venerable Thích Giác Đồng and Venerable Thích Tâm Hỷ.'
+  },
 
   // ==================== NEW 2025 EVENT PHOTOS ====================
   { id: 22, group: '2025', title: 'World Peace Prayer Day — EDIT TITLE', type: 'photo', category: 'Event Photos', date: '2025 — ADD DATE', location: 'ADD LOCATION', image: peace2025a, images: [peace2025a, peace2025b, peace2025c], description: 'ADD VERIFIED DESCRIPTION.' },
@@ -321,6 +343,12 @@ export default function Events() {
                 </div>
                 <h2 className="font-serif text-xl sm:text-2xl font-bold text-amber-50">{selectedMedia.title}</h2>
                 <p className="text-stone-300 text-sm leading-relaxed">{selectedMedia.description}</p>
+                {selectedMedia.videoUrl && (
+                  <a href={selectedMedia.videoUrl} target="_blank" rel="noreferrer"
+                    className="inline-flex mt-3 text-sm font-bold text-amber-300 hover:text-amber-200 underline underline-offset-4">
+                    Watch the Mindfulness Meditation video on YouTube
+                  </a>
+                )}
               </div>
             </motion.div>
           </motion.div>
