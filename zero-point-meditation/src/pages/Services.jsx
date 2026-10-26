@@ -22,16 +22,18 @@ export default function Services() {
         <p className="text-stone-600 leading-relaxed">Explore meditation, spiritual guidance, community activities, and well-being resources. Ask the centre’s chatbot preview a question to find your next step.</p>
       </motion.header>
 
-      <section className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {[
           { icon: <Flower2 size={24}/>, title: 'Meditation & Mindfulness', text: 'Group practice, meditation instruction, and opportunities to build a personal practice.', price: 'Contact us for pricing' },
-          { icon: <BookOpen size={24}/>, title: 'Prayers & Spiritual Guidance', text: 'Traditional prayers and spiritual guidance offered by lamas. Pricing varies according to the lama’s rank.', price: 'From $350 per lama' },
+          { icon: <BookOpen size={24}/>, image: gegyeYongyalRinpoche, imageAlt: 'Gegye Yongyal Rinpoche', title: 'Prayers & Spiritual Guidance', text: 'Traditional prayers and spiritual guidance offered by lamas. Pricing varies according to the lama’s rank.', price: 'From $350 per lama' },
           { icon: <HeartHandshake size={24}/>, title: 'Emotional Well-being', text: 'A compassionate, welcoming space and information about available support resources.', price: 'Contact us for pricing' },
           { icon: <Users size={24}/>, title: 'Community Gatherings', text: 'Shared practice, cultural activities, and community events.', price: 'Contact us for pricing' },
           { icon: <HeartHandshake size={24}/>, title: 'Counselling Information', text: 'Ask the centre about qualified professionals and verified counselling referrals before booking.', price: 'Contact us for pricing' },
           { icon: <Sparkles size={24}/>, title: 'Yoga — Coming Soon', text: 'Yoga sessions are being planned. Details will be added once the schedule is confirmed.', price: 'Price to be announced' },
-        ].map(item => <article key={item.title} className="rounded-2xl border border-amber-100 bg-white p-6 shadow-sm space-y-3">
-          <div className="text-buddhist-gold">{item.icon}</div><h2 className="font-serif text-xl font-bold text-buddhist-burgundy">{item.title}</h2><p className="text-sm leading-relaxed text-stone-600">{item.text}</p>
+        ].map(item => <article key={item.title} className="rounded-2xl border border-amber-100 bg-white p-4 sm:p-5 shadow-sm space-y-3">
+          {item.image ? <img src={item.image} alt={item.imageAlt || item.title} loading="lazy" className="h-20 w-20 rounded-xl object-cover object-top border border-amber-100"/> : <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-buddhist-gold">{item.icon}</div>}
+          <h2 className="font-serif text-xl font-bold text-buddhist-burgundy">{item.title}</h2>
+          <p className="text-sm leading-relaxed text-stone-600">{item.text}</p>
           <div className="border-t border-amber-100 pt-3"><p className="text-sm font-bold text-buddhist-burgundy">{item.price}</p></div>
         </article>)}
       </section>
