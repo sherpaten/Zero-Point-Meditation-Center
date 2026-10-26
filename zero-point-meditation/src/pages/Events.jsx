@@ -18,6 +18,36 @@ import post3 from '../assets/Post 3.jpg';
 import poster1 from '../assets/Poste 1.webp';
 import poster2 from '../assets/Poste 2.jpeg';
 
+/* NEW EVENT PHOTOS — keep filenames exactly as they appear in src/assets */
+import dharma2024a from '../assets/Events/2024/2024 Dharma teaching.jpg';
+import dharma2024b from '../assets/Events/2024/2024 Dharma teaching 1.jpg';
+import dharma2024c from '../assets/Events/2024/2024 Dharma teaching 2.jpg';
+import mindful2024a from '../assets/Events/2024/2024 Mindfulness Meditation.png';
+import mindful2024b from '../assets/Events/2024/2024 Mindfulness Meditation 1.jpg';
+import rubin2024 from '../assets/Events/2024/2024 Rhubin Musium.jpg';
+import rm2024 from '../assets/Events/2024/2024 RM.jpg';
+import rm12024 from '../assets/Events/2024/2024 RM1.jpg';
+import ubs2024 from '../assets/Events/2024/2024 UBS.jpg';
+import ubs12024 from '../assets/Events/2024/2024 UBS 1.jpg';
+import vesak2024a from '../assets/Events/2024/2024 Vesak Day Celebration.jpg';
+import vesak2024b from '../assets/Events/2024/2024 Vesak Day Celebration 1.jpg';
+import peace2025a from '../assets/Events/2025/2025 World Peace Prayer Day.jpg';
+import peace2025b from '../assets/Events/2025/2025 World Peace Prayer Day 1.jpg';
+import peace2025c from '../assets/Events/2025/2025 World Peace Prayer Day 2.jpg';
+import bbc2026 from '../assets/Events/2026/2026 BBC.jpg';
+
+import poster2024 from '../assets/poste/2024 poste5.jpg';
+import poster2025 from '../assets/poste/2025 poste4.jpg';
+import poster2026Tara from '../assets/poste/2026 the sacred Zabtik Dolma (Green Tara) Prayer.jpg';
+import posterExtra from '../assets/poste/poste.jpg';
+import posterOneNew from '../assets/poste/Poste1.webp';
+import posterTwoNew from '../assets/poste/Poste2.jpeg';
+import posterThreeNew from '../assets/poste/poste3.jpg';
+import posterSixNew from '../assets/poste/poste6.jpg';
+import posterSevenNew from '../assets/poste/poste7.jpg';
+import posterEightNew from '../assets/poste/poste8.jpg';
+
+
 /*
   HOW TO ADD NEW CONTENT:
   1. Add an image import above. Example:
@@ -109,6 +139,43 @@ const galleryItems = [
     type: 'photo', category: 'Event Photos', date: '2021', location: 'New York',
     image: event11, description: 'Open forum exploring Buddhist philosophy and stress-reduction methods.'
   },
+
+
+  // ==================== NEW 2024 EVENT PHOTOS ====================
+  // TODO: Edit each title/date/location/description below with confirmed details.
+  { id: 16, group: '2024', title: 'ADD TITLE — Dharma Teaching (Photo 1)', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: dharma2024a, description: 'ADD VERIFIED DESCRIPTION.' },
+  { id: 17, group: '2024', title: 'ADD TITLE — Dharma Teaching (Photo 2)', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: dharma2024b, description: 'ADD VERIFIED DESCRIPTION.' },
+  { id: 18, group: '2024', title: 'ADD TITLE — Dharma Teaching (Photo 3)', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: dharma2024c, description: 'ADD VERIFIED DESCRIPTION.' },
+  { id: 19, group: '2024', title: 'ADD TITLE — Mindfulness Meditation (Photo 1)', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: mindful2024a, description: 'ADD VERIFIED DESCRIPTION.' },
+  { id: 20, group: '2024', title: 'ADD TITLE — Mindfulness Meditation (Photo 2)', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: mindful2024b, description: 'ADD VERIFIED DESCRIPTION.' },
+  { id: 21, group: '2024', title: 'ADD TITLE — Rubin Museum', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: rubin2024, description: 'ADD VERIFIED DESCRIPTION.' },
+  { id: 22, group: '2024', title: 'ADD TITLE — RM (Photo 1)', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: rm2024, description: 'ADD VERIFIED DESCRIPTION.' },
+  { id: 23, group: '2024', title: 'ADD TITLE — RM (Photo 2)', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: rm12024, description: 'ADD VERIFIED DESCRIPTION.' },
+  { id: 24, group: '2024', title: 'ADD TITLE — UBS (Photo 1)', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: ubs2024, description: 'ADD VERIFIED DESCRIPTION.' },
+  { id: 25, group: '2024', title: 'ADD TITLE — UBS (Photo 2)', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: ubs12024, description: 'ADD VERIFIED DESCRIPTION.' },
+  { id: 26, group: '2024', title: 'ADD TITLE — Vesak Day Celebration (Photo 1)', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: vesak2024a, description: 'ADD VERIFIED DESCRIPTION.' },
+  { id: 27, group: '2024', title: 'ADD TITLE — Vesak Day Celebration (Photo 2)', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: vesak2024b, description: 'ADD VERIFIED DESCRIPTION.' },
+
+  // ==================== NEW 2025 EVENT PHOTOS ====================
+  { id: 28, group: '2025', title: 'World Peace Prayer Day (Photo 1) — EDIT TITLE', type: 'photo', category: 'Event Photos', date: '2025 — ADD DATE', location: 'ADD LOCATION', image: peace2025a, description: 'ADD VERIFIED DESCRIPTION.' },
+  { id: 29, group: '2025', title: 'World Peace Prayer Day (Photo 2) — EDIT TITLE', type: 'photo', category: 'Event Photos', date: '2025 — ADD DATE', location: 'ADD LOCATION', image: peace2025b, description: 'ADD VERIFIED DESCRIPTION.' },
+  { id: 30, group: '2025', title: 'World Peace Prayer Day (Photo 3) — EDIT TITLE', type: 'photo', category: 'Event Photos', date: '2025 — ADD DATE', location: 'ADD LOCATION', image: peace2025c, description: 'ADD VERIFIED DESCRIPTION.' },
+
+  // ==================== CURRENT EVENTS — 2026 ====================
+  { id: 31, group: 'Current', title: 'ADD 2026 EVENT TITLE — BBC', type: 'photo', category: 'Event Photos', date: '2026 — ADD DATE', location: 'ADD LOCATION', image: bbc2026, description: 'ADD VERIFIED DESCRIPTION.' },
+
+  // ==================== POSTERS & NEWS ====================
+  // Edit poster/news titles and descriptions. Year-specific posters stay in their matching collection.
+  { id: 32, group: 'Poste&News', title: 'ADD TITLE — 2024 Poster', type: 'poster', category: 'Posters', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: poster2024, description: 'ADD POSTER DETAILS.' },
+  { id: 33, group: 'Poste&News', title: 'ADD TITLE — 2025 Poster', type: 'poster', category: 'Posters', date: '2025 — ADD DATE', location: 'ADD LOCATION', image: poster2025, description: 'ADD POSTER DETAILS.' },
+  { id: 34, group: 'Poste&News', title: 'Sacred Zabtik Dolma (Green Tara) Prayer — EDIT DETAILS', type: 'poster', category: 'Posters', date: '2026 — ADD DATE', location: 'ADD LOCATION', image: poster2026Tara, description: 'ADD POSTER DETAILS.' },
+  { id: 35, group: 'Poste&News', title: 'ADD POSTER OR NEWS TITLE', type: 'poster', category: 'Posters', date: 'ADD DATE', location: 'ADD LOCATION', image: posterExtra, description: 'ADD POSTER DETAILS.' },
+  { id: 36, group: 'Poste&News', title: 'ADD POSTER OR NEWS TITLE — 1', type: 'poster', category: 'Posters', date: 'ADD DATE', location: 'ADD LOCATION', image: posterOneNew, description: 'ADD POSTER DETAILS.' },
+  { id: 37, group: 'Poste&News', title: 'ADD POSTER OR NEWS TITLE — 2', type: 'poster', category: 'Posters', date: 'ADD DATE', location: 'ADD LOCATION', image: posterTwoNew, description: 'ADD POSTER DETAILS.' },
+  { id: 38, group: 'Poste&News', title: 'ADD POSTER OR NEWS TITLE — 3', type: 'poster', category: 'Posters', date: 'ADD DATE', location: 'ADD LOCATION', image: posterThreeNew, description: 'ADD POSTER DETAILS.' },
+  { id: 39, group: 'Poste&News', title: 'ADD POSTER OR NEWS TITLE — 6', type: 'poster', category: 'Posters', date: 'ADD DATE', location: 'ADD LOCATION', image: posterSixNew, description: 'ADD POSTER DETAILS.' },
+  { id: 40, group: 'Poste&News', title: 'ADD POSTER OR NEWS TITLE — 7', type: 'poster', category: 'Posters', date: 'ADD DATE', location: 'ADD LOCATION', image: posterSevenNew, description: 'ADD POSTER DETAILS.' },
+  { id: 41, group: 'Poste&News', title: 'ADD POSTER OR NEWS TITLE — 8', type: 'poster', category: 'Posters', date: 'ADD DATE', location: 'ADD LOCATION', image: posterEightNew, description: 'ADD POSTER DETAILS.' },
 
   // ==================== ADD NEW EVENT PHOTOS BELOW ====================
   // 2024: Add one object per photo. Use group: '2024'.
