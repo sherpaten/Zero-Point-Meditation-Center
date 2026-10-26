@@ -164,7 +164,7 @@ export default function Merchandise() {
             >
               <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
                 <motion.img
-                  key={item.id}
+                  key={item.id === 'modern-art' ? item.gallery[modernArtImage] : item.id}
                   src={item.id === 'modern-art' ? item.gallery[modernArtImage] : item.image}
                   alt={item.name}
                   initial={{ opacity: 0, x: 24 }}
