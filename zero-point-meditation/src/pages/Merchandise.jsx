@@ -10,6 +10,8 @@ import mandalaSet from '../assets/Merchandise/Mandala offering set.jpg';
 import ritualItems from '../assets/Merchandise/Ritual Items.webp';
 import sacredIncense from '../assets/Merchandise/Sacred Incense.jpg';
 import waterBowl from '../assets/Merchandise/Water bowl.jpg';
+import modernArt from '../assets/Merchandise/Modern Art.jpg';
+import modernArtOne from '../assets/Merchandise/Modern Art 1.jpg';
 
 const categories = [
   {
@@ -59,6 +61,15 @@ const categories = [
     image: ritualItems,
     price: '$20 - $180',
     description: 'Windhorse prayer flags, singing bowls, ritual bells, dorjes, and consecrated sangha practice accessories for home shrines.'
+  },
+  {
+    id: 'modern-art',
+    name: 'Modern Art',
+    count: 'Contemporary Spiritual Artwork',
+    image: modernArt,
+    gallery: [modernArt, modernArtOne],
+    price: '',
+    description: 'Contemporary artwork inspired by spiritual practice and Himalayan artistic traditions. Contact the center for details and availability.'
   }
 ];
 
@@ -96,6 +107,7 @@ const reviews = [
 export default function Merchandise() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [orderSent, setOrderSent] = useState(false);
+  const [modernArtImage, setModernArtImage] = useState(0);
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-12 space-y-16">
@@ -152,7 +164,8 @@ export default function Merchandise() {
             >
               <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
                 <motion.img
-                  src={item.image}
+                  key={item.id}
+                  src={item.id === 'modern-art' ? item.gallery[modernArtImage] : item.image}
                   alt={item.name}
                   initial={{ opacity: 0, x: 24 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -160,9 +173,27 @@ export default function Merchandise() {
                   transition={{ duration: 0.45, ease: 'easeOut' }}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <span className="absolute top-3 right-3 bg-stone-950/80 backdrop-blur-md text-amber-50 text-xs font-bold px-3 py-1 rounded-full border border-white/10">
-                  {item.price}
-                </span>
+                {item.price && (
+                  <span className="absolute top-3 right-3 bg-stone-950/80 backdrop-blur-md text-amber-50 text-xs font-bold px-3 py-1 rounded-full border border-white/10">
+                    {item.price}
+                  </span>
+                )}
+                {item.id === 'modern-art' && (
+                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+                    {item.gallery.map((image, imageIndex) => (
+                      <button
+                        key={image}
+                        type="button"
+                        aria-label={`Show Modern Art image ${imageIndex + 1}`}
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          setModernArtImage(imageIndex);
+                        }}
+                        className={`h-2.5 w-2.5 rounded-full border border-white shadow ${modernArtImage === imageIndex ? 'bg-white' : 'bg-white/40'}`}
+                      />
+                    ))}
+                  </div>
+                )}
               </div>
               <div className="p-5 flex-1 flex flex-col justify-between space-y-3">
                 <div>
