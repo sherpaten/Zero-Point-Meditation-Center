@@ -6,6 +6,8 @@ import { Users, Trees, Sparkles, Compass, HeartHandshake, CheckCircle2, Building
 import profileMain from '../assets/profile.jpg';
 import profile1 from '../assets/profile 1.jpg';
 import profile2 from '../assets/profile 2.jpg';
+import gegyeYongyalRinpoche from '../assets/Teams/Gegye Yongyal Rinpoche\'s.png';
+import tenzingNorkaySherpa from '../assets/Teams/Tenzing Norkay Sherpa.webp';
 
 const globalProjects = [
   {
@@ -197,7 +199,7 @@ export default function About() {
         </div>
       </div>
 
-      {/* Team Section - Add verified member photos and details here */}
+      {/* Team Section */}
       <section className="space-y-8 pt-4" aria-labelledby="team-heading">
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-1.5">
@@ -207,28 +209,41 @@ export default function About() {
             Our Team
           </h2>
           <p className="text-stone-600 text-sm leading-relaxed">
-            Meet the people who contribute to Zero Point Meditation Center. Team member photographs, names, roles, and biographies will be added here.
+            Meet the people who guide the center’s spiritual work and support its technology and operations.
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {[1, 2, 3, 4].map((member) => (
+        <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {[
+            {
+              name: "Gegye Yongyal Rinpoche",
+              role: "Founder & Teacher",
+              image: gegyeYongyalRinpoche,
+              alt: "Gegye Yongyal Rinpoche, Founder and Teacher"
+            },
+            {
+              name: "Tenzing Norkay Sherpa",
+              role: "IT Head (Nepal Team)",
+              image: tenzingNorkaySherpa,
+              alt: "Tenzing Norkay Sherpa, IT Head of the Nepal Team"
+            }
+          ].map((member) => (
             <motion.article
-              key={member}
-              className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm"
+              key={member.name}
+              whileHover={{ y: -4 }}
+              className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-shadow hover:shadow-lg"
             >
-              <div className="flex aspect-[4/5] items-center justify-center bg-amber-50 text-buddhist-gold">
-                <div className="flex flex-col items-center gap-3 text-center">
-                  <Users size={34} strokeWidth={1.4} />
-                  <span className="text-xs font-semibold uppercase tracking-wider">Photo to be added</span>
-                </div>
+              <div className="aspect-[4/5] overflow-hidden bg-amber-50">
+                <img
+                  src={member.image}
+                  alt={member.alt}
+                  loading="lazy"
+                  className="h-full w-full object-cover object-center transition-transform duration-500 hover:scale-105"
+                />
               </div>
-              <div className="space-y-2 p-5">
-                <h3 className="font-serif text-lg font-bold text-stone-900">Team member name</h3>
-                <p className="text-xs font-semibold uppercase tracking-wide text-buddhist-gold">Role or title</p>
-                <p className="text-xs leading-relaxed text-stone-600">
-                  Short biography and details to be added.
-                </p>
+              <div className="space-y-2 p-5 text-center">
+                <h3 className="font-serif text-xl font-bold text-stone-900">{member.name}</h3>
+                <p className="text-xs font-semibold uppercase tracking-wide text-buddhist-gold">{member.role}</p>
               </div>
             </motion.article>
           ))}
