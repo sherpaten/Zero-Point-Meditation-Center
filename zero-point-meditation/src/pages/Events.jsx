@@ -181,7 +181,13 @@ const galleryItems = [
   },
 
   // ==================== NEW 2025 EVENT PHOTOS ====================
-  { id: 22, group: '2025', title: 'World Peace Prayer Day — EDIT TITLE', type: 'photo', category: 'Event Photos', date: '2025 — ADD DATE', location: 'ADD LOCATION', image: peace2025a, images: [peace2025a, peace2025b, peace2025c], description: 'ADD VERIFIED DESCRIPTION.' },
+  {
+    id: 22, group: '2025', title: 'World Peace Prayer Day: A Celebration of Peace and Unity',
+    type: 'photo', category: 'Event Photos', date: '2025 — exact date to confirm',
+    location: 'Planting Fields, Long Island, New York, USA',
+    image: peace2025a, images: [peace2025a, peace2025b, peace2025c],
+    description: 'Heartfelt gratitude from Zero Point Meditation Center to Gina, President of Planting Fields Foundation, for partnering with us to host World Peace Prayer Day—a beautiful gathering of harmony, compassion, and unity. We thank our supporting organizations, community leaders, lamas, performers, volunteers, sponsors, and friends, including the Shanghai Association in the USA, Nassau County Office of Asian American Affairs, CAIPA, Chinese Cultural Center, Rotary Club of Queens, Rubin Museum, Youth Media NY, Fortune Star Band, Long Island Nepalese Society, Everest Vegetarian Food, the New York State Parks volunteer team, and everyone who contributed. Special thanks to the Boston Vietnamese Dharma Group for leading Vietnamese prayers, and to Councilwoman Christine Liu for her presence and support. Together, may we continue spreading peace, love, and compassion throughout the world. — H.E. Gegye Yongyal Rinpoche, President, Zero Point Meditation Center.'
+  },
   {
     id: 23, group: '2025', title: 'Dharma Teaching: The Jewel Ornament of Liberation',
     type: 'photo', category: 'Event Photos', date: '2025',
@@ -189,22 +195,24 @@ const galleryItems = [
     description: 'Dharma teaching on The Jewel Ornament of Liberation. The exact date, venue, and additional event details are to be confirmed.'
   },
   {
-    id: 24, group: '2025', title: 'Global Peace Prayer Day',
+    id: 24, group: '2025', title: 'Global Peace Prayer: More Love, Peace, Understanding, Compassion & Unity',
     type: 'photo', category: 'Event Photos', date: '2025 — date to confirm',
     location: 'Location to confirm', image: globalPeace2025a, images: [globalPeace2025a, globalPeace2025b],
-    description: 'Photographs from Global Peace Prayer Day 2025. The exact date, venue, and additional event details are to be confirmed.'
+    description: 'World Peace Prayer for more love, peace, understanding, compassion, and unity in our world. Namaste. May our prayers and shared intentions help bring greater kindness, harmony, and peace to all beings.'
   },
   {
-    id: 25, group: '2025', title: 'Mindfulness Meditation',
-    type: 'photo', category: 'Event Photos', date: '2025 — date to confirm',
-    location: 'Location to confirm', image: mindful2025a, images: [mindful2025a, mindful2025b],
-    description: 'Photographs from a mindfulness meditation event in 2025. The exact date, venue, and additional event details are to be confirmed.'
+    id: 25, group: '2025', title: 'Free Mindfulness Meditation with H.E. Gegye Yongyal Rinpoche',
+    type: 'photo', category: 'Event Photos', date: 'April 19, 2025',
+    location: 'Main House (Coe Hall), Planting Fields Arboretum, Long Island, New York, USA',
+    image: mindful2025a, images: [mindful2025a, mindful2025b],
+    description: 'H.E. Gegye Yongyal Rinpoche led his first meditation class in the Main House (Coe Hall) at Planting Fields Arboretum. This free session welcomed friends of Planting Fields and people from Long Island. Rinpoche guided participants through breathing meditation, teachings on the mind, and a concluding shamatha meditation. Attendees expressed their gratitude for the inspiring teachings and step-by-step guided practice.'
   },
   {
-    id: 26, group: '2025', title: 'Vesak Day Celebration',
-    type: 'photo', category: 'Event Photos', date: '2025 — date to confirm',
-    location: 'Location to confirm', image: vesak2025a, images: [vesak2025a, vesak2025b],
-    description: 'Photographs from a Vesak Day celebration in 2025. The exact date, venue, and additional event details are to be confirmed.'
+    id: 26, group: '2025', title: 'Vesak Celebration (Buddha Jayanti)',
+    type: 'photo', category: 'Event Photos', date: 'April 26, 2025',
+    location: 'James Chapel, Union Theological Seminary, New York, USA',
+    image: vesak2025a, images: [vesak2025a, vesak2025b],
+    description: 'Happy Vesak Celebration (Buddha Jayanti). H.E. Gegye Yongyal Rinpoche was invited as the guest speaker at this auspicious gathering in James Chapel, Union Theological Seminary, where he offered chanting and a Dharma talk in celebration of the Buddha’s birth, enlightenment, and passing.'
   },
 
   // ==================== CURRENT EVENTS — 2026 ====================
