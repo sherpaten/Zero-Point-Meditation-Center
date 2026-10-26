@@ -63,18 +63,18 @@ const eventGallery = [
 const features = [
   {
     icon: <Flame className="text-buddhist-gold" size={24} />,
-    title: "Authentic Tibetan Lineage",
-    desc: "Guided under the spiritual direction of H.E. Gegye Yongyal Tulku Rinpoche, preserving Kagyu and Nyingma wisdom traditions."
+    title: "Mindfulness & Meditation",
+    desc: "Explore meditation and Buddhist-inspired practices that can support awareness, reflection, and a more compassionate everyday life."
   },
   {
     icon: <Users className="text-buddhist-burgundy" size={24} />,
-    title: "Inclusive Community Sangha",
-    desc: "Open to all backgrounds, offering free meditation instruction, weekly prayers, and interfaith harmony gatherings."
+    title: "A Welcoming Community",
+    desc: "A space for people from different backgrounds to connect through shared practice, learning, kindness, and community activities."
   },
   {
     icon: <Compass className="text-emerald-600" size={24} />,
-    title: "Mind Training (Lojong)",
-    desc: "Transforming daily obstacles and emotional anxiety into clarity, inner strength, and universal compassion (Bodhicitta)."
+    title: "Everyday Wellbeing",
+    desc: "Discover practices and resources that encourage calm, emotional awareness, resilience, and compassion in daily life."
   }
 ];
 
@@ -108,7 +108,7 @@ export default function Home() {
             className="space-y-6"
           >
             <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest inline-flex items-center justify-center gap-1.5 bg-white/90 backdrop-blur-md px-5 py-2 rounded-full border border-amber-300/80 shadow-md">
-              <Sparkles size={14} /> Tibetan Buddhist Sanctuary & Meditation Center
+              <Sparkles size={14} /> A welcoming space for meditation, wellbeing & community
             </span>
 
             <h1 className="font-serif text-4xl sm:text-6xl font-bold text-buddhist-burgundy leading-tight drop-shadow-sm">
@@ -116,7 +116,7 @@ export default function Home() {
             </h1>
 
             <p className="text-stone-800 text-base sm:text-lg leading-relaxed max-w-3xl mx-auto font-medium drop-shadow-sm">
-              A welcoming community centered on meditation, spiritual learning, compassionate connection, and emotional well-being. Explore our teachings, community activities, and opportunities to practise together. Our team is preparing more information about services and professional guidance.
+              Zero Point Meditation Center welcomes people seeking greater peace, mindful awareness, compassionate connection, and spiritual learning. Discover our community, explore meditation and wellbeing resources, and find ways to practise, learn, and grow together.
             </p>
 
             <div className="flex flex-wrap justify-center gap-4 pt-4">
@@ -130,7 +130,7 @@ export default function Home() {
                 to="/about" 
                 className="px-8 py-3.5 bg-white hover:bg-amber-50 text-buddhist-burgundy font-bold border border-amber-300/80 rounded-xl text-xs uppercase tracking-wider shadow-md transition-all hover:scale-105"
               >
-                About Rinpoche
+                About the Center
               </Link>
             </div>
           </motion.div>
@@ -160,13 +160,13 @@ export default function Home() {
           ))}
         </div>
 
-        {/* Spiritual Director Spotlight */}
+        {/* Spiritual Leader — a supporting part of the center's story */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="bg-stone-900 text-amber-50 rounded-3xl p-8 sm:p-12 border border-stone-800 shadow-xl grid lg:grid-cols-12 gap-8 items-center"
+          className="bg-stone-900 text-amber-50 rounded-3xl p-6 sm:p-8 border border-stone-800 shadow-xl grid lg:grid-cols-12 gap-8 items-center"
         >
           <div className="lg:col-span-5 relative">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-amber-500/30 aspect-[4/5] bg-stone-800">
@@ -187,7 +187,7 @@ export default function Home() {
 
           <div className="lg:col-span-7 space-y-5">
             <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest flex items-center gap-1.5">
-              <Award size={15} /> Lineage Master & Scholar
+              <Award size={15} /> Our Spiritual Guide
             </span>
             
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-amber-50 leading-snug">
@@ -195,12 +195,12 @@ export default function Home() {
             </h2>
 
             <p className="text-stone-300 text-xs sm:text-sm leading-relaxed">
-              Recognized as the third seat reincarnate Trulku of Gegye Tashi Choling Monastery near Mount Kailash and an emanation of Lord Manjushri. Rinpoche holds a Master's degree in Buddhist philosophy and leads global projects in youth education, reforestation, and interfaith peace.
+              Gegye Yongyal Rinpoche offers spiritual guidance connected with the center's Buddhist traditions. Learn more about his background and teachings on our About page.
             </p>
 
             <div className="bg-stone-800/80 p-4 rounded-xl border border-stone-700 space-y-2">
               <p className="font-serif italic text-amber-200/90 text-xs sm:text-sm">
-                "The teachings of the Buddha are so profound that achieving complete realization requires years of disciplined practice, study, and compassionate service."
+                "May our practice help nurture wisdom, compassion, and peace in everyday life."
               </p>
             </div>
 
@@ -209,7 +209,7 @@ export default function Home() {
                 to="/about"
                 className="inline-flex items-center gap-2 px-6 py-3.5 bg-buddhist-gold hover:bg-amber-500 text-stone-950 font-bold rounded-xl text-xs uppercase tracking-wider transition-all shadow-md"
               >
-                Learn More About Rinpoche <ArrowRight size={15} />
+                Meet Our Spiritual Guide <ArrowRight size={15} />
               </Link>
             </div>
           </div>
@@ -225,7 +225,7 @@ export default function Home() {
               Event & Practice Gallery
             </h2>
             <p className="text-stone-600 text-xs sm:text-sm">
-              Highlights from Rinpoche's international peace gatherings, public lectures, retreat programs, and sacred ceremonies.
+              Explore moments from meditation practice, community gatherings, teachings, and events connected with our wider community.
             </p>
           </div>
 
@@ -304,17 +304,17 @@ export default function Home() {
               <HeartHandshake size={15} /> Spiritual Sanctuary & Outreach
             </span>
             <h2 className="font-serif text-3xl font-bold text-stone-900">
-              Cultivating Peace, Mindful Awareness & Merit
+              A Community for Peace, Awareness & Connection
             </h2>
             <p className="text-stone-700 text-xs sm:text-sm leading-relaxed">
-              Zero Point Meditation Center operates as an open community hub dedicated to sharing authentic Tibetan Buddhist practices without commercial motive. All proceeds from our retreats and merchandise directly support our humanitarian programs, youth scholarships in Nepal, and regional tree-planting conservation projects.
+              Zero Point Meditation Center is a welcoming space for meditation, spiritual learning, compassionate connection, and community participation. We aim to make it easier for visitors to explore practices, learn about upcoming activities, and discover ways to support the center's work.
             </p>
             <div className="pt-2 flex items-center gap-4 text-xs font-semibold text-stone-800">
               <span className="flex items-center gap-1.5">
                 <ShieldCheck size={16} className="text-emerald-600" /> Free Community Classes
               </span>
               <span className="flex items-center gap-1.5">
-                <ShieldCheck size={16} className="text-buddhist-gold" /> 100% Non-Profit Support
+                <ShieldCheck size={16} className="text-buddhist-gold" /> Community & Spiritual Learning
               </span>
             </div>
           </div>
@@ -324,7 +324,7 @@ export default function Home() {
               Begin Your Practice Journey
             </h3>
             <p className="text-stone-600 text-xs leading-relaxed">
-              Whether you are looking to start a daily meditation routine or participate in our global world peace prayers, our Sangha warmly welcomes you.
+              Whether you are new to meditation or continuing an established practice, we invite you to explore the center, learn at your own pace, and take part in community activities.
             </p>
             <div className="pt-2 flex justify-center gap-3">
               <Link
