@@ -25,7 +25,7 @@ export default function Services() {
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {[
           { icon: <Flower2 size={24}/>, title: 'Meditation & Mindfulness', text: 'Group practice, meditation instruction, and opportunities to build a personal practice.', price: 'Contact us for pricing' },
-          { icon: <BookOpen size={24}/>, title: 'Prayers & Spiritual Guidance', text: 'Traditional prayers and spiritual guidance offered by lamas. Pricing varies according to the lama’s rank.', price: 'From $350 per lama' },
+          { icon: <BookOpen size={24}/>, title: 'Prayers & Spiritual Guidance', text: 'Traditional prayers and Buddhist spiritual guidance.', price: '$500 for a 4-hour prayer service' },
           { icon: <HeartHandshake size={24}/>, title: 'Emotional Well-being', text: 'A compassionate, welcoming space and information about available support resources.', price: 'Contact us for pricing' },
           { icon: <Users size={24}/>, title: 'Community Gatherings', text: 'Shared practice, cultural activities, and community events.', price: 'Contact us for pricing' },
           { icon: <HeartHandshake size={24}/>, title: 'Counselling Information', text: 'Ask the centre about qualified professionals and verified counselling referrals before booking.', price: 'Contact us for pricing' },
@@ -43,7 +43,7 @@ export default function Services() {
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <span className="inline-flex items-center gap-2 text-buddhist-gold font-bold text-xs uppercase tracking-widest"><HandHeart size={14}/> Meet your service provider</span>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-buddhist-burgundy">Prayer Services with Gegye Yongyal Rinpoche</h2>
-          <p className="text-stone-600 leading-relaxed">Learn about prayer services led by our Rinpoche. The price shown is a starting price; fees may vary depending on the lama’s rank and the requirements of the prayer.</p>
+          <p className="text-stone-600 leading-relaxed">Learn about prayer services led by our Rinpoche. The service has a fixed price of $500 for a four-hour prayer session.</p>
         </div>
         <article className="max-w-4xl mx-auto overflow-hidden rounded-3xl border border-amber-100 bg-white shadow-sm md:grid md:grid-cols-[0.8fr_1.2fr]">
           <div className="min-h-72 bg-stone-100">
@@ -51,8 +51,8 @@ export default function Services() {
           </div>
           <div className="p-6 sm:p-8 flex flex-col justify-center gap-4">
             <div><p className="text-xs font-bold uppercase tracking-widest text-buddhist-gold">Service provider</p><h3 className="mt-2 font-serif text-2xl font-bold text-buddhist-burgundy">Gegye Yongyal Rinpoche</h3><p className="mt-1 text-sm text-stone-500">Rinpoche · Lama</p></div>
-            <p className="text-sm leading-relaxed text-stone-600">Prayer services and Buddhist spiritual guidance. Please contact the centre to discuss the prayer you need, availability, and final pricing.</p>
-            <div className="rounded-xl bg-amber-50 border border-amber-200 p-4"><p className="text-xs uppercase tracking-wide text-stone-600">Prayer service starting price</p><p className="mt-1 text-2xl font-bold text-buddhist-burgundy">$350 <span className="text-sm font-medium">per lama</span></p><p className="mt-2 text-lg font-bold text-buddhist-burgundy">$1,755 <span className="text-sm font-medium">for 5 lamas</span></p><p className="mt-1 text-xs leading-relaxed text-stone-600">Prices are indicative. Final pricing may vary depending on each lama’s rank and the specific prayer requested. Please contact the centre to confirm availability and total cost.</p></div>
+            <p className="text-sm leading-relaxed text-stone-600">Prayer services and Buddhist spiritual guidance, with a fixed four-hour session.</p>
+            <div className="rounded-xl bg-amber-50 border border-amber-200 p-4"><p className="text-xs uppercase tracking-wide text-stone-600">Fixed service price</p><p className="mt-1 text-2xl font-bold text-buddhist-burgundy">$500</p><p className="mt-1 text-sm font-medium text-stone-700">For a 4-hour prayer session</p></div>
             <a href="/contact" className="inline-flex w-fit items-center justify-center rounded-full bg-buddhist-burgundy px-5 py-3 text-sm font-semibold text-white hover:opacity-90">Enquire about prayer services</a>
           </div>
         </article>
