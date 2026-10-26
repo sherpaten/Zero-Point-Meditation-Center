@@ -53,18 +53,18 @@ const eventGallery = [
 const features = [
   {
     icon: <Flame className="text-buddhist-gold" size={24} />,
-    title: "Mindfulness & Meditation",
-    desc: "Explore meditation and Buddhist-inspired practices that can support awareness, reflection, and a more compassionate everyday life."
+    title: "Make Space for Stillness",
+    desc: "Take a breath, settle your attention, and explore practices that help you meet everyday life with greater clarity, patience, and kindness."
   },
   {
     icon: <Users className="text-buddhist-burgundy" size={24} />,
-    title: "A Welcoming Community",
-    desc: "A space for people from different backgrounds to connect through shared practice, learning, kindness, and community activities."
+    title: "Grow Together",
+    desc: "You do not need to have it all figured out. Come as you are and connect with others through shared practice, thoughtful conversation, and kindness."
   },
   {
     icon: <Compass className="text-emerald-600" size={24} />,
-    title: "Everyday Wellbeing",
-    desc: "Discover practices and resources that encourage calm, emotional awareness, resilience, and compassion in daily life."
+    title: "Bring Calm Into Daily Life",
+    desc: "Carry the feeling of practice beyond the meditation space—with simple ways to nurture steadiness, compassion, and awareness in everyday moments."
   }
 ];
 
@@ -98,15 +98,15 @@ export default function Home() {
             className="space-y-6"
           >
             <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest inline-flex items-center justify-center gap-1.5 bg-white/90 backdrop-blur-md px-5 py-2 rounded-full border border-amber-300/80 shadow-md">
-              <Sparkles size={14} /> A welcoming space for meditation, wellbeing & community
+              <Sparkles size={14} /> Pause. Breathe. Find Your Center.
             </span>
 
             <h1 className="font-serif text-4xl sm:text-6xl font-bold text-buddhist-burgundy leading-tight drop-shadow-sm">
-              Welcome to Zero Point Meditation Center
+              A Place to Pause, Reconnect & Find Peace
             </h1>
 
             <p className="text-stone-800 text-base sm:text-lg leading-relaxed max-w-3xl mx-auto font-medium drop-shadow-sm">
-              Zero Point Meditation Center welcomes people seeking greater peace, mindful awareness, compassionate connection, and spiritual learning. Discover our community, explore meditation and wellbeing resources, and find ways to practise, learn, and grow together.
+              Life can feel busy, noisy, and overwhelming. Zero Point Meditation Center is an invitation to slow down, breathe, and reconnect with what matters. Through meditation, Buddhist wisdom, shared learning, and compassionate community, we create space for greater awareness, inner balance, and peace—one moment at a time.
             </p>
 
             <div className="flex flex-wrap justify-center gap-4 pt-4">
@@ -114,7 +114,7 @@ export default function Home() {
                 to="/events" 
                 className="px-8 py-3.5 bg-buddhist-burgundy hover:bg-red-900 text-amber-50 font-bold rounded-xl text-xs uppercase tracking-wider shadow-xl transition-all flex items-center gap-2 hover:scale-105"
               >
-                Explore Events & Programs <ArrowRight size={14} />
+                Find Your Next Gathering <ArrowRight size={14} />
               </Link>
               <Link 
                 to="/about" 
@@ -215,7 +215,7 @@ export default function Home() {
               Event & Practice Gallery
             </h2>
             <p className="text-stone-600 text-xs sm:text-sm">
-              Explore moments from meditation practice, community gatherings, teachings, and events connected with our wider community.
+              A glimpse of the moments we share: prayer, learning, community, and the quiet intention to bring more compassion and peace into the world.
             </p>
           </div>
 
@@ -291,13 +291,13 @@ export default function Home() {
         <div className="bg-amber-50/70 rounded-3xl p-8 sm:p-12 border border-amber-200/70 grid md:grid-cols-2 gap-8 items-center">
           <div className="space-y-4">
             <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest flex items-center gap-1.5">
-              <HeartHandshake size={15} /> Spiritual Sanctuary & Outreach
+              <HeartHandshake size={15} /> A Space for Reflection & Connection
             </span>
             <h2 className="font-serif text-3xl font-bold text-stone-900">
-              A Community for Peace, Awareness & Connection
+              Come As You Are. Begin Where You Are.
             </h2>
             <p className="text-stone-700 text-xs sm:text-sm leading-relaxed">
-              Zero Point Meditation Center is a welcoming space for meditation, spiritual learning, compassionate connection, and community participation. We aim to make it easier for visitors to explore practices, learn about upcoming activities, and discover ways to support the center's work.
+              At Zero Point Meditation Center, there is room to pause, ask questions, learn, and simply be present. We bring people together through meditation, Buddhist teachings, prayer, and community activities—cultivating compassion within ourselves and extending it into the world around us.
             </p>
             <div className="pt-2 flex items-center gap-4 text-xs font-semibold text-stone-800">
               <span className="flex items-center gap-1.5">
@@ -311,10 +311,10 @@ export default function Home() {
 
           <div className="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm space-y-4 text-center">
             <h3 className="font-serif text-xl font-bold text-buddhist-burgundy">
-              Begin Your Practice Journey
+              Your Moment of Stillness Starts Here
             </h3>
             <p className="text-stone-600 text-xs leading-relaxed">
-              Whether you are new to meditation or continuing an established practice, we invite you to explore the center, learn at your own pace, and take part in community activities.
+              New to meditation or returning to your practice? You are welcome here. Explore at your own pace, discover what resonates, and take a gentle first step toward a more mindful life.
             </p>
             <div className="pt-2 flex justify-center gap-3">
               <Link
