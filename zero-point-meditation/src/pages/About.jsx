@@ -1,34 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen, GraduationCap, Trees, Globe, Sparkles, Compass, HeartHandshake, CheckCircle2, Building2, Flame, Users, Heart } from 'lucide-react';
+import { Users, Trees, Sparkles, Compass, HeartHandshake, CheckCircle2, Building2, BookOpen } from 'lucide-react';
 
 // Local Image Imports
 import profileMain from '../assets/profile.jpg';
 import profile1 from '../assets/profile 1.jpg';
 import profile2 from '../assets/profile 2.jpg';
-
-const centerPillars = [
-  {
-    icon: <Flame className="text-buddhist-gold" size={24} />,
-    title: "Authentic Himalayan Tradition",
-    description: "Preserving lineage teachings from the Kagyu and Nyingma schools of Tibetan Buddhism, offering genuine wisdom for modern spiritual seekers."
-  },
-  {
-    icon: <Users className="text-buddhist-burgundy" size={24} />,
-    title: "Inclusive Sangha & Community",
-    description: "A sanctuary open to all individuals—regardless of background—seeking mindfulness meditation, emotional balance, and interfaith harmony."
-  },
-  {
-    icon: <Trees className="text-emerald-600" size={24} />,
-    title: "Eco-Dharma & Social Action",
-    description: "Translating spiritual realization into practical action through youth education funding, tree-planting projects, and global climate advocacy."
-  },
-  {
-    icon: <Heart className="text-amber-700" size={24} />,
-    title: "100% Non-Profit Mission",
-    description: "Every class, retreat contribution, and merchandise sale directly sustains free community meditation sessions and humanitarian outreach."
-  }
-];
 
 const globalProjects = [
   {
@@ -220,94 +197,43 @@ export default function About() {
         </div>
       </div>
 
-      {/* Team & Contributors Section */}
+      {/* Team Section - Add verified member photos and details here */}
       <section className="space-y-8 pt-4" aria-labelledby="team-heading">
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-1.5">
-            <Users size={14} /> People Behind the Practice
+            <Users size={14} /> The People Behind the Center
           </span>
           <h2 id="team-heading" className="font-serif text-3xl font-bold text-buddhist-burgundy">
-            Our Team & Contributors
+            Our Team
           </h2>
           <p className="text-stone-600 text-sm leading-relaxed">
-            The center’s work can bring together spiritual guidance, research and learning, mindful movement, and well-being support. Individual names, photographs, biographies, and qualifications will be added after they are confirmed with the center.
+            Meet the people who contribute to Zero Point Meditation Center. Team member photographs, names, roles, and biographies will be added here.
           </p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {[
-            {
-              icon: <BookOpen size={23} className="text-buddhist-burgundy" />,
-              title: 'Research & Dharma Study',
-              description: 'Researchers and study contributors supporting learning, reference materials, and the exploration of Buddhist teachings.'
-            },
-            {
-              icon: <Trees size={23} className="text-emerald-700" />,
-              title: 'Yoga & Mindful Movement',
-              description: 'Yoga instructors and movement facilitators, with teaching backgrounds and class details to be confirmed before publication.'
-            },
-            {
-              icon: <Compass size={23} className="text-buddhist-gold" />,
-              title: 'Lamas & Spiritual Teachers',
-              description: 'Lamas and invited teachers who may contribute spiritual guidance, teachings, prayers, or meditation sessions.'
-            },
-            {
-              icon: <HeartHandshake size={23} className="text-rose-700" />,
-              title: 'Medical & Well-being Contributors',
-              description: 'Qualified medical or well-being professionals, if affiliated with the center, with roles and credentials displayed only after verification.'
-            }
-          ].map((memberGroup) => (
+          {[1, 2, 3, 4].map((member) => (
             <motion.article
-              key={memberGroup.title}
-              whileHover={{ y: -4 }}
-              className="rounded-2xl border border-stone-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-lg space-y-4"
+              key={member}
+              className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-amber-200/70 bg-amber-50">
-                {memberGroup.icon}
+              <div className="flex aspect-[4/5] items-center justify-center bg-amber-50 text-buddhist-gold">
+                <div className="flex flex-col items-center gap-3 text-center">
+                  <Users size={34} strokeWidth={1.4} />
+                  <span className="text-xs font-semibold uppercase tracking-wider">Photo to be added</span>
+                </div>
               </div>
-              <h3 className="font-serif text-lg font-bold leading-snug text-stone-900">{memberGroup.title}</h3>
-              <p className="text-xs leading-relaxed text-stone-600">{memberGroup.description}</p>
-              <p className="border-t border-stone-100 pt-3 text-[11px] font-semibold uppercase tracking-wide text-stone-400">
-                Team profiles coming soon
-              </p>
+              <div className="space-y-2 p-5">
+                <h3 className="font-serif text-lg font-bold text-stone-900">Team member name</h3>
+                <p className="text-xs font-semibold uppercase tracking-wide text-buddhist-gold">Role or title</p>
+                <p className="text-xs leading-relaxed text-stone-600">
+                  Short biography and details to be added.
+                </p>
+              </div>
             </motion.article>
           ))}
         </div>
       </section>
-
-      {/* Zero Point Center Core Pillars Section */}
-      <div className="space-y-8 pt-4">
-        <div className="text-center max-w-xl mx-auto space-y-2">
-          <h2 className="font-serif text-3xl font-bold text-buddhist-burgundy">
-            Core Pillars of Our Center
-          </h2>
-          <p className="text-stone-600 text-xs sm:text-sm">
-            How Zero Point Meditation Center applies ancient Buddhist principles to foster individual quietude and global harmony.
-          </p>
-        </div>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {centerPillars.map((item, idx) => (
-            <motion.div
-              key={idx}
-              whileHover={{ y: -5 }}
-              className="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm hover:shadow-lg transition-all space-y-3 flex flex-col justify-between"
-            >
-              <div className="space-y-3">
-                <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200/60 flex items-center justify-center">
-                  {item.icon}
-                </div>
-                <h3 className="font-serif font-bold text-lg text-stone-900 leading-snug">
-                  {item.title}
-                </h3>
-                <p className="text-stone-600 text-xs leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
 
       {/* Global Institutional Leadership Section */}
       <div className="bg-stone-900 text-amber-50 rounded-3xl p-8 sm:p-12 border border-stone-800 space-y-8 shadow-xl">
