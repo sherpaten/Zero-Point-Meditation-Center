@@ -148,7 +148,7 @@ const galleryItems = [
   { id: 21, group: '2024', title: 'ADD TITLE — Rubin Museum', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: rubin2024, description: 'ADD VERIFIED DESCRIPTION.' },
   { id: 19, group: '2024', title: 'ADD TITLE — RM', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: rm2024, images: [rm2024, rm12024], description: 'ADD VERIFIED DESCRIPTION.' },
   { id: 20, group: '2024', title: 'ADD TITLE — UBS', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: ubs2024, images: [ubs2024, ubs12024], description: 'ADD VERIFIED DESCRIPTION.' },
-  { id: 21, group: '2024', title: 'ADD TITLE — Vesak Day Celebration', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: vesak2024a, images: [vesak2024a, vesak2024b], description: 'ADD VERIFIED DESCRIPTION.' }
+  { id: 21, group: '2024', title: 'ADD TITLE — Vesak Day Celebration', type: 'photo', category: 'Event Photos', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: vesak2024a, images: [vesak2024a, vesak2024b], description: 'ADD VERIFIED DESCRIPTION.' },
 
   // ==================== NEW 2025 EVENT PHOTOS ====================
   { id: 22, group: '2025', title: 'World Peace Prayer Day — EDIT TITLE', type: 'photo', category: 'Event Photos', date: '2025 — ADD DATE', location: 'ADD LOCATION', image: peace2025a, images: [peace2025a, peace2025b, peace2025c], description: 'ADD VERIFIED DESCRIPTION.' },
