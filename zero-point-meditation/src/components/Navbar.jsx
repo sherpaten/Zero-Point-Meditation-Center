@@ -65,14 +65,21 @@ export default function Navbar() {
               to={item.to}
               end={item.end}
               className={({ isActive }) =>
-                `transition-colors duration-200 focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-buddhist-gold ${
-                  isActive
-                    ? 'border-b-2 border-buddhist-gold pb-1 font-bold text-buddhist-burgundy'
-                    : 'font-semibold text-stone-700 hover:text-buddhist-burgundy'
-                }`
+                item.to === '/contact'
+                  ? `inline-flex items-center gap-1.5 rounded-full border px-4 py-2 font-bold shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-buddhist-gold ${
+                      isActive
+                        ? 'border-buddhist-burgundy bg-buddhist-burgundy text-white ring-2 ring-amber-200'
+                        : 'border-buddhist-burgundy bg-buddhist-burgundy text-white hover:bg-stone-900'
+                    }`
+                  : `transition-colors duration-200 focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-buddhist-gold ${
+                      isActive
+                        ? 'border-b-2 border-buddhist-gold pb-1 font-bold text-buddhist-burgundy'
+                        : 'font-semibold text-stone-700 hover:text-buddhist-burgundy'
+                    }`
               }
             >
               {item.label}
+              {item.to === '/contact' && <Sparkles size={14} aria-hidden="true" />}
             </NavLink>
           ))}
         </nav>
@@ -101,10 +108,16 @@ export default function Navbar() {
                 <NavLink
                   to={item.to}
                   end={item.end}
-                  className={linkStyles}
+                  className={({ isActive }) =>
+                    item.to === '/contact'
+                      ? `flex items-center justify-between rounded-lg px-3 py-3 text-sm font-bold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-buddhist-gold ${
+                          isActive ? 'bg-buddhist-burgundy text-white' : 'bg-amber-50 text-buddhist-burgundy hover:bg-amber-100'
+                        }`
+                      : linkStyles({ isActive })
+                  }
                 >
                   {item.label}
-                  {item.to === '/contact' && <Sparkles size={15} className="ml-2 inline text-buddhist-gold" aria-hidden="true" />}
+                  {item.to === '/contact' && <Sparkles size={16} className="text-buddhist-gold" aria-hidden="true" />}
                 </NavLink>
               </li>
             ))}
