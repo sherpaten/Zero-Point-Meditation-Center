@@ -111,7 +111,9 @@ export default function Merchandise() {
   const [modernArtImage, setModernArtImage] = useState(0);
 
   return (
-    <Helmet>
+    
+      <div className="max-w-6xl mx-auto px-6 py-12 space-y-16">
+      <Helmet>
         <title>Buddhist Art & Spiritual Merchandise | Zero Point Meditation Center</title>
         <meta name="description" content="Explore Buddhist-inspired art and spiritual merchandise connected with Zero Point Meditation Center. Contact us for product details and availability."/>
         <link rel="canonical" href="https://www.zeropointmeditationcenter.org/merchandise"/>
@@ -124,7 +126,6 @@ export default function Merchandise() {
         <meta name="twitter:title" content="Buddhist Art & Spiritual Merchandise | Zero Point Meditation Center"/>
         <meta name="twitter:description" content="Explore Buddhist-inspired art and spiritual merchandise connected with Zero Point Meditation Center. Contact us for product details and availability."/>
       </Helmet>
-      <div className="max-w-6xl mx-auto px-6 py-12 space-y-16">
       {/* Hero Section */}
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
