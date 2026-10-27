@@ -62,7 +62,7 @@ export default function Footer() {
             </p>
             <p className="flex items-center gap-2.5">
               <span className="text-base">📞</span>
-              <span>+1 (347) 804-4551</span>
+              <span>+1 (732)619-5329 </span>
             </p>
             <p className="flex items-center gap-2.5">
               <span className="text-base">✉️</span>

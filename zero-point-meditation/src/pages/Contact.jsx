@@ -48,7 +48,7 @@ export default function Contact() {
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="text-buddhist-gold shrink-0" size={18} />
-                <span>+1 (347) 804-4551</span>
+                <span>++1 (732) 619-5329 </span>
               </div>
               <div className="flex items-start gap-3">
                 <Clock className="text-buddhist-gold shrink-0 mt-0.5" size={18} />
