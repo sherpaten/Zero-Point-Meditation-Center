@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import HomeEventsCalendar from './HomeEventsCalendar';
 import { Calendar, MapPin, ArrowRight, Sparkles, Compass, HeartHandshake, ShieldCheck, Flame, Users, BookOpen, Award } from 'lucide-react';
 
 // Assets (Convert heavy images to .webp in src/assets for maximum speed on Vercel)
@@ -149,6 +150,8 @@ export default function Home() {
             </motion.div>
           ))}
         </div>
+
+        <HomeEventsCalendar />
 
         {/* Spiritual Leader — a supporting part of the center's story */}
         <motion.div
