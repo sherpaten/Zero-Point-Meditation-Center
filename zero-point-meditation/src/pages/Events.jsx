@@ -19,7 +19,7 @@ import poster1 from '../assets/Poste 1.webp';
 import poster2 from '../assets/Poste 2.jpeg';
 
 /* NEW EVENT PHOTOS — keep filenames exactly as they appear in src/assets */
-import dharma2024a from '../assets/Events/2024/2024 Dharma teaching.jpeg';
+import dharma2024a from '../assets/Event 1.jpeg';
 import dharma2024b from '../assets/Events/2024/2024 Dharma teaching 1.jpg';
 import dharma2024c from '../assets/Events/2024/2024 Dharma teaching 2.jpg';
 import mindful2024a from '../assets/Events/2024/2024 Mindfulness Meditation.png';
