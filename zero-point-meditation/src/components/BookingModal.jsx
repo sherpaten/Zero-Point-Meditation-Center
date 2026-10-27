@@ -19,7 +19,7 @@ const availableServices = [
 
 const fieldClass = 'mt-1 w-full rounded-xl border border-stone-300 bg-white px-3 py-2.5 text-stone-900 outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/20';
 
-export default function BookingModal({ open, onClose, initialType = 'event', initialService = '' }) {
+export default function BookingModal({ open, onClose, initialType = 'event', initialService = '', fixedSelection = false }) {
   const [type, setType] = useState(initialType);
   const [service, setService] = useState(initialService || 'Free Morning Meditation');
   const [date, setDate] = useState(sessions[0].value);
@@ -66,22 +66,29 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           <button type="button" onClick={onClose} aria-label="Close booking form" className="rounded-full p-2 text-stone-600 hover:bg-stone-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-700"><X size={22}/></button>
         </header>
         <form onSubmit={submit} className="space-y-5 p-5 sm:p-7">
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <label htmlFor="booking-type" className="text-sm font-semibold text-stone-800">What would you like to book?</label>
-              <select id="booking-type" value={type} onChange={event => { setType(event.target.value); setService(event.target.value === 'event' ? 'Free Morning Meditation' : 'Meditation & Mindfulness'); setMessage(''); }} className={fieldClass}>
-                <option value="event">Event / class</option><option value="service">Service / appointment</option>
-              </select>
+          {fixedSelection ? (
+            <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
+              <p className="text-xs font-bold uppercase tracking-wider text-amber-800">Selected teacher service</p>
+              <p className="mt-1 font-semibold text-buddhist-burgundy">{service}</p>
             </div>
-            <div>
-              <label htmlFor="booking-service" className="text-sm font-semibold text-stone-800">{type === 'event' ? 'Choose an event' : 'Choose a service'}</label>
-              <select id="booking-service" value={service} onChange={event => { setService(event.target.value); setMessage(''); }} className={fieldClass}>
-                {type === 'event' ? <>
-                  <option>Free Morning Meditation</option><option>Community Gathering</option><option>Prayer Event</option><option>Other Event</option>
-                </> : availableServices.map(item => <option key={item} value={item}>{item}</option>)}
-              </select>
+          ) : (
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <label htmlFor="booking-type" className="text-sm font-semibold text-stone-800">What would you like to book?</label>
+                <select id="booking-type" value={type} onChange={event => { setType(event.target.value); setService(event.target.value === 'event' ? 'Free Morning Meditation' : 'Meditation & Mindfulness'); setMessage(''); }} className={fieldClass}>
+                  <option value="event">Event / class</option><option value="service">Service / appointment</option>
+                </select>
+              </div>
+              <div>
+                <label htmlFor="booking-service" className="text-sm font-semibold text-stone-800">{type === 'event' ? 'Choose an event' : 'Choose a service'}</label>
+                <select id="booking-service" value={service} onChange={event => { setService(event.target.value); setMessage(''); }} className={fieldClass}>
+                  {type === 'event' ? <>
+                    <option>Free Morning Meditation</option><option>Community Gathering</option><option>Prayer Event</option><option>Other Event</option>
+                  </> : availableServices.map(item => <option key={item} value={item}>{item}</option>)}
+                </select>
+              </div>
             </div>
-          </div>
+          )}
           {type === 'event' && service === 'Free Morning Meditation' && <div className="rounded-xl bg-amber-50 p-4 text-sm text-stone-700">
             <p className="flex items-center gap-2 font-semibold text-buddhist-burgundy"><CalendarDays size={17}/> Free online session · 6:30–7:15 AM</p>
             <p className="mt-1">Time zone is to be confirmed by the center. Zoom joining details would be sent after the booking system is configured.</p>
