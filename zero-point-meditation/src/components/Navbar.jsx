@@ -8,7 +8,7 @@ const navigation = [
   { to: '/about', label: 'About' },
   { to: '/services', label: 'Services' },
   { to: '/events', label: 'Events' },
-  { to: '/teachings', label: 'Teachings' },
+  { to: '/teachings', label: 'Teachers' },
   { to: '/merchandise', label: 'Merchandise' },
   { to: '/contact', label: 'Contact' },
 ];
