@@ -1,4 +1,3 @@
-
 import React, { useEffect, Suspense, lazy } from 'react';
 import {
   BrowserRouter as Router,
@@ -24,12 +23,38 @@ const Services = lazy(() => import('./pages/Services.jsx'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
   return null;
+}
+
+function SiteLayout() {
+  const { pathname } = useLocation();
+  const isWelcome = pathname === '/';
+
+  return (
+    <div className={isWelcome
+      ? 'min-h-screen bg-black'
+      : 'relative z-10 flex min-h-screen flex-col justify-between bg-buddhist-bg font-sans text-buddhist-charcoal selection:bg-buddhist-gold-light selection:text-buddhist-burgundy'}>
+      {!isWelcome && <Navbar />}
+      <main className={isWelcome ? '' : 'grow'}>
+        <Suspense fallback={<div className="min-h-[50vh] flex items-center justify-center text-buddhist-burgundy" role="status">Loading page…</div>}>
+          <Routes>
+            <Route path="/" element={<Welcome />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/teachings" element={<Teachings />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/merchandise" element={<Merchandise />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Suspense>
+      </main>
+      {!isWelcome && <Footer />}
+      {!isWelcome && <FloatingAssistant />}
+    </div>
+  );
 }
 
 export default function App() {
@@ -37,35 +62,7 @@ export default function App() {
     <HelmetProvider>
       <Router>
         <ScrollToTop />
-
-        {/* Main website layout */}
-        <div className="relative z-10 flex min-h-screen flex-col justify-between bg-buddhist-bg font-sans text-buddhist-charcoal selection:bg-buddhist-gold-light selection:text-buddhist-burgundy">
-          <Navbar />
-
-          {/* Website pages */}
-          <main className="grow">
-            <Suspense fallback={<div className="min-h-[50vh] flex items-center justify-center text-buddhist-burgundy" role="status">Loading page…</div>}>
-            <Routes>
-              <Route path="/" element={<Welcome />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/teachings" element={<Teachings />} />
-              <Route path="/events" element={<Events />} />
-              <Route path="/merchandise" element={<Merchandise />} />
-              <Route path="/contact" element={<Contact />} />
-
-              {/* Redirect unknown routes to Welcome */}
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-            </Suspense>
-          </main>
-
-          <Footer />
-
-          {/* Floating AI assistant available on every page */}
-          <FloatingAssistant />
-        </div>
+        <SiteLayout />
       </Router>
     </HelmetProvider>
   );
