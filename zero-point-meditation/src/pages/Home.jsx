@@ -7,7 +7,7 @@ import { Calendar, MapPin, ArrowRight, Sparkles, Compass, HeartHandshake, Shield
 import buddhaLotus from "../assets/buddha-lotus.webp"; 
 import rinpocheProfile from '../assets/profile.jpg';
 import event2025 from '../assets/Event 1.jpeg';
-import event2024 from '../assets/Events/2024 Dharma teaching.jpeg';
+import event2024 from '../assets/Event 1.jpeg';
 import currentEventImage from '../assets/Event 3.jpeg';
 import taraPrayerPoster from '../assets/poste/2026 the sacred Zabtik Dolma (Green Tara) Prayer.jpg';
 
