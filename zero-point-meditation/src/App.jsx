@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense, lazy } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -13,14 +13,14 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FloatingAssistant from './components/FloatingAssistant';
 
-import Welcome from './pages/Welcome';
-import Home from './pages/Home';
-import About from './pages/About';
-import Teachings from './pages/Teachings';
-import Events from './pages/Events';
-import Merchandise from './pages/Merchandise';
-import Contact from './pages/Contact';
-import Services from './pages/Services';
+const Welcome = lazy(() => import('./pages/Welcome.jsx'));
+const Home = lazy(() => import('./pages/Home.jsx'));
+const About = lazy(() => import('./pages/About.jsx'));
+const Teachings = lazy(() => import('./pages/Teachings.jsx'));
+const Events = lazy(() => import('./pages/Events.jsx'));
+const Merchandise = lazy(() => import('./pages/Merchandise.jsx'));
+const Contact = lazy(() => import('./pages/Contact.jsx'));
+const Services = lazy(() => import('./pages/Services.jsx'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -44,6 +44,7 @@ export default function App() {
 
           {/* Website pages */}
           <main className="grow">
+            <Suspense fallback={<div className="min-h-[50vh] flex items-center justify-center text-buddhist-burgundy" role="status">Loading page…</div>}>
             <Routes>
               <Route path="/" element={<Welcome />} />
               <Route path="/home" element={<Home />} />
@@ -57,6 +58,7 @@ export default function App() {
               {/* Redirect unknown routes to Welcome */}
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
+            </Suspense>
           </main>
 
           <Footer />
