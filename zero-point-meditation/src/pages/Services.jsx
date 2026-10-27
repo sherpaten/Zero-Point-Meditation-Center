@@ -6,7 +6,9 @@ import gegyeYongyalRinpoche from "../assets/Teams/Gegye Yongyal Rinpoche's.png";
 
 export default function Services() {
   return (
-    <Helmet>
+    
+      <div className="max-w-6xl mx-auto px-6 py-12 space-y-16">
+      <Helmet>
         <title>Meditation, Prayer & Spiritual Support Services | Zero Point</title>
         <meta name="description" content="Explore meditation, Buddhist prayer, spiritual guidance and community support offered by Zero Point Meditation Center. Contact us to learn about current services."/>
         <link rel="canonical" href="https://www.zeropointmeditationcenter.org/services"/>
@@ -19,7 +21,6 @@ export default function Services() {
         <meta name="twitter:title" content="Meditation, Prayer & Spiritual Support Services | Zero Point"/>
         <meta name="twitter:description" content="Explore meditation, Buddhist prayer, spiritual guidance and community support offered by Zero Point Meditation Center. Contact us to learn about current services."/>
       </Helmet>
-      <div className="max-w-6xl mx-auto px-6 py-12 space-y-16">
       <motion.header initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }} className="text-center max-w-3xl mx-auto space-y-4">
         <span className="inline-flex items-center gap-2 text-buddhist-gold font-bold text-xs uppercase tracking-widest"><Sparkles size={14}/> Explore and connect</span>
         <h1 className="font-serif text-4xl sm:text-5xl font-bold text-buddhist-burgundy">Services, Classes & Community</h1>
