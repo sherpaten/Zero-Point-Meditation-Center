@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { Users, Trees, Sparkles, Compass, HeartHandshake, CheckCircle2, Building2, BookOpen } from 'lucide-react';
 
@@ -34,7 +35,20 @@ const globalProjects = [
 
 export default function About() {
   return (
-    <div className="max-w-6xl mx-auto px-6 py-12 space-y-16">
+    <Helmet>
+        <title>About Our Center & Spiritual Guide | Zero Point Meditation Center</title>
+        <meta name="description" content="Learn about Zero Point Meditation Center, its mission, H.E. Gegye Yongyal Tulku Rinpoche, and the team supporting meditation, Buddhist learning and community service."/>
+        <link rel="canonical" href="https://www.zeropointmeditationcenter.org/about"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:site_name" content="Zero Point Meditation Center"/>
+        <meta property="og:url" content="https://www.zeropointmeditationcenter.org/about"/>
+        <meta property="og:title" content="About Our Center & Spiritual Guide | Zero Point Meditation Center"/>
+        <meta property="og:description" content="Learn about Zero Point Meditation Center, its mission, H.E. Gegye Yongyal Tulku Rinpoche, and the team supporting meditation, Buddhist learning and community service."/>
+        <meta name="twitter:card" content="summary"/>
+        <meta name="twitter:title" content="About Our Center & Spiritual Guide | Zero Point Meditation Center"/>
+        <meta name="twitter:description" content="Learn about Zero Point Meditation Center, its mission, H.E. Gegye Yongyal Tulku Rinpoche, and the team supporting meditation, Buddhist learning and community service."/>
+      </Helmet>
+      <div className="max-w-6xl mx-auto px-6 py-12 space-y-16">
       {/* Hero Title Section - Center & Spiritual Director */}
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
