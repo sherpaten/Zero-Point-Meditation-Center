@@ -8,6 +8,15 @@ const sessions = [
   { value: '2026-11-15', label: 'Sunday, November 15, 2026' },
 ];
 
+const availableServices = [
+  'Meditation & Mindfulness',
+  'Meditation & Buddhist Practices',
+  'Prayers & Spiritual Guidance',
+  'Emotional Well-being',
+  'Community Gatherings',
+  'Counselling Information',
+];
+
 const fieldClass = 'mt-1 w-full rounded-xl border border-stone-300 bg-white px-3 py-2.5 text-stone-900 outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/20';
 
 export default function BookingModal({ open, onClose, initialType = 'event', initialService = '' }) {
@@ -42,7 +51,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
     event.preventDefault();
     setMessage(isFree
       ? 'Your details are ready, but registration is not open yet. The center must finish configuring the secure booking database and confirmation email before submissions can be accepted.'
-      : 'This is a paid-service booking request. Online payment is not enabled yet; the center must confirm its US payment gateway before we can accept payment or confirm a paid booking.');
+      : 'This is a booking enquiry. Online payment and confirmed bookings are not enabled yet; the center must finish configuring the booking system and confirm its payment gateway before paid bookings can be accepted.');
   }
 
   return (
@@ -61,17 +70,15 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
             <div>
               <label htmlFor="booking-type" className="text-sm font-semibold text-stone-800">What would you like to book?</label>
               <select id="booking-type" value={type} onChange={event => { setType(event.target.value); setService(event.target.value === 'event' ? 'Free Morning Meditation' : 'Meditation & Mindfulness'); setMessage(''); }} className={fieldClass}>
-                <option value="event">Event / class</option><option value="service">Paid service / appointment</option>
+                <option value="event">Event / class</option><option value="service">Service / appointment</option>
               </select>
             </div>
             <div>
-              <label htmlFor="booking-service" className="text-sm font-semibold text-stone-800">Choose an option</label>
+              <label htmlFor="booking-service" className="text-sm font-semibold text-stone-800">{type === 'event' ? 'Choose an event' : 'Choose a service'}</label>
               <select id="booking-service" value={service} onChange={event => { setService(event.target.value); setMessage(''); }} className={fieldClass}>
                 {type === 'event' ? <>
                   <option>Free Morning Meditation</option><option>Community Gathering</option><option>Prayer Event</option><option>Other Event</option>
-                </> : <>
-                  <option>Meditation & Mindfulness</option><option>Prayer Services & Spiritual Guidance</option><option>Emotional Well-being Enquiry</option><option>Counselling Information Request</option>
-                </>}
+                </> : availableServices.map(item => <option key={item} value={item}>{item}</option>)}
               </select>
             </div>
           </div>
