@@ -71,10 +71,10 @@ export default function About() {
           <p className="text-stone-600 text-xs">Explore free community classes, weekly discourses, and ritual gatherings.</p>
           <div className="pt-2">
             <a 
-              href="/services" 
+              href="#team" 
               className="inline-block px-5 py-2.5 bg-buddhist-burgundy text-amber-50 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-red-900 transition-colors"
             >
-              Check Our Events Calendar
+              Check Our Team
             </a>
           </div>
         </div>
@@ -200,7 +200,7 @@ export default function About() {
       </div>
 
       {/* Team Section */}
-      <section className="space-y-8 pt-4" aria-labelledby="team-heading">
+      <section id="team" className="space-y-8 pt-4 scroll-mt-24" aria-labelledby="team-heading">
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-1.5">
             <Users size={14} /> The People Behind the Center
