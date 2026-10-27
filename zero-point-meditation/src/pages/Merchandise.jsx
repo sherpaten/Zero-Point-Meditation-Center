@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingBag, Star, CheckCircle, Tag, X, ShieldCheck, Sparkles, HelpCircle, Heart, Compass } from 'lucide-react';
 
@@ -110,7 +111,20 @@ export default function Merchandise() {
   const [modernArtImage, setModernArtImage] = useState(0);
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-12 space-y-16">
+    <Helmet>
+        <title>Buddhist Art & Spiritual Merchandise | Zero Point Meditation Center</title>
+        <meta name="description" content="Explore Buddhist-inspired art and spiritual merchandise connected with Zero Point Meditation Center. Contact us for product details and availability."/>
+        <link rel="canonical" href="https://www.zeropointmeditationcenter.org/merchandise"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:site_name" content="Zero Point Meditation Center"/>
+        <meta property="og:url" content="https://www.zeropointmeditationcenter.org/merchandise"/>
+        <meta property="og:title" content="Buddhist Art & Spiritual Merchandise | Zero Point Meditation Center"/>
+        <meta property="og:description" content="Explore Buddhist-inspired art and spiritual merchandise connected with Zero Point Meditation Center. Contact us for product details and availability."/>
+        <meta name="twitter:card" content="summary"/>
+        <meta name="twitter:title" content="Buddhist Art & Spiritual Merchandise | Zero Point Meditation Center"/>
+        <meta name="twitter:description" content="Explore Buddhist-inspired art and spiritual merchandise connected with Zero Point Meditation Center. Contact us for product details and availability."/>
+      </Helmet>
+      <div className="max-w-6xl mx-auto px-6 py-12 space-y-16">
       {/* Hero Section */}
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
