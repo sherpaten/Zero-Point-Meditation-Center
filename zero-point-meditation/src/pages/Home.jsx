@@ -304,7 +304,7 @@ export default function Home() {
             </p>
             <div className="pt-2 flex items-center gap-4 text-xs font-semibold text-stone-800">
               <span className="flex items-center gap-1.5">
-                <ShieldCheck size={16} className="text-emerald-600" /> Free Community Classes
+                <ShieldCheck size={16} className="text-emerald-600" /> Free Community Classes Through 2026
               </span>
               <span className="flex items-center gap-1.5">
                 <ShieldCheck size={16} className="text-buddhist-gold" /> Community & Spiritual Learning
