@@ -14,7 +14,9 @@ export default function Contact() {
   };
 
   return (
-    <Helmet>
+    
+      <div className="max-w-6xl mx-auto px-6 py-12 space-y-12">
+      <Helmet>
         <title>Contact Zero Point Meditation Center | Classes & Enquiries</title>
         <meta name="description" content="Contact Zero Point Meditation Center with questions about meditation sessions, Buddhist teachings, events, spiritual support and community activities."/>
         <link rel="canonical" href="https://www.zeropointmeditationcenter.org/contact"/>
@@ -27,7 +29,6 @@ export default function Contact() {
         <meta name="twitter:title" content="Contact Zero Point Meditation Center | Classes & Enquiries"/>
         <meta name="twitter:description" content="Contact Zero Point Meditation Center with questions about meditation sessions, Buddhist teachings, events, spiritual support and community activities."/>
       </Helmet>
-      <div className="max-w-6xl mx-auto px-6 py-12 space-y-12">
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="text-center max-w-2xl mx-auto space-y-3">
         <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-1.5">
