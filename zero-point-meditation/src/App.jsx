@@ -20,6 +20,7 @@ const Events = lazy(() => import('./pages/Events.jsx'));
 const Merchandise = lazy(() => import('./pages/Merchandise.jsx'));
 const Contact = lazy(() => import('./pages/Contact.jsx'));
 const Services = lazy(() => import('./pages/Services.jsx'));
+const MeditationBooking = lazy(() => import('./pages/MeditationBooking.jsx'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -47,6 +48,7 @@ function SiteLayout() {
             <Route path="/events" element={<Events />} />
             <Route path="/merchandise" element={<Merchandise />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/meditation-booking" element={<MeditationBooking />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>
