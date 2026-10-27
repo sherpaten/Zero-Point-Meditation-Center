@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calendar, MapPin, Image as ImageIcon, FileText, Newspaper, X, Eye, Handshake, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -362,7 +363,20 @@ export default function Events() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-12 space-y-8 sm:space-y-10">
+    <Helmet>
+        <title>Events & Free Meditation Sessions | Zero Point Meditation Center</title>
+        <meta name="description" content="Discover upcoming meditation sessions, Buddhist teachings, prayer gatherings and community events hosted by Zero Point Meditation Center."/>
+        <link rel="canonical" href="https://www.zeropointmeditationcenter.org/events"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:site_name" content="Zero Point Meditation Center"/>
+        <meta property="og:url" content="https://www.zeropointmeditationcenter.org/events"/>
+        <meta property="og:title" content="Events & Free Meditation Sessions | Zero Point Meditation Center"/>
+        <meta property="og:description" content="Discover upcoming meditation sessions, Buddhist teachings, prayer gatherings and community events hosted by Zero Point Meditation Center."/>
+        <meta name="twitter:card" content="summary"/>
+        <meta name="twitter:title" content="Events & Free Meditation Sessions | Zero Point Meditation Center"/>
+        <meta name="twitter:description" content="Discover upcoming meditation sessions, Buddhist teachings, prayer gatherings and community events hosted by Zero Point Meditation Center."/>
+      </Helmet>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 sm:py-12 space-y-8 sm:space-y-10">
       <motion.header
         initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }} className="text-center max-w-3xl mx-auto space-y-3"
