@@ -4,7 +4,7 @@ import { Menu, X, Sparkles } from 'lucide-react';
 import logo from '../assets/LOGO.svg';
 
 const navigation = [
-  { to: '/', label: 'Home', end: true },
+  { to: '/home', label: 'Home', end: true },
   { to: '/about', label: 'About' },
   { to: '/services', label: 'Services' },
   { to: '/events', label: 'Events' },
@@ -41,7 +41,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 border-b border-stone-200 bg-white/95 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
         <Link
-          to="/"
+          to="/home"
           className="group flex min-w-0 items-center gap-2.5 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-buddhist-gold sm:gap-3"
           aria-label="Zero Point Meditation Center home"
         >
