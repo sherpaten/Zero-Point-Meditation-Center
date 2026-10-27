@@ -66,9 +66,11 @@ export default function Navbar() {
               end={item.end}
               className={({ isActive }) =>
                 `transition-colors duration-200 focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-buddhist-gold ${
-                  isActive
-                    ? 'border-b-2 border-buddhist-gold pb-1 font-bold text-buddhist-burgundy'
-                    : 'font-semibold text-stone-700 hover:text-buddhist-burgundy'
+                  item.to === '/contact'
+                    ? 'border-b-2 border-buddhist-gold pb-1 font-bold text-buddhist-burgundy hover:text-stone-900'
+                    : isActive
+                      ? 'border-b-2 border-buddhist-gold pb-1 font-bold text-buddhist-burgundy'
+                      : 'font-semibold text-stone-700 hover:text-buddhist-burgundy'
                 }`
               }
             >
