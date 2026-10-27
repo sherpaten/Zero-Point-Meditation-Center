@@ -13,7 +13,7 @@ export default function Teachings() {
       <Helmet>
         <title>Our Teachers | Zero Point Meditation Center</title>
         <meta name="description" content="Meet the teachers at Zero Point Meditation Center and explore meditation, Buddhist practices and upcoming online prayer programs." />
-        <link rel="canonical" href="https://www.zeropointmeditationcenter.org/teachings" />
+        <link rel="canonical" href="https://www.zeropointmeditationcenter.org/teachers" />
         <meta property="og:title" content="Our Teachers | Zero Point Meditation Center" />
         <meta property="og:description" content="Meet our teachers and explore meditation and Buddhist practices at Zero Point Meditation Center." />
       </Helmet>
