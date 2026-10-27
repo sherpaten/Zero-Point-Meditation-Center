@@ -315,20 +315,37 @@ function EventPhotoSlider({ item, className = '' }) {
     event?.stopPropagation();
     setIndex((current) => (current + direction + photos.length) % photos.length);
   };
+
   return (
-    <div className={`relative isolate w-full h-full min-h-0 overflow-hidden ${className}}>
-      <img
-        key={photos[index]}
-        src={photos[index]}
-        alt={`${item.title} — photo ${index + 1} of ${photos.length}`}
-        loading="lazy"
-        className={`absolute inset-0 block w-full h-full max-w-none ${item.type === 'poster' ? 'object-contain' : 'object-cover'}`}
-        style={{ width: '100%', height: '100%', maxWidth: 'none' }}
-      />
+    <div className={`relative isolate w-full h-full min-h-0 overflow-hidden ${className}`}>
+      <div
+        className="flex h-full w-full min-w-0 transition-transform duration-300 ease-out"
+        style={{ transform: `translateX(-${index * 100}%)` }}
+      >
+        {photos.map((src, photoIndex) => (
+          <div key={src + '-' + photoIndex} className="relative h-full min-w-full w-full flex-none overflow-hidden">
+            <img
+              src={src}
+              alt={`${item.title} — photo ${photoIndex + 1} of ${photos.length}`}
+              loading="lazy"
+              className={`block h-full w-full ${item.type === 'poster' ? 'object-contain' : 'object-cover'}`}
+              style={{ width: '100%', height: '100%', maxWidth: '100%', flexShrink: 0 }}
+            />
+          </div>
+        ))}
+      </div>
       {photos.length > 1 && <>
-        <button type="button" aria-label="Previous photo" onClick={(event) => move(-1, event)} className="absolute z-10 left-2 top-1/2 -translate-y-1/2 rounded-full bg-stone-950/80 text-white p-2 shadow-lg hover:bg-stone-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-300"><ChevronLeft size={18} /></button>
-        <button type="button" aria-label="Next photo" onClick={(event) => move(1, event)} className="absolute z-10 right-2 top-1/2 -translate-y-1/2 rounded-full bg-stone-950/80 text-white p-2 shadow-lg hover:bg-stone-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-300"><ChevronRight size={18} /></button>
-        <span className="absolute z-10 bottom-2 right-2 rounded-full bg-stone-950/80 text-white text-[11px] px-2.5 py-1">{index + 1} / {photos.length}</span>
+        <button type="button" aria-label="Previous photo" onClick={(event) => move(-1, event)}
+          className="absolute z-10 left-2 top-1/2 -translate-y-1/2 rounded-full bg-stone-950/80 text-white p-2 shadow-lg hover:bg-stone-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-300">
+          <ChevronLeft size={18} />
+        </button>
+        <button type="button" aria-label="Next photo" onClick={(event) => move(1, event)}
+          className="absolute z-10 right-2 top-1/2 -translate-y-1/2 rounded-full bg-stone-950/80 text-white p-2 shadow-lg hover:bg-stone-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-300">
+          <ChevronRight size={18} />
+        </button>
+        <span className="absolute z-10 bottom-2 right-2 rounded-full bg-stone-950/80 text-white text-[11px] px-2.5 py-1">
+          {index + 1} / {photos.length}
+        </span>
       </>}
     </div>
   );
