@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Disallow: /
+
+# Search engines should index the main content pages, not the welcome splash.
+Allow: /home
+Allow: /about
+Allow: /services
+Allow: /teachings
+Allow: /events
+Allow: /merchandise
+Allow: /contact
+
+Sitemap: https://www.zeropointmeditationcenter.org/sitemap.xml
