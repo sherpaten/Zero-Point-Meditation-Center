@@ -89,6 +89,7 @@ export default function Teachings() {
         onClose={() => setBookingOpen(false)}
         initialType="service"
         initialService="Meditation & Buddhist Practices"
+        fixedSelection
       />
     </div>
   );
