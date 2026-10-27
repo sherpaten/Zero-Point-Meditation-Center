@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
+import BookingModal from '../components/BookingModal.jsx';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { HeartHandshake, Flower2, BookOpen, Sparkles, Users, HandHeart, ArrowRight } from 'lucide-react';
 import gegyeYongyalRinpoche from "../assets/Teams/Gegye Yongyal Rinpoche's.png";
 
 export default function Services() {
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const [bookingType, setBookingType] = useState('service');
+  const [bookingService, setBookingService] = useState('');
+  const openBooking = (type, service) => { setBookingType(type); setBookingService(service); setBookingOpen(true); };
   return (
     
       <div className="max-w-6xl mx-auto px-6 py-12 space-y-16">
@@ -39,7 +44,7 @@ export default function Services() {
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-buddhist-gold">{item.icon}</div>
           <h2 className="font-serif text-xl font-bold text-buddhist-burgundy">{item.title}</h2>
           <p className="text-sm leading-relaxed text-stone-600">{item.text}</p>
-          <div className="border-t border-amber-100 pt-3"><p className="text-sm font-bold text-buddhist-burgundy">{item.price}</p></div>
+          <div className="border-t border-amber-100 pt-3 space-y-3"><p className="text-sm font-bold text-buddhist-burgundy">{item.price}</p><button type="button" onClick={() => openBooking(item.title === 'Yoga — Coming Soon' ? 'event' : 'service', item.title)} disabled={item.title === 'Yoga — Coming Soon'} className="inline-flex w-full items-center justify-center rounded-full bg-buddhist-burgundy px-4 py-2.5 text-sm font-semibold text-white hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50">{item.title === 'Yoga — Coming Soon' ? 'Coming soon' : 'Book / enquire'}</button></div>
         </article>)}
       </section>
 
@@ -58,12 +63,13 @@ export default function Services() {
               <div><p className="text-xs font-bold uppercase tracking-widest text-buddhist-gold">Service provider</p><h3 className="mt-2 font-serif text-xl font-bold text-buddhist-burgundy">Gegye Yongyal Rinpoche</h3><p className="mt-1 text-sm text-stone-500">Rinpoche · Lama</p></div>
               <p className="text-sm leading-relaxed text-stone-600">Prayer services and Buddhist spiritual guidance, with a fixed four-hour session.</p>
               <div className="rounded-xl bg-amber-50 border border-amber-200 p-3"><p className="text-xs uppercase tracking-wide text-stone-600">Fixed service price</p><p className="mt-1 text-2xl font-bold text-buddhist-burgundy">$500</p><p className="mt-1 text-sm font-medium text-stone-700">For a 4-hour prayer session</p></div>
-              <a href="/contact" className="inline-flex w-fit items-center justify-center rounded-full bg-buddhist-burgundy px-4 py-2.5 text-sm font-semibold text-white hover:opacity-90">Enquire about prayer services</a>
+              <button type="button" onClick={() => openBooking('service', 'Prayer Services & Spiritual Guidance')} className="inline-flex w-fit items-center justify-center rounded-full bg-buddhist-burgundy px-4 py-2.5 text-sm font-semibold text-white hover:opacity-90">Book / enquire about prayer services</button>
             </div>
           </article>
         </div>
       </section>
 
+      <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} initialType={bookingType} initialService={bookingService} />
       <p className="text-xs text-stone-500 text-center max-w-3xl mx-auto">Important: spiritual guidance and community activities are not a replacement for licensed mental health care. If you need clinical support, contact a qualified professional or local health service.</p>
     </div>
   );
