@@ -60,7 +60,9 @@ export default function Teachings() {
   const [selectedTeaching, setSelectedTeaching] = useState(null);
 
   return (
-    <Helmet>
+    
+      <div className="max-w-6xl mx-auto px-6 py-12 space-y-16">
+      <Helmet>
         <title>Buddhist Teachings & Mindfulness | Zero Point Meditation Center</title>
         <meta name="description" content="Explore Tibetan Buddhist teachings, mindfulness, Lojong and practices for cultivating wisdom, compassion and awareness with Zero Point Meditation Center."/>
         <link rel="canonical" href="https://www.zeropointmeditationcenter.org/teachings"/>
@@ -73,7 +75,6 @@ export default function Teachings() {
         <meta name="twitter:title" content="Buddhist Teachings & Mindfulness | Zero Point Meditation Center"/>
         <meta name="twitter:description" content="Explore Tibetan Buddhist teachings, mindfulness, Lojong and practices for cultivating wisdom, compassion and awareness with Zero Point Meditation Center."/>
       </Helmet>
-      <div className="max-w-6xl mx-auto px-6 py-12 space-y-16">
       {/* Header & SEO Hero Section */}
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
