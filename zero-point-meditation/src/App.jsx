@@ -43,7 +43,8 @@ function SiteLayout() {
             <Route path="/home" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
-            <Route path="/teachings" element={<Teachings />} />
+            <Route path="/teachers" element={<Teachings />} />
+            <Route path="/teachings" element={<Navigate to="/teachers" replace />} />
             <Route path="/events" element={<Events />} />
             <Route path="/merchandise" element={<Merchandise />} />
             <Route path="/contact" element={<Contact />} />
