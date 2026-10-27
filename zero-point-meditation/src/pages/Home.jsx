@@ -72,7 +72,9 @@ const features = [
 
 export default function Home() {
   return (
-    <Helmet>
+    
+      <div className="w-full space-y-16 pb-16">
+      <Helmet>
         <title>Meditation & Buddhist Community | Zero Point Meditation Center</title>
         <meta name="description" content="Explore free meditation sessions, Tibetan Buddhist teachings, community events and compassionate spiritual support at Zero Point Meditation Center."/>
         <link rel="canonical" href="https://www.zeropointmeditationcenter.org/home"/>
@@ -85,7 +87,6 @@ export default function Home() {
         <meta name="twitter:title" content="Meditation & Buddhist Community | Zero Point Meditation Center"/>
         <meta name="twitter:description" content="Explore free meditation sessions, Tibetan Buddhist teachings, community events and compassionate spiritual support at Zero Point Meditation Center."/>
       </Helmet>
-      <div className="w-full space-y-16 pb-16">
       
       {/* Full-Section Edge-to-Edge Hero */}
       <section className="relative w-full min-h-[620px] sm:min-h-[680px] flex items-center justify-center overflow-hidden bg-[#ded4c3]">
