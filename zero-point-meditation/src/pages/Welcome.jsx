@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import boudhaImg from '../assets/Boudha.jpg';
@@ -10,54 +9,42 @@ export default function Welcome() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Triggers the smooth transition after component mounts
-    const colorTimer = setTimeout(() => {
-      setIsColorized(true);
-    }, 150);
-
-    return () => clearTimeout(colorTimer);
+    const colorTimer = window.setTimeout(() => setIsColorized(true), 150);
+    return () => window.clearTimeout(colorTimer);
   }, []);
 
   return (
-    /* fixed inset-0 z-50 covers the entire screen, hiding the Navbar & Footer */
-    
-      <div className="fixed inset-0 z-50 w-screen h-screen overflow-hidden bg-black flex items-center justify-center">
+    <div className="fixed inset-0 z-50 flex h-[100dvh] w-screen items-center justify-center overflow-hidden bg-black">
       <Helmet>
         <title>Welcome | Zero Point Meditation Center</title>
-        <meta name="robots" content="noindex, follow"/>
+        <meta name="robots" content="noindex, follow" />
       </Helmet>
-      
-      {/* Background Image with guaranteed CSS Filter Transition */}
+
       <img
         src={boudhaImg}
         alt="Boudha Art Background"
-        className="absolute inset-0 w-full h-full object-cover"
+        fetchPriority="high"
+        decoding="async"
+        width="1600"
+        height="1000"
+        className="absolute inset-0 h-full w-full object-cover"
         style={{
-          filter: isColorized
-            ? 'grayscale(0%) contrast(100%) sepia(0%)'
-            : 'grayscale(100%) contrast(140%) sepia(40%)',
-          transform: isColorized ? 'scale(1)' : 'scale(1.08)',
-          transition: 'filter 4s ease-out, transform 4s ease-out',
+          filter: isColorized ? 'grayscale(0%) contrast(100%) sepia(0%)' : 'grayscale(100%) contrast(140%) sepia(40%)',
+          transform: isColorized ? 'scale(1)' : 'scale(1.04)',
+          transition: 'filter 2s ease-out, transform 2s ease-out',
         }}
       />
 
-      {/* Subtle Ambient Vignette */}
       <div className="absolute inset-0 bg-black/25" />
 
-      {/* Animated Center Arrow Button */}
-      <motion.button
+      <button
+        type="button"
         onClick={() => navigate('/home')}
-        initial={{ opacity: 0, scale: 0.6 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.2, delay: 0.8 }}
-        whileHover={{ scale: 1.15 }}
-        whileTap={{ scale: 0.9 }}
         aria-label="Enter Home Page"
-        className="relative z-10 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-buddhist-burgundy/85 hover:bg-buddhist-burgundy text-amber-200 border-2 border-amber-400/80 shadow-[0_0_35px_rgba(217,119,6,0.6)] backdrop-blur-md flex items-center justify-center group transition-all cursor-pointer"
+        className="welcome-enter relative z-10 flex h-20 w-20 items-center justify-center rounded-full border-2 border-amber-400/80 bg-buddhist-burgundy/85 text-amber-200 shadow-[0_0_35px_rgba(217,119,6,0.6)] transition-colors hover:bg-buddhist-burgundy focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-300 sm:h-24 sm:w-24"
       >
-        <ChevronDown size={44} className="animate-bounce text-amber-300 group-hover:text-amber-100" />
-      </motion.button>
-
+        <ChevronDown size={44} className="animate-bounce text-amber-300" aria-hidden="true" />
+      </button>
     </div>
   );
 }
