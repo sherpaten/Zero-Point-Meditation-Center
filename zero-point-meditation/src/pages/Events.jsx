@@ -44,7 +44,6 @@ import vesak2025a from '../assets/Events/2025/2025 Vesak Celeberation.jpg';
 import vesak2025b from '../assets/Events/2025/2025 Vesak Celeberation  1.jpg';
 import bbc2026 from '../assets/Events/2026/2026 BBC.jpg';
 import tara2026 from '../assets/Events/2026/2026  Zabtik Dolma (Green Tara) Prayer.jpg';
-import interfaith2026a from '../assets/Events/2026/2026 Interfaith.jpg';
 import interfaith2026b from '../assets/Events/2026/2026 Interfaith 1.jpg';
 import interfaith2026c from '../assets/Events/2026/2026 Interfaith 2.jpg';
 import hill2026a from '../assets/Events/2026/2026 Mindfulness Meditation Session at Hill.jpg';
