@@ -35,6 +35,7 @@ export default function Services() {
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {[
           { icon: <Flower2 size={24}/>, title: 'Meditation & Mindfulness', text: 'Group practice, meditation instruction, and opportunities to build a personal practice.', price: 'Contact us for pricing' },
+          { icon: <BookOpen size={24}/>, title: 'Meditation & Buddhist Practices', text: 'Meditation instruction and Buddhist practices, including online prayer programs planned for 2027.', price: 'Contact us for details' },
           { icon: <BookOpen size={24}/>, title: 'Prayers & Spiritual Guidance', text: 'Traditional prayers and Buddhist spiritual guidance.', price: '$350 per lama / $1755 for 5 lamas' },
           { icon: <HeartHandshake size={24}/>, title: 'Emotional Well-being', text: 'A compassionate, welcoming space and information about available support resources.', price: 'Contact us for pricing' },
           { icon: <Users size={24}/>, title: 'Community Gatherings', text: 'Shared practice, cultural activities, and community events.', price: 'Contact us for pricing' },
