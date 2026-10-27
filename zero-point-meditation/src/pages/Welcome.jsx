@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import boudhaImg from '../assets/Boudha.jpg';
 
 export default function Welcome() {
@@ -19,7 +20,11 @@ export default function Welcome() {
 
   return (
     /* fixed inset-0 z-50 covers the entire screen, hiding the Navbar & Footer */
-    <div className="fixed inset-0 z-50 w-screen h-screen overflow-hidden bg-black flex items-center justify-center">
+    <Helmet>
+        <title>Welcome | Zero Point Meditation Center</title>
+        <meta name="robots" content="noindex, follow"/>
+      </Helmet>
+      <div className="fixed inset-0 z-50 w-screen h-screen overflow-hidden bg-black flex items-center justify-center">
       
       {/* Background Image with guaranteed CSS Filter Transition */}
       <img
