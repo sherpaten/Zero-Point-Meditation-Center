@@ -234,7 +234,7 @@ const galleryItems = [
   {
     id: 43, group: 'Current', title: 'Interfaith Breakfast', type: 'photo', category: 'Event Photos',
     date: '2026 — exact date to confirm', location: 'New York City, USA',
-    image: interfaith2026a, images: [interfaith2026a, interfaith2026b, interfaith2026c],
+    image: interfaith2026b, images: [interfaith2026b, interfaith2026c],
     description: 'New Yorkers share a common belief: that our city can be restored. It was an honor to attend an interfaith breakfast alongside many of New York’s faith leaders and chart a path forward where we welcome the stranger among us.'
   },
   {
