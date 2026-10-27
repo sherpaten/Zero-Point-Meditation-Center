@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, MapPin, Image as ImageIcon, FileText, Newspaper, X, Eye, Handshake } from 'lucide-react';
+import { Calendar, MapPin, Image as ImageIcon, FileText, Newspaper, X, Eye, Handshake, ChevronLeft, ChevronRight } from 'lucide-react';
 
 import event1 from '../assets/Event 1.jpeg';
 import event2 from '../assets/Event 2.jpeg';
@@ -296,7 +296,7 @@ const galleryItems = [
   //   image: newPoster1, description: 'ADD VERIFIED POSTER OR NEWS DESCRIPTION' },
 ];
 
-const tabs = ['All', 'Older', '2024', '2025', 'Current', 'Poste&News'];
+const tabs = [{ label: 'Current', value: 'Current' }, { label: '2025', value: '2025' }, { label: '2024', value: '2024' }, { label: 'Older', value: 'Older' }, { label: 'Poster & News', value: 'Poste&News' }];
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -308,13 +308,30 @@ const cardVariants = {
   exit: { opacity: 0, scale: 0.94, transition: { duration: 0.16 } }
 };
 
-export default function Events() {
-  const [filter, setFilter] = useState('All');
-  const [selectedMedia, setSelectedMedia] = useState(null);
+function EventPhotoSlider({ item, className = '' }) {
+  const photos = item.images?.length ? item.images : [item.image];
+  const [index, setIndex] = useState(0);
+  const move = (direction, event) => {
+    event?.stopPropagation();
+    setIndex((current) => (current + direction + photos.length) % photos.length);
+  };
+  return (
+    <div className={`relative w-full h-full ${className}`}>
+      <img src={photos[index]} alt={`${item.title} — photo ${index + 1} of ${photos.length}`} loading="lazy"
+        className={`w-full h-full ${item.type === 'poster' ? 'object-contain' : 'object-cover'}`} />
+      {photos.length > 1 && <>
+        <button type="button" aria-label="Previous photo" onClick={(event) => move(-1, event)} className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-stone-950/75 text-white p-2 shadow-lg hover:bg-stone-950"><ChevronLeft size={18} /></button>
+        <button type="button" aria-label="Next photo" onClick={(event) => move(1, event)} className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-stone-950/75 text-white p-2 shadow-lg hover:bg-stone-950"><ChevronRight size={18} /></button>
+        <span className="absolute bottom-2 right-2 rounded-full bg-stone-950/75 text-white text-[11px] px-2.5 py-1">{index + 1} / {photos.length}</span>
+      </>}
+    </div>
+  );
+}
 
-  const filteredItems = filter === 'All'
-    ? galleryItems
-    : galleryItems.filter((item) => item.group === filter);
+export default function Events() {
+  const [filter, setFilter] = useState('Current');
+  const [selectedMedia, setSelectedMedia] = useState(null);
+  const filteredItems = galleryItems.filter((item) => item.group === filter);
 
   const getBadgeIcon = (type) => {
     if (type === 'poster') return <FileText size={12} />;
@@ -339,16 +356,16 @@ export default function Events() {
         </p>
       </motion.header>
 
-      {/* Navigation order requested: All, Older, 2024, 2025, Current, Poste&News */}
+      {/* Archive navigation follows the requested order. */}
       <nav aria-label="Filter event archive" className="flex justify-center gap-2 border-b border-stone-200 pb-4 flex-wrap">
         {tabs.map((tab) => (
-          <button key={tab} type="button" onClick={() => setFilter(tab)}
-            aria-pressed={filter === tab}
-            className={`relative px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-buddhist-gold ${filter === tab ? 'text-amber-50' : 'text-stone-600 hover:text-stone-900'}`}>
-            {filter === tab && (
+          <button key={tab.value} type="button" onClick={() => setFilter(tab.value)}
+            aria-pressed={filter === tab.value}
+            className={`relative px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-buddhist-gold ${filter === tab.value ? 'text-amber-50' : 'text-stone-600 hover:text-stone-900'}`}>
+            {filter === tab.value && (
               <motion.span layoutId="activeEventTab" className="absolute inset-0 bg-buddhist-burgundy rounded-full shadow-md" />
             )}
-            <span className="relative z-10">{tab}</span>
+            <span className="relative z-10">{tab.label}</span>
           </button>
         ))}
       </nav>
@@ -365,18 +382,7 @@ export default function Events() {
               className="bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm hover:shadow-lg transition-shadow cursor-pointer group flex flex-col">
 {/* Posters are displayed as artwork only; event cards retain their details. */}
               <div className={`relative overflow-hidden bg-stone-100 ${item.type === 'poster' ? 'aspect-[3/4]' : 'aspect-[4/3]'}`}>
-                {item.images?.length > 1 && item.type !== 'poster' ? (
-                  <div className="absolute inset-0 grid grid-cols-2 gap-1 p-1">
-                    {item.images.map((src, index) => (
-                      <img key={item.id + '-preview-' + index} src={src} alt={item.title + ' — photo ' + (index + 1)} loading="lazy"
-                        className="w-full h-full min-h-0 object-cover rounded-sm" />
-                    ))}
-                  </div>
-                ) : (
-                  <motion.img src={item.image} alt={item.type === 'poster' ? 'Event poster — open to view full size' : item.title} loading="lazy"
-                    whileHover={{ scale: 1.04 }} transition={{ duration: 0.35 }}
-                    className={`w-full h-full ${item.type === 'poster' ? 'object-contain' : 'object-cover'}`} />
-                )}
+                <EventPhotoSlider item={item} />
                 <div className="absolute inset-0 bg-stone-950/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <span className="bg-white/20 backdrop-blur-md text-white p-3 rounded-full border border-white/30"><Eye size={20} /></span>
                 </div>
@@ -423,15 +429,9 @@ export default function Events() {
                 className="absolute top-3 right-3 z-10 bg-stone-950/80 hover:bg-stone-950 text-white p-2 rounded-full border border-white/20">
                 <X size={20} />
               </button>
-              <div className="bg-black flex items-center justify-center max-h-[60vh] min-h-0">
-                <div className="w-full max-h-[60vh] overflow-y-auto p-3">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 items-center">
-                    {(selectedMedia.images || [selectedMedia.image]).map((src, index) => (
-                      <div key={selectedMedia.id + '-photo-' + index} className="flex items-center justify-center min-w-0 bg-stone-950 rounded-lg overflow-hidden">
-                        <img src={src} alt={selectedMedia.title + ' — photo ' + (index + 1)} className="w-full h-auto max-h-[42vh] object-contain rounded-lg" />
-                      </div>
-                    ))}
-                  </div>
+              <div className="bg-black flex items-center justify-center max-h-[60vh] min-h-0 p-3">
+                <div className="w-full h-[38vh] sm:h-[52vh] max-h-[60vh]">
+                  <EventPhotoSlider item={selectedMedia} className="rounded-lg overflow-hidden" />
                 </div>
               </div>
 {selectedMedia.type !== 'poster' && (
