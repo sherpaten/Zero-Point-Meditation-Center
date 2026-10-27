@@ -9,6 +9,7 @@ import profile1 from '../assets/profile 1.jpg';
 import profile2 from '../assets/profile 2.jpg';
 import gegyeYongyalRinpoche from '../assets/Teams/Gegye Yongyal Rinpoche\'s.png';
 import tenzingNorkaySherpa from '../assets/Teams/Tenzing Norkay Sherpa.webp';
+import smrityPhoto from '../assets/Teams/Smty.jpeg';
 
 const globalProjects = [
   {
@@ -241,6 +242,24 @@ export default function About() {
               role: "IT Head (Nepal Team)",
               image: tenzingNorkaySherpa,
               alt: "Tenzing Norkay Sherpa, IT Head of the Nepal Team"
+            },
+            {
+              name: "Smrity",
+              role: "Analytics and Development Manager",
+              image: smrityPhoto,
+              alt: "Smrity, Analytics and Development Manager"
+            },
+            {
+              name: "Mimi Lama",
+              role: "Public Relations",
+              image: null,
+              alt: "Profile placeholder for Mimi Lama"
+            },
+            {
+              name: "Dawa Dorje Sherpa",
+              role: "Member",
+              image: null,
+              alt: "Profile placeholder for Dawa Dorje Sherpa"
             }
           ].map((member) => (
             <motion.article
@@ -249,12 +268,19 @@ export default function About() {
               className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-shadow hover:shadow-lg"
             >
               <div className="aspect-square overflow-hidden bg-amber-50">
-                <img
-                  src={member.image}
-                  alt={member.alt}
-                  loading="lazy"
-                  className="h-full w-full object-cover object-center transition-transform duration-500 hover:scale-105"
-                />
+                {member.image ? (
+                  <img
+                    src={member.image}
+                    alt={member.alt}
+                    loading="lazy"
+                    className="h-full w-full object-cover object-center transition-transform duration-500 hover:scale-105"
+                  />
+                ) : (
+                  <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-buddhist-burgundy/70" aria-label={member.alt}>
+                    <Users size={36} strokeWidth={1.4} />
+                    <span className="text-[10px] font-semibold uppercase tracking-wider">Photo coming soon</span>
+                  </div>
+                )}
               </div>
               <div className="space-y-1.5 p-3 sm:p-4 text-center">
                 <h3 className="font-serif text-sm sm:text-base font-bold text-stone-900 leading-snug">{member.name}</h3>
