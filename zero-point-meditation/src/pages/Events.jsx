@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import BookingModal from '../components/BookingModal.jsx';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calendar, MapPin, Image as ImageIcon, FileText, Newspaper, X, Eye, Handshake, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -355,7 +354,6 @@ function EventPhotoSlider({ item, className = '' }) {
 export default function Events() {
   const [filter, setFilter] = useState('Current');
   const [selectedMedia, setSelectedMedia] = useState(null);
-  const [bookingOpen, setBookingOpen] = useState(false);
   const filteredItems = galleryItems.filter((item) => item.group === filter);
 
   const getBadgeIcon = (type) => {
@@ -393,10 +391,6 @@ export default function Events() {
         <p className="text-stone-600 text-sm leading-relaxed">
           Explore the Zero Point Meditation Center archive. Choose a year or collection to browse the photographs, event records, posters, and news. More verified details will be added as they are provided.
         </p>
-        <div className="flex flex-col items-center gap-3 pt-2 sm:flex-row sm:justify-center">
-          <button type="button" onClick={() => setBookingOpen(true)} className="rounded-full bg-buddhist-burgundy px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:opacity-90">Book a meditation or event</button>
-          <span className="text-xs text-stone-500">Free meditation registration and event enquiries</span>
-        </div>
       </motion.header>
 
       {/* Archive navigation follows the requested order. */}
@@ -458,8 +452,6 @@ export default function Events() {
           </div>
         )}
       </motion.section>
-
-      <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} initialType="event" initialService="Free Morning Meditation" />
 
       <AnimatePresence>
         {selectedMedia && (
