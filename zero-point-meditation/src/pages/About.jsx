@@ -244,10 +244,10 @@ export default function About() {
               alt: "Tenzing Norkay Sherpa, IT Head of the Nepal Team"
             },
             {
-              name: "Smrity",
+              name: "Smirti Pradhan",
               role: "Analytics and Development Manager",
               image: smrityPhoto,
-              alt: "Smrity, Analytics and Development Manager"
+              alt: "Smirti Pradhan, Analytics and Development Manager"
             },
             {
               name: "Mimi Lama",
