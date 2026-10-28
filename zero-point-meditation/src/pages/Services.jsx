@@ -10,7 +10,18 @@ export default function Services() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [bookingType, setBookingType] = useState('service');
   const [bookingService, setBookingService] = useState('');
-  const openBooking = (type, service) => { setBookingType(type); setBookingService(service); setBookingOpen(true); };
+  const openBooking = (type, service) => {
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+      window.gtag('event', 'service_booking_click', {
+        service_name: service,
+        booking_type: type,
+        button_location: 'services_page'
+      });
+    }
+    setBookingType(type);
+    setBookingService(service);
+    setBookingOpen(true);
+  };
   return (
     
       <div className="max-w-6xl mx-auto px-6 py-12 space-y-16">
