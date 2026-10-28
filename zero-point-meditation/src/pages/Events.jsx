@@ -166,58 +166,58 @@ const galleryItems = [
 
   // ==================== 2024 EVENT PHOTOS — EIGHT SEPARATE EVENTS ====================
   {
-    id: 16, group: '2024', title: 'Dharma Teaching — August Session',
-    type: 'photo', category: 'Event Photos', date: 'August 2024 — exact date to confirm',
-    location: 'To be confirmed', image: dharmaAug2024a,
+    id: 16, group: '2024', title: 'Dharma Teaching on the Four Noble Truths and Meditation',
+    type: 'photo', category: 'Event Photos', date: 'August 18, 2024',
+    location: 'Connecticut, USA', image: dharmaAug2024a,
     images: [dharmaAug2024a, dharmaAug2024b],
-    description: 'Dharma teaching event in August 2024. Further details to be confirmed.'
+    description: 'H.E. Gegye Yongyal Rinpoche led a Dharma teaching on the Four Noble Truths and a meditation session in Connecticut, USA, on August 18, 2024.'
   },
   {
-    id: 17, group: '2024', title: 'Mindfulness Meditation at the Rubin Museum',
-    type: 'photo', category: 'Event Photos', date: 'August 2024 — exact date to confirm',
+    id: 17, group: '2024', title: 'Mindfulness Meditation',
+    type: 'photo', category: 'Event Photos', date: 'August 8, 2024',
     location: 'Rubin Museum of Art, New York, USA', image: mindfulAug2024,
     videoUrl: 'https://youtu.be/N2XigLNT_Eo?si=rtwVgvYy_m4lVRhp',
-    description: 'Mindfulness meditation at the Rubin Museum of Art. The exact date and additional details should be confirmed.'
+    description: 'Mindfulness Meditation with H.E. Gegye Yongyal Rinpoche at the Rubin Museum of Art on Thursday, August 8, 2024.'
   },
   {
     id: 18, group: '2024', title: 'Long-Life Prayer Ceremony for His Holiness the 14th Dalai Lama',
     type: 'photo', category: 'Event Photos', date: 'August 22, 2024',
     location: 'UBS Arena, New York, USA', image: ubs2024a,
     images: [ubs2024a, ubs2024b, ubs2024c],
-    description: 'Long-life prayer ceremony for His Holiness the 14th Dalai Lama at UBS Arena in New York. Photo order follows the original file, then numbered images.'
+    description: 'His Holiness the 14th Dalai Lama attended a long-life prayer ceremony offered by Buddhist communities and lamas, including H.E. Gegye Yongyal Rinpoche, Richard Gere, and many other rinpoches. The ceremony took place at UBS Arena in New York, USA, on August 22, 2024.'
   },
   {
-    id: 19, group: '2024', title: 'Dharma Teaching — September Session',
-    type: 'photo', category: 'Event Photos', date: 'September 2024 — exact date to confirm',
-    location: 'To be confirmed', image: dharmaSep2024a,
+    id: 19, group: '2024', title: 'Dharma Teaching for the Vietnamese Buddhist Community',
+    type: 'photo', category: 'Event Photos', date: 'September 1, 2024',
+    location: 'Boston, USA', image: dharmaSep2024a,
     images: [dharmaSep2024a, dharmaSep2024b],
-    description: 'Dharma teaching event in September 2024. Further details to be confirmed.'
+    description: 'At the invitation of a group of Vietnamese elders, H.E. Gegye Yongyal Rinpoche gave a Dharma teaching on the suffering of samsara, the essence of impermanence, and meditation. The gathering brought together devoted Buddhist practitioners with sincere faith in the Buddha, Dharma, and Sangha. Amitabha.'
   },
   {
-    id: 20, group: '2024', title: 'Mid-Autumn Festival',
-    type: 'photo', category: 'Event Photos', date: 'September 2024',
-    location: 'To be confirmed', image: midAutumn2024,
-    description: 'Mid-Autumn Festival gathering in September 2024.'
+    id: 20, group: '2024', title: 'Mid-Autumn Moon Festival',
+    type: 'photo', category: 'Event Photos', date: 'September 12, 2024',
+    location: 'New York City, USA', image: midAutumn2024,
+    description: 'With gratitude to New York City Mayor Eric Adams for hosting the Mid-Autumn Moon Festival, H.E. Gegye Yongyal Rinpoche shared that it was an honor to be invited and to join community members and leaders from different cultures and religions. He also offered prayers for Mayor Adams’s swift recovery.'
   },
   {
-    id: 21, group: '2024', title: 'Teachings on the Thirty-Seven Practices of a Bodhisattva',
-    type: 'photo', category: 'Event Photos', date: '2024 — seven-day class; exact dates to confirm',
-    location: 'To be confirmed', image: bodhisattva2024,
-    description: 'Seven-day Dharma teaching series on the Thirty-Seven Practices of a Bodhisattva.'
+    id: 21, group: '2024', title: 'Free Seven-Day Class: The Thirty-Seven Practices of a Bodhisattva',
+    type: 'photo', category: 'Event Photos', date: '2024 — exact dates to confirm',
+    location: 'Online class (New York time)', image: bodhisattva2024,
+    description: 'H.E. Gegye Yongyal Rinpoche offered a free seven-day online class on the Thirty-Seven Practices of a Bodhisattva, scheduled for 9:00–9:45 a.m. New York time. For registration, the original announcement listed Shulian Liang at 347-804-4551 (USA). Please confirm whether this contact is still current before publishing it for new registrations.'
   },
   {
     id: 22, group: '2024', title: 'Teachings on the Nine Stages of Shamatha Meditation',
-    type: 'photo', category: 'Event Photos', date: 'October 2024',
-    location: 'To be confirmed', image: shamathaOct2024a,
+    type: 'photo', category: 'Event Photos', date: '2024 — exact date to confirm',
+    location: 'New York, USA', image: shamathaOct2024a,
     images: [shamathaOct2024a, shamathaOct2024b, shamathaOct2024c, shamathaOct2024d],
-    description: 'Teachings on the Nine Stages of Shamatha (calm-abiding) meditation in October 2024. Photos are arranged in original filename order.'
+    description: 'H.E. Gegye Yongyal Rinpoche thanked the Rubin Museum mindfulness meditation team and New York Insight Meditation Center for inviting him to lead their first joint mindfulness meditation session. He taught the Nine Stages of Shamatha meditation, and participants practiced using an object such as a Buddha statue. He also congratulated the two organizations on their new partnership.'
   },
   {
-    id: 23, group: '2024', title: 'Vesak Day Celebration',
+    id: 23, group: '2024', title: 'Vesak Day Celebration and Dharma Teaching',
     type: 'photo', category: 'Event Photos', date: '2024 — exact date to confirm',
-    location: 'To be confirmed', image: vesak2024a,
+    location: 'Tịnh Viện Quan Âm (Vietnamese Temple), Boston, USA', image: vesak2024a,
     images: [vesak2024a, vesak2024b],
-    description: 'Vesak Day celebration. Venue and additional details to be confirmed.'
+    description: 'H.E. Gegye Yongyal Rinpoche gave a Dharma teaching on dependent origination and nonviolence, foundational principles of Buddhism, at Tịnh Viện Quan Âm (Vietnamese Temple) in Boston, USA. The program was held in the presence of Venerable Thích Giác Đồng and Venerable Thích Tâm Hỷ.'
   },
 
   // ==================== NEW 2025 EVENT PHOTOS ====================
