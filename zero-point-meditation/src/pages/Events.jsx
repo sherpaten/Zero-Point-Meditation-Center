@@ -164,9 +164,9 @@ const galleryItems = [
   },
 
 
-  // ==================== 2024 EVENT PHOTOS — CHRONOLOGICAL ORDER ====================
+  // ==================== 2024 EVENT PHOTOS — EIGHT SEPARATE EVENTS ====================
   {
-    id: 16, group: '2024', title: 'Dharma Teaching',
+    id: 16, group: '2024', title: 'Dharma Teaching — August Session',
     type: 'photo', category: 'Event Photos', date: 'August 2024 — exact date to confirm',
     location: 'To be confirmed', image: dharmaAug2024a,
     images: [dharmaAug2024a, dharmaAug2024b],
@@ -187,7 +187,7 @@ const galleryItems = [
     description: 'Long-life prayer ceremony for His Holiness the 14th Dalai Lama at UBS Arena in New York. Photo order follows the original file, then numbered images.'
   },
   {
-    id: 19, group: '2024', title: 'Dharma Teaching',
+    id: 19, group: '2024', title: 'Dharma Teaching — September Session',
     type: 'photo', category: 'Event Photos', date: 'September 2024 — exact date to confirm',
     location: 'To be confirmed', image: dharmaSep2024a,
     images: [dharmaSep2024a, dharmaSep2024b],
