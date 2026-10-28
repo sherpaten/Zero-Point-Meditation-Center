@@ -49,6 +49,13 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
   }
   function submit(event) {
     event.preventDefault();
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+      window.gtag('event', 'booking_form_submit_attempt', {
+        service_name: service,
+        booking_type: type,
+        form_location: 'booking_modal'
+      });
+    }
     setMessage(isFree
       ? 'Your details are ready, but registration is not open yet. The center must finish configuring the secure booking database and confirmation email before submissions can be accepted.'
       : 'This is a booking enquiry. Online payment and confirmed bookings are not enabled yet; the center must finish configuring the booking system and confirm its payment gateway before paid bookings can be accepted.');
