@@ -39,13 +39,14 @@ export default function Teachings() {
           <h2 id="teacher-list-heading" className="font-serif text-2xl font-bold text-buddhist-burgundy sm:text-3xl">Our Teachers</h2>
         </div>
 
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         <motion.article
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45 }}
-          className="grid overflow-hidden rounded-3xl border border-amber-100 bg-white shadow-sm md:grid-cols-[minmax(260px,0.8fr)_1.2fr]"
+          className="flex flex-col overflow-hidden rounded-2xl border border-amber-100 bg-white shadow-sm"
         >
-          <div className="min-h-[320px] bg-stone-100 sm:min-h-[400px]">
+          <div className="h-56 bg-stone-100">
             <img
               src={karmaGyatsoPhoto}
               alt="Karma Gyatso Lopon La"
@@ -53,7 +54,7 @@ export default function Teachings() {
               loading="lazy"
             />
           </div>
-          <div className="flex flex-col justify-center gap-5 p-6 sm:p-8 lg:p-10">
+          <div className="flex flex-1 flex-col gap-3 p-5">
             <div className="space-y-2">
               <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-buddhist-gold">
                 <GraduationCap size={15} /> Teacher
@@ -90,7 +91,7 @@ export default function Teachings() {
           transition={{ duration: 0.45, delay: 0.1 }}
           className="grid overflow-hidden rounded-3xl border border-amber-100 bg-white shadow-sm md:grid-cols-[minmax(260px,0.8fr)_1.2fr]"
         >
-          <div className="min-h-[320px] bg-stone-100 sm:min-h-[400px]">
+          <div className="h-56 bg-stone-100">
             <img
               src={gegyeYongyalRinpoche}
               alt="H.E. Gegye Yongyal Rinpoche"
@@ -98,7 +99,7 @@ export default function Teachings() {
               loading="lazy"
             />
           </div>
-          <div className="flex flex-col justify-center gap-5 p-6 sm:p-8 lg:p-10">
+          <div className="flex flex-1 flex-col gap-3 p-5">
             <div className="space-y-2">
               <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-buddhist-gold">
                 <GraduationCap size={15} /> Teacher &amp; Spiritual Guide
@@ -125,6 +126,7 @@ export default function Teachings() {
             </div>
           </div>
         </motion.article>
+        </div>
       </section>
 
       <BookingModal
