@@ -19,19 +19,24 @@ import post3 from '../assets/Post 3.jpg';
 import poster1 from '../assets/Poste 1.webp';
 import poster2 from '../assets/Poste 2.jpeg';
 
-/* NEW EVENT PHOTOS — keep filenames exactly as they appear in src/assets */
-import dharma2024a from '../assets/Events/2024/2024 Dharma teaching.jpg';
-import dharma2024b from '../assets/Events/2024/2024 Dharma teaching 1.jpg';
-import dharma2024c from '../assets/Events/2024/2024 Dharma teaching 2.jpg';
-import mindful2024a from '../assets/Events/2024/2024 Mindfulness Meditation.png';
-import mindful2024b from '../assets/Events/2024/2024 Mindfulness Meditation 1.jpg';
-import rubin2024 from '../assets/Events/2024/2024 Rhubin Musium.jpg';
-import rm2024 from '../assets/Events/2024/2024 RM.jpg';
-import rm12024 from '../assets/Events/2024/2024 RM1.jpg';
-import ubs2024 from '../assets/Events/2024/2024 UBS.jpg';
-import ubs12024 from '../assets/Events/2024/2024 UBS 1.jpg';
+/* 2024 event photos — exact filenames from the synced folder */
+import dharmaAug2024a from '../assets/Events/2024/August 2024 Dharma Teaching.jpg';
+import dharmaAug2024b from '../assets/Events/2024/August 2024 Dharma teaching 1.jpg';
+import mindfulAug2024 from '../assets/Events/2024/August 2024 Mindfulness Meditation.jpg';
+import ubs2024a from '../assets/Events/2024/Long-life Prayer Ceremony for HH Dalai Lama at UBS Arena.jpg';
+import ubs2024b from '../assets/Events/2024/Long-life Prayer Ceremony for HH Dalai Lama at UBS Arena 1.jpg';
+import ubs2024c from '../assets/Events/2024/Long-life Prayer Ceremony for HH Dalai Lama at UBS Arena 2.jpg';
+import shamathaOct2024a from '../assets/Events/2024/October 2024 - 9 Stages of Shamata Meditation Session.jpg';
+import shamathaOct2024b from '../assets/Events/2024/October 2024 - 9 Stages of Shamata Meditation Session 1.jpg';
+import shamathaOct2024c from '../assets/Events/2024/October 2024 - 9 Stages of Shamata Meditation Session 2.jpg';
+import shamathaOct2024d from '../assets/Events/2024/October 2024 - 9 Stages of Shamata Meditation Session 3.jpg';
+import dharmaSep2024a from '../assets/Events/2024/September 2024 - Dharma Teaching.jpg';
+import dharmaSep2024b from '../assets/Events/2024/September 2024 - Dharma Teaching 1.jpg';
+import midAutumn2024 from '../assets/Events/2024/September 2024 - Mid Autumn Festival.jpg';
 import vesak2024a from '../assets/Events/2024/2024 Vesak Day Celebration.jpg';
 import vesak2024b from '../assets/Events/2024/2024 Vesak Day Celebration 1.jpg';
+import bodhisattva2024 from '../assets/Events/2024/2024 - Dharma Teaching on Thirty Seven Practices of Boddhisattva (7 Day Classes).jpg';
+
 import peace2025a from '../assets/Events/2025/2025 World Peace Prayer Day.jpg';
 import peace2025b from '../assets/Events/2025/2025 World Peace Prayer Day 1.jpg';
 import peace2025c from '../assets/Events/2025/2025 World Peace Prayer Day 2.jpg';
@@ -159,35 +164,60 @@ const galleryItems = [
   },
 
 
-  // ==================== CONFIRMED 2024 EVENT PHOTOS ====================
+  // ==================== 2024 EVENT PHOTOS — CHRONOLOGICAL ORDER ====================
   {
-    id: 16, group: '2024', title: 'Dharma Teaching: The Four Noble Truths & Meditation',
-    type: 'photo', category: 'Event Photos', date: 'August 18, 2024',
-    location: 'Connecticut, USA', image: dharma2024a,
-    images: [dharma2024a, dharma2024b, dharma2024c],
-    description: 'Dharma teaching on The Four Noble Truths and a meditation session led by H.E. Gegye Yongyal Rinpoche in Connecticut, USA, on August 18, 2024.'
+    id: 16, group: '2024', title: 'Dharma Teaching',
+    type: 'photo', category: 'Event Photos', date: 'August 2024 — exact date to confirm',
+    location: 'To be confirmed', image: dharmaAug2024a,
+    images: [dharmaAug2024a, dharmaAug2024b],
+    description: 'Dharma teaching event in August 2024. Further details to be confirmed.'
   },
   {
-    id: 17, group: '2024', title: 'Rubin Museum of Art: Mindfulness Meditation',
-    type: 'photo', category: 'Event Photos', date: 'Thursday, August 8, 2024',
-    location: 'Rubin Museum of Art, New York, USA', image: mindful2024a,
-    images: [mindful2024a, mindful2024b, rubin2024, rm2024, rm12024],
+    id: 17, group: '2024', title: 'Mindfulness Meditation at the Rubin Museum',
+    type: 'photo', category: 'Event Photos', date: 'August 2024 — exact date to confirm',
+    location: 'Rubin Museum of Art, New York, USA', image: mindfulAug2024,
     videoUrl: 'https://youtu.be/N2XigLNT_Eo?si=rtwVgvYy_m4lVRhp',
-    description: 'Mindfulness Meditation with H.E. Gegye Yongyal Rinpoche at the Rubin Museum of Art on Thursday, August 8, 2024.'
+    description: 'Mindfulness meditation at the Rubin Museum of Art. The exact date and additional details should be confirmed.'
   },
   {
-    id: 20, group: '2024', title: 'Long-Life Prayer Ceremony for His Holiness the 14th Dalai Lama',
+    id: 18, group: '2024', title: 'Long-Life Prayer Ceremony for His Holiness the 14th Dalai Lama',
     type: 'photo', category: 'Event Photos', date: 'August 22, 2024',
-    location: 'UBS Arena, New York, USA', image: ubs2024,
-    images: [ubs2024, ubs12024],
-    description: 'His Holiness the 14th Dalai Lama attended a long-life prayer ceremony offered by Buddhist communities and lamas, including H.E. Gegye Yongyal Rinpoche, Richard Gere, and many other rinpoches at UBS Arena in New York, USA, on August 22, 2024.'
+    location: 'UBS Arena, New York, USA', image: ubs2024a,
+    images: [ubs2024a, ubs2024b, ubs2024c],
+    description: 'Long-life prayer ceremony for His Holiness the 14th Dalai Lama at UBS Arena in New York. Photo order follows the original file, then numbered images.'
   },
   {
-    id: 21, group: '2024', title: 'Vesak Day Celebration: Dharma Teaching on Interdependent Origin & Non-Violence',
-    type: 'photo', category: 'Event Photos', date: '2024 — date to confirm',
-    location: 'Tịnh Viện Quan Âm (Vietnamese Temple), Boston, USA', image: vesak2024a,
+    id: 19, group: '2024', title: 'Dharma Teaching',
+    type: 'photo', category: 'Event Photos', date: 'September 2024 — exact date to confirm',
+    location: 'To be confirmed', image: dharmaSep2024a,
+    images: [dharmaSep2024a, dharmaSep2024b],
+    description: 'Dharma teaching event in September 2024. Further details to be confirmed.'
+  },
+  {
+    id: 20, group: '2024', title: 'Mid-Autumn Festival',
+    type: 'photo', category: 'Event Photos', date: 'September 2024',
+    location: 'To be confirmed', image: midAutumn2024,
+    description: 'Mid-Autumn Festival gathering in September 2024.'
+  },
+  {
+    id: 21, group: '2024', title: 'Teachings on the Thirty-Seven Practices of a Bodhisattva',
+    type: 'photo', category: 'Event Photos', date: '2024 — seven-day class; exact dates to confirm',
+    location: 'To be confirmed', image: bodhisattva2024,
+    description: 'Seven-day Dharma teaching series on the Thirty-Seven Practices of a Bodhisattva.'
+  },
+  {
+    id: 22, group: '2024', title: 'Teachings on the Nine Stages of Shamatha Meditation',
+    type: 'photo', category: 'Event Photos', date: 'October 2024',
+    location: 'To be confirmed', image: shamathaOct2024a,
+    images: [shamathaOct2024a, shamathaOct2024b, shamathaOct2024c, shamathaOct2024d],
+    description: 'Teachings on the Nine Stages of Shamatha (calm-abiding) meditation in October 2024. Photos are arranged in original filename order.'
+  },
+  {
+    id: 23, group: '2024', title: 'Vesak Day Celebration',
+    type: 'photo', category: 'Event Photos', date: '2024 — exact date to confirm',
+    location: 'To be confirmed', image: vesak2024a,
     images: [vesak2024a, vesak2024b],
-    description: 'H.E. Gegye Yongyal Rinpoche gives a Dharma teaching on interdependent origin and non-violence, foundational principles of Buddhism. The program is held at Tịnh Viện Quan Âm (Vietnamese Temple) in Boston, alongside the holy presence of Venerable Thích Giác Đồng and Venerable Thích Tâm Hỷ.'
+    description: 'Vesak Day celebration. Venue and additional details to be confirmed.'
   },
 
   // ==================== NEW 2025 EVENT PHOTOS ====================
