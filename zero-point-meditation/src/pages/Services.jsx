@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { HeartHandshake, Flower2, BookOpen, Sparkles, Users, HandHeart, ArrowRight } from 'lucide-react';
 import gegyeYongyalRinpoche from "../assets/Teams/Gegye Yongyal Rinpoche's.png";
+import karmaGyatsoPhoto from "../assets/Teams/Teachers/karma Gyatso lopon la .jpeg";
 
 export default function Services() {
   const [bookingOpen, setBookingOpen] = useState(false);
@@ -54,15 +55,33 @@ export default function Services() {
           <span className="inline-flex items-center gap-2 text-buddhist-gold font-bold text-xs uppercase tracking-widest"><HandHeart size={14}/> Prayer & Spiritual Guidance</span>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-buddhist-burgundy">Prayer Services & Spiritual Guidance</h2>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          <article className="overflow-hidden rounded-2xl border border-amber-100 bg-white shadow-sm">
-            <div className="h-44 sm:h-48 bg-stone-100">
-              <img src={gegyeYongyalRinpoche} alt="Gegye Yongyal Rinpoche" className="h-full w-full object-cover object-top" loading="lazy"/>
-            </div>
-            <div className="p-5">
-              <h3 className="font-serif text-xl font-bold text-buddhist-burgundy text-center">Gegye Yongyal Rinpoche</h3>
-            </div>
-          </article>
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 max-w-5xl mx-auto">
+          {[
+            {
+              name: "Gegye Yongyal Rinpoche",
+              image: gegyeYongyalRinpoche,
+              alt: "Gegye Yongyal Rinpoche"
+            },
+            {
+              name: "Karma Gyatso Lopon La",
+              image: karmaGyatsoPhoto,
+              alt: "Karma Gyatso Lopon La"
+            }
+          ].map((guide) => (
+            <article key={guide.name} className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-shadow hover:shadow-lg">
+              <div className="aspect-square overflow-hidden bg-amber-50 flex items-center justify-center">
+                <img
+                  src={guide.image}
+                  alt={guide.alt}
+                  loading="lazy"
+                  className="h-full w-full object-contain object-center"
+                />
+              </div>
+              <div className="space-y-1.5 p-3 sm:p-4 text-center">
+                <h3 className="font-serif text-sm sm:text-base font-bold text-stone-900 leading-snug">{guide.name}</h3>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
