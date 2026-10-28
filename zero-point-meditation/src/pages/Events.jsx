@@ -222,11 +222,11 @@ const galleryItems = [
 
   // ==================== NEW 2025 EVENT PHOTOS ====================
   {
-    id: 22, group: '2025', title: 'World Peace Prayer Day: A Celebration of Peace and Unity',
-    type: 'photo', category: 'Event Photos', date: '2025 — exact date to confirm',
+    id: 22, group: '2025', title: 'October 2025 — World Peace Prayer Day',
+    type: 'photo', category: 'Event Photos', date: 'October 2025 — exact day to confirm',
     location: 'Planting Fields, Long Island, New York, USA',
     image: peace2025a, images: [peace2025a, peace2025b, peace2025c],
-    description: 'Heartfelt gratitude from Zero Point Meditation Center to Gina, President of Planting Fields Foundation, for partnering with us to host World Peace Prayer Day—a beautiful gathering of harmony, compassion, and unity. We thank our supporting organizations, community leaders, lamas, performers, volunteers, sponsors, and friends, including the Shanghai Association in the USA, Nassau County Office of Asian American Affairs, CAIPA, Chinese Cultural Center, Rotary Club of Queens, Rubin Museum, Youth Media NY, Fortune Star Band, Long Island Nepalese Society, Everest Vegetarian Food, the New York State Parks volunteer team, and everyone who contributed. Special thanks to the Boston Vietnamese Dharma Group for leading Vietnamese prayers, and to Councilwoman Christine Liu for her presence and support. Together, may we continue spreading peace, love, and compassion throughout the world. — H.E. Gegye Yongyal Rinpoche, President, Zero Point Meditation Center.'
+    description: 'On behalf of Zero Point Meditation Center, H.E. Gegye Yongyal Rinpoche expresses heartfelt gratitude to Gina, President of Planting Fields Foundation, for partnering to host World Peace Prayer Day—a celebration of harmony, compassion, and unity. Special thanks to the Shanghai Association in the USA; Nassau County Office of Asian American Affairs; CAIPA; Chinese Cultural Center; Rotary Club of Queens; Dr. Zoe Liang; Grace; Yangzi; the Rubin Museum team; Zao Zao and Tashi Choden La; the participating lamas; Youth Media NY; Fortune Star Band; Long Island Nepalese Society; Tibetan opera singer Tenzin Dolkar La; New York State Parks volunteers; Everest Vegetarian Food; photographer Jimmy Hong; Mr. Lee and Maya Karma Jinpa; Planting Fields stewardship director Lilly; and Shulin Liang of Zero Point Meditation Center. Deep thanks to Dannie and the Boston Vietnamese Dharma Group for leading Vietnamese prayers, and to Councilwoman Christine Liu for her presence and support. May we continue spreading peace, love, and compassion throughout the world. — H.E. Gegye Yongyal Rinpoche, President, Zero Point Meditation Center.'
   },
   {
     id: 23, group: '2025', title: 'Dharma Teaching: The Jewel Ornament of Liberation',
@@ -241,11 +241,11 @@ const galleryItems = [
     description: 'World Peace Prayer for more love, peace, understanding, compassion, and unity in our world. Namaste. May our prayers and shared intentions help bring greater kindness, harmony, and peace to all beings.'
   },
   {
-    id: 25, group: '2025', title: 'Free Mindfulness Meditation with H.E. Gegye Yongyal Rinpoche',
+    id: 25, group: '2025', title: 'April 2025 — Mindfulness Meditation',
     type: 'photo', category: 'Event Photos', date: 'April 19, 2025',
     location: 'Main House (Coe Hall), Planting Fields Arboretum, Long Island, New York, USA',
     image: mindful2025a, images: [mindful2025a, mindful2025b],
-    description: 'H.E. Gegye Yongyal Rinpoche led his first meditation class in the Main House (Coe Hall) at Planting Fields Arboretum. This free session welcomed friends of Planting Fields and people from Long Island. Rinpoche guided participants through breathing meditation, teachings on the mind, and a concluding shamatha meditation. Attendees expressed their gratitude for the inspiring teachings and step-by-step guided practice.'
+    description: 'H.E. Gegye Yongyal Rinpoche led his first meditation class in the Main House (Coe Hall) at Planting Fields Arboretum. This free session welcomed friends of Planting Fields and people from Long Island. Rinpoche guided participants through breathing meditation and teachings on the mind, ending with a shamatha meditation. Participants thanked Rinpoche for the powerful teachings and step-by-step guided practice.'
   },
   {
     id: 26, group: '2025', title: 'Vesak Celebration (Buddha Jayanti)',
