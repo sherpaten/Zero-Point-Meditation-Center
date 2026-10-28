@@ -8,9 +8,9 @@ import {
 } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import FloatingAssistant from './components/FloatingAssistant';
+const Navbar = lazy(() => import('./components/Navbar.jsx'));
+const Footer = lazy(() => import('./components/Footer.jsx'));
+const FloatingAssistant = lazy(() => import('./components/FloatingAssistant.jsx'));
 
 const Welcome = lazy(() => import('./pages/Welcome.jsx'));
 const Home = lazy(() => import('./pages/Home.jsx'));
@@ -35,7 +35,7 @@ function SiteLayout() {
     <div className={isWelcome
       ? 'min-h-screen bg-black'
       : 'relative z-10 flex min-h-screen flex-col justify-between bg-buddhist-bg font-sans text-buddhist-charcoal selection:bg-buddhist-gold-light selection:text-buddhist-burgundy'}>
-      {!isWelcome && <Navbar />}
+      {!isWelcome && <Suspense fallback={null}><Navbar /></Suspense>}
       <main className={isWelcome ? '' : 'grow'}>
         <Suspense fallback={<div className="min-h-[50vh] flex items-center justify-center text-buddhist-burgundy" role="status">Loading page…</div>}>
           <Routes>
@@ -52,8 +52,8 @@ function SiteLayout() {
           </Routes>
         </Suspense>
       </main>
-      {!isWelcome && <Footer />}
-      {!isWelcome && <FloatingAssistant />}
+      {!isWelcome && <Suspense fallback={null}><Footer /></Suspense>}
+      {!isWelcome && <Suspense fallback={null}><FloatingAssistant /></Suspense>}
     </div>
   );
 }
