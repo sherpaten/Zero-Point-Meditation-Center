@@ -68,7 +68,7 @@ export default function Services() {
               alt: "Karma Gyatso Lopon La"
             }
           ].map((guide) => (
-            <article key={guide.name} className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-shadow hover:shadow-lg">
+            <a key={guide.name} href="/teachers" aria-label={`Learn more about ${guide.name} on the Teachers page`} className="block overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-shadow hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-buddhist-gold focus-visible:ring-offset-2">
               <div className="aspect-square overflow-hidden bg-amber-50 flex items-center justify-center">
                 <img
                   src={guide.image}
@@ -80,7 +80,7 @@ export default function Services() {
               <div className="space-y-1.5 p-3 sm:p-4 text-center">
                 <h3 className="font-serif text-sm sm:text-base font-bold text-stone-900 leading-snug">{guide.name}</h3>
               </div>
-            </article>
+            </a>
           ))}
         </div>
       </section>
