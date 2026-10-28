@@ -51,9 +51,9 @@ export default function Services() {
 
       <section className="space-y-6">
         <div className="text-center max-w-2xl mx-auto space-y-3">
-          <span className="inline-flex items-center gap-2 text-buddhist-gold font-bold text-xs uppercase tracking-widest"><HandHeart size={14}/> Meet your service providers</span>
+          <span className="inline-flex items-center gap-2 text-buddhist-gold font-bold text-xs uppercase tracking-widest"><HandHeart size={14}/> Prayer & Spiritual Guidance</span>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-buddhist-burgundy">Prayer Services & Spiritual Guidance</h2>
-          <p className="text-stone-600 leading-relaxed">Meet our service providers and learn about their services and individual fixed prices.</p>
+          <p className="text-stone-600 leading-relaxed">Learn about the prayer services and spiritual guidance offered by H.E. Gegye Yongyal Rinpoche, including session details and fees.</p>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           <article className="overflow-hidden rounded-2xl border border-amber-100 bg-white shadow-sm">
@@ -61,9 +61,9 @@ export default function Services() {
               <img src={gegyeYongyalRinpoche} alt="Gegye Yongyal Rinpoche" className="h-full w-full object-cover object-top" loading="lazy"/>
             </div>
             <div className="p-5 flex flex-col gap-3">
-              <div><p className="text-xs font-bold uppercase tracking-widest text-buddhist-gold">Service provider</p><h3 className="mt-2 font-serif text-xl font-bold text-buddhist-burgundy">Gegye Yongyal Rinpoche</h3><p className="mt-1 text-sm text-stone-500">Rinpoche · Lama</p></div>
+              <div><p className="text-xs font-bold uppercase tracking-widest text-buddhist-gold">Prayer & Spiritual Guide</p><h3 className="mt-2 font-serif text-xl font-bold text-buddhist-burgundy">Gegye Yongyal Rinpoche</h3><p className="mt-1 text-sm text-stone-500">Rinpoche · Lama</p></div>
               <p className="text-sm leading-relaxed text-stone-600">Prayer services and Buddhist spiritual guidance, with a fixed four-hour session.</p>
-              <div className="rounded-xl bg-amber-50 border border-amber-200 p-3"><p className="text-xs uppercase tracking-wide text-stone-600">Fixed service price</p><p className="mt-1 text-2xl font-bold text-buddhist-burgundy">$500</p><p className="mt-1 text-sm font-medium text-stone-700">For a 4-hour prayer session</p></div>
+              <div className="rounded-xl bg-amber-50 border border-amber-200 p-3"><p className="text-xs uppercase tracking-wide text-stone-600">Four-hour prayer session</p><p className="mt-1 text-2xl font-bold text-buddhist-burgundy">$500</p><p className="mt-1 text-sm font-medium text-stone-700">For a 4-hour prayer session</p></div>
               <button type="button" onClick={() => openBooking('service', 'Prayer Services & Spiritual Guidance')} className="inline-flex w-fit items-center justify-center rounded-full bg-buddhist-burgundy px-4 py-2.5 text-sm font-semibold text-white hover:opacity-90">Book / enquire about prayer services</button>
             </div>
           </article>
