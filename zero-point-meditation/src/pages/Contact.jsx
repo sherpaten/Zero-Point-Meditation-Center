@@ -7,10 +7,33 @@ import AssistantChat from '../components/AssistantChat';
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', subject: 'General Inquiry', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState('');
+  const [website, setWebsite] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSending(true);
+    setError('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, website })
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.ok) {
+        throw new Error(result.error || 'Your message could not be sent. Please try again.');
+      }
+      setSubmitted(true);
+      setFormData({ name: '', email: '', subject: 'General Inquiry', message: '' });
+      setWebsite('');
+    } catch (err) {
+      setError(err.message || 'Your message could not be sent. Please try again.');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -102,6 +125,10 @@ export default function Contact() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
+              <div aria-hidden="true" className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden">
+                <label htmlFor="contact-website">Leave this field empty</label>
+                <input id="contact-website" type="text" tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
+              </div>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <label className="text-xs font-bold text-stone-700 uppercase tracking-wider">Your Name</label>
@@ -155,11 +182,13 @@ export default function Contact() {
                 />
               </div>
 
+              {error && <p role="alert" className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-xl p-3">{error}</p>}
               <button
                 type="submit"
-                className="w-full py-4 bg-buddhist-burgundy hover:bg-red-900 text-amber-50 font-bold rounded-xl text-xs uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2"
+                disabled={sending}
+                className="w-full py-4 bg-buddhist-burgundy hover:bg-red-900 disabled:opacity-60 disabled:cursor-not-allowed text-amber-50 font-bold rounded-xl text-xs uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2"
               >
-                Send Message <Send size={14} />
+                {sending ? 'Sending…' : 'Send Message'} <Send size={14} />
               </button>
             </form>
           )}
