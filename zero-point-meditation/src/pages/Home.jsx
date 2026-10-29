@@ -8,49 +8,40 @@ import { Calendar, MapPin, ArrowRight, Sparkles, Compass, HeartHandshake, Shield
 // Assets (Convert heavy images to .webp in src/assets for maximum speed on Vercel)
 import buddhaLotus from "../assets/buddha-lotus.webp"; 
 import rinpocheProfile from '../assets/profile.jpg';
-import event2025 from '../assets/Event 1.jpeg';
-import event2024 from '../assets/Event 1.jpeg';
+import worldPeacePrayerDay from '../assets/Events/2025/2025 World Peace Prayer Day.jpg';
+import weeklyMeditationMorning from '../assets/Events/2025/2025 Mindfulness Meditation.jpg';
 import currentEventImage from '../assets/Event 3.jpeg';
 import taraPrayerPoster from '../assets/poste/2026 the sacred Zabtik Dolma (Green Tara) Prayer.jpg';
 
 const eventGallery = [
   {
     id: 1,
-    category: 'Community Event',
-    title: 'Dharma Teaching & Mindfulness',
-    location: 'Rubin Museum of Art, New York',
-    date: '2024',
-    image: event2024,
-    description: 'A moment from the center’s wider community of Buddhist teachings, mindfulness, and shared learning.'
+    category: 'Upcoming Event',
+    title: 'Bardo at THUS',
+    location: 'Tibet House US',
+    date: 'Nov 20',
+    image: currentEventImage,
+    description: 'An upcoming teaching exploring Buddhist perspectives on the bardo, life after death, and reincarnation.'
   },
   {
     id: 2,
-    category: 'World Peace Gathering',
-    title: 'World Peace Prayer Day',
-    location: 'Community gathering',
-    date: '2025',
-    image: event2025,
-    description: 'A gathering focused on prayer, compassion, and the shared aspiration for peace around the world.'
+    category: 'Meditation Practice',
+    title: 'Weekly Meditation Morning',
+    location: 'Zero Point Meditation Center',
+    date: 'Nov 4th',
+    image: weeklyMeditationMorning,
+    description: 'Join the community for a morning of meditation, mindful breathing, and shared practice.'
   },
   {
     id: 3,
-    category: 'Upcoming Event',
-    title: 'Bardo: After Life & Reincarnation',
-    location: 'Hybrid event',
-    date: 'Nov 20, 2026 · 6 PM',
-    image: currentEventImage,
-    description: 'An upcoming teaching exploring the Buddhist perspectives on the bardo, life after death, and reincarnation.'
-  },
-  {
-    id: 4,
-    category: 'Prayer Poster',
-    title: 'The Sacred Zabtik Dolma (Green Tara) Prayer',
-    location: 'Prayer & spiritual practice',
-    date: '2026',
-    image: taraPrayerPoster,
-    description: 'A prayer poster highlighting the sacred Zabtik Dolma (Green Tara) practice.'
+    category: 'Community Event',
+    title: 'World Peace Prayer Day',
+    location: 'Planting Fields, Long Island, New York',
+    date: '2025',
+    image: worldPeacePrayerDay,
+    description: 'A major gathering hosted with community partners, bringing people together through prayer, compassion, unity, and a shared aspiration for world peace.'
   }
-];
+];;
 
 const features = [
   {
