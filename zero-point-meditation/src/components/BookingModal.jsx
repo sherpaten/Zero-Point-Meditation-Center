@@ -27,6 +27,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
   const [message, setMessage] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [paymentPreference, setPaymentPreference] = useState('zelle');
+  const [website, setWebsite] = useState('');
 
   useEffect(() => {
     if (open) {
@@ -34,6 +35,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
       setService(initialService || (initialType === 'event' ? 'Free Morning Meditation' : 'Meditation & Mindfulness'));
       setMessage('');
       setPaymentPreference('zelle');
+      setWebsite('');
     }
   }, [open, initialType, initialService]);
 
@@ -76,7 +78,8 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           phone: form.phone.trim(),
           place: form.place.trim(),
           profession: form.profession.trim(),
-          paymentPreference: type === 'service' ? paymentPreference : 'not_applicable'
+          paymentPreference: type === 'service' ? paymentPreference : 'not_applicable',
+          website
         })
       });
       const result = await response.json().catch(() => ({}));
@@ -95,6 +98,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           ? 'Thank you — your event registration request has been sent. The center will contact you to confirm your place and share any relevant details. No payment is collected through this form.'
           : 'Thank you — your enquiry has been sent to Zero Point Meditation Center. The team will contact you to confirm availability, pricing, and next steps. Please wait for confirmation before making any payment.');
       setForm({ name: '', email: '', phone: '', place: '', profession: '' });
+      setWebsite('');
     } catch (error) {
       setMessage(error.message || 'We could not send your enquiry. Please try again or contact the center directly.');
     } finally {
