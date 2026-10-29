@@ -97,6 +97,7 @@ export default function Services() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [bookingType, setBookingType] = useState('service');
   const [bookingService, setBookingService] = useState('');
+  const [activeServiceTab, setActiveServiceTab] = useState('prayer-services');
   const openBooking = (type, service) => {
     if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
       window.gtag('event', 'service_booking_click', { service_name: service, booking_type: type, button_location: 'services_page' });
@@ -136,9 +137,16 @@ export default function Services() {
             { label: 'Our Guides', id: 'our-guides' },
           ].map((tab) => (
             <button key={tab.id} type="button"
-              onClick={() => document.getElementById(tab.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-              className="shrink-0 rounded-full border border-amber-200 bg-white px-4 sm:px-5 py-2 text-xs sm:text-sm font-bold text-stone-600 transition-colors hover:border-buddhist-burgundy hover:bg-buddhist-burgundy hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-buddhist-gold">
-              {tab.label}
+              onClick={() => {
+                setActiveServiceTab(tab.id);
+                document.getElementById(tab.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
+              aria-pressed={activeServiceTab === tab.id}
+              className={`relative shrink-0 rounded-full px-4 sm:px-5 py-2 text-xs sm:text-sm font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-buddhist-gold ${activeServiceTab === tab.id ? 'text-amber-50' : 'text-stone-600 hover:text-stone-900'}`}>
+              {activeServiceTab === tab.id && (
+                <motion.span layoutId="activeServiceTab" className="absolute inset-0 rounded-full bg-buddhist-burgundy shadow-md" />
+              )}
+              <span className="relative z-10">{tab.label}</span>
             </button>
           ))}
         </div>
