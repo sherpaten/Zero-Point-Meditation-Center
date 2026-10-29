@@ -46,7 +46,8 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
 
   if (!open) return null;
 
-  const isFree = type === 'event' && service === 'Free Morning Meditation';
+  const freeEventNames = ['Free Morning Meditation', 'Free Meditation Class', 'Free Event'];
+  const isFree = type === 'event' && freeEventNames.includes(service);
   function update(event) {
     setForm(current => ({ ...current, [event.target.name]: event.target.value }));
   }
@@ -89,7 +90,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
         });
       }
       setMessage(isFree
-        ? 'Thank you — your free morning meditation registration has been sent. The center will contact you with confirmation and session details. No payment is required.'
+        ? `Thank you — your registration for ${service} has been sent. The center will contact you with confirmation and any session details. No payment is required.`
         : type === 'event'
           ? 'Thank you — your event registration request has been sent. The center will contact you to confirm your place and share any relevant details. No payment is collected through this form.'
           : 'Thank you — your enquiry has been sent to Zero Point Meditation Center. The team will contact you to confirm availability, pricing, and next steps. Please wait for confirmation before making any payment.');
@@ -130,7 +131,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
                 <label htmlFor="booking-service" className="text-sm font-semibold text-stone-800">{type === 'event' ? 'Choose an event' : 'Choose a service'}</label>
                 <select id="booking-service" value={service} onChange={event => { setService(event.target.value); setMessage(''); }} className={fieldClass}>
                   {type === 'event' ? <>
-                    <option>Free Morning Meditation</option><option>Community Gathering</option><option>Prayer Event</option><option>Other Event</option>
+                    <option>Free Morning Meditation</option><option>Free Meditation Class</option><option>Free Event</option><option>Community Gathering</option><option>Prayer Event</option><option>Other Event</option>
                   </> : availableServices.map(item => <option key={item} value={item}>{item}</option>)}
                 </select>
               </div>
