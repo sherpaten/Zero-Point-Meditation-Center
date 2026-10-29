@@ -126,12 +126,6 @@ export default function Services() {
         <meta name="twitter:description" content="Explore prayer ceremonies, Buddhist meditation courses, retreats, and workplace programs offered by Zero Point Meditation Center." />
       </Helmet>
 
-      <motion.header initial={{ opacity: 0, y: -16 }} animate={{ opacity: 1, y: 0 }} className="text-center max-w-3xl mx-auto space-y-4">
-        <span className="inline-flex items-center gap-2 text-buddhist-gold font-bold text-xs uppercase tracking-widest"><Sparkles size={14} /> Explore and connect</span>
-        <h1 className="font-serif text-4xl sm:text-5xl font-bold text-buddhist-burgundy">Services, Courses & Retreats</h1>
-        <p className="text-stone-600 leading-relaxed">Explore the services currently offered by Zero Point Meditation Center, with recommended pricing for online and in-person experiences where available. Select any service to send a booking enquiry; the centre will confirm availability and the final amount before payment.</p>
-      </motion.header>
-
       <ServiceSection
         eyebrow="Prayer & spiritual support"
         title="Prayer Services & Blessing Ceremonies"
