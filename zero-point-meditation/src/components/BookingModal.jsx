@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { X, CalendarDays, CreditCard, ShieldCheck } from 'lucide-react';
+import { X, CalendarDays, CreditCard, ShieldCheck, CheckCircle2, LoaderCircle } from 'lucide-react';
 
 const sessions = [
   { value: '2026-11-07', label: 'Saturday, November 7, 2026' },
@@ -25,12 +25,15 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
   const [date, setDate] = useState(sessions[0].value);
   const [form, setForm] = useState({ name: '', email: '', phone: '', place: '', profession: '' });
   const [message, setMessage] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [paymentPreference, setPaymentPreference] = useState('zelle');
 
   useEffect(() => {
     if (open) {
       setType(initialType);
       setService(initialService || (initialType === 'event' ? 'Free Morning Meditation' : 'Meditation & Mindfulness'));
       setMessage('');
+      setPaymentPreference('zelle');
     }
   }, [open, initialType, initialService]);
 
@@ -47,18 +50,51 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
   function update(event) {
     setForm(current => ({ ...current, [event.target.name]: event.target.value }));
   }
-  function submit(event) {
+  async function submit(event) {
     event.preventDefault();
+    setSubmitting(true);
+    setMessage('');
     if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
       window.gtag('event', 'booking_form_submit_attempt', {
         service_name: service,
         booking_type: type,
-        form_location: 'booking_modal'
+        form_location: 'booking_modal',
+        payment_preference: type === 'service' ? paymentPreference : 'not_applicable'
       });
     }
-    setMessage(isFree
-      ? 'Your details are ready, but registration is not open yet. The center must finish configuring the secure booking database and confirmation email before submissions can be accepted.'
-      : 'This is a booking enquiry. Online payment and confirmed bookings are not enabled yet; the center must finish configuring the booking system and confirm its payment gateway before paid bookings can be accepted.');
+    try {
+      const response = await fetch('/api/booking', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type,
+          service,
+          date: type === 'event' && service === 'Free Morning Meditation' ? date : '',
+          name: form.name.trim(),
+          email: form.email.trim(),
+          phone: form.phone.trim(),
+          place: form.place.trim(),
+          profession: form.profession.trim(),
+          paymentPreference: type === 'service' ? paymentPreference : 'not_applicable'
+        })
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(result.error || 'We could not send your request right now.');
+      if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+        window.gtag('event', 'booking_enquiry_submitted', {
+          service_name: service,
+          booking_type: type,
+          form_location: 'booking_modal',
+          payment_preference: type === 'service' ? paymentPreference : 'not_applicable'
+        });
+      }
+      setMessage('Thank you — your enquiry has been sent to Zero Point Meditation Center. The team will review your request and contact you to confirm availability, pricing, and next steps. Please wait for confirmation before making any payment.');
+      setForm({ name: '', email: '', phone: '', place: '', profession: '' });
+    } catch (error) {
+      setMessage(error.message || 'We could not send your enquiry. Please try again or contact the center directly.');
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -109,10 +145,24 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
             <div><label htmlFor="booking-place" className="text-sm font-semibold text-stone-800">Place / city / country *</label><input id="booking-place" className={fieldClass} name="place" autoComplete="address-level2" value={form.place} onChange={update} maxLength={120} required /></div>
             <div className="sm:col-span-2"><label htmlFor="booking-profession" className="text-sm font-semibold text-stone-800">Profession *</label><input id="booking-profession" className={fieldClass} name="profession" autoComplete="organization-title" value={form.profession} onChange={update} maxLength={120} required /></div>
           </div>
-          {type === 'service' && <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-stone-700"><p className="flex items-center gap-2 font-semibold text-buddhist-burgundy"><CreditCard size={17}/> Payment will be added after gateway approval</p><p className="mt-1">The center is confirming its US bank/payment gateway. We will not collect card details here or mark paid bookings as confirmed until secure payment processing is connected.</p></div>}
-          {message && <p role="status" className="rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm leading-6 text-amber-950">{message}</p>}
-          <button type="submit" className="w-full rounded-xl bg-buddhist-burgundy px-5 py-3.5 font-semibold text-white transition hover:bg-buddhist-burgundy-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700">{isFree ? 'Continue with free registration' : type === 'service' ? 'Continue to booking request' : 'Continue with event booking'}</button>
-          <p className="flex items-start gap-2 text-xs leading-5 text-stone-500"><ShieldCheck size={15} className="mt-0.5 shrink-0"/> Your information should only be submitted once secure booking is enabled. Do not enter payment-card details into this form.</p>
+          {type === 'service' && <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-stone-700 space-y-3">
+            <p className="flex items-center gap-2 font-semibold text-buddhist-burgundy"><CreditCard size={17}/> Payment preference</p>
+            <p>Payment is only requested after the center reviews your enquiry and confirms the service and amount. Please do not pay before receiving confirmation.</p>
+            <fieldset className="space-y-2">
+              <legend className="font-semibold text-stone-800">How would you prefer to pay?</legend>
+              <label className="flex items-start gap-2 rounded-lg border border-amber-200 bg-white p-3">
+                <input type="radio" name="paymentPreference" value="zelle" checked={paymentPreference === 'zelle'} onChange={() => setPaymentPreference('zelle')} className="mt-1 accent-amber-800" />
+                <span><span className="block font-semibold text-stone-900">Zelle</span><span className="block text-xs text-stone-600">I can use Zelle if the center confirms this option for my booking.</span></span>
+              </label>
+              <label className="flex items-start gap-2 rounded-lg border border-amber-200 bg-white p-3">
+                <input type="radio" name="paymentPreference" value="other" checked={paymentPreference === 'other'} onChange={() => setPaymentPreference('other')} className="mt-1 accent-amber-800" />
+                <span><span className="block font-semibold text-stone-900">Discuss another payment option</span><span className="block text-xs text-stone-600">Please contact me about another available payment method.</span></span>
+              </label>
+            </fieldset>
+          </div>}
+          {message && <p role="status" className={message.startsWith('Thank you') ? 'rounded-xl border border-emerald-300 bg-emerald-50 p-4 text-sm leading-6 text-emerald-950' : 'rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm leading-6 text-amber-950'}>{message.startsWith('Thank you') && <CheckCircle2 size={17} className="inline mr-2" />}{message}</p>}
+          <button type="submit" disabled={submitting} className="flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3.5 font-semibold text-white transition hover:bg-buddhist-burgundy-hover disabled:cursor-wait disabled:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700">{submitting && <LoaderCircle size={18} className="animate-spin" />}{submitting ? 'Sending enquiry…' : isFree ? 'Register for free session' : type === 'service' ? 'Send booking enquiry' : 'Send event enquiry'}</button>
+          <p className="flex items-start gap-2 text-xs leading-5 text-stone-500"><ShieldCheck size={15} className="mt-0.5 shrink-0"/> This form sends an enquiry only. Your booking is not confirmed and no payment is collected until the center contacts you.</p>
         </form>
       </section>
     </div>
