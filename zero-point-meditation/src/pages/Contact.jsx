@@ -7,35 +7,35 @@ import AssistantChat from '../components/AssistantChat';
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', subject: 'General Inquiry', message: '' });
   const [submitted, setSubmitted] = useState(false);
-  const [whatsappUrl, setWhatsappUrl] = useState('');
+  const [sending, setSending] = useState(false);
   const [error, setError] = useState('');
   const [website, setWebsite] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    // Ignore automated submissions that fill the hidden honeypot field.
     if (website.trim()) return;
+    if (sending) return;
 
-    const message = [
-      'Contact form enquiry — Zero Point Meditation Center',
-      '',
-      `Name: ${formData.name}`,
-      `Email: ${formData.email}`,
-      `Subject: ${formData.subject}`,
-      '',
-      'Message:',
-      formData.message
-    ].join('\n');
-
-    const whatsappUrl = `https://wa.me/17326195329?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
-
-    // Clear the form immediately so visitors can submit another enquiry.
-    setFormData({ name: '', email: '', subject: 'General Inquiry', message: '' });
-    setWebsite('');
-    setWhatsappUrl('');
-    setSubmitted(false);
+    setSending(true);
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, website })
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.ok) {
+        throw new Error(result.error || 'We could not send your message. Please try again or email the center directly.');
+      }
+      setSubmitted(true);
+      setFormData({ name: '', email: '', subject: 'General Inquiry', message: '' });
+      setWebsite('');
+    } catch (err) {
+      setError(err.message || 'We could not send your message. Please try again or email the center directly.');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -82,8 +82,8 @@ export default function Contact() {
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="text-buddhist-gold shrink-0" size={18} />
-                <a href="mailto:info@zeropointmeditation.org" className="hover:text-buddhist-gold transition-colors">
-                  info@zeropointmeditation.org
+                <a href="mailto:info@zeropointmeditationcenter.org" className="hover:text-buddhist-gold transition-colors">
+                  info@zeropointmeditationcenter.org
                 </a>
               </div>
               <div className="flex items-center gap-3">
@@ -117,15 +117,12 @@ export default function Contact() {
               <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center">
                 <Sparkles size={28} />
               </div>
-              <h3 className="font-serif text-2xl font-bold text-stone-900">Continue in WhatsApp</h3>
+              <h3 className="font-serif text-2xl font-bold text-stone-900">Message sent successfully</h3>
               <p className="text-stone-600 text-xs max-w-sm">
-                Your message has been prepared in WhatsApp. Please review it and tap Send there to deliver your enquiry to +1 (732) 619-5329.
+                Thank you for contacting Zero Point Meditation Center. Your message has been emailed to our team at info@zeropointmeditationcenter.org.
               </p>
-              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold">
-                Open WhatsApp
-              </a>
               <button onClick={() => setSubmitted(false)} className="text-xs font-bold text-buddhist-burgundy underline">
-                Edit message
+                Send another message
               </button>
             </div>
           ) : (
@@ -188,11 +185,13 @@ export default function Contact() {
               </div>
 
               
+              {error && <p role="alert" className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-xl p-3">{error}</p>}
               <button
                 type="submit"
+                disabled={sending}
                 className="w-full py-4 bg-buddhist-burgundy hover:bg-red-900 disabled:opacity-60 disabled:cursor-not-allowed text-amber-50 font-bold rounded-xl text-xs uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2"
               >
-                Send via WhatsApp <Send size={14} />
+                {sending ? 'Sending message…' : 'Send message by email'} <Send size={14} />
               </button>
             </form>
           )}
