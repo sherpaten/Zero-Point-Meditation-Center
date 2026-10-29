@@ -8,6 +8,7 @@ import gegyeYongyalRinpoche from "../assets/Teams/Gegye Yongyal Rinpoche's.png";
 
 export default function Teachings() {
   const [bookingOpen, setBookingOpen] = useState(false);
+  const [selectedTeacher, setSelectedTeacher] = useState('');
 
   return (
     <div className="mx-auto max-w-6xl space-y-12 px-6 py-12">
@@ -75,7 +76,7 @@ export default function Teachings() {
               </span>
               <button
                 type="button"
-                onClick={() => setBookingOpen(true)}
+                onClick={() => { setSelectedTeacher('Karma Gyatso Lopon La'); setBookingOpen(true); }}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-buddhist-burgundy px-5 py-3 text-sm font-semibold text-white transition hover:bg-buddhist-burgundy-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700"
               >
                 Book a lecture <ArrowRight size={16} />
@@ -117,7 +118,7 @@ export default function Teachings() {
             <div className="flex flex-wrap items-center gap-3 border-t border-amber-100 pt-5">
               <button
                 type="button"
-                onClick={() => setBookingOpen(true)}
+                onClick={() => { setSelectedTeacher('H.E. Gegye Yongyal Rinpoche'); setBookingOpen(true); }}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-buddhist-burgundy px-5 py-3 text-sm font-semibold text-white transition hover:bg-buddhist-burgundy-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700"
               >
                 Book a lecture <ArrowRight size={16} />
@@ -132,6 +133,7 @@ export default function Teachings() {
         onClose={() => setBookingOpen(false)}
         initialType="service"
         initialService="Meditation & Buddhist Practices"
+        initialTeacher={selectedTeacher}
         fixedSelection
       />
     </div>
