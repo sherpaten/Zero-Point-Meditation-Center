@@ -1,12 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { X, CalendarDays, CreditCard, ShieldCheck, CheckCircle2, LoaderCircle } from 'lucide-react';
 
-const sessions = [
+const announcedMorningMeditationDates = [
   { value: '2026-11-07', label: 'Saturday, November 7, 2026' },
   { value: '2026-11-08', label: 'Sunday, November 8, 2026' },
   { value: '2026-11-14', label: 'Saturday, November 14, 2026' },
   { value: '2026-11-15', label: 'Sunday, November 15, 2026' },
 ];
+function dateValue(d = new Date()) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+function weekendSessions() {
+ const out=[], now=new Date(), d=new Date(now.getFullYear(),now.getMonth(),now.getDate()), end=new Date(2026,11,31);
+ while(d<=end){if(d.getDay()===0||d.getDay()===6)out.push({value:dateValue(d),label:d.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'})});d.setDate(d.getDate()+1);}
+ return out;
+}
+function sessionsFor(service) {
+ if(service==='Free Weekend Community Classes')return weekendSessions();
+ if(service==='Free Morning Meditation')return announcedMorningMeditationDates.filter(s=>s.value>=dateValue());
+ return [];
+}
 
 const availableServices = [
   'Meditation & Mindfulness',
@@ -19,10 +30,11 @@ const availableServices = [
 
 const fieldClass = 'mt-1 w-full rounded-xl border border-stone-300 bg-white px-3 py-2.5 text-stone-900 outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/20';
 
-export default function BookingModal({ open, onClose, initialType = 'event', initialService = '', fixedSelection = false }) {
+export default function BookingModal({ open, onClose, initialType = 'event', initialService = '', initialTeacher = '', fixedSelection = false }) {
   const [type, setType] = useState(initialType);
   const [service, setService] = useState(initialService || 'Free Morning Meditation');
-  const [date, setDate] = useState(sessions[0].value);
+  const [teacher, setTeacher] = useState(initialTeacher);
+  const [date, setDate] = useState('');
   const [form, setForm] = useState({ name: '', email: '', phone: '', place: '', profession: '' });
   const [message, setMessage] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -32,12 +44,15 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
   useEffect(() => {
     if (open) {
       setType(initialType);
-      setService(initialService || (initialType === 'event' ? 'Free Morning Meditation' : 'Meditation & Mindfulness'));
+      const nextService = initialService || (initialType === 'event' ? 'Free Morning Meditation' : 'Meditation & Mindfulness');
+      setService(nextService);
+      setTeacher(initialTeacher);
+      setDate(sessionsFor(nextService)[0]?.value || '');
       setMessage('');
       setPaymentPreference('zelle');
       setWebsite('');
     }
-  }, [open, initialType, initialService]);
+  }, [open, initialType, initialService, initialTeacher]);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -48,8 +63,11 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
 
   if (!open) return null;
 
-  const freeEventNames = ['Free Morning Meditation', 'Free Meditation Class', 'Free Event'];
+  const freeEventNames = ['Free Morning Meditation', 'Free Weekend Community Classes', 'Free Meditation Class', 'Free Event'];
   const isFree = type === 'event' && freeEventNames.includes(service);
+  const dateSessions = sessionsFor(service);
+  const requiresDate = type === 'event' && ['Free Morning Meditation', 'Free Weekend Community Classes'].includes(service);
+  const hasAvailableDate = !requiresDate || dateSessions.length > 0;
   function update(event) {
     setForm(current => ({ ...current, [event.target.name]: event.target.value }));
   }
@@ -72,7 +90,8 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
         body: JSON.stringify({
           type,
           service,
-          date: type === 'event' && service === 'Free Morning Meditation' ? date : '',
+          date: type === 'event' && ['Free Morning Meditation', 'Free Weekend Community Classes'].includes(service) ? date : '',
+          teacher: type === 'service' ? teacher : '',
           name: form.name.trim(),
           email: form.email.trim(),
           phone: form.phone.trim(),
@@ -126,30 +145,33 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
             <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
               <p className="text-xs font-bold uppercase tracking-wider text-amber-800">Selected teacher service</p>
               <p className="mt-1 font-semibold text-buddhist-burgundy">{service}</p>
+              {teacher && <p className="mt-1 text-sm text-stone-700">Teacher: {teacher}</p>
             </div>
           ) : (
             <div className="grid gap-4 sm:grid-cols-2">
               <div>
                 <label htmlFor="booking-type" className="text-sm font-semibold text-stone-800">What would you like to book?</label>
-                <select id="booking-type" value={type} onChange={event => { setType(event.target.value); setService(event.target.value === 'event' ? 'Free Morning Meditation' : 'Meditation & Mindfulness'); setMessage(''); }} className={fieldClass}>
+                <select id="booking-type" value={type} onChange={event => { const nextType=event.target.value; const nextService=nextType==='event'?'Free Morning Meditation':'Meditation & Mindfulness'; setType(nextType); setService(nextService); setDate(sessionsFor(nextService)[0]?.value||''); setMessage(''); }} className={fieldClass}>
                   <option value="event">Event / class</option><option value="service">Service / appointment</option>
                 </select>
               </div>
               <div>
                 <label htmlFor="booking-service" className="text-sm font-semibold text-stone-800">{type === 'event' ? 'Choose an event' : 'Choose a service'}</label>
-                <select id="booking-service" value={service} onChange={event => { setService(event.target.value); setMessage(''); }} className={fieldClass}>
+                <select id="booking-service" value={service} onChange={event => { setService(event.target.value); setDate(sessionsFor(event.target.value)[0]?.value||''); setMessage(''); }} className={fieldClass}>
                   {type === 'event' ? <>
-                    <option>Free Morning Meditation</option><option>Free Meditation Class</option><option>Free Event</option><option>Community Gathering</option><option>Prayer Event</option><option>Other Event</option>
+                    <option>Free Morning Meditation</option><option>Free Weekend Community Classes</option><option>Free Meditation Class</option><option>Free Event</option><option>Community Gathering</option><option>Prayer Event</option><option>Other Event</option>
                   </> : availableServices.map(item => <option key={item} value={item}>{item}</option>)}
                 </select>
               </div>
             </div>
           )}
-          {type === 'event' && service === 'Free Morning Meditation' && <div className="rounded-xl bg-amber-50 p-4 text-sm text-stone-700">
-            <p className="flex items-center gap-2 font-semibold text-buddhist-burgundy"><CalendarDays size={17}/> Free online session · 6:30–7:15 AM</p>
-            <p className="mt-1">Time zone is to be confirmed by the center. Zoom joining details would be sent after the booking system is configured.</p>
-            <label htmlFor="booking-date" className="mt-3 block font-semibold">Choose a date</label>
-            <select id="booking-date" value={date} onChange={event => setDate(event.target.value)} className={fieldClass}>{sessions.map(session => <option key={session.value} value={session.value}>{session.label}</option>)}</select>
+          {requiresDate && <div className="rounded-xl bg-amber-50 p-4 text-sm text-stone-700">
+            <p className="flex items-center gap-2 font-semibold text-buddhist-burgundy"><CalendarDays size={17}/> {service === 'Free Morning Meditation' ? 'Free Morning Meditation · 6:30–7:15 AM' : 'Free Weekend Community Classes'}</p>
+            <p className="mt-1">{service === 'Free Morning Meditation' ? 'Only dates announced by the center are listed here. Time zone and joining details will be confirmed by the center.' : 'Community classes are scheduled for Saturdays and Sundays through December 31, 2026. The center will confirm session details.'}</p>
+            {dateSessions.length ? <>
+              <label htmlFor="booking-date" className="mt-3 block font-semibold">Choose a date</label>
+              <select id="booking-date" value={date} onChange={event => setDate(event.target.value)} className={fieldClass} required>{dateSessions.map(session => <option key={session.value} value={session.value}>{session.label}</option>)}</select>
+            </> : <p className="mt-3 font-semibold text-amber-900">No upcoming dates are currently announced. Please contact the center for the next session.</p>}
           </div>}
           <div className="grid gap-4 sm:grid-cols-2">
             <div><label htmlFor="booking-name" className="text-sm font-semibold text-stone-800">Full name *</label><input id="booking-name" className={fieldClass} name="name" autoComplete="name" value={form.name} onChange={update} maxLength={120} required /></div>
@@ -174,7 +196,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
             </fieldset>
           </div>}
           {message && <p role="status" className={message.startsWith('Thank you') ? 'rounded-xl border border-emerald-300 bg-emerald-50 p-4 text-sm leading-6 text-emerald-950' : 'rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm leading-6 text-amber-950'}>{message.startsWith('Thank you') && <CheckCircle2 size={17} className="inline mr-2" />}{message}</p>}
-          <button type="submit" disabled={submitting} className="flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3.5 font-semibold text-white transition hover:bg-buddhist-burgundy-hover disabled:cursor-wait disabled:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700">{submitting && <LoaderCircle size={18} className="animate-spin" />}{submitting ? 'Sending enquiry…' : isFree ? 'Register for free session' : type === 'service' ? 'Send booking enquiry' : 'Send event enquiry'}</button>
+          <button type="submit" disabled={submitting || !hasAvailableDate} className="flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3.5 font-semibold text-white transition hover:bg-buddhist-burgundy-hover disabled:cursor-wait disabled:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700">{submitting && <LoaderCircle size={18} className="animate-spin" />}{submitting ? 'Sending enquiry…' : isFree ? 'Register for free session' : type === 'service' ? 'Send booking enquiry' : 'Send event enquiry'}</button>
           <p className="flex items-start gap-2 text-xs leading-5 text-stone-500"><ShieldCheck size={15} className="mt-0.5 shrink-0"/> This form sends an enquiry only. Your booking is not confirmed and no payment is collected until the center contacts you.</p>
         </form>
       </section>
