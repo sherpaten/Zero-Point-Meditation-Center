@@ -88,7 +88,11 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           payment_preference: type === 'service' ? paymentPreference : 'not_applicable'
         });
       }
-      setMessage('Thank you — your enquiry has been sent to Zero Point Meditation Center. The team will review your request and contact you to confirm availability, pricing, and next steps. Please wait for confirmation before making any payment.');
+      setMessage(isFree
+        ? 'Thank you — your free morning meditation registration has been sent. The center will contact you with confirmation and session details. No payment is required.'
+        : type === 'event'
+          ? 'Thank you — your event registration request has been sent. The center will contact you to confirm your place and share any relevant details. No payment is collected through this form.'
+          : 'Thank you — your enquiry has been sent to Zero Point Meditation Center. The team will contact you to confirm availability, pricing, and next steps. Please wait for confirmation before making any payment.');
       setForm({ name: '', email: '', phone: '', place: '', profession: '' });
     } catch (error) {
       setMessage(error.message || 'We could not send your enquiry. Please try again or contact the center directly.');
