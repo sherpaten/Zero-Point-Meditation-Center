@@ -62,9 +62,9 @@ const workplaceServices = [
   { name: 'Leadership and Reflective Practice Program', duration: '3 months', price: '$6,000–$12,000' },
 ];
 
-function ServiceSection({ eyebrow, title, description, icon, items, category }) {
+function ServiceSection({ id, eyebrow, title, description, icon, items, category }) {
   return (
-    <section className="space-y-6">
+    <section id={id} className="scroll-mt-32 space-y-6">
       <div className="mx-auto max-w-3xl space-y-3 text-center">
         <span className="inline-flex items-center gap-2 text-buddhist-gold font-bold text-xs uppercase tracking-widest">{icon}{eyebrow}</span>
         <h2 className="font-serif text-3xl sm:text-4xl font-bold text-buddhist-burgundy">{title}</h2>
@@ -126,7 +126,26 @@ export default function Services() {
         <meta name="twitter:description" content="Explore prayer ceremonies, Buddhist meditation courses, retreats, and workplace programs offered by Zero Point Meditation Center." />
       </Helmet>
 
+      <nav aria-label="Navigate service categories" className="sticky top-0 z-30 -mx-5 sm:-mx-6 px-5 sm:px-6 py-3 border-y border-amber-100 bg-[#FAF6F0]/95 backdrop-blur-md">
+        <div className="mx-auto flex max-w-5xl items-center justify-start sm:justify-center gap-2 overflow-x-auto">
+          {[
+            { label: 'Prayer Services', id: 'prayer-services' },
+            { label: 'Courses', id: 'courses' },
+            { label: 'Retreats', id: 'retreats' },
+            { label: 'Corporate Programs', id: 'corporate-programs' },
+            { label: 'Our Guides', id: 'our-guides' },
+          ].map((tab) => (
+            <button key={tab.id} type="button"
+              onClick={() => document.getElementById(tab.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+              className="shrink-0 rounded-full border border-amber-200 bg-white px-4 sm:px-5 py-2 text-xs sm:text-sm font-bold text-stone-600 transition-colors hover:border-buddhist-burgundy hover:bg-buddhist-burgundy hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-buddhist-gold">
+              {tab.label}
+            </button>
+          ))}
+        </div>
+      </nav>
+
       <ServiceSection
+        id="prayer-services"
         eyebrow="Prayer & spiritual support"
         title="Prayer Services & Blessing Ceremonies"
         description="Traditional Buddhist prayers, blessings, dedications, and ceremonies for individuals, families, homes, and communities."
@@ -136,6 +155,7 @@ export default function Services() {
       />
 
       <ServiceSection
+        id="courses"
         eyebrow="Learning & practice"
         title="Meditation & Buddhist Courses"
         description="Learn meditation, Buddhist teachings, philosophy, and traditional perspectives through guided sessions and multi-session courses."
@@ -145,6 +165,7 @@ export default function Services() {
       />
 
       <ServiceSection
+        id="retreats"
         eyebrow="Practice in depth"
         title="Meditation & Buddhist Retreats"
         description="Half-day, full-day, multi-day, private, and organizational retreats for deeper study and practice."
@@ -154,6 +175,7 @@ export default function Services() {
       />
 
       <ServiceSection
+        id="corporate-programs"
         eyebrow="Organizations & leadership"
         title="Workplace & Corporate Programs"
         description="Meditation, mindfulness, compassion, ethics, and reflective leadership programs for teams and organizations."
@@ -162,7 +184,7 @@ export default function Services() {
         category={bookWorkplace}
       />
 
-      <section className="space-y-6">
+      <section id="our-guides" className="scroll-mt-32 space-y-6">
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <span className="inline-flex items-center gap-2 text-buddhist-gold font-bold text-xs uppercase tracking-widest"><HandHeart size={14} /> Meet our guides</span>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-buddhist-burgundy">Prayer & Spiritual Guidance</h2>
