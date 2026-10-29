@@ -381,10 +381,35 @@ function EventPhotoSlider({ item, className = '' }) {
   );
 }
 
+function getEventDateSortKey(dateLabel) {
+  const value = String(dateLabel || '');
+  const yearMatch = value.match(/\\b(20\\d{2}|19\\d{2})\\b/);
+  const year = yearMatch ? Number(yearMatch[1]) : 0;
+  const monthNames = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+  const lower = value.toLowerCase();
+  const month = monthNames.findIndex((name) => lower.includes(name)) + 1;
+  const dayMatch = value.match(/\\b(?:january|february|march|april|may|june|july|august|september|october|november|december)\\s+(\\d{1,2})(?:st|nd|rd|th)?\\b/i)
+    || value.match(/\\b(\\d{1,2})(?:st|nd|rd|th)?\\s+(?:january|february|march|april|may|june|july|august|september|october|november|december)\\b/i);
+  const day = dayMatch ? Number(dayMatch[1]) : 0;
+  // Unknown years/dates are kept after dated entries rather than guessed.
+  return { year, month, day, known: Boolean(yearMatch) };
+}
+
+function compareEventsNewestFirst(a, b) {
+  const dateA = getEventDateSortKey(a.date);
+  const dateB = getEventDateSortKey(b.date);
+  if (dateA.known !== dateB.known) return dateA.known ? -1 : 1;
+  return dateB.year - dateA.year || dateB.month - dateA.month || dateB.day - dateA.day;
+}
+
 export default function Events() {
   const [filter, setFilter] = useState('Current');
   const [selectedMedia, setSelectedMedia] = useState(null);
-  const filteredItems = galleryItems.filter((item) => item.group === filter);
+  // Reverse chronological order applies to every archive, including Older.
+  const filteredItems = galleryItems
+    .filter((item) => item.group === filter)
+    .slice()
+    .sort(compareEventsNewestFirst);
 
   const getBadgeIcon = (type) => {
     if (type === 'poster') return <FileText size={12} />;
