@@ -36,6 +36,9 @@ export default async function handler(req, res) {
     try { return JSON.parse(req.body); } catch { return {}; }
   })() : (req.body || {});
 
+  // Honeypot: normal visitors leave this hidden field empty. Silently ignore bots that fill it.
+  if (clean(body.website, 200)) return res.status(200).json({ ok: true, receiptSent: false });
+
   const type = clean(body.type, 20);
   const service = clean(body.service, maxLengths.service);
   const name = clean(body.name, maxLengths.name);
