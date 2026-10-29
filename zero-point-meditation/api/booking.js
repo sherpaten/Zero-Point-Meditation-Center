@@ -1,7 +1,7 @@
 import { createHmac } from 'node:crypto';
 
 const allowedTypes = new Set(['event', 'service']);
-const maxLengths = { name: 120, email: 254, phone: 40, place: 120, profession: 120, service: 160, date: 40 };
+const maxLengths = { name: 120, email: 254, phone: 40, place: 120, profession: 120, service: 160, date: 40, teacher: 160 };
 const siteUrl = 'https://www.zeropointmeditationcenter.org';
 
 function clean(value, maxLength = 500) {
@@ -47,6 +47,7 @@ export default async function handler(req, res) {
   const place = clean(body.place, maxLengths.place);
   const profession = clean(body.profession, maxLengths.profession);
   const date = clean(body.date, maxLengths.date);
+  const teacher = clean(body.teacher, maxLengths.teacher);
   const paymentPreference = clean(body.paymentPreference, 40);
 
   if (!allowedTypes.has(type) || !service || !name || !email || !phone || !place || !profession) {
@@ -76,6 +77,7 @@ export default async function handler(req, res) {
     '',
     'Type: ' + type,
     'Service or event: ' + service,
+    'Teacher: ' + (teacher || 'Not specified'),
     'Requested date: ' + (date || 'Not specified'),
     'Name: ' + name,
     'Email: ' + email,
@@ -99,6 +101,7 @@ export default async function handler(req, res) {
     'We have received your booking enquiry and sent it to the center team for review.',
     '',
     'Service or event: ' + service,
+    'Teacher: ' + (teacher || 'Not specified'),
     'Requested date: ' + (date || 'Not specified'),
     '',
     'This email confirms receipt of your enquiry only. Your booking is not confirmed yet, and no payment has been collected.',
