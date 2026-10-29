@@ -23,7 +23,7 @@ export default async function handler(req, res) {
   }
 
   const apiKey = process.env.RESEND_API_KEY;
-  const toEmail = process.env.BOOKING_TO_EMAIL || 'info@zeropointmeditation.org';
+  const toEmail = process.env.BOOKING_TO_EMAIL || 'bookings@zeropointmeditationcenter.org';
   const fromEmail = process.env.BOOKING_FROM_EMAIL;
 
   if (!apiKey || !fromEmail) {
