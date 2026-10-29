@@ -14,6 +14,8 @@ export default function Contact() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setError('');
+    // Ignore automated submissions that fill the hidden honeypot field.
+    if (website.trim()) return;
 
     const message = [
       'Contact form enquiry — Zero Point Meditation Center',
