@@ -289,16 +289,16 @@ const galleryItems = [
 
   // ==================== POSTERS & NEWS ====================
   // Edit poster/news titles and descriptions. Year-specific posters stay in their matching collection.
-  { id: 32, group: 'Poste&News', title: 'ADD TITLE — 2024 Poster', type: 'poster', category: 'Posters', date: '2024 — ADD DATE', location: 'ADD LOCATION', image: poster2024, description: 'ADD POSTER DETAILS.' },
-  { id: 33, group: 'Poste&News', title: 'ADD TITLE — 2025 Poster', type: 'poster', category: 'Posters', date: '2025 — ADD DATE', location: 'ADD LOCATION', image: poster2025, description: 'ADD POSTER DETAILS.' },
-  { id: 34, group: 'Poste&News', title: 'Sacred Zabtik Dolma (Green Tara) Prayer — EDIT DETAILS', type: 'poster', category: 'Posters', date: '2026 — ADD DATE', location: 'ADD LOCATION', image: poster2026Tara, description: 'ADD POSTER DETAILS.' },
-  { id: 35, group: 'Poste&News', title: 'ADD POSTER OR NEWS TITLE', type: 'poster', category: 'Posters', date: 'ADD DATE', location: 'ADD LOCATION', image: posterExtra, description: 'ADD POSTER DETAILS.' },
-  { id: 36, group: 'Poste&News', title: 'ADD POSTER OR NEWS TITLE — 1', type: 'poster', category: 'Posters', date: 'ADD DATE', location: 'ADD LOCATION', image: posterOneNew, description: 'ADD POSTER DETAILS.' },
-  { id: 37, group: 'Poste&News', title: 'ADD POSTER OR NEWS TITLE — 2', type: 'poster', category: 'Posters', date: 'ADD DATE', location: 'ADD LOCATION', image: posterTwoNew, description: 'ADD POSTER DETAILS.' },
-  { id: 38, group: 'Poste&News', title: 'ADD POSTER OR NEWS TITLE — 3', type: 'poster', category: 'Posters', date: 'ADD DATE', location: 'ADD LOCATION', image: posterThreeNew, description: 'ADD POSTER DETAILS.' },
-  { id: 39, group: 'Poste&News', title: 'ADD POSTER OR NEWS TITLE — 6', type: 'poster', category: 'Posters', date: 'ADD DATE', location: 'ADD LOCATION', image: posterSixNew, description: 'ADD POSTER DETAILS.' },
-  { id: 40, group: 'Poste&News', title: 'ADD POSTER OR NEWS TITLE — 7', type: 'poster', category: 'Posters', date: 'ADD DATE', location: 'ADD LOCATION', image: posterSevenNew, description: 'ADD POSTER DETAILS.' },
-  { id: 41, group: 'Poste&News', title: 'ADD POSTER OR NEWS TITLE — 8', type: 'poster', category: 'Posters', date: 'ADD DATE', location: 'ADD LOCATION', image: posterEightNew, description: 'ADD POSTER DETAILS.' },
+  { id: 32, group: 'Poste&News', title: 'Archived poster — 2024', type: 'poster', category: 'Posters', date: '2024', location: 'Zero Point Meditation Center archive', image: poster2024, description: 'Archived promotional poster. Contact the center for event details.' },
+  { id: 33, group: 'Poste&News', title: 'Archived poster — 2025', type: 'poster', category: 'Posters', date: '2025', location: 'Zero Point Meditation Center archive', image: poster2025, description: 'Archived promotional poster. Contact the center for event details.' },
+  { id: 34, group: 'Poste&News', title: 'Sacred Zabtik Dolma (Green Tara) Prayer', type: 'poster', category: 'Posters', date: '2026', location: 'Zero Point Meditation Center archive', image: poster2026Tara, description: 'Archived poster for the Sacred Zabtik Dolma (Green Tara) Prayer. Contact the center for event details.' },
+  { id: 35, group: 'Poste&News', title: 'Archived poster', type: 'poster', category: 'Posters', date: 'Date not listed', location: 'Zero Point Meditation Center archive', image: posterExtra, description: 'Archived poster; event details are not listed.' },
+  { id: 36, group: 'Poste&News', title: 'Archived poster 1', type: 'poster', category: 'Posters', date: 'Date not listed', location: 'Zero Point Meditation Center archive', image: posterOneNew, description: 'Archived poster; event details are not listed.' },
+  { id: 37, group: 'Poste&News', title: 'Archived poster 2', type: 'poster', category: 'Posters', date: 'Date not listed', location: 'Zero Point Meditation Center archive', image: posterTwoNew, description: 'Archived poster; event details are not listed.' },
+  { id: 38, group: 'Poste&News', title: 'Archived poster 3', type: 'poster', category: 'Posters', date: 'Date not listed', location: 'Zero Point Meditation Center archive', image: posterThreeNew, description: 'Archived poster; event details are not listed.' },
+  { id: 39, group: 'Poste&News', title: 'Archived poster 6', type: 'poster', category: 'Posters', date: 'Date not listed', location: 'Zero Point Meditation Center archive', image: posterSixNew, description: 'Archived poster; event details are not listed.' },
+  { id: 40, group: 'Poste&News', title: 'Archived poster 7', type: 'poster', category: 'Posters', date: 'Date not listed', location: 'Zero Point Meditation Center archive', image: posterSevenNew, description: 'Archived poster; event details are not listed.' },
+  { id: 41, group: 'Poste&News', title: 'Archived poster 8', type: 'poster', category: 'Posters', date: 'Date not listed', location: 'Zero Point Meditation Center archive', image: posterEightNew, description: 'Archived poster; event details are not listed.' },
 
   // ==================== ADD NEW EVENT PHOTOS BELOW ====================
   // 2024: Add one object per photo. Use group: '2024'.

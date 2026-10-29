@@ -77,7 +77,7 @@ export default function Contact() {
                 <MapPin className="text-buddhist-gold shrink-0 mt-0.5" size={18} />
                 <div>
                   <p className="font-bold text-amber-50">Zero Point meditation Center</p>
-                  <p>New York, United Statess</p>
+                  <p>New York, United States</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -88,7 +88,7 @@ export default function Contact() {
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="text-buddhist-gold shrink-0" size={18} />
-                <span>++1 (732) 619-5329 </span>
+                <span>+1 (732) 619-5329</span>
               </div>
               <div className="flex items-start gap-3">
                 <Clock className="text-buddhist-gold shrink-0 mt-0.5" size={18} />
@@ -133,8 +133,10 @@ export default function Contact() {
               </div>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-stone-700 uppercase tracking-wider">Your Name</label>
+                  <label htmlFor="contact-name" className="text-xs font-bold text-stone-700 uppercase tracking-wider">Your Name</label>
                   <input
+                    id="contact-name"
+                    name="name"
                     type="text"
                     required
                     placeholder="Full Name"
@@ -144,8 +146,10 @@ export default function Contact() {
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-stone-700 uppercase tracking-wider">Email Address</label>
+                  <label htmlFor="contact-email" className="text-xs font-bold text-stone-700 uppercase tracking-wider">Email Address</label>
                   <input
+                    id="contact-email"
+                    name="email"
                     type="email"
                     required
                     placeholder="email@example.com"
@@ -157,8 +161,10 @@ export default function Contact() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-stone-700 uppercase tracking-wider">Subject</label>
+                <label htmlFor="contact-subject" className="text-xs font-bold text-stone-700 uppercase tracking-wider">Subject</label>
                 <select
+                  id="contact-subject"
+                  name="subject"
                   value={formData.subject}
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                   className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-xs focus:ring-2 focus:ring-buddhist-gold focus:outline-none"
@@ -173,8 +179,10 @@ export default function Contact() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-stone-700 uppercase tracking-wider">Your Message</label>
+                <label htmlFor="contact-message" className="text-xs font-bold text-stone-700 uppercase tracking-wider">Your Message</label>
                 <textarea
+                  id="contact-message"
+                  name="message"
                   rows={5}
                   required
                   placeholder="How can we assist your spiritual journey?"
