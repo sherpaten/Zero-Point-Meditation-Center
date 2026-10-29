@@ -167,14 +167,14 @@ const galleryItems = [
   // ==================== 2024 EVENT PHOTOS — EIGHT SEPARATE EVENTS ====================
   {
     id: 16, group: '2024', title: 'Dharma Teaching — August Session',
-    type: 'photo', category: 'Event Photos', date: 'August 2024 — exact date to confirm',
+    type: 'photo', category: 'Event Photos', date: 'August 2024',
     location: 'To be confirmed', image: dharmaAug2024a,
     images: [dharmaAug2024a, dharmaAug2024b],
     description: 'Dharma teaching event in August 2024. Further details to be confirmed.'
   },
   {
     id: 17, group: '2024', title: 'Mindfulness Meditation at the Rubin Museum',
-    type: 'photo', category: 'Event Photos', date: 'August 2024 — exact date to confirm',
+    type: 'photo', category: 'Event Photos', date: 'August 2024',
     location: 'Rubin Museum of Art, New York, USA', image: mindfulAug2024,
     videoUrl: 'https://youtu.be/N2XigLNT_Eo?si=rtwVgvYy_m4lVRhp',
     description: 'Mindfulness meditation at the Rubin Museum of Art. The exact date and additional details should be confirmed.'
@@ -188,7 +188,7 @@ const galleryItems = [
   },
   {
     id: 19, group: '2024', title: 'Dharma Teaching — September Session',
-    type: 'photo', category: 'Event Photos', date: 'September 2024 — exact date to confirm',
+    type: 'photo', category: 'Event Photos', date: 'September 2024',
     location: 'To be confirmed', image: dharmaSep2024a,
     images: [dharmaSep2024a, dharmaSep2024b],
     description: 'Dharma teaching event in September 2024. Further details to be confirmed.'
@@ -214,7 +214,7 @@ const galleryItems = [
   },
   {
     id: 23, group: '2024', title: 'Vesak Day Celebration',
-    type: 'photo', category: 'Event Photos', date: '2024 — exact date to confirm',
+    type: 'photo', category: 'Event Photos', date: '2024',
     location: 'To be confirmed', image: vesak2024a,
     images: [vesak2024a, vesak2024b],
     description: 'Vesak Day celebration. Venue and additional details to be confirmed.'
@@ -264,7 +264,7 @@ const galleryItems = [
   },
   {
     id: 43, group: 'Current', title: 'Interfaith Breakfast', type: 'photo', category: 'Event Photos',
-    date: '2026 — exact date to confirm', location: 'New York City, USA',
+    date: '2026', location: 'New York City, USA',
     image: interfaith2026b, images: [interfaith2026b, interfaith2026c],
     description: 'New Yorkers share a common belief: that our city can be restored. It was an honor to attend an interfaith breakfast alongside many of New York’s faith leaders and chart a path forward where we welcome the stranger among us.'
   },
