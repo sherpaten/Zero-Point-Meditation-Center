@@ -27,9 +27,13 @@ export default function Contact() {
     ].join('\n');
 
     const whatsappUrl = `https://wa.me/17326195329?text=${encodeURIComponent(message)}`;
-    setWhatsappUrl(whatsappUrl);
-    setSubmitted(true);
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+
+    // Clear the form immediately so visitors can submit another enquiry.
+    setFormData({ name: '', email: '', subject: 'General Inquiry', message: '' });
+    setWebsite('');
+    setWhatsappUrl('');
+    setSubmitted(false);
   };
 
   return (
