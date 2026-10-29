@@ -118,6 +118,10 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           <button type="button" onClick={onClose} aria-label="Close booking form" className="rounded-full p-2 text-stone-600 hover:bg-stone-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-700"><X size={22}/></button>
         </header>
         <form onSubmit={submit} className="space-y-5 p-5 sm:p-7">
+          <div aria-hidden="true" className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden">
+            <label htmlFor="booking-website">Leave this field empty</label>
+            <input id="booking-website" name="website" type="text" tabIndex={-1} autoComplete="off" value={website} onChange={event => setWebsite(event.target.value)} />
+          </div>
           {fixedSelection ? (
             <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
               <p className="text-xs font-bold uppercase tracking-wider text-amber-800">Selected teacher service</p>
