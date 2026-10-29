@@ -1,7 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-serif: 'Cinzel', serif;
+  --font-serif: 'Cormorant Garamond', serif;
   --font-sans: 'Inter', sans-serif;
 
   /* Updated from white #FDFBF7 to warm parchment #FAF6F0 */
@@ -17,7 +18,13 @@
 
 /* Global page background anchor */
 body {
+  font-family: 'Inter', sans-serif;
   background-color: var(--color-buddhist-bg);
   color: var(--color-buddhist-charcoal);
   margin: 0;
+}
+
+/* Use Cormorant Garamond consistently for all site headings and subheadings. */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Cormorant Garamond', serif;
 }
