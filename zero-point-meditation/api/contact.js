@@ -35,7 +35,7 @@ export default async function handler(req, res) {
   if (!name || !email || !subject || !message) {
     return res.status(400).json({ error: 'Please complete all required fields.' });
   }
-  if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) {
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ error: 'Please enter a valid email address.' });
   }
   if (!allowedSubjects.has(subject)) {
@@ -46,12 +46,12 @@ export default async function handler(req, res) {
   }
 
   const apiKey = process.env.RESEND_API_KEY;
-  const fromEmail = process.env.BOOKING_FROM_EMAIL;
-  const toEmail = process.env.BOOKING_TO_EMAIL;
+  const toEmail = process.env.CONTACT_TO_EMAIL || 'info@zeropointmeditationcenter.org';
+  const fromEmail = process.env.CONTACT_FROM_EMAIL || process.env.BOOKING_FROM_EMAIL;
 
-  if (!apiKey || !fromEmail || !toEmail) {
+  if (!apiKey || !fromEmail) {
     return res.status(503).json({
-      error: 'The contact form email service is not fully configured. Please use the email link or try again later.'
+      error: 'The contact form email service is not fully configured. Please email info@zeropointmeditationcenter.org directly.'
     });
   }
 
@@ -76,7 +76,7 @@ export default async function handler(req, res) {
           '',
           'Message:',
           message
-        ].join('\\n')
+        ].join('\n')
       })
     });
 
@@ -84,7 +84,7 @@ export default async function handler(req, res) {
       // Avoid logging message contents or sender personal data.
       console.error('Contact email provider returned status:', response.status);
       return res.status(502).json({
-        error: 'Your message could not be sent right now. Please try again later or contact the center directly.'
+        error: 'Your message could not be sent right now. Please try again later or email info@zeropointmeditationcenter.org directly.'
       });
     }
 
@@ -92,7 +92,7 @@ export default async function handler(req, res) {
   } catch {
     console.error('Contact email request failed.');
     return res.status(502).json({
-      error: 'Your message could not be sent right now. Please try again later or contact the center directly.'
+      error: 'Your message could not be sent right now. Please try again later or email info@zeropointmeditationcenter.org directly.'
     });
   }
 }
