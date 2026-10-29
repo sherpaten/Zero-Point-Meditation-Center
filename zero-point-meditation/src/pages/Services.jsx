@@ -70,9 +70,9 @@ function ServiceSection({ id, eyebrow, title, description, icon, items, category
         <h2 className="font-serif text-3xl sm:text-4xl font-bold text-buddhist-burgundy">{title}</h2>
         {description && <p className="text-stone-600 leading-relaxed">{description}</p>}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-5">
+      <motion.div variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.06 } } }} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.08 }} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
         {items.map((item) => (
-          <article key={item.name} className="flex h-full flex-col rounded-2xl border border-amber-100 bg-white p-4 sm:p-5 shadow-sm transition-shadow hover:shadow-md">
+          <motion.article key={item.name} variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.35 } } }} whileHover={{ y: -5, transition: { duration: 0.18 } }} className="bg-white rounded-2xl border border-stone-200 p-5 shadow-sm hover:shadow-lg transition-shadow flex flex-col">
             <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-amber-50 text-buddhist-gold">{icon}</div>
             <h3 className="font-serif text-lg font-bold leading-snug text-buddhist-burgundy">{item.name}</h3>
             {item.duration && <p className="mt-2 flex items-center gap-2 text-sm text-stone-500"><Clock3 size={15} />{item.duration}</p>}
@@ -86,9 +86,9 @@ function ServiceSection({ id, eyebrow, title, description, icon, items, category
             )}
             {item.detail && <p className="mt-2 text-xs leading-relaxed text-stone-500">{item.detail}</p>}
             <button type="button" onClick={() => category(item)} className="mt-auto inline-flex w-full items-center justify-center rounded-full bg-buddhist-burgundy px-4 py-2.5 mt-5 text-sm font-semibold text-white hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-buddhist-gold focus-visible:ring-offset-2">Book / enquire</button>
-          </article>
+          </motion.article>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }
@@ -127,8 +127,8 @@ export default function Services() {
         <meta name="twitter:description" content="Explore prayer ceremonies, Buddhist meditation courses, retreats, and workplace programs offered by Zero Point Meditation Center." />
       </Helmet>
 
-      <nav aria-label="Navigate service categories" className="sticky top-0 z-30 -mx-5 sm:-mx-6 px-5 sm:px-6 py-3 border-y border-amber-100 bg-[#FAF6F0]/95 backdrop-blur-md">
-        <div className="mx-auto flex max-w-5xl items-center justify-start sm:justify-center gap-2 overflow-x-auto">
+      <nav aria-label="Navigate service categories" className="flex justify-center gap-2 border-b border-stone-200 pb-4 flex-wrap">
+        <div className="flex justify-center gap-2 flex-wrap">
           {[
             { label: 'Prayer Services', id: 'prayer-services' },
             { label: 'Courses', id: 'courses' },
@@ -142,9 +142,9 @@ export default function Services() {
                 document.getElementById(tab.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }}
               aria-pressed={activeServiceTab === tab.id}
-              className={`relative shrink-0 rounded-full px-4 sm:px-5 py-2 text-xs sm:text-sm font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-buddhist-gold ${activeServiceTab === tab.id ? 'text-amber-50' : 'text-stone-600 hover:text-stone-900'}`}>
+              className={`relative px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-buddhist-gold ${activeServiceTab === tab.id ? 'text-amber-50' : 'text-stone-600 hover:text-stone-900'}`}>
               {activeServiceTab === tab.id && (
-                <motion.span layoutId="activeServiceTab" className="absolute inset-0 rounded-full bg-buddhist-burgundy shadow-md" />
+                <motion.span layoutId="activeEventTab" className="absolute inset-0 bg-buddhist-burgundy rounded-full shadow-md" />
               )}
               <span className="relative z-10">{tab.label}</span>
             </button>
