@@ -145,7 +145,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
             <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
               <p className="text-xs font-bold uppercase tracking-wider text-amber-800">Selected teacher service</p>
               <p className="mt-1 font-semibold text-buddhist-burgundy">{service}</p>
-              {teacher && <p className="mt-1 text-sm text-stone-700">Teacher: {teacher}</p>
+              {teacher && <p className="mt-1 text-sm text-stone-700">Teacher: {teacher}</p>}
             </div>
           ) : (
             <div className="grid gap-4 sm:grid-cols-2">
