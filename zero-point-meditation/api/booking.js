@@ -73,18 +73,40 @@ export default async function handler(req, res) {
     'Free Event'
   ]);
   const autoConfirm = type === 'event' && autoConfirmedFreeEvents.has(service);
-  const englishMorningMeditationDates = new Set(['2026-11-08', '2026-11-15']);
-  const englishMorningZoom = {
-    url: 'https://us06web.zoom.us/j/84582891079?pwd=LEjQ7Io3Cd69EbhX1XpZCRlIXxbPLb.1',
-    meetingId: '845 8289 1079',
-    passcode: '202427'
+  const morningMeditationSessions = {
+    '2026-11-07': {
+      language: 'Nepali',
+      url: 'https://us06web.zoom.us/j/88470677871?pwd=fSoWjI68vm75dRqY18M5QDPGm7fc0H.1',
+      meetingId: '884 7067 7871',
+      passcode: '510428'
+    },
+    '2026-11-08': {
+      language: 'English',
+      url: 'https://us06web.zoom.us/j/84582891079?pwd=LEjQ7Io3Cd69EbhX1XpZCRlIXxbPLb.1',
+      meetingId: '845 8289 1079',
+      passcode: '202427'
+    },
+    '2026-11-14': {
+      language: 'Nepali',
+      url: 'https://us06web.zoom.us/j/88470677871?pwd=fSoWjI68vm75dRqY18M5QDPGm7fc0H.1',
+      meetingId: '884 7067 7871',
+      passcode: '510428'
+    },
+    '2026-11-15': {
+      language: 'English',
+      url: 'https://us06web.zoom.us/j/84582891079?pwd=LEjQ7Io3Cd69EbhX1XpZCRlIXxbPLb.1',
+      meetingId: '845 8289 1079',
+      passcode: '202427'
+    }
   };
-  const includeEnglishMorningZoom = autoConfirm && service === 'Free Morning Meditation' && englishMorningMeditationDates.has(date);
+  const morningMeditationSession = autoConfirm && service === 'Free Morning Meditation'
+    ? morningMeditationSessions[date]
+    : null;
   if (type === 'event' && ['Free Morning Meditation', 'Free Weekend Community Classes'].includes(service) && !date) {
     return res.status(400).json({ error: 'Please choose an available class date.' });
   }
-  if (type === 'event' && service === 'Free Morning Meditation' && !englishMorningMeditationDates.has(date)) {
-    return res.status(400).json({ error: 'Please choose an available English Morning Meditation date.' });
+  if (type === 'event' && service === 'Free Morning Meditation' && !morningMeditationSessions[date]) {
+    return res.status(400).json({ error: 'Please choose an available Morning Meditation date.' });
   }
 
   const token = autoConfirm ? '' : approvalToken({
@@ -108,11 +130,12 @@ export default async function handler(req, res) {
     'Place / city / country: ' + place,
     'Profession: ' + profession,
     'Payment preference: ' + paymentLabel,
-    ...(includeEnglishMorningZoom ? [
+    ...(morningMeditationSession ? [
       '',
-      'English Morning Meditation Zoom link: ' + englishMorningZoom.url,
-      'Meeting ID: ' + englishMorningZoom.meetingId,
-      'Passcode: ' + englishMorningZoom.passcode
+      morningMeditationSession.language + ' Morning Meditation Zoom link: ' + morningMeditationSession.url,
+      'Language: ' + morningMeditationSession.language,
+      'Meeting ID: ' + morningMeditationSession.meetingId,
+      'Passcode: ' + morningMeditationSession.passcode
     ] : []),
     '',
     autoConfirm
@@ -142,12 +165,13 @@ export default async function handler(req, res) {
     ...(autoConfirm
       ? [
           'No payment is required for this free class.',
-          ...(includeEnglishMorningZoom ? [
-            'Join the English Morning Meditation on Zoom:',
-            englishMorningZoom.url,
-            'Meeting ID: ' + englishMorningZoom.meetingId,
-            'Passcode: ' + englishMorningZoom.passcode,
-            'Session time: 6:30–7:15 AM US Eastern Time.'
+          ...(morningMeditationSession ? [
+            'Join the ' + morningMeditationSession.language + ' Morning Meditation on Zoom:',
+            morningMeditationSession.url,
+            'Language: ' + morningMeditationSession.language,
+            'Meeting ID: ' + morningMeditationSession.meetingId,
+            'Passcode: ' + morningMeditationSession.passcode,
+            'Session time: 6:30–7:15 AM US Eastern Time (5:15–6:00 PM Nepal Time).'
           ] : ['The center will share any additional session or joining details separately if needed.'])
         ]
       : [
