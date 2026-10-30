@@ -65,7 +65,7 @@ export default function About() {
           About Zero Point Meditation Center
         </h1>
         <p className="text-stone-600 text-sm sm:text-base leading-relaxed">
-          Zero Point Meditation Center is a non-profit spiritual haven dedicated to authentic Tibetan Buddhist mind training (Lojong), guided mindfulness meditation, and interfaith peace. Founded under the spiritual direction of <strong>H.E. Gegye Yongyal Tulku Rinpoche</strong>, our center serves as a bridge connecting ancient Himalayan wisdom with everyday modern living.
+          The story of Zero Point Meditation Center is one of a growing community bringing people together through meditation, compassion, and shared humanity. From its beginnings in 2024 through the community-building work of 2025 and into 2026, the center has developed its vision of making inner wellbeing and interfaith understanding more accessible. Guided by <strong>H.E. Gegye Yongyal Tulku Rinpoche</strong>, we connect Himalayan Buddhist wisdom with practical support for people and communities today.
         </p>
       </motion.div>
 
@@ -79,7 +79,7 @@ export default function About() {
             A Peaceful Refuge for Mind-Training & Awareness
           </h2>
           <p className="text-stone-700 text-xs sm:text-sm leading-relaxed">
-            At Zero Point Meditation Center, we provide accessible guided meditation, retreat programs, and authentic Buddhist discourse to relieve mental stress, cultivate Bodhicitta (universal compassion), and awaken inner peace. Whether you are beginner seeking daily breath awareness or an advanced practitioner deepening your Vajrayana study, our Sangha welcomes you.
+            Our mission is to support mental wellbeing, nurture compassion, and encourage peace across faiths and cultures. Through accessible meditation, learning, and community gatherings, we hope to create welcoming spaces where people can pause, learn from one another, and build resilience. Buddhist practice is at the heart of our work, while kindness, respect, and interfaith understanding help shape how we welcome the wider community.
           </p>
         </div>
         <div className="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-2 text-center">
@@ -95,6 +95,42 @@ export default function About() {
           </div>
         </div>
       </div>
+
+      {/* Our Story: 2024–2026 */}
+      <section aria-labelledby="our-story-heading" className="space-y-8">
+        <div className="text-center max-w-3xl mx-auto space-y-3">
+          <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-1.5">
+            <BookOpen size={14} /> Our Journey
+          </span>
+          <h2 id="our-story-heading" className="font-serif text-3xl sm:text-4xl font-bold text-buddhist-burgundy">
+            A Story of Wellbeing, Connection, and Peace
+          </h2>
+          <p className="text-stone-600 text-sm sm:text-base leading-relaxed">
+            From 2024 to 2026, our story has been shaped by a simple belief: people and communities can thrive when they have space to reflect, care for their mental wellbeing, and meet one another with compassion.
+          </p>
+        </div>
+        <div className="grid md:grid-cols-3 gap-5">
+          <article className="rounded-2xl border border-stone-200 bg-white p-6 space-y-3">
+            <span className="inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-bold tracking-wide text-buddhist-burgundy">2024 · Beginnings</span>
+            <h3 className="font-serif text-xl font-bold text-stone-900">A place to pause and practice</h3>
+            <p className="text-stone-600 text-sm leading-relaxed">The center’s story began with a commitment to share meditation and Buddhist mind-training in a welcoming setting. The aim was to make time for stillness, self-awareness, and compassion available to people navigating the pressures of everyday life.</p>
+          </article>
+          <article className="rounded-2xl border border-stone-200 bg-white p-6 space-y-3">
+            <span className="inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-bold tracking-wide text-buddhist-burgundy">2025 · Community</span>
+            <h3 className="font-serif text-xl font-bold text-stone-900">Growing through shared purpose</h3>
+            <p className="text-stone-600 text-sm leading-relaxed">As the vision developed, community connection and collaboration became increasingly important. Meditation, learning, and interfaith dialogue offered ways for people from different backgrounds to listen, learn, and build understanding around shared human concerns.</p>
+          </article>
+          <article className="rounded-2xl border border-stone-200 bg-white p-6 space-y-3">
+            <span className="inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-bold tracking-wide text-buddhist-burgundy">2026 · Wider connection</span>
+            <h3 className="font-serif text-xl font-bold text-stone-900">Bringing care closer to the community</h3>
+            <p className="text-stone-600 text-sm leading-relaxed">Today, the center is working toward stronger connections between the community and people whose work supports others, including healthcare workers and life coaches. By creating opportunities to meet, share knowledge, and collaborate, we aim to help make wellbeing support more connected, compassionate, and accessible.</p>
+          </article>
+        </div>
+        <div className="rounded-3xl bg-amber-50/70 border border-amber-200/70 p-7 sm:p-9">
+          <h3 className="font-serif text-2xl font-bold text-buddhist-burgundy mb-3">Our mission: mental wellbeing and interfaith peace</h3>
+          <p className="text-stone-700 text-sm sm:text-base leading-relaxed">We believe mental wellbeing is strengthened by reflection, supportive relationships, and a sense of belonging. Our mission is to share meditation and compassionate practice, encourage respectful relationships across religious and cultural traditions, and connect healthcare workers, life coaches, and community members so that experience and care can be shared for the benefit of all.</p>
+        </div>
+      </section>
 
       {/* Founder Biography & 3-Image Showcase */}
       <div className="space-y-8">
