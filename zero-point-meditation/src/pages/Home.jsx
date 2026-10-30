@@ -118,7 +118,7 @@ export default function Home() {
 
             <div className="flex flex-wrap justify-center gap-4 pt-4">
               <Link 
-                to="/events" 
+                to="/#home-calendar-heading" 
                 className="px-8 py-3.5 bg-buddhist-burgundy hover:bg-red-900 text-amber-50 font-bold rounded-xl text-xs uppercase tracking-wider shadow-xl transition-all flex items-center gap-2 hover:scale-105"
               >
                 Find Your Next Gathering <ArrowRight size={14} />
