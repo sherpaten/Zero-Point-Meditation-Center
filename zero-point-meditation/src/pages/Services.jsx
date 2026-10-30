@@ -7,18 +7,10 @@ import gegyeYongyalRinpoche from "../assets/Teams/Gegye Yongyal Rinpoche's.png";
 import karmaGyatsoPhoto from "../assets/Teams/Teachers/karma Gyatso lopon la .jpeg";
 
 const prayerServices = [
-  { name: 'Short personal blessing and prayer', price: '$100–$250' },
-  { name: 'House blessing ceremony', price: '$250–$500' },
-  { name: 'New home or business blessing', price: '$300–$500' },
-  { name: 'Family prayer ceremony', price: '$250–$500' },
-  { name: 'Long-life prayer and blessing', price: '$250–$500' },
-  { name: 'Tara prayer ceremony', price: '$250–$500' },
-  { name: 'Medicine Buddha prayer ceremony', price: '$250–$500' },
-  { name: 'Chenrezig compassion prayer', price: '$200–$500' },
-  { name: 'Guru Rinpoche prayer ceremony', price: '$250–$500' },
-  { name: 'Memorial prayer for a deceased loved one', price: '$250–$500' },
-  { name: 'Extended prayer and dedication ceremony', price: '$500–$1,000' },
-  { name: 'Special multi-monastic prayer gathering', price: '$1,000–$2,500+', detail: 'Depending on gathering size (approximately 400–2,000 monks)' },
+  { name: 'Short personal blessing and prayer', price: 'Enquire for pricing' },
+  { name: 'Long-life prayer and blessing', price: 'Enquire for pricing' },
+  { name: 'Medicine Buddha prayer ceremony', price: 'Enquire for pricing' },
+  { name: 'Family prayer ceremony', price: 'Enquire for pricing' },
 ];
 
 const courses = [
@@ -26,14 +18,6 @@ const courses = [
   { name: 'Shamatha Meditation Workshop', duration: '2 hours', online: '$25', inPerson: '$60' },
   { name: 'Mindfulness and Emotional Awareness', duration: '2 hours', online: '$45', inPerson: '$99' },
   { name: 'Four Noble Truths Course', duration: '4 sessions', online: '$60', inPerson: '$120' },
-  { name: 'Eightfold Path Course', duration: '4 sessions', online: '$60', inPerson: '$120' },
-  { name: 'Introduction to Tibetan Buddhism', duration: '6 sessions', online: '$100', inPerson: '$180' },
-  { name: 'Prajnaparamita and the Wisdom of Emptiness', duration: '6 sessions', online: '$110', inPerson: '$240' },
-  { name: 'Madhyamaka Buddhist Philosophy', duration: '8 sessions', online: '$150', inPerson: '$320' },
-  { name: 'Pramana: Buddhist Logic and Reasoning', duration: '8 sessions', price: '$320/person' },
-  { name: 'Buddhist Tantra: Foundations and Context', duration: '4 sessions', price: '$160/person' },
-  { name: 'Bardo and the Tibetan Buddhist Understanding of Death', duration: '4 sessions', price: '$160/person' },
-  { name: 'Advanced Buddhist Philosophy Seminar', duration: '2 hours', price: '$75/person' },
 ];
 
 const retreats = [
@@ -41,12 +25,6 @@ const retreats = [
   { name: 'Shamatha Meditation Retreat', duration: 'Full day', price: '$125/person' },
   { name: 'Buddhist Philosophy Day Retreat', duration: 'Full day', price: '$150/person' },
   { name: 'Noble Tara Practice Retreat', duration: 'Full day', price: '$150/person' },
-  { name: 'Compassion and Bodhicitta Retreat', duration: 'Full day', price: '$125/person' },
-  { name: 'Weekend Buddhist Meditation Retreat', duration: '2 days', price: '$275/person' },
-  { name: 'Advanced Tibetan Buddhist Retreat', duration: '3 days', price: '$450/person' },
-  { name: 'Private Family Retreat', duration: 'Half day', price: '$500–$750' },
-  { name: 'Private Individual Retreat Instruction', duration: 'Full day', price: '$750–$1,000' },
-  { name: 'Institutional Retreat for an Organization', duration: 'Full day', price: '$1,000–$2,000' },
 ];
 
 const workplaceServices = [
@@ -54,12 +32,6 @@ const workplaceServices = [
   { name: 'Corporate Mindfulness Workshop', duration: '90 minutes', price: '$750' },
   { name: 'Compassion and Leadership Workshop', duration: '2 hours', price: '$1,000' },
   { name: 'Buddhist Ethics and Leadership Seminar', duration: '2 hours', price: '$1,000' },
-  { name: 'Corporate Half-Day Retreat', duration: '4 hours', price: '$1,500' },
-  { name: 'Corporate Full-Day Retreat', duration: '6–8 hours', price: '$2,500' },
-  { name: 'Executive Meditation Instruction', duration: '60 minutes', price: '$250' },
-  { name: 'Monthly Corporate Meditation Program', duration: '4 sessions', price: '$2,000' },
-  { name: 'Corporate Meditation Series', duration: '8 sessions', price: '$4,000' },
-  { name: 'Leadership and Reflective Practice Program', duration: '3 months', price: '$6,000–$12,000' },
 ];
 
 function ServiceSection({ id, eyebrow, title, description, icon, items, category }) {
@@ -130,10 +102,10 @@ export default function Services() {
       <nav aria-label="Navigate service categories" className="flex justify-center gap-2 border-b border-stone-200 pb-4 flex-wrap">
         <div className="flex justify-center gap-2 flex-wrap">
           {[
-            { label: 'Prayer Services', id: 'prayer-services' },
+            { label: 'Learning & Practice', id: 'courses' },
             { label: 'Retreats', id: 'retreats' },
             { label: 'Corporate Programs', id: 'corporate-programs' },
-            { label: 'Learning & Practice', id: 'courses' },
+            { label: 'Prayer Services', id: 'prayer-services' },
             { label: 'Our Guides', id: 'our-guides' },
           ].map((tab) => (
             <button key={tab.id} type="button"
@@ -153,20 +125,20 @@ export default function Services() {
       </nav>
 
       <ServiceSection
-        id="prayer-services"
-        eyebrow="Prayer & spiritual support"
-        title="Prayer Services & Blessing Ceremonies"
-        description="Traditional Buddhist prayers, blessings, dedications, and ceremonies for individuals, families, homes, and communities."
-        icon={<Flower2 size={20} />}
-        items={prayerServices}
-        category={bookPrayer}
+        id="courses"
+        eyebrow="Learning & practice"
+        title="Meditation & Buddhist Courses"
+        description="Learn meditation, Buddhist teachings, philosophy, and traditional perspectives through guided sessions and multi-session courses."
+        icon={<BookOpen size={20} />}
+        items={courses}
+        category={bookCourse}
       />
 
       <ServiceSection
         id="retreats"
         eyebrow="Practice in depth"
         title="Meditation & Buddhist Retreats"
-        description="Half-day, full-day, multi-day, private, and organizational retreats for deeper study and practice."
+        description="Half-day, full-day retreats for deeper study and practice."
         icon={<Sparkles size={20} />}
         items={retreats}
         category={bookRetreat}
@@ -183,13 +155,13 @@ export default function Services() {
       />
 
       <ServiceSection
-        id="courses"
-        eyebrow="Learning & practice"
-        title="Meditation & Buddhist Courses"
-        description="Learn meditation, Buddhist teachings, philosophy, and traditional perspectives through guided sessions and multi-session courses."
-        icon={<BookOpen size={20} />}
-        items={courses}
-        category={bookCourse}
+        id="prayer-services"
+        eyebrow="Prayer & spiritual support"
+        title="Prayer Services & Blessing Ceremonies"
+        description="Traditional Buddhist prayers, blessings, dedications, and ceremonies for individuals and families."
+        icon={<Flower2 size={20} />}
+        items={prayerServices}
+        category={bookPrayer}
       />
 
 
