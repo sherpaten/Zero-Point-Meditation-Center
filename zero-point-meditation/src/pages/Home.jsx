@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import HomeEventsCalendar from './HomeEventsCalendar';
 import { Calendar, MapPin, ArrowRight, Sparkles, Compass, HeartHandshake, ShieldCheck, Flame, Users, BookOpen, Award } from 'lucide-react';
@@ -62,6 +62,15 @@ const features = [
 ];
 
 export default function Home() {
+  const location = useLocation();
+  useEffect(() => {
+    if (location.hash === '#home-calendar-heading') {
+      requestAnimationFrame(() => {
+        document.getElementById('home-calendar-heading')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+  }, [location.hash]);
+
   return (
     
       <div className="w-full space-y-16 pb-16">
@@ -118,7 +127,7 @@ export default function Home() {
 
             <div className="flex flex-wrap justify-center gap-4 pt-4">
               <Link 
-                to="/#home-calendar-heading" 
+                to="/home#home-calendar-heading" 
                 className="px-8 py-3.5 bg-buddhist-burgundy hover:bg-red-900 text-amber-50 font-bold rounded-xl text-xs uppercase tracking-wider shadow-xl transition-all flex items-center gap-2 hover:scale-105"
               >
                 Find Your Next Gathering <ArrowRight size={14} />
