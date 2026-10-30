@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { X, CalendarDays, CreditCard, ShieldCheck, CheckCircle2, LoaderCircle } from 'lucide-react';
 
 const announcedMorningMeditationDates = [
+  { value: '2026-11-07', label: 'Saturday, November 7, 2026 · Nepali' },
   { value: '2026-11-08', label: 'Sunday, November 8, 2026 · English' },
+  { value: '2026-11-14', label: 'Saturday, November 14, 2026 · Nepali' },
   { value: '2026-11-15', label: 'Sunday, November 15, 2026 · English' },
 ];
 function dateValue(d = new Date()) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
@@ -110,7 +112,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
         });
       }
       setMessage(isFree && result.confirmed
-        ? `Your registration for ${service} is confirmed! No payment is required. The English Zoom link, meeting ID, and passcode have been sent to your email.`
+        ? `Your registration for ${service} is confirmed! No payment is required. The correct Zoom link, meeting ID, and passcode for your selected date and language have been sent to your email.`
         : isFree
           ? `Thank you — your registration for ${service} has been sent. Please check your email for confirmation details.`
           : type === 'event'
@@ -167,7 +169,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           )}
           {requiresDate && <div className="rounded-xl bg-amber-50 p-4 text-sm text-stone-700">
             <p className="flex items-center gap-2 font-semibold text-buddhist-burgundy"><CalendarDays size={17}/> {service === 'Free Morning Meditation' ? 'Free Morning Meditation · 6:30–7:15 AM' : 'Free Weekend Community Classes'}</p>
-            <p className="mt-1">{service === 'Free Morning Meditation' ? 'Only announced Sunday English sessions are listed here. Session time is 6:30–7:15 AM US Eastern Time. Zoom details are sent automatically after registration.' : 'Community classes are scheduled for Saturdays and Sundays through December 31, 2026. The center will confirm session details.'}</p>
+            <p className="mt-1">{service === 'Free Morning Meditation' ? 'Only announced Saturday Nepali and Sunday English sessions are listed here. Session time is 6:30–7:15 AM US Eastern Time (5:15–6:00 PM Nepal Time). The matching language-specific Zoom link, meeting ID, and passcode are sent automatically after registration.' : 'Community classes are scheduled for Saturdays and Sundays through December 31, 2026. The center will confirm session details.'}</p>
             {dateSessions.length ? <>
               <label htmlFor="booking-date" className="mt-3 block font-semibold">Choose a date</label>
               <select id="booking-date" value={date} onChange={event => setDate(event.target.value)} className={fieldClass} required>{dateSessions.map(session => <option key={session.value} value={session.value}>{session.label}</option>)}</select>
