@@ -73,8 +73,18 @@ export default async function handler(req, res) {
     'Free Event'
   ]);
   const autoConfirm = type === 'event' && autoConfirmedFreeEvents.has(service);
+  const englishMorningMeditationDates = new Set(['2026-11-08', '2026-11-15']);
+  const englishMorningZoom = {
+    url: 'https://us06web.zoom.us/j/84582891079?pwd=LEjQ7Io3Cd69EbhX1XpZCRlIXxbPLb.1',
+    meetingId: '845 8289 1079',
+    passcode: '202427'
+  };
+  const includeEnglishMorningZoom = autoConfirm && service === 'Free Morning Meditation' && englishMorningMeditationDates.has(date);
   if (type === 'event' && ['Free Morning Meditation', 'Free Weekend Community Classes'].includes(service) && !date) {
     return res.status(400).json({ error: 'Please choose an available class date.' });
+  }
+  if (type === 'event' && service === 'Free Morning Meditation' && !englishMorningMeditationDates.has(date)) {
+    return res.status(400).json({ error: 'Please choose an available English Morning Meditation date.' });
   }
 
   const token = autoConfirm ? '' : approvalToken({
@@ -98,6 +108,12 @@ export default async function handler(req, res) {
     'Place / city / country: ' + place,
     'Profession: ' + profession,
     'Payment preference: ' + paymentLabel,
+    ...(includeEnglishMorningZoom ? [
+      '',
+      'English Morning Meditation Zoom link: ' + englishMorningZoom.url,
+      'Meeting ID: ' + englishMorningZoom.meetingId,
+      'Passcode: ' + englishMorningZoom.passcode
+    ] : []),
     '',
     autoConfirm
       ? 'The free class registration is already confirmed. No payment is required and no staff approval is needed.'
@@ -126,7 +142,13 @@ export default async function handler(req, res) {
     ...(autoConfirm
       ? [
           'No payment is required for this free class.',
-          'The center will share any additional session or joining details separately if needed.'
+          ...(includeEnglishMorningZoom ? [
+            'Join the English Morning Meditation on Zoom:',
+            englishMorningZoom.url,
+            'Meeting ID: ' + englishMorningZoom.meetingId,
+            'Passcode: ' + englishMorningZoom.passcode,
+            'Session time: 6:30–7:15 AM US Eastern Time.'
+          ] : ['The center will share any additional session or joining details separately if needed.'])
         ]
       : [
           'This email confirms receipt of your enquiry only. Your booking is not confirmed yet, and no payment has been collected.',
