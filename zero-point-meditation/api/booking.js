@@ -66,14 +66,27 @@ export default async function handler(req, res) {
       ? 'Would like to discuss another payment option'
       : 'Not applicable / not selected';
 
-  const token = approvalToken({
+  const autoConfirmedFreeEvents = new Set([
+    'Free Morning Meditation',
+    'Free Weekend Community Classes',
+    'Free Meditation Class',
+    'Free Event'
+  ]);
+  const autoConfirm = type === 'event' && autoConfirmedFreeEvents.has(service);
+  if (type === 'event' && ['Free Morning Meditation', 'Free Weekend Community Classes'].includes(service) && !date) {
+    return res.status(400).json({ error: 'Please choose an available class date.' });
+  }
+
+  const token = autoConfirm ? '' : approvalToken({
     name, email, service, date: type === 'event' ? date : '',
     exp: Date.now() + 7 * 24 * 60 * 60 * 1000
   }, apiKey);
-  const approvalUrl = siteUrl + '/api/booking-approve?token=' + encodeURIComponent(token);
+  const approvalUrl = autoConfirm ? '' : siteUrl + '/api/booking-approve?token=' + encodeURIComponent(token);
 
   const notificationText = [
-    'New website booking enquiry',
+    autoConfirm ? 'New automatically confirmed free class registration' : 'New website booking enquiry',
+    '',
+    'Booking status: ' + (autoConfirm ? 'Confirmed automatically — no staff approval required' : 'Awaiting center review'),
     '',
     'Type: ' + type,
     'Service or event: ' + service,
@@ -86,26 +99,39 @@ export default async function handler(req, res) {
     'Profession: ' + profession,
     'Payment preference: ' + paymentLabel,
     '',
-    'This is an enquiry only. The booking is not confirmed and no payment has been collected.',
+    autoConfirm
+      ? 'The free class registration is already confirmed. No payment is required and no staff approval is needed.'
+      : 'This is an enquiry only. The booking is not confirmed and no payment has been collected.',
     '',
-    'After checking availability and details, open this link to review and approve the booking:',
-    approvalUrl,
-    '',
-    'The customer receives a final confirmation only after you approve it. The link expires in 7 days.'
+    ...(autoConfirm ? [] : [
+      'After checking availability and details, open this link to review and approve the booking:',
+      approvalUrl,
+      '',
+      'The customer receives a final confirmation only after you approve it. The link expires in 7 days.'
+    ])
   ].join('\n');
 
   const receiptText = [
     'Hello ' + name + ',',
     '',
-    'Thank you for contacting Zero Point Meditation Center.',
-    'We have received your booking enquiry and sent it to the center team for review.',
+    'Thank you for registering with Zero Point Meditation Center.',
+    autoConfirm
+      ? 'Your registration for this free class is confirmed. You do not need to wait for another approval email.'
+      : 'We have received your booking enquiry and sent it to the center team for review.',
     '',
     'Service or event: ' + service,
     'Teacher: ' + (teacher || 'Not specified'),
     'Requested date: ' + (date || 'Not specified'),
     '',
-    'This email confirms receipt of your enquiry only. Your booking is not confirmed yet, and no payment has been collected.',
-    'The center will contact you after reviewing availability and next steps.',
+    ...(autoConfirm
+      ? [
+          'No payment is required for this free class.',
+          'The center will share any additional session or joining details separately if needed.'
+        ]
+      : [
+          'This email confirms receipt of your enquiry only. Your booking is not confirmed yet, and no payment has been collected.',
+          'The center will contact you after reviewing availability and next steps.'
+        ]),
     '',
     'With regards,',
     'Zero Point Meditation Center'
@@ -120,7 +146,7 @@ export default async function handler(req, res) {
           from: fromEmail,
           to: [toEmail],
           reply_to: email,
-          subject: 'Website booking enquiry: ' + service,
+          subject: (autoConfirm ? 'Free class registration confirmed: ' : 'Website booking enquiry: ') + service,
           text: notificationText
         })
       }),
@@ -130,7 +156,7 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           from: fromEmail,
           to: [email],
-          subject: 'We received your enquiry: ' + service,
+          subject: (autoConfirm ? 'Your free class registration is confirmed: ' : 'We received your enquiry: ') + service,
           text: receiptText
         })
       })
@@ -150,7 +176,7 @@ export default async function handler(req, res) {
       });
     }
 
-    return res.status(200).json({ ok: true, receiptSent: true });
+    return res.status(200).json({ ok: true, receiptSent: true, confirmed: autoConfirm });
   } catch (error) {
     console.error('Booking email request failed:', error);
     return res.status(502).json({ error: 'We could not send your enquiry right now. Please contact the center directly.' });

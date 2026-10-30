@@ -111,11 +111,13 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           payment_preference: type === 'service' ? paymentPreference : 'not_applicable'
         });
       }
-      setMessage(isFree
-        ? `Thank you — your registration for ${service} has been sent. The center will contact you with confirmation and any session details. No payment is required.`
-        : type === 'event'
-          ? 'Thank you — your event registration request has been sent. The center will contact you to confirm your place and share any relevant details. No payment is collected through this form.'
-          : 'Thank you — your enquiry has been sent to Zero Point Meditation Center. The team will contact you to confirm availability, pricing, and next steps. Please wait for confirmation before making any payment.');
+      setMessage(isFree && result.confirmed
+        ? `Your registration for ${service} is confirmed! No payment is required. The center will share any additional session or joining details separately if needed.`
+        : isFree
+          ? `Thank you — your registration for ${service} has been sent. Please check your email for confirmation details.`
+          : type === 'event'
+            ? 'Thank you — your event registration request has been sent. The center will contact you to confirm your place and share any relevant details. No payment is collected through this form.'
+            : 'Thank you — your enquiry has been sent to Zero Point Meditation Center. The team will contact you to confirm availability, pricing, and next steps. Please wait for confirmation before making any payment.');
       setForm({ name: '', email: '', phone: '', place: '', profession: '' });
       setWebsite('');
     } catch (error) {
@@ -197,7 +199,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           </div>}
           {message && <p role="status" className={message.startsWith('Thank you') ? 'rounded-xl border border-emerald-300 bg-emerald-50 p-4 text-sm leading-6 text-emerald-950' : 'rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm leading-6 text-amber-950'}>{message.startsWith('Thank you') && <CheckCircle2 size={17} className="inline mr-2" />}{message}</p>}
           <button type="submit" disabled={submitting || !hasAvailableDate} className="flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3.5 font-semibold text-white transition hover:bg-buddhist-burgundy-hover disabled:cursor-wait disabled:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700">{submitting && <LoaderCircle size={18} className="animate-spin" />}{submitting ? 'Sending enquiry…' : isFree ? 'Register for free session' : type === 'service' ? 'Send booking enquiry' : 'Send event enquiry'}</button>
-          <p className="flex items-start gap-2 text-xs leading-5 text-stone-500"><ShieldCheck size={15} className="mt-0.5 shrink-0"/> This form sends an enquiry only. Your booking is not confirmed and no payment is collected until the center contacts you.</p>
+          <p className="flex items-start gap-2 text-xs leading-5 text-stone-500"><ShieldCheck size={15} className="mt-0.5 shrink-0"/> {isFree ? 'Free class registrations are confirmed automatically after successful submission. No payment is required.' : 'This form sends an enquiry only. Your booking is not confirmed and no payment is collected until the center contacts you.'}</p>
         </form>
       </section>
     </div>
