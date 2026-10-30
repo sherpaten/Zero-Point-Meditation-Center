@@ -8,9 +8,17 @@ import karmaGyatsoPhoto from "../assets/Teams/Teachers/karma Gyatso lopon la .jp
 
 const prayerServices = [
   { name: 'Short personal blessing and prayer', price: 'Enquire for pricing' },
-  { name: 'Long-life prayer and blessing', price: 'Enquire for pricing' },
-  { name: 'Medicine Buddha prayer ceremony', price: 'Enquire for pricing' },
+  { name: 'House blessing ceremony', price: 'Enquire for pricing' },
+  { name: 'New home or business blessing', price: 'Enquire for pricing' },
   { name: 'Family prayer ceremony', price: 'Enquire for pricing' },
+  { name: 'Long-life prayer and blessing', price: 'Enquire for pricing' },
+  { name: 'Tara prayer ceremony', price: 'Enquire for pricing' },
+  { name: 'Medicine Buddha prayer ceremony', price: 'Enquire for pricing' },
+  { name: 'Chenrezig compassion prayer', price: 'Enquire for pricing' },
+  { name: 'Guru Rinpoche prayer ceremony', price: 'Enquire for pricing' },
+  { name: 'Memorial prayer for a deceased loved one', price: 'Enquire for pricing' },
+  { name: 'Extended prayer and dedication ceremony', price: 'Enquire for pricing' },
+  { name: 'Special multi-monastic prayer gathering', price: 'Enquire for pricing', detail: 'Depending on gathering size (approximately 400–2,000 monks)' },
 ];
 
 const courses = [
