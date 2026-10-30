@@ -131,9 +131,9 @@ export default function Services() {
         <div className="flex justify-center gap-2 flex-wrap">
           {[
             { label: 'Prayer Services', id: 'prayer-services' },
-            { label: 'Courses', id: 'courses' },
             { label: 'Retreats', id: 'retreats' },
             { label: 'Corporate Programs', id: 'corporate-programs' },
+            { label: 'Learning & Practice', id: 'courses' },
             { label: 'Our Guides', id: 'our-guides' },
           ].map((tab) => (
             <button key={tab.id} type="button"
@@ -163,16 +163,6 @@ export default function Services() {
       />
 
       <ServiceSection
-        id="courses"
-        eyebrow="Learning & practice"
-        title="Meditation & Buddhist Courses"
-        description="Learn meditation, Buddhist teachings, philosophy, and traditional perspectives through guided sessions and multi-session courses."
-        icon={<BookOpen size={20} />}
-        items={courses}
-        category={bookCourse}
-      />
-
-      <ServiceSection
         id="retreats"
         eyebrow="Practice in depth"
         title="Meditation & Buddhist Retreats"
@@ -191,6 +181,17 @@ export default function Services() {
         items={workplaceServices}
         category={bookWorkplace}
       />
+
+      <ServiceSection
+        id="courses"
+        eyebrow="Learning & practice"
+        title="Meditation & Buddhist Courses"
+        description="Learn meditation, Buddhist teachings, philosophy, and traditional perspectives through guided sessions and multi-session courses."
+        icon={<BookOpen size={20} />}
+        items={courses}
+        category={bookCourse}
+      />
+
 
       <section id="our-guides" className="scroll-mt-32 space-y-6">
         <div className="text-center max-w-2xl mx-auto space-y-3">
