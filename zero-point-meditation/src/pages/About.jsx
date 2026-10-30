@@ -260,6 +260,12 @@ export default function About() {
               role: "Member",
               image: null,
               alt: "Profile placeholder for Dawa Dorje Sherpa"
+            },
+            {
+              name: "Maya Karma Jinpa",
+              role: "Advisor",
+              image: null,
+              alt: "Profile placeholder for Maya Karma Jinpa, Advisor"
             }
           ].map((member) => (
             <motion.article
