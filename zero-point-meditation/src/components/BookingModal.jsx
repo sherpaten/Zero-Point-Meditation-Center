@@ -2,10 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { X, CalendarDays, CreditCard, ShieldCheck, CheckCircle2, LoaderCircle } from 'lucide-react';
 
 const announcedMorningMeditationDates = [
-  { value: '2026-11-07', label: 'Saturday, November 7, 2026' },
-  { value: '2026-11-08', label: 'Sunday, November 8, 2026' },
-  { value: '2026-11-14', label: 'Saturday, November 14, 2026' },
-  { value: '2026-11-15', label: 'Sunday, November 15, 2026' },
+  { value: '2026-11-08', label: 'Sunday, November 8, 2026 · English' },
+  { value: '2026-11-15', label: 'Sunday, November 15, 2026 · English' },
 ];
 function dateValue(d = new Date()) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
 function weekendSessions() {
@@ -112,7 +110,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
         });
       }
       setMessage(isFree && result.confirmed
-        ? `Your registration for ${service} is confirmed! No payment is required. The center will share any additional session or joining details separately if needed.`
+        ? `Your registration for ${service} is confirmed! No payment is required. The English Zoom link, meeting ID, and passcode have been sent to your email.`
         : isFree
           ? `Thank you — your registration for ${service} has been sent. Please check your email for confirmation details.`
           : type === 'event'
@@ -169,7 +167,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           )}
           {requiresDate && <div className="rounded-xl bg-amber-50 p-4 text-sm text-stone-700">
             <p className="flex items-center gap-2 font-semibold text-buddhist-burgundy"><CalendarDays size={17}/> {service === 'Free Morning Meditation' ? 'Free Morning Meditation · 6:30–7:15 AM' : 'Free Weekend Community Classes'}</p>
-            <p className="mt-1">{service === 'Free Morning Meditation' ? 'Only dates announced by the center are listed here. Time zone and joining details will be confirmed by the center.' : 'Community classes are scheduled for Saturdays and Sundays through December 31, 2026. The center will confirm session details.'}</p>
+            <p className="mt-1">{service === 'Free Morning Meditation' ? 'Only announced Sunday English sessions are listed here. Session time is 6:30–7:15 AM US Eastern Time. Zoom details are sent automatically after registration.' : 'Community classes are scheduled for Saturdays and Sundays through December 31, 2026. The center will confirm session details.'}</p>
             {dateSessions.length ? <>
               <label htmlFor="booking-date" className="mt-3 block font-semibold">Choose a date</label>
               <select id="booking-date" value={date} onChange={event => setDate(event.target.value)} className={fieldClass} required>{dateSessions.map(session => <option key={session.value} value={session.value}>{session.label}</option>)}</select>
@@ -197,7 +195,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
               </label>
             </fieldset>
           </div>}
-          {message && <p role="status" className={message.startsWith('Thank you') ? 'rounded-xl border border-emerald-300 bg-emerald-50 p-4 text-sm leading-6 text-emerald-950' : 'rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm leading-6 text-amber-950'}>{message.startsWith('Thank you') && <CheckCircle2 size={17} className="inline mr-2" />}{message}</p>}
+          {message && <p role="status" className={(message.startsWith('Thank you') || message.startsWith('Your registration')) ? 'rounded-xl border border-emerald-300 bg-emerald-50 p-4 text-sm leading-6 text-emerald-950' : 'rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm leading-6 text-amber-950'}>{(message.startsWith('Thank you') || message.startsWith('Your registration')) && <CheckCircle2 size={17} className="inline mr-2" />}{message}</p>}
           <button type="submit" disabled={submitting || !hasAvailableDate} className="flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3.5 font-semibold text-white transition hover:bg-buddhist-burgundy-hover disabled:cursor-wait disabled:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700">{submitting && <LoaderCircle size={18} className="animate-spin" />}{submitting ? 'Sending enquiry…' : isFree ? 'Register for free session' : type === 'service' ? 'Send booking enquiry' : 'Send event enquiry'}</button>
           <p className="flex items-start gap-2 text-xs leading-5 text-stone-500"><ShieldCheck size={15} className="mt-0.5 shrink-0"/> {isFree ? 'Free class registrations are confirmed automatically after successful submission. No payment is required.' : 'This form sends an enquiry only. Your booking is not confirmed and no payment is collected until the center contacts you.'}</p>
         </form>
