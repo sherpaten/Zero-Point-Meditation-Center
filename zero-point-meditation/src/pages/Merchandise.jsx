@@ -7,7 +7,16 @@ import { ShoppingBag, Star, CheckCircle, Tag, X, ShieldCheck, Sparkles, HelpCirc
 import butterLamp from '../assets/Merchandise/Butter lamp.jpg';
 import bodhiMala from '../assets/Merchandise/Hand-Crafted Bodhi Seed Mala.jpg';
 import rosaryMala from '../assets/Merchandise/Rosary Mala.jpg';
-import mandalaSet from '../assets/Merchandise/Mandala offering set.jpg';
+import beadMalasImage from '../assets/Merchandise/Bead Malas.jpeg';
+import mala108 from '../assets/Merchandise/108-Bead Malas.jpeg';
+import mala108One from '../assets/Merchandise/108-Bead Malas 1.jpeg';
+import mala108Two from '../assets/Merchandise/108-Bead Malas 2.jpeg';
+import mala108Three from '../assets/Merchandise/108-Bead Malas 3.jpeg';
+import mala108Four from '../assets/Merchandise/108-Bead Malas 4.jpeg';
+import mala108Five from '../assets/Merchandise/108-Bead Malas 5.jpeg';
+import mala108Six from '../assets/Merchandise/108-Bead Malas 6.jpeg';
+import mala108Seven from '../assets/Merchandise/108-Bead Malas 7.jpeg';
+import mala108Eight from '../assets/Merchandise/108-Bead Malas 8.jpeg';
 import ritualItems from '../assets/Merchandise/Ritual Items.webp';
 import sacredIncense from '../assets/Merchandise/Sacred Incense.jpg';
 import waterBowl from '../assets/Merchandise/Water bowl.jpg';
@@ -17,19 +26,20 @@ import modernArtOne from '../assets/Merchandise/Modern Art 1.jpg';
 const categories = [
   {
     id: 'mala',
-    name: '108-Bead Rosary Malas',
+    name: 'Bead Malas',
     count: 'Bodhi Seed & Gemstone Malas',
-    image: rosaryMala,
-    price: '$35 - $120',
-    description: 'Handcrafted Bodhi seed, sandalwood, and gemstone prayer beads blessed by H.E. Gegye Yongyal Rinpoche for daily mantra recitation, breath awareness, and Tibetan mind-training practice.'
+    image: beadMalasImage,
+    price: '$150 - $250',
+    description: 'A selection of prayer bead malas for daily mantra recitation, meditation, and personal spiritual practice.'
   },
   {
-    id: 'mandala',
-    name: 'Mandala Offering Sets',
-    count: 'Copper & Brass Plate Sets',
-    image: mandalaSet,
-    price: '$85 - $250',
-    description: 'Authentic Himalayan mandala sets crafted for traditional visualization practices, ritual offerings, and merit accumulation on home altars.'
+    id: '108-bead-malas',
+    name: '108-Bead Malas',
+    count: 'Traditional 108-Bead Prayer Malas',
+    image: mala108,
+    gallery: [mala108, mala108One, mala108Two, mala108Three, mala108Four, mala108Five, mala108Six, mala108Seven, mala108Eight, rosaryMala],
+    price: '$200 - $500',
+    description: 'Explore our range of 108-bead malas, including Rosary Mala designs, for mantra recitation and meditation. Contact the center to enquire about specific designs and availability.'
   },
   {
     id: 'butter-lamp',
@@ -69,15 +79,15 @@ const categories = [
     count: 'Contemporary Spiritual Artwork',
     image: modernArt,
     gallery: [modernArt, modernArtOne],
-    price: '',
-    description: 'Contemporary artwork inspired by spiritual practice and Himalayan artistic traditions. Contact the center for details and availability.'
+    price: 'Enquire for pricing',
+    description: 'Contemporary artwork inspired by spiritual practice and Himalayan artistic traditions. Please enquire for pricing, details, and availability.'
   }
 ];
 
 const featuredProduct = {
   title: "Hand-Crafted Bodhi Seed Mala (108 Beads)",
-  price: "$40.00",
-  category: "Rosary Mala",
+  price: "$200 - $500",
+  category: "Hand-Crafted Bodhi Seed Mala",
   image: bodhiMala,
   description: "Crafted with authentic Bodhi seeds harvested in Nepal, this 108-bead prayer mala is individually hand-strung and blessed by Rinpoche for meditation, mindfulness, and mantra repetition practice.",
   features: [
@@ -109,6 +119,7 @@ export default function Merchandise() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [orderSent, setOrderSent] = useState(false);
   const [modernArtImage, setModernArtImage] = useState(0);
+  const [malaImageIndex, setMalaImageIndex] = useState(0);
 
   return (
     
@@ -179,8 +190,8 @@ export default function Merchandise() {
             >
               <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
                 <motion.img
-                  key={item.id === 'modern-art' ? item.gallery[modernArtImage] : item.id}
-                  src={item.id === 'modern-art' ? item.gallery[modernArtImage] : item.image}
+                  key={(item.id === 'modern-art' || item.id === '108-bead-malas') ? item.gallery[item.id === 'modern-art' ? modernArtImage : (malaImageIndex % item.gallery.length)] : item.id}
+                  src={(item.id === 'modern-art' || item.id === '108-bead-malas') ? item.gallery[item.id === 'modern-art' ? modernArtImage : (malaImageIndex % item.gallery.length)] : item.image}
                   alt={item.name}
                   initial={{ opacity: 0, x: 24 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -193,21 +204,51 @@ export default function Merchandise() {
                     {item.price}
                   </span>
                 )}
-                {item.id === 'modern-art' && (
-                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
-                    {item.gallery.map((image, imageIndex) => (
-                      <button
-                        key={image}
-                        type="button"
-                        aria-label={`Show Modern Art image ${imageIndex + 1}`}
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          setModernArtImage(imageIndex);
-                        }}
-                        className={`h-2.5 w-2.5 rounded-full border border-white shadow ${modernArtImage === imageIndex ? 'bg-white' : 'bg-white/40'}`}
-                      />
-                    ))}
-                  </div>
+                {(item.id === 'modern-art' || item.id === '108-bead-malas') && (
+                  <>
+                    <button
+                      type="button"
+                      aria-label={`Previous ${item.name} image`}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        if (item.id === 'modern-art') setModernArtImage((current) => (current - 1 + item.gallery.length) % item.gallery.length);
+                        else setMalaImageIndex((current) => (current - 1 + item.gallery.length) % item.gallery.length);
+                      }}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-stone-950/70 hover:bg-stone-950 text-white flex items-center justify-center shadow-lg transition-colors"
+                    >
+                      <span aria-hidden="true" className="text-2xl leading-none">‹</span>
+                    </button>
+                    <button
+                      type="button"
+                      aria-label={`Next ${item.name} image`}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        if (item.id === 'modern-art') setModernArtImage((current) => (current + 1) % item.gallery.length);
+                        else setMalaImageIndex((current) => (current + 1) % item.gallery.length);
+                      }}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-stone-950/70 hover:bg-stone-950 text-white flex items-center justify-center shadow-lg transition-colors"
+                    >
+                      <span aria-hidden="true" className="text-2xl leading-none">›</span>
+                    </button>
+                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 flex-wrap justify-center max-w-[90%]">
+                    {item.gallery.map((image, imageIndex) => {
+                      const activeIndex = item.id === 'modern-art' ? modernArtImage : malaImageIndex;
+                      return (
+                        <button
+                          key={image}
+                          type="button"
+                          aria-label={`Show ${item.name} image ${imageIndex + 1}`}
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            if (item.id === 'modern-art') setModernArtImage(imageIndex);
+                            else setMalaImageIndex(imageIndex);
+                          }}
+                          className={`h-2.5 w-2.5 rounded-full border border-white shadow ${activeIndex === imageIndex ? 'bg-white' : 'bg-white/40'}`}
+                        />
+                      );
+                    })}
+                    </div>
+                  </>
                 )}
               </div>
               <div className="p-5 flex-1 flex flex-col justify-between space-y-3">
