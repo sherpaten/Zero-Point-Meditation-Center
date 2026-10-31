@@ -111,9 +111,9 @@ const displayCategories = categories.flatMap((category) => {
     id: `${category.id}-${index + 1}`,
     parentCategoryId: category.id,
     name: category.id === '108-bead-malas'
-      ? (index === 9 ? 'Rosary Mala' : `108-Bead Mala ${index + 1}`)
+      ? (index === 9 ? 'Rosary Mala' : '108-Bead Mala')
       : category.id === 'modern-art'
-        ? `Modern Art ${index + 1}`
+        ? 'Modern Art'
         : `Original Dzi Bead ${index + 1}`,
     count: category.count,
     image,
