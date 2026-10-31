@@ -205,7 +205,32 @@ export default function Merchandise() {
                   </span>
                 )}
                 {(item.id === 'modern-art' || item.id === '108-bead-malas') && (
-                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 flex-wrap justify-center max-w-[90%]">
+                  <>
+                    <button
+                      type="button"
+                      aria-label={`Previous ${item.name} image`}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        if (item.id === 'modern-art') setModernArtImage((current) => (current - 1 + item.gallery.length) % item.gallery.length);
+                        else setMalaImageIndex((current) => (current - 1 + item.gallery.length) % item.gallery.length);
+                      }}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-stone-950/70 hover:bg-stone-950 text-white flex items-center justify-center shadow-lg transition-colors"
+                    >
+                      <span aria-hidden="true" className="text-2xl leading-none">‹</span>
+                    </button>
+                    <button
+                      type="button"
+                      aria-label={`Next ${item.name} image`}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        if (item.id === 'modern-art') setModernArtImage((current) => (current + 1) % item.gallery.length);
+                        else setMalaImageIndex((current) => (current + 1) % item.gallery.length);
+                      }}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-stone-950/70 hover:bg-stone-950 text-white flex items-center justify-center shadow-lg transition-colors"
+                    >
+                      <span aria-hidden="true" className="text-2xl leading-none">›</span>
+                    </button>
+                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 flex-wrap justify-center max-w-[90%]">
                     {item.gallery.map((image, imageIndex) => {
                       const activeIndex = item.id === 'modern-art' ? modernArtImage : malaImageIndex;
                       return (
@@ -222,7 +247,8 @@ export default function Merchandise() {
                         />
                       );
                     })}
-                  </div>
+                    </div>
+                  </>
                 )}
               </div>
               <div className="p-5 flex-1 flex flex-col justify-between space-y-3">
