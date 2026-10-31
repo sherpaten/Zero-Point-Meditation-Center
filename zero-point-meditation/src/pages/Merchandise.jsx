@@ -7,6 +7,16 @@ import { ShoppingBag, Star, CheckCircle, Tag, X, ShieldCheck, Sparkles, HelpCirc
 import butterLamp from '../assets/Merchandise/Butter lamp.jpg';
 import bodhiMala from '../assets/Merchandise/Hand-Crafted Bodhi Seed Mala.jpg';
 import rosaryMala from '../assets/Merchandise/Rosary Mala.jpg';
+import beadMalasImage from '../assets/Merchandise/Bead Malas.jpeg';
+import mala108 from '../assets/Merchandise/108-Bead Malas.jpeg';
+import mala108One from '../assets/Merchandise/108-Bead Malas 1.jpeg';
+import mala108Two from '../assets/Merchandise/108-Bead Malas 2.jpeg';
+import mala108Three from '../assets/Merchandise/108-Bead Malas 3.jpeg';
+import mala108Four from '../assets/Merchandise/108-Bead Malas 4.jpeg';
+import mala108Five from '../assets/Merchandise/108-Bead Malas 5.jpeg';
+import mala108Six from '../assets/Merchandise/108-Bead Malas 6.jpeg';
+import mala108Seven from '../assets/Merchandise/108-Bead Malas 7.jpeg';
+import mala108Eight from '../assets/Merchandise/108-Bead Malas 8.jpeg';
 import ritualItems from '../assets/Merchandise/Ritual Items.webp';
 import sacredIncense from '../assets/Merchandise/Sacred Incense.jpg';
 import waterBowl from '../assets/Merchandise/Water bowl.jpg';
@@ -18,7 +28,7 @@ const categories = [
     id: 'mala',
     name: 'Bead Malas',
     count: 'Bodhi Seed & Gemstone Malas',
-    image: rosaryMala,
+    image: beadMalasImage,
     price: '$150 - $250',
     description: 'A selection of prayer bead malas for daily mantra recitation, meditation, and personal spiritual practice.'
   },
@@ -26,9 +36,10 @@ const categories = [
     id: '108-bead-malas',
     name: '108-Bead Malas',
     count: 'Traditional 108-Bead Prayer Malas',
-    image: bodhiMala,
+    image: mala108,
+    gallery: [mala108, mala108One, mala108Two, mala108Three, mala108Four, mala108Five, mala108Six, mala108Seven, mala108Eight, rosaryMala],
     price: '$200 - $500',
-    description: 'Traditional 108-bead malas for mantra recitation and meditation. Contact the center to ask about available materials, designs, and options.'
+    description: 'Explore our range of 108-bead malas, including Rosary Mala designs, for mantra recitation and meditation. Contact the center to enquire about specific designs and availability.'
   },
   {
     id: 'butter-lamp',
@@ -77,7 +88,7 @@ const featuredProduct = {
   title: "Hand-Crafted Bodhi Seed Mala (108 Beads)",
   price: "$200 - $500",
   category: "Rosary Mala",
-  image: bodhiMala,
+  image: mala108,
   description: "Crafted with authentic Bodhi seeds harvested in Nepal, this 108-bead prayer mala is individually hand-strung and blessed by Rinpoche for meditation, mindfulness, and mantra repetition practice.",
   features: [
     "Authentic Bodhi seeds", 
@@ -108,6 +119,7 @@ export default function Merchandise() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [orderSent, setOrderSent] = useState(false);
   const [modernArtImage, setModernArtImage] = useState(0);
+  const [malaImageIndex, setMalaImageIndex] = useState(0);
 
   return (
     
@@ -178,8 +190,8 @@ export default function Merchandise() {
             >
               <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
                 <motion.img
-                  key={item.id === 'modern-art' ? item.gallery[modernArtImage] : item.id}
-                  src={item.id === 'modern-art' ? item.gallery[modernArtImage] : item.image}
+                  key={(item.id === 'modern-art' || item.id === '108-bead-malas') ? item.gallery[item.id === 'modern-art' ? modernArtImage : (malaImageIndex % item.gallery.length)] : item.id}
+                  src={(item.id === 'modern-art' || item.id === '108-bead-malas') ? item.gallery[item.id === 'modern-art' ? modernArtImage : (malaImageIndex % item.gallery.length)] : item.image}
                   alt={item.name}
                   initial={{ opacity: 0, x: 24 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -192,20 +204,24 @@ export default function Merchandise() {
                     {item.price}
                   </span>
                 )}
-                {item.id === 'modern-art' && (
-                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
-                    {item.gallery.map((image, imageIndex) => (
-                      <button
-                        key={image}
-                        type="button"
-                        aria-label={`Show Modern Art image ${imageIndex + 1}`}
-                        onClick={(event) => {
-                          event.stopPropagation();
-                          setModernArtImage(imageIndex);
-                        }}
-                        className={`h-2.5 w-2.5 rounded-full border border-white shadow ${modernArtImage === imageIndex ? 'bg-white' : 'bg-white/40'}`}
-                      />
-                    ))}
+                {(item.id === 'modern-art' || item.id === '108-bead-malas') && (
+                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 flex-wrap justify-center max-w-[90%]">
+                    {item.gallery.map((image, imageIndex) => {
+                      const activeIndex = item.id === 'modern-art' ? modernArtImage : malaImageIndex;
+                      return (
+                        <button
+                          key={image}
+                          type="button"
+                          aria-label={`Show ${item.name} image ${imageIndex + 1}`}
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            if (item.id === 'modern-art') setModernArtImage(imageIndex);
+                            else setMalaImageIndex(imageIndex);
+                          }}
+                          className={`h-2.5 w-2.5 rounded-full border border-white shadow ${activeIndex === imageIndex ? 'bg-white' : 'bg-white/40'}`}
+                        />
+                      );
+                    })}
                   </div>
                 )}
               </div>
