@@ -56,15 +56,13 @@ export default async function handler(req, res) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ error: 'Please enter a valid email address.' });
   }
-  if (type === 'service' && !['zelle', 'other'].includes(paymentPreference)) {
+  const freeEventNames = new Set(['Free Morning Meditation', 'Free Weekend Community Classes', 'Free Meditation Class', 'Free Event']);
+  const requiresPaymentPreference = type === 'service' || !freeEventNames.has(service);
+  if (requiresPaymentPreference && paymentPreference !== 'zelle') {
     return res.status(400).json({ error: 'Please choose a payment preference.' });
   }
 
-  const paymentLabel = paymentPreference === 'zelle'
-    ? 'Zelle (subject to center confirmation)'
-    : paymentPreference === 'other'
-      ? 'Would like to discuss another payment option'
-      : 'Not applicable / not selected';
+  const paymentLabel = paymentPreference === 'zelle' ? 'Zelle (centre will email authorised payment instructions after confirming the booking)' : 'Not applicable — free event';
 
   const autoConfirmedFreeEvents = new Set([
     'Free Morning Meditation',
