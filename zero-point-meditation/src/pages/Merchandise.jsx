@@ -156,6 +156,9 @@ const reviews = [
 export default function Merchandise() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [orderSent, setOrderSent] = useState(false);
+  const [orderSubmitting, setOrderSubmitting] = useState(false);
+  const [orderError, setOrderError] = useState('');
+  const [orderForm, setOrderForm] = useState({ name: '', email: '', phone: '', address: '', city: '', region: '', postalCode: '', country: '' });
 
   return (
     
@@ -221,8 +224,8 @@ export default function Merchandise() {
               transition={{ duration: 0.4, delay: index * 0.08 }}
               whileHover={{ y: -6 }}
               key={item.id}
-              onClick={() => { if (item.parentCategoryId === 'modern-art') { setSelectedItem(item); setOrderSent(false); } }}
-              className={`bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm hover:shadow-xl transition-all group flex flex-col ${item.parentCategoryId === 'modern-art' ? 'cursor-pointer' : 'cursor-default'}`}
+              onClick={() => { setSelectedItem(item); setOrderSent(false); setOrderError(''); }}
+              className={`bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm hover:shadow-xl transition-all group flex flex-col cursor-pointer`}
             >
 
               <div className={`relative aspect-[4/3] overflow-hidden ${'bg-stone-100'}`}>
@@ -255,7 +258,7 @@ export default function Merchandise() {
                 </div>
                 <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-xs">
                   <span className="font-bold text-buddhist-burgundy group-hover:underline flex items-center gap-1">
-                    {item.parentCategoryId === 'modern-art' ? 'View Artwork & Enquire →' : 'View Item'}
+                    Order / enquire →
                   </span>
                 </div>
               </div>
@@ -373,69 +376,64 @@ export default function Merchandise() {
         </div>
       </div>
 
-      {/* Inquiry Modal */}
+      {/* Merchandise order and Zelle enquiry modal */}
       <AnimatePresence>
         {selectedItem && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => { setSelectedItem(null); setOrderSent(false); }}
-            className="fixed inset-0 z-50 bg-stone-950/80 backdrop-blur-sm flex items-center justify-center p-4"
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 space-y-5 shadow-2xl relative border border-stone-200"
-            >
-              <button
-                onClick={() => { setSelectedItem(null); setOrderSent(false); }}
-                className="absolute top-4 right-4 bg-stone-100 hover:bg-stone-200 p-2 rounded-full transition-colors text-stone-600"
-              >
-                <X size={18} />
-              </button>
-
-              {!orderSent ? (
-                <>
-                  <div className="space-y-3">
-                    <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest">Modern Art · Order Enquiry</span>
-                    <h3 className="font-serif text-2xl font-bold text-buddhist-burgundy">{selectedItem.name}</h3>
-                    <motion.img src={selectedItem.image} alt={selectedItem.name} initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.45, ease: 'easeOut' }} className="w-full max-h-64 object-contain rounded-2xl bg-stone-50" />
-                    <p className="text-stone-600 text-xs">{selectedItem.description}</p>
-                    <p className="text-sm font-bold text-buddhist-burgundy">{selectedItem.price}</p>
-                  </div>
-                  <form onSubmit={(e) => e.preventDefault()} className="space-y-3 pt-2">
-                    <h4 className="font-serif text-lg font-bold text-stone-900">Shipping details</h4>
-                    <div className="grid sm:grid-cols-2 gap-3">
-                      <div><label className="block text-xs font-bold text-stone-700 mb-1">Full name</label><input type="text" required placeholder="Your full name" className="w-full text-xs p-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-buddhist-burgundy" /></div>
-                      <div><label className="block text-xs font-bold text-stone-700 mb-1">Email address</label><input type="email" required placeholder="you@example.com" className="w-full text-xs p-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-buddhist-burgundy" /></div>
-                      <div><label className="block text-xs font-bold text-stone-700 mb-1">Phone number</label><input type="tel" required placeholder="Including country code" className="w-full text-xs p-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-buddhist-burgundy" /></div>
-                      <div><label className="block text-xs font-bold text-stone-700 mb-1">Country</label><input type="text" required placeholder="Country" className="w-full text-xs p-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-buddhist-burgundy" /></div>
-                    </div>
-                    <div><label className="block text-xs font-bold text-stone-700 mb-1">Street address</label><input type="text" required placeholder="Street address and apartment/unit" className="w-full text-xs p-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-buddhist-burgundy" /></div>
-                    <div className="grid sm:grid-cols-3 gap-3">
-                      <div><label className="block text-xs font-bold text-stone-700 mb-1">City</label><input type="text" required placeholder="City" className="w-full text-xs p-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-buddhist-burgundy" /></div>
-                      <div><label className="block text-xs font-bold text-stone-700 mb-1">State / Province</label><input type="text" placeholder="State / Province" className="w-full text-xs p-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-buddhist-burgundy" /></div>
-                      <div><label className="block text-xs font-bold text-stone-700 mb-1">Postal code</label><input type="text" placeholder="Postal code" className="w-full text-xs p-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-buddhist-burgundy" /></div>
-                    </div>
-                    <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 space-y-2">
-                      <div className="flex items-center gap-2 text-buddhist-burgundy font-bold text-sm"><ShieldCheck size={17} /> Payment by Zelle</div>
-                      <p className="text-xs text-stone-700 leading-relaxed">Zelle recipient details are awaiting confirmation from the centre. They will be added here once the authorised recipient information is provided. Please do not send payment to an unverified account.</p>
-                      <p className="text-xs text-stone-600">Artwork pricing and shipping costs will be confirmed by the centre before payment.</p>
-                    </div>
-                    <button type="button" disabled className="w-full py-3.5 bg-stone-300 text-stone-600 font-bold rounded-xl text-xs uppercase tracking-wider cursor-not-allowed">Checkout activation pending</button>
-                    <p className="text-[11px] text-stone-500 text-center">Order submission will be enabled after the centre confirms its Zelle recipient and secure order-processing details. No payment is collected on this page yet.</p>
-                  </form>
-                </>
-              ) : (
-                <div className="py-8 text-center space-y-4">
-                  <h3 className="font-serif text-2xl font-bold text-stone-900">Checkout setup pending</h3>
-                  <p className="text-stone-600 text-xs max-w-xs mx-auto">Please contact the centre to confirm artwork availability, pricing and shipping.</p>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            onClick={() => { if (!orderSubmitting) setSelectedItem(null); }}
+            className="fixed inset-0 z-[100] bg-stone-950/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6">
+            <motion.section role="dialog" aria-modal="true" aria-labelledby="merch-order-title"
+              initial={{ scale: 0.96, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.96, opacity: 0 }}
+              onClick={e => e.stopPropagation()}
+              className="bg-white rounded-3xl max-w-2xl w-full max-h-[94vh] overflow-y-auto p-5 sm:p-8 space-y-5 shadow-2xl relative">
+              <button type="button" onClick={() => setSelectedItem(null)} aria-label="Close order form"
+                className="absolute top-4 right-4 bg-stone-100 hover:bg-stone-200 p-2 rounded-full text-stone-600"><X size={18}/></button>
+              {!orderSent ? <>
+                <div className="space-y-3 pr-10">
+                  <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest">Zero Point Meditation Center · Merchandise order</span>
+                  <h3 id="merch-order-title" className="font-serif text-2xl font-bold text-buddhist-burgundy">{selectedItem.name}</h3>
+                  <img src={selectedItem.image} alt={selectedItem.name} className="w-full max-h-52 object-contain rounded-2xl bg-stone-50"/>
+                  <p className="text-sm text-stone-600">{selectedItem.description}</p>
+                  <p className="text-sm font-bold text-buddhist-burgundy">{selectedItem.price}</p>
                 </div>
-              )}
-            </motion.div>
+                <form className="space-y-4" onSubmit={async e => {
+                  e.preventDefault(); setOrderSubmitting(true); setOrderError('');
+                  try {
+                    const response = await fetch('/api/merchandise', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({ product: selectedItem.name, price: selectedItem.price, name: orderForm.name, email: orderForm.email, phone: orderForm.phone, address: orderForm.address, city: orderForm.city, region: orderForm.region, postalCode: orderForm.postalCode, country: orderForm.country, paymentMethod: 'zelle' }) });
+                    const result = await response.json().catch(() => ({}));
+                    if (!response.ok) throw new Error(result.error || 'We could not send your order enquiry. Please try again.');
+                    setOrderSent(true);
+                    setOrderForm({ name: '', email: '', phone: '', address: '', city: '', region: '', postalCode: '', country: '' });
+                  } catch (err) { setOrderError(err.message || 'Unable to submit your order. Please try again.'); }
+                  finally { setOrderSubmitting(false); }
+                }}>
+                  <h4 className="font-serif text-lg font-bold text-stone-900">Your details & delivery address</h4>
+                  <div className="grid sm:grid-cols-2 gap-3">
+                    <label className="text-xs font-bold text-stone-700">Full name *<input required maxLength="120" autoComplete="name" value={orderForm.name} onChange={e=>setOrderForm(v=>({...v,name:e.target.value}))} className="mt-1 w-full p-3 rounded-xl border border-stone-300 font-normal"/></label>
+                    <label className="text-xs font-bold text-stone-700">Email address *<input required type="email" maxLength="254" autoComplete="email" value={orderForm.email} onChange={e=>setOrderForm(v=>({...v,email:e.target.value}))} className="mt-1 w-full p-3 rounded-xl border border-stone-300 font-normal"/></label>
+                    <label className="text-xs font-bold text-stone-700">Phone number *<input required type="tel" maxLength="40" autoComplete="tel" value={orderForm.phone} onChange={e=>setOrderForm(v=>({...v,phone:e.target.value}))} className="mt-1 w-full p-3 rounded-xl border border-stone-300 font-normal"/></label>
+                    <label className="text-xs font-bold text-stone-700 sm:col-span-2">Street address *<input required maxLength="180" autoComplete="street-address" value={orderForm.address} onChange={e=>setOrderForm(v=>({...v,address:e.target.value}))} className="mt-1 w-full p-3 rounded-xl border border-stone-300 font-normal"/></label>
+                    <label className="text-xs font-bold text-stone-700">City *<input required maxLength="100" autoComplete="address-level2" value={orderForm.city} onChange={e=>setOrderForm(v=>({...v,city:e.target.value}))} className="mt-1 w-full p-3 rounded-xl border border-stone-300 font-normal"/></label>
+                    <label className="text-xs font-bold text-stone-700">State / Province<input maxLength="100" autoComplete="address-level1" value={orderForm.region} onChange={e=>setOrderForm(v=>({...v,region:e.target.value}))} className="mt-1 w-full p-3 rounded-xl border border-stone-300 font-normal"/></label>
+                    <label className="text-xs font-bold text-stone-700">Postal code<input maxLength="30" autoComplete="postal-code" value={orderForm.postalCode} onChange={e=>setOrderForm(v=>({...v,postalCode:e.target.value}))} className="mt-1 w-full p-3 rounded-xl border border-stone-300 font-normal"/></label>
+                    <label className="text-xs font-bold text-stone-700">Country *<input required maxLength="100" autoComplete="country-name" value={orderForm.country} onChange={e=>setOrderForm(v=>({...v,country:e.target.value}))} className="mt-1 w-full p-3 rounded-xl border border-stone-300 font-normal"/></label>
+                  </div>
+                  <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 space-y-2">
+                    <div className="flex items-center gap-2 text-buddhist-burgundy font-bold text-sm"><ShieldCheck size={17}/> Payment method: Zelle</div>
+                    <p className="text-xs text-stone-700 leading-relaxed">After we receive your order, the centre will confirm availability, final price and shipping, then email you the authorised Zelle payment details. Please do not send payment before receiving that email.</p>
+                  </div>
+                  {orderError && <p role="alert" className="rounded-xl bg-red-50 border border-red-200 p-3 text-sm text-red-800">{orderError}</p>}
+                  <button type="submit" disabled={orderSubmitting} className="w-full py-3.5 bg-buddhist-burgundy hover:opacity-90 disabled:opacity-60 text-white font-bold rounded-xl text-sm">{orderSubmitting ? 'Sending order…' : 'Submit order enquiry'}</button>
+                  <p className="text-[11px] text-stone-500 text-center">This submits an order enquiry only. No payment is collected and your order is not confirmed until the centre contacts you.</p>
+                </form>
+              </> : <div className="py-10 text-center space-y-4">
+                <CheckCircle size={42} className="mx-auto text-emerald-600"/>
+                <h3 className="font-serif text-2xl font-bold text-stone-900">Order enquiry received</h3>
+                <p className="text-stone-600 text-sm max-w-md mx-auto">Thank you. The centre has received your order details. We’ll email you to confirm availability, shipping and the Zelle payment instructions. No payment has been taken.</p>
+                <button type="button" onClick={()=>{setSelectedItem(null);setOrderSent(false);}} className="px-6 py-3 rounded-xl bg-buddhist-burgundy text-white font-semibold">Close</button>
+              </div>}
+            </motion.section>
           </motion.div>
         )}
       </AnimatePresence>
