@@ -27,6 +27,8 @@ import modernArtThree from '../assets/Merchandise/Modern Art 3.jpeg';
 import modernArtFour from '../assets/Merchandise/Modern Art 4.jpeg';
 import modernArtFive from '../assets/Merchandise/Modern Art 5.jpeg';
 import modernArtSix from '../assets/Merchandise/Modern Art 6.jpeg';
+import originalDziBeads from '../assets/Merchandise/Original Dzi Beads.jpeg';
+import originalDziBeadsOne from '../assets/Merchandise/Original Dzi Beads 1.jpeg';
 
 const categories = [
   {
@@ -43,8 +45,9 @@ const categories = [
     count: 'Traditional 108-Bead Prayer Malas',
     image: mala108,
     gallery: [mala108, mala108One, mala108Two, mala108Three, mala108Four, mala108Five, mala108Six, mala108Seven, mala108Eight, rosaryMala],
-    price: '$200 - $500',
-    description: 'Explore our range of 108-bead malas, including Rosary Mala designs, for mantra recitation and meditation. Contact the center to enquire about specific designs and availability.'
+    price: 'Prices vary by design',
+    galleryPrices: ['$550', '$423', '$575', '$423', '$400', '$575', '$470', '$510', '$423', 'Enquire for price'],
+    description: 'Each 108-bead mala has its own price. Browse the gallery to see the price for each design. The Rosary Mala price is available on enquiry.'
   },
   {
     id: 'butter-lamp',
@@ -79,15 +82,45 @@ const categories = [
     description: 'Windhorse prayer flags, singing bowls, ritual bells, dorjes, and consecrated sangha practice accessories for home shrines.'
   },
   {
+    id: 'original-dzi-beads',
+    name: 'Original Dzi Beads',
+    count: 'Traditional Dzi Bead Collection',
+    image: originalDziBeads,
+    gallery: [originalDziBeads, originalDziBeadsOne],
+    price: 'Enquire for price',
+    galleryPrices: ['Enquire for price', 'Enquire for price'],
+    description: 'Each Original Dzi Beads piece is individually priced. Please enquire with the centre for pricing and availability.'
+  },
+  {
     id: 'modern-art',
     name: 'Modern Art',
     count: 'Contemporary Spiritual Artwork',
     image: modernArt,
     gallery: [modernArt, modernArtOne, modernArtTwo, modernArtThree, modernArtFour, modernArtFive, modernArtSix],
-    price: 'Enquire for pricing',
-    description: 'Contemporary artwork inspired by spiritual practice and Himalayan artistic traditions. Please enquire for pricing, details, and availability.'
+    price: 'Prices vary by artwork',
+    galleryPrices: ['Enquire for price', 'Enquire for price', '$750', '$700', '$1,500', '$699', '$1,200'],
+    description: 'Each artwork has its own price. Browse the gallery to view the listed price for each piece; pricing for the first two artworks is not yet available.'
   }
 ];
+
+ 
+// Expand galleries into individual product listings, each with its own image and price.
+const displayCategories = categories.flatMap((category) => {
+  if (!category.gallery) return [category];
+  return category.gallery.map((image, index) => ({
+    id: `${category.id}-${index + 1}`,
+    parentCategoryId: category.id,
+    name: category.id === '108-bead-malas'
+      ? (index === 9 ? 'Rosary Mala' : '108-Bead Mala')
+      : category.id === 'modern-art'
+        ? 'Modern Art'
+        : `Original Dzi Bead ${index + 1}`,
+    count: category.count,
+    image,
+    price: category.galleryPrices[index],
+    description: category.description
+  }));
+});
 
 const featuredProduct = {
   title: "Hand-Crafted Bodhi Seed Mala (108 Beads)",
@@ -123,8 +156,6 @@ const reviews = [
 export default function Merchandise() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [orderSent, setOrderSent] = useState(false);
-  const [modernArtImage, setModernArtImage] = useState(0);
-  const [malaImageIndex, setMalaImageIndex] = useState(0);
 
   return (
     
@@ -183,77 +214,31 @@ export default function Merchandise() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {categories.map((item, index) => (
+          {displayCategories.map((item, index) => (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: index * 0.08 }}
               whileHover={{ y: -6 }}
               key={item.id}
-              onClick={() => { if (item.id === 'modern-art') { setSelectedItem(item); setOrderSent(false); } }}
-              className={`bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm hover:shadow-xl transition-all group flex flex-col ${item.id === 'modern-art' ? 'cursor-pointer' : 'cursor-default'}`}
+              onClick={() => { if (item.parentCategoryId === 'modern-art') { setSelectedItem(item); setOrderSent(false); } }}
+              className={`bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm hover:shadow-xl transition-all group flex flex-col ${item.parentCategoryId === 'modern-art' ? 'cursor-pointer' : 'cursor-default'}`}
             >
-              <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
+
+              <div className={`relative aspect-[4/3] overflow-hidden ${item.parentCategoryId === 'original-dzi-beads' ? 'bg-[#f7f4ee] flex items-center justify-center p-4 sm:p-5' : 'bg-stone-100'}`}>
                 <motion.img
-                  key={(item.id === 'modern-art' || item.id === '108-bead-malas') ? item.gallery[item.id === 'modern-art' ? modernArtImage : (malaImageIndex % item.gallery.length)] : item.id}
-                  src={(item.id === 'modern-art' || item.id === '108-bead-malas') ? item.gallery[item.id === 'modern-art' ? modernArtImage : (malaImageIndex % item.gallery.length)] : item.image}
+                  src={item.image}
                   alt={item.name}
                   initial={{ opacity: 0, x: 24 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: 0.25 }}
                   transition={{ duration: 0.45, ease: 'easeOut' }}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className={`w-full h-full ${item.parentCategoryId === 'original-dzi-beads' ? 'object-contain max-w-full max-h-full' : 'object-cover group-hover:scale-105'} transition-transform duration-500`}
                 />
                 {item.price && (
                   <span className="absolute top-3 right-3 bg-stone-950/80 backdrop-blur-md text-amber-50 text-xs font-bold px-3 py-1 rounded-full border border-white/10">
                     {item.price}
                   </span>
-                )}
-                {(item.id === 'modern-art' || item.id === '108-bead-malas') && (
-                  <>
-                    <button
-                      type="button"
-                      aria-label={`Previous ${item.name} image`}
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        if (item.id === 'modern-art') setModernArtImage((current) => (current - 1 + item.gallery.length) % item.gallery.length);
-                        else setMalaImageIndex((current) => (current - 1 + item.gallery.length) % item.gallery.length);
-                      }}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-stone-950/70 hover:bg-stone-950 text-white flex items-center justify-center shadow-lg transition-colors"
-                    >
-                      <span aria-hidden="true" className="text-2xl leading-none">‹</span>
-                    </button>
-                    <button
-                      type="button"
-                      aria-label={`Next ${item.name} image`}
-                      onClick={(event) => {
-                        event.stopPropagation();
-                        if (item.id === 'modern-art') setModernArtImage((current) => (current + 1) % item.gallery.length);
-                        else setMalaImageIndex((current) => (current + 1) % item.gallery.length);
-                      }}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-stone-950/70 hover:bg-stone-950 text-white flex items-center justify-center shadow-lg transition-colors"
-                    >
-                      <span aria-hidden="true" className="text-2xl leading-none">›</span>
-                    </button>
-                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 flex-wrap justify-center max-w-[90%]">
-                    {item.gallery.map((image, imageIndex) => {
-                      const activeIndex = item.id === 'modern-art' ? modernArtImage : malaImageIndex;
-                      return (
-                        <button
-                          key={image}
-                          type="button"
-                          aria-label={`Show ${item.name} image ${imageIndex + 1}`}
-                          onClick={(event) => {
-                            event.stopPropagation();
-                            if (item.id === 'modern-art') setModernArtImage(imageIndex);
-                            else setMalaImageIndex(imageIndex);
-                          }}
-                          className={`h-2.5 w-2.5 rounded-full border border-white shadow ${activeIndex === imageIndex ? 'bg-white' : 'bg-white/40'}`}
-                        />
-                      );
-                    })}
-                    </div>
-                  </>
                 )}
               </div>
               <div className="p-5 flex-1 flex flex-col justify-between space-y-3">
@@ -270,7 +255,7 @@ export default function Merchandise() {
                 </div>
                 <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-xs">
                   <span className="font-bold text-buddhist-burgundy group-hover:underline flex items-center gap-1">
-                    {item.id === 'modern-art' ? 'View Artwork & Order →' : 'Browse Collection'}
+                    {item.parentCategoryId === 'modern-art' ? 'View Artwork & Enquire →' : 'View Item'}
                   </span>
                 </div>
               </div>
