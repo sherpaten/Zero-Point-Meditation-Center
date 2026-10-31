@@ -87,8 +87,8 @@ const categories = [
 const featuredProduct = {
   title: "Hand-Crafted Bodhi Seed Mala (108 Beads)",
   price: "$200 - $500",
-  category: "Rosary Mala",
-  image: mala108,
+  category: "Hand-Crafted Bodhi Seed Mala",
+  image: bodhiMala,
   description: "Crafted with authentic Bodhi seeds harvested in Nepal, this 108-bead prayer mala is individually hand-strung and blessed by Rinpoche for meditation, mindfulness, and mantra repetition practice.",
   features: [
     "Authentic Bodhi seeds", 
