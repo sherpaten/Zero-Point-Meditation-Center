@@ -27,6 +27,8 @@ import modernArtThree from '../assets/Merchandise/Modern Art 3.jpeg';
 import modernArtFour from '../assets/Merchandise/Modern Art 4.jpeg';
 import modernArtFive from '../assets/Merchandise/Modern Art 5.jpeg';
 import modernArtSix from '../assets/Merchandise/Modern Art 6.jpeg';
+import originalDziBeads from '../assets/Merchandise/Original Dzi Beads.jpeg';
+import originalDziBeadsOne from '../assets/Merchandise/Original Dzi Beads 1.jpeg';
 
 const categories = [
   {
@@ -79,6 +81,15 @@ const categories = [
     description: 'Windhorse prayer flags, singing bowls, ritual bells, dorjes, and consecrated sangha practice accessories for home shrines.'
   },
   {
+    id: 'original-dzi-beads',
+    name: 'Original Dzi Beads',
+    count: 'Traditional Dzi Bead Collection',
+    image: originalDziBeads,
+    gallery: [originalDziBeads, originalDziBeadsOne],
+    price: 'Price on request',
+    description: 'Explore our Original Dzi Beads collection. Please contact the centre to confirm individual piece pricing and availability.'
+  },
+  {
     id: 'modern-art',
     name: 'Modern Art',
     count: 'Contemporary Spiritual Artwork',
@@ -125,6 +136,7 @@ export default function Merchandise() {
   const [orderSent, setOrderSent] = useState(false);
   const [modernArtImage, setModernArtImage] = useState(0);
   const [malaImageIndex, setMalaImageIndex] = useState(0);
+  const [dziImageIndex, setDziImageIndex] = useState(0);
 
   return (
     
@@ -195,8 +207,8 @@ export default function Merchandise() {
             >
               <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
                 <motion.img
-                  key={(item.id === 'modern-art' || item.id === '108-bead-malas') ? item.gallery[item.id === 'modern-art' ? modernArtImage : (malaImageIndex % item.gallery.length)] : item.id}
-                  src={(item.id === 'modern-art' || item.id === '108-bead-malas') ? item.gallery[item.id === 'modern-art' ? modernArtImage : (malaImageIndex % item.gallery.length)] : item.image}
+                  key={(item.id === 'modern-art' || item.id === '108-bead-malas' || item.id === 'original-dzi-beads') ? item.gallery[item.id === 'modern-art' ? modernArtImage : item.id === '108-bead-malas' ? (malaImageIndex % item.gallery.length) : (dziImageIndex % item.gallery.length)] : item.id}
+                  src={(item.id === 'modern-art' || item.id === '108-bead-malas' || item.id === 'original-dzi-beads') ? item.gallery[item.id === 'modern-art' ? modernArtImage : (malaImageIndex % item.gallery.length)] : item.image}
                   alt={item.name}
                   initial={{ opacity: 0, x: 24 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -209,7 +221,7 @@ export default function Merchandise() {
                     {item.price}
                   </span>
                 )}
-                {(item.id === 'modern-art' || item.id === '108-bead-malas') && (
+                {(item.id === 'modern-art' || item.id === '108-bead-malas' || item.id === 'original-dzi-beads') && (
                   <>
                     <button
                       type="button"
@@ -217,7 +229,8 @@ export default function Merchandise() {
                       onClick={(event) => {
                         event.stopPropagation();
                         if (item.id === 'modern-art') setModernArtImage((current) => (current - 1 + item.gallery.length) % item.gallery.length);
-                        else setMalaImageIndex((current) => (current - 1 + item.gallery.length) % item.gallery.length);
+                        else if (item.id === '108-bead-malas') setMalaImageIndex((current) => (current - 1 + item.gallery.length) % item.gallery.length);
+                        else setDziImageIndex((current) => (current - 1 + item.gallery.length) % item.gallery.length);
                       }}
                       className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-stone-950/70 hover:bg-stone-950 text-white flex items-center justify-center shadow-lg transition-colors"
                     >
@@ -229,7 +242,8 @@ export default function Merchandise() {
                       onClick={(event) => {
                         event.stopPropagation();
                         if (item.id === 'modern-art') setModernArtImage((current) => (current + 1) % item.gallery.length);
-                        else setMalaImageIndex((current) => (current + 1) % item.gallery.length);
+                        else if (item.id === '108-bead-malas') setMalaImageIndex((current) => (current + 1) % item.gallery.length);
+                        else setDziImageIndex((current) => (current + 1) % item.gallery.length);
                       }}
                       className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full bg-stone-950/70 hover:bg-stone-950 text-white flex items-center justify-center shadow-lg transition-colors"
                     >
@@ -237,7 +251,7 @@ export default function Merchandise() {
                     </button>
                     <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 flex-wrap justify-center max-w-[90%]">
                     {item.gallery.map((image, imageIndex) => {
-                      const activeIndex = item.id === 'modern-art' ? modernArtImage : malaImageIndex;
+                      const activeIndex = item.id === 'modern-art' ? modernArtImage : item.id === '108-bead-malas' ? malaImageIndex : dziImageIndex;
                       return (
                         <button
                           key={image}
@@ -246,7 +260,8 @@ export default function Merchandise() {
                           onClick={(event) => {
                             event.stopPropagation();
                             if (item.id === 'modern-art') setModernArtImage(imageIndex);
-                            else setMalaImageIndex(imageIndex);
+                            else if (item.id === '108-bead-malas') setMalaImageIndex(imageIndex);
+                            else setDziImageIndex(imageIndex);
                           }}
                           className={`h-2.5 w-2.5 rounded-full border border-white shadow ${activeIndex === imageIndex ? 'bg-white' : 'bg-white/40'}`}
                         />
