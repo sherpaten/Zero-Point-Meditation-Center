@@ -98,8 +98,8 @@ const categories = [
     image: modernArt,
     gallery: [modernArt, modernArtOne, modernArtTwo, modernArtThree, modernArtFour, modernArtFive, modernArtSix],
     price: 'Prices vary by artwork',
-    galleryPrices: ['Enquire for price', 'Enquire for price', '$750', '$700', '$1,500', '$699', '$1,200'],
-    description: 'Each artwork has its own price. Browse the gallery to view the listed price for each piece; pricing for the first two artworks is not yet available.'
+    galleryPrices: ['$2,700', '$2,200', '$750', '$700', '$1,500', '$699', '$1,200'],
+    description: 'Each artwork has its own listed price. Browse the gallery to view the price for each piece.'
   }
 ];
 
