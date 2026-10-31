@@ -80,7 +80,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
         service_name: service,
         booking_type: type,
         form_location: 'booking_modal',
-        payment_preference: type === 'service' ? paymentPreference : 'not_applicable'
+        payment_preference: isFree ? 'not_applicable' : paymentPreference
       });
     }
     try {
@@ -97,7 +97,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           phone: form.phone.trim(),
           place: form.place.trim(),
           profession: form.profession.trim(),
-          paymentPreference: type === 'service' ? paymentPreference : 'not_applicable',
+          paymentPreference: isFree ? 'not_applicable' : paymentPreference,
           website
         })
       });
@@ -182,19 +182,16 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
             <div><label htmlFor="booking-place" className="text-sm font-semibold text-stone-800">Place / city / country *</label><input id="booking-place" className={fieldClass} name="place" autoComplete="address-level2" value={form.place} onChange={update} maxLength={120} required /></div>
             <div className="sm:col-span-2"><label htmlFor="booking-profession" className="text-sm font-semibold text-stone-800">Profession *</label><input id="booking-profession" className={fieldClass} name="profession" autoComplete="organization-title" value={form.profession} onChange={update} maxLength={120} required /></div>
           </div>
-          {type === 'service' && <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-stone-700 space-y-3">
+          {!isFree && <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-stone-700 space-y-3">
             <p className="flex items-center gap-2 font-semibold text-buddhist-burgundy"><CreditCard size={17}/> Payment preference</p>
-            <p>Payment is only requested after the center reviews your enquiry and confirms the service and amount. Please do not pay before receiving confirmation.</p>
+            <p>The center will review your request and confirm availability and the final amount. If payment is required, the team will email you the authorised Zelle details. Please do not pay before receiving that email.</p>
             <fieldset className="space-y-2">
               <legend className="font-semibold text-stone-800">How would you prefer to pay?</legend>
               <label className="flex items-start gap-2 rounded-lg border border-amber-200 bg-white p-3">
                 <input type="radio" name="paymentPreference" value="zelle" checked={paymentPreference === 'zelle'} onChange={() => setPaymentPreference('zelle')} className="mt-1 accent-amber-800" />
-                <span><span className="block font-semibold text-stone-900">Zelle</span><span className="block text-xs text-stone-600">I can use Zelle if the center confirms this option for my booking.</span></span>
+                <span><span className="block font-semibold text-stone-900">Zelle</span><span className="block text-xs text-stone-600">Zelle payment instructions will be emailed after the center confirms the booking and amount.</span></span>
               </label>
-              <label className="flex items-start gap-2 rounded-lg border border-amber-200 bg-white p-3">
-                <input type="radio" name="paymentPreference" value="other" checked={paymentPreference === 'other'} onChange={() => setPaymentPreference('other')} className="mt-1 accent-amber-800" />
-                <span><span className="block font-semibold text-stone-900">Discuss another payment option</span><span className="block text-xs text-stone-600">Please contact me about another available payment method.</span></span>
-              </label>
+
             </fieldset>
           </div>}
           {message && <p role="status" className={(message.startsWith('Thank you') || message.startsWith('Your registration')) ? 'rounded-xl border border-emerald-300 bg-emerald-50 p-4 text-sm leading-6 text-emerald-950' : 'rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm leading-6 text-amber-950'}>{(message.startsWith('Thank you') || message.startsWith('Your registration')) && <CheckCircle2 size={17} className="inline mr-2" />}{message}</p>}
