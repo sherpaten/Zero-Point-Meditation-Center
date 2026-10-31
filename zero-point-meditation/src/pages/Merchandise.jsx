@@ -114,7 +114,7 @@ const displayCategories = categories.flatMap((category) => {
       ? (index === 9 ? 'Rosary Mala' : '108-Bead Mala')
       : category.id === 'modern-art'
         ? 'Modern Art'
-        : `Original Dzi Bead ${index + 1}`,
+        : 'Original Dzi Bead',
     count: category.count,
     image,
     price: category.galleryPrices[index],
@@ -225,7 +225,7 @@ export default function Merchandise() {
               className={`bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm hover:shadow-xl transition-all group flex flex-col ${item.parentCategoryId === 'modern-art' ? 'cursor-pointer' : 'cursor-default'}`}
             >
 
-              <div className={`relative aspect-[4/3] overflow-hidden ${item.parentCategoryId === 'original-dzi-beads' ? 'bg-[#f7f4ee] flex items-center justify-center p-4 sm:p-5' : 'bg-stone-100'}`}>
+              <div className={`relative aspect-[4/3] overflow-hidden ${'bg-stone-100'}`}>
                 <motion.img
                   src={item.image}
                   alt={item.name}
@@ -233,7 +233,7 @@ export default function Merchandise() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: 0.25 }}
                   transition={{ duration: 0.45, ease: 'easeOut' }}
-                  className={`w-full h-full ${item.parentCategoryId === 'original-dzi-beads' ? 'object-contain max-w-full max-h-full' : 'object-cover group-hover:scale-105'} transition-transform duration-500`}
+                  className={`w-full h-full ${'object-cover group-hover:scale-105'} transition-transform duration-500`}
                 />
                 {item.price && (
                   <span className="absolute top-3 right-3 bg-stone-950/80 backdrop-blur-md text-amber-50 text-xs font-bold px-3 py-1 rounded-full border border-white/10">
