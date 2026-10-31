@@ -190,8 +190,8 @@ export default function Merchandise() {
               transition={{ duration: 0.4, delay: index * 0.08 }}
               whileHover={{ y: -6 }}
               key={item.id}
-              onClick={() => setSelectedItem(item)}
-              className="bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm hover:shadow-xl transition-all cursor-pointer group flex flex-col"
+              onClick={() => { if (item.id === 'modern-art') { setSelectedItem(item); setOrderSent(false); } }}
+              className={`bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm hover:shadow-xl transition-all group flex flex-col ${item.id === 'modern-art' ? 'cursor-pointer' : 'cursor-default'}`}
             >
               <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
                 <motion.img
@@ -270,7 +270,7 @@ export default function Merchandise() {
                 </div>
                 <div className="pt-3 border-t border-stone-100 flex items-center justify-between text-xs">
                   <span className="font-bold text-buddhist-burgundy group-hover:underline flex items-center gap-1">
-                    View Details & Inquire →
+                    {item.id === 'modern-art' ? 'View Artwork & Order →' : 'Browse Collection'}
                   </span>
                 </div>
               </div>
@@ -315,14 +315,7 @@ export default function Merchandise() {
               </li>
             ))}
           </ul>
-          <div className="pt-4">
-            <button
-              onClick={() => setSelectedItem({ name: featuredProduct.title, price: featuredProduct.price, image: featuredProduct.image, description: featuredProduct.description })}
-              className="w-full sm:w-auto px-8 py-3.5 bg-buddhist-burgundy hover:bg-red-900 text-amber-50 rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg transition-all"
-            >
-              Request / Order Item
-            </button>
-          </div>
+          <p className="pt-4 text-xs text-stone-400">Browse the collection above for merchandise information.</p>
         </div>
       </motion.div>
 
@@ -410,7 +403,7 @@ export default function Merchandise() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-5 shadow-2xl relative border border-stone-200"
+              className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 space-y-5 shadow-2xl relative border border-stone-200"
             >
               <button
                 onClick={() => { setSelectedItem(null); setOrderSent(false); }}
@@ -421,71 +414,40 @@ export default function Merchandise() {
 
               {!orderSent ? (
                 <>
-                  <div className="space-y-2">
-                    <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest">
-                      Item Inquiry
-                    </span>
-                    <h3 className="font-serif text-2xl font-bold text-buddhist-burgundy">
-                      {selectedItem.name}
-                    </h3>
-                    <p className="text-stone-600 text-xs">
-                      {selectedItem.description}
-                    </p>
+                  <div className="space-y-3">
+                    <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest">Modern Art · Order Enquiry</span>
+                    <h3 className="font-serif text-2xl font-bold text-buddhist-burgundy">{selectedItem.name}</h3>
+                    <motion.img src={selectedItem.image} alt={selectedItem.name} initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.45, ease: 'easeOut' }} className="w-full max-h-64 object-contain rounded-2xl bg-stone-50" />
+                    <p className="text-stone-600 text-xs">{selectedItem.description}</p>
+                    <p className="text-sm font-bold text-buddhist-burgundy">{selectedItem.price}</p>
                   </div>
-
-                  <form 
-                    onSubmit={(e) => { e.preventDefault(); setOrderSent(true); }}
-                    className="space-y-3 pt-2"
-                  >
-                    <div>
-                      <label className="block text-xs font-bold text-stone-700 mb-1">Your Full Name</label>
-                      <input 
-                        type="text" 
-                        required 
-                        placeholder="Name" 
-                        className="w-full text-xs p-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-buddhist-burgundy"
-                      />
+                  <form onSubmit={(e) => e.preventDefault()} className="space-y-3 pt-2">
+                    <h4 className="font-serif text-lg font-bold text-stone-900">Shipping details</h4>
+                    <div className="grid sm:grid-cols-2 gap-3">
+                      <div><label className="block text-xs font-bold text-stone-700 mb-1">Full name</label><input type="text" required placeholder="Your full name" className="w-full text-xs p-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-buddhist-burgundy" /></div>
+                      <div><label className="block text-xs font-bold text-stone-700 mb-1">Email address</label><input type="email" required placeholder="you@example.com" className="w-full text-xs p-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-buddhist-burgundy" /></div>
+                      <div><label className="block text-xs font-bold text-stone-700 mb-1">Phone number</label><input type="tel" required placeholder="Including country code" className="w-full text-xs p-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-buddhist-burgundy" /></div>
+                      <div><label className="block text-xs font-bold text-stone-700 mb-1">Country</label><input type="text" required placeholder="Country" className="w-full text-xs p-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-buddhist-burgundy" /></div>
                     </div>
-                    <div>
-                      <label className="block text-xs font-bold text-stone-700 mb-1">Email Address</label>
-                      <input 
-                        type="email" 
-                        required 
-                        placeholder="email@example.com" 
-                        className="w-full text-xs p-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-buddhist-burgundy"
-                      />
+                    <div><label className="block text-xs font-bold text-stone-700 mb-1">Street address</label><input type="text" required placeholder="Street address and apartment/unit" className="w-full text-xs p-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-buddhist-burgundy" /></div>
+                    <div className="grid sm:grid-cols-3 gap-3">
+                      <div><label className="block text-xs font-bold text-stone-700 mb-1">City</label><input type="text" required placeholder="City" className="w-full text-xs p-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-buddhist-burgundy" /></div>
+                      <div><label className="block text-xs font-bold text-stone-700 mb-1">State / Province</label><input type="text" placeholder="State / Province" className="w-full text-xs p-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-buddhist-burgundy" /></div>
+                      <div><label className="block text-xs font-bold text-stone-700 mb-1">Postal code</label><input type="text" placeholder="Postal code" className="w-full text-xs p-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-buddhist-burgundy" /></div>
                     </div>
-                    <div>
-                      <label className="block text-xs font-bold text-stone-700 mb-1">Note or Shipping Request</label>
-                      <textarea 
-                        rows={3} 
-                        placeholder="Mention any specific details or preferences..." 
-                        className="w-full text-xs p-3 rounded-xl border border-stone-300 focus:outline-none focus:ring-2 focus:ring-buddhist-burgundy"
-                      />
+                    <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 space-y-2">
+                      <div className="flex items-center gap-2 text-buddhist-burgundy font-bold text-sm"><ShieldCheck size={17} /> Payment by Zelle</div>
+                      <p className="text-xs text-stone-700 leading-relaxed">Zelle recipient details are awaiting confirmation from the centre. They will be added here once the authorised recipient information is provided. Please do not send payment to an unverified account.</p>
+                      <p className="text-xs text-stone-600">Artwork pricing and shipping costs will be confirmed by the centre before payment.</p>
                     </div>
-                    <button
-                      type="submit"
-                      className="w-full py-3.5 bg-buddhist-burgundy text-amber-50 font-bold rounded-xl text-xs uppercase tracking-wider hover:bg-red-900 transition-colors shadow-md"
-                    >
-                      Submit Order Inquiry
-                    </button>
+                    <button type="button" disabled className="w-full py-3.5 bg-stone-300 text-stone-600 font-bold rounded-xl text-xs uppercase tracking-wider cursor-not-allowed">Checkout activation pending</button>
+                    <p className="text-[11px] text-stone-500 text-center">Order submission will be enabled after the centre confirms its Zelle recipient and secure order-processing details. No payment is collected on this page yet.</p>
                   </form>
                 </>
               ) : (
                 <div className="py-8 text-center space-y-4">
-                  <div className="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
-                    <ShieldCheck size={32} />
-                  </div>
-                  <h3 className="font-serif text-2xl font-bold text-stone-900">Inquiry Received!</h3>
-                  <p className="text-stone-600 text-xs max-w-xs mx-auto">
-                    Thank you for reaching out. A sangha member will contact you shortly regarding item availability and delivery details.
-                  </p>
-                  <button
-                    onClick={() => { setSelectedItem(null); setOrderSent(false); }}
-                    className="px-6 py-2.5 bg-stone-900 text-amber-50 rounded-xl text-xs font-bold uppercase tracking-wider"
-                  >
-                    Close Window
-                  </button>
+                  <h3 className="font-serif text-2xl font-bold text-stone-900">Checkout setup pending</h3>
+                  <p className="text-stone-600 text-xs max-w-xs mx-auto">Please contact the centre to confirm artwork availability, pricing and shipping.</p>
                 </div>
               )}
             </motion.div>
