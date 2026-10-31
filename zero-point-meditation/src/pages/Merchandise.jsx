@@ -7,7 +7,6 @@ import { ShoppingBag, Star, CheckCircle, Tag, X, ShieldCheck, Sparkles, HelpCirc
 import butterLamp from '../assets/Merchandise/Butter lamp.jpg';
 import bodhiMala from '../assets/Merchandise/Hand-Crafted Bodhi Seed Mala.jpg';
 import rosaryMala from '../assets/Merchandise/Rosary Mala.jpg';
-import mandalaSet from '../assets/Merchandise/Mandala offering set.jpg';
 import ritualItems from '../assets/Merchandise/Ritual Items.webp';
 import sacredIncense from '../assets/Merchandise/Sacred Incense.jpg';
 import waterBowl from '../assets/Merchandise/Water bowl.jpg';
@@ -17,19 +16,19 @@ import modernArtOne from '../assets/Merchandise/Modern Art 1.jpg';
 const categories = [
   {
     id: 'mala',
-    name: '108-Bead Rosary Malas',
+    name: 'Bead Malas',
     count: 'Bodhi Seed & Gemstone Malas',
     image: rosaryMala,
-    price: '$35 - $120',
-    description: 'Handcrafted Bodhi seed, sandalwood, and gemstone prayer beads blessed by H.E. Gegye Yongyal Rinpoche for daily mantra recitation, breath awareness, and Tibetan mind-training practice.'
+    price: '$150 - $250',
+    description: 'A selection of prayer bead malas for daily mantra recitation, meditation, and personal spiritual practice.'
   },
   {
-    id: 'mandala',
-    name: 'Mandala Offering Sets',
-    count: 'Copper & Brass Plate Sets',
-    image: mandalaSet,
-    price: '$85 - $250',
-    description: 'Authentic Himalayan mandala sets crafted for traditional visualization practices, ritual offerings, and merit accumulation on home altars.'
+    id: '108-bead-malas',
+    name: '108-Bead Malas',
+    count: 'Traditional 108-Bead Prayer Malas',
+    image: bodhiMala,
+    price: '$200 - $500',
+    description: 'Traditional 108-bead malas for mantra recitation and meditation. Contact the center to ask about available materials, designs, and options.'
   },
   {
     id: 'butter-lamp',
@@ -69,14 +68,14 @@ const categories = [
     count: 'Contemporary Spiritual Artwork',
     image: modernArt,
     gallery: [modernArt, modernArtOne],
-    price: '',
-    description: 'Contemporary artwork inspired by spiritual practice and Himalayan artistic traditions. Contact the center for details and availability.'
+    price: 'Enquire for pricing',
+    description: 'Contemporary artwork inspired by spiritual practice and Himalayan artistic traditions. Please enquire for pricing, details, and availability.'
   }
 ];
 
 const featuredProduct = {
   title: "Hand-Crafted Bodhi Seed Mala (108 Beads)",
-  price: "$40.00",
+  price: "$200 - $500",
   category: "Rosary Mala",
   image: bodhiMala,
   description: "Crafted with authentic Bodhi seeds harvested in Nepal, this 108-bead prayer mala is individually hand-strung and blessed by Rinpoche for meditation, mindfulness, and mantra repetition practice.",
