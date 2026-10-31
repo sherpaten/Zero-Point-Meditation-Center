@@ -22,6 +22,11 @@ import sacredIncense from '../assets/Merchandise/Sacred Incense.jpg';
 import waterBowl from '../assets/Merchandise/Water bowl.jpg';
 import modernArt from '../assets/Merchandise/Modern Art.jpg';
 import modernArtOne from '../assets/Merchandise/Modern Art 1.jpg';
+import modernArtTwo from '../assets/Merchandise/Modern Art 2.jpeg';
+import modernArtThree from '../assets/Merchandise/Modern Art 3.jpeg';
+import modernArtFour from '../assets/Merchandise/Modern Art 4.jpeg';
+import modernArtFive from '../assets/Merchandise/Modern Art 5.jpeg';
+import modernArtSix from '../assets/Merchandise/Modern Art 6.jpeg';
 
 const categories = [
   {
@@ -78,7 +83,7 @@ const categories = [
     name: 'Modern Art',
     count: 'Contemporary Spiritual Artwork',
     image: modernArt,
-    gallery: [modernArt, modernArtOne],
+    gallery: [modernArt, modernArtOne, modernArtTwo, modernArtThree, modernArtFour, modernArtFive, modernArtSix],
     price: 'Enquire for pricing',
     description: 'Contemporary artwork inspired by spiritual practice and Himalayan artistic traditions. Please enquire for pricing, details, and availability.'
   }
