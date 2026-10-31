@@ -45,8 +45,9 @@ const categories = [
     count: 'Traditional 108-Bead Prayer Malas',
     image: mala108,
     gallery: [mala108, mala108One, mala108Two, mala108Three, mala108Four, mala108Five, mala108Six, mala108Seven, mala108Eight, rosaryMala],
-    price: '$200 - $500',
-    description: 'Explore our range of 108-bead malas, including Rosary Mala designs, for mantra recitation and meditation. Contact the center to enquire about specific designs and availability.'
+    price: 'Prices vary by design',
+    galleryPrices: ['$550', '$423', '$575', '$423', '$400', '$575', '$470', '$510', '$423', 'Enquire for price'],
+    description: 'Each 108-bead mala has its own price. Browse the gallery to see the price for each design. The Rosary Mala price is available on enquiry.'
   },
   {
     id: 'butter-lamp',
@@ -86,8 +87,9 @@ const categories = [
     count: 'Traditional Dzi Bead Collection',
     image: originalDziBeads,
     gallery: [originalDziBeads, originalDziBeadsOne],
-    price: 'Price on request',
-    description: 'Explore our Original Dzi Beads collection. Please contact the centre to confirm individual piece pricing and availability.'
+    price: 'Enquire for price',
+    galleryPrices: ['Enquire for price', 'Enquire for price'],
+    description: 'Each Original Dzi Beads piece is individually priced. Please enquire with the centre for pricing and availability.'
   },
   {
     id: 'modern-art',
@@ -95,8 +97,9 @@ const categories = [
     count: 'Contemporary Spiritual Artwork',
     image: modernArt,
     gallery: [modernArt, modernArtOne, modernArtTwo, modernArtThree, modernArtFour, modernArtFive, modernArtSix],
-    price: 'Enquire for pricing',
-    description: 'Contemporary artwork inspired by spiritual practice and Himalayan artistic traditions. Please enquire for pricing, details, and availability.'
+    price: 'Prices vary by artwork',
+    galleryPrices: ['Enquire for price', 'Enquire for price', '$750', '$700', '$1,500', '$699', '$1,200'],
+    description: 'Each artwork has its own price. Browse the gallery to view the listed price for each piece; pricing for the first two artworks is not yet available.'
   }
 ];
 
@@ -208,7 +211,7 @@ export default function Merchandise() {
               <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
                 <motion.img
                   key={(item.id === 'modern-art' || item.id === '108-bead-malas' || item.id === 'original-dzi-beads') ? item.gallery[item.id === 'modern-art' ? modernArtImage : item.id === '108-bead-malas' ? (malaImageIndex % item.gallery.length) : (dziImageIndex % item.gallery.length)] : item.id}
-                  src={(item.id === 'modern-art' || item.id === '108-bead-malas' || item.id === 'original-dzi-beads') ? item.gallery[item.id === 'modern-art' ? modernArtImage : (malaImageIndex % item.gallery.length)] : item.image}
+                  src={(item.id === 'modern-art' || item.id === '108-bead-malas' || item.id === 'original-dzi-beads') ? item.gallery[item.id === 'modern-art' ? modernArtImage : item.id === '108-bead-malas' ? (malaImageIndex % item.gallery.length) : (dziImageIndex % item.gallery.length)] : item.image}
                   alt={item.name}
                   initial={{ opacity: 0, x: 24 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -218,7 +221,7 @@ export default function Merchandise() {
                 />
                 {item.price && (
                   <span className="absolute top-3 right-3 bg-stone-950/80 backdrop-blur-md text-amber-50 text-xs font-bold px-3 py-1 rounded-full border border-white/10">
-                    {item.price}
+                    {item.galleryPrices ? item.galleryPrices[item.id === 'modern-art' ? modernArtImage : item.id === '108-bead-malas' ? (malaImageIndex % item.gallery.length) : item.id === 'original-dzi-beads' ? (dziImageIndex % item.gallery.length) : 0] : item.price}
                   </span>
                 )}
                 {(item.id === 'modern-art' || item.id === '108-bead-malas' || item.id === 'original-dzi-beads') && (
