@@ -287,9 +287,21 @@ export default function About() {
             },
             {
               name: "Mimi Lama",
-              role: "Public Relations",
+              role: "Secretary of ZPMC",
               image: null,
-              alt: "Profile placeholder for Mimi Lama"
+              alt: "Profile placeholder for Mimi Lama, Secretary of ZPMC"
+            },
+            {
+              name: "Shirley Huang",
+              role: "Advisor",
+              image: null,
+              alt: "Profile placeholder for Shirley Huang, Advisor"
+            },
+            {
+              name: "Jessica",
+              role: "Member",
+              image: null,
+              alt: "Profile placeholder for Jessica, Member"
             },
             {
               name: "Dawa Dorje Sherpa",
