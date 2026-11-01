@@ -8,11 +8,13 @@ import {
 } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
+import Welcome from './pages/Welcome.jsx';
+
 const Navbar = lazy(() => import('./components/Navbar.jsx'));
 const Footer = lazy(() => import('./components/Footer.jsx'));
 const FloatingAssistant = lazy(() => import('./components/FloatingAssistant.jsx'));
 
-const Welcome = lazy(() => import('./pages/Welcome.jsx'));
+
 const Home = lazy(() => import('./pages/Home.jsx'));
 const About = lazy(() => import('./pages/About.jsx'));
 const Teachings = lazy(() => import('./pages/Teachings.jsx'));
