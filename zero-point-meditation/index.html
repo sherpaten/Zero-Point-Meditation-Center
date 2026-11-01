@@ -1,13 +1,27 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3TBJRRVRGH"></script>
+    <!-- Queue analytics immediately, then load the third-party library after the initial page load. -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){window.dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-3TBJRRVRGH');
+      window.addEventListener('load', function () {
+        var loadGoogleTag = function () {
+          if (document.getElementById('google-analytics-tag')) return;
+          var script = document.createElement('script');
+          script.id = 'google-analytics-tag';
+          script.async = true;
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-3TBJRRVRGH';
+          document.head.appendChild(script);
+        };
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(loadGoogleTag, { timeout: 2500 });
+        } else {
+          window.setTimeout(loadGoogleTag, 1200);
+        }
+      }, { once: true });
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,8 +30,8 @@
     <link rel="icon" type="image/svg+xml" href="/src/assets/LOGO.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" /></noscript>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" /></noscript>
     <title>Zero Point Meditation Center | Buddhist Prayer & Spiritual Support</title>
     <meta name="description" content="Discover Buddhist prayer services, spiritual teachings, community events and support at Zero Point Meditation Center. Explore our services and contact the center." />
 
