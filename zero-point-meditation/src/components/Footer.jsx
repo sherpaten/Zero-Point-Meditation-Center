@@ -62,11 +62,11 @@ export default function Footer() {
             </p>
             <p className="flex items-center gap-2.5">
               <span className="text-base">📞</span>
-              <span>+1 (732)619-5329 </span>
+              <a href="tel:+16464560843" className="hover:text-buddhist-gold transition-colors">+1 (646) 456-0843</a>
             </p>
             <p className="flex items-center gap-2.5">
               <span className="text-base">✉️</span>
-              <span>info@zeropointmeditation.org</span>
+              <span className="flex flex-col gap-1"><a href="mailto:info@zeropointmeditationcenter.org" className="hover:text-buddhist-gold transition-colors">info@zeropointmeditationcenter.org</a><a href="mailto:contact@zeropointmeditationcenter.org" className="hover:text-buddhist-gold transition-colors">contact@zeropointmeditationcenter.org</a></span>
             </p>
           </div>
         </div>
