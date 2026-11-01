@@ -431,6 +431,8 @@ export default function Merchandise() {
                 <CheckCircle size={42} className="mx-auto text-emerald-600"/>
                 <h3 className="font-serif text-2xl font-bold text-stone-900">Order enquiry received</h3>
                 <p className="text-stone-600 text-sm max-w-md mx-auto">Thank you. The centre has received your order details. We’ll email you to confirm availability, shipping and the Zelle payment instructions. No payment has been taken.</p>
+                <p className="text-stone-600 text-sm">You can also contact the centre on WhatsApp if you have questions about your order.</p>
+                <a href="https://wa.me/16464560843" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-emerald-600 text-emerald-800 hover:bg-emerald-50 font-semibold">Contact us on WhatsApp</a>
                 <button type="button" onClick={()=>{setSelectedItem(null);setOrderSent(false);}} className="px-6 py-3 rounded-xl bg-buddhist-burgundy text-white font-semibold">Close</button>
               </div>}
             </motion.section>
