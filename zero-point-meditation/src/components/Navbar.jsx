@@ -6,7 +6,7 @@ import logo from '../assets/LOGO.svg';
 const navigation = [
   { to: '/home', label: 'Home', end: true },
   { to: '/about', label: 'About' },
-  { to: '/services', label: 'Services' },
+  { to: '/services', label: 'What We Offer' },
   { to: '/events', label: 'Events' },
   { to: '/teachers', label: 'Teachers' },
   { to: '/merchandise', label: 'Merchandise' },
