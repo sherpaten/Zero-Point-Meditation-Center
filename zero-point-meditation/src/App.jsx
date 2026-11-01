@@ -8,7 +8,13 @@ import {
 } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
-import Welcome from './pages/Welcome.jsx';
+import { preload } from 'react-dom';
+import welcomeHeroImage from './assets/Boudha.jpg?url';
+
+// Preload the welcome-screen LCP image before React renders the lazy page.
+if (typeof window !== 'undefined' && window.location.pathname === '/') {
+  preload(welcomeHeroImage, { as: 'image', fetchPriority: 'high' });
+}
 
 const Navbar = lazy(() => import('./components/Navbar.jsx'));
 const Footer = lazy(() => import('./components/Footer.jsx'));
@@ -21,6 +27,7 @@ const Teachings = lazy(() => import('./pages/Teachings.jsx'));
 const Events = lazy(() => import('./pages/Events.jsx'));
 const Merchandise = lazy(() => import('./pages/Merchandise.jsx'));
 const Contact = lazy(() => import('./pages/Contact.jsx'));
+const Welcome = lazy(() => import('./pages/Welcome.jsx'));
 const Services = lazy(() => import('./pages/Services.jsx'));
 
 function ScrollToTop() {
