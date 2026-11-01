@@ -12,7 +12,7 @@ import twitterIcon from '../assets/Icons/Twitter.png';
 
 const socialLinks = [
   { name: 'Facebook', icon: facebookIcon, url: 'https://www.facebook.com/share/1DUU1HaMm2/' },
-  { name: 'Instagram', icon: instagramIcon, url: 'https://instagram.com' },
+  { name: 'Instagram', icon: instagramIcon, url: 'https://www.instagram.com/zpmc_usa?cplk=eGxhbjFiMW1jNGlh' },
   { name: 'LinkedIn', icon: linkedinIcon, url: 'https://www.linkedin.com/company/zero-point-meditation-center-in-usa/' },
   { name: 'Twitter', icon: twitterIcon, url: 'https://x.com/ZeroCenter79031' },
 ];
