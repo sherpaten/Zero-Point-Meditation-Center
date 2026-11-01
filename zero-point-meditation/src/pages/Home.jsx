@@ -311,39 +311,39 @@ export default function Home() {
             <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest flex items-center gap-1.5">
               <HeartHandshake size={15} /> A Space for Reflection & Connection
             </span>
-            <h2 className="font-serif text-3xl font-bold text-stone-900">
+            <h2 className="min-w-0 break-words font-serif text-2xl sm:text-3xl font-bold leading-tight text-stone-900">
               Come As You Are. Begin Where You Are.
             </h2>
-            <p className="text-stone-700 text-xs sm:text-sm leading-relaxed">
+            <p className="min-w-0 break-words text-stone-700 text-sm leading-relaxed">
               At Zero Point Meditation Center, there is room to pause, ask questions, learn, and simply be present. We bring people together through meditation, Buddhist teachings, prayer, and community activities—cultivating compassion within ourselves and extending it into the world around us.
             </p>
-            <div className="pt-2 flex items-center gap-4 text-xs font-semibold text-stone-800">
-              <span className="flex items-center gap-1.5">
-                <ShieldCheck size={16} className="text-emerald-600" /> Free Community Classes Through 2026
+            <div className="pt-2 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 text-xs font-semibold text-stone-800 min-w-0">
+              <span className="flex min-w-0 items-start gap-1.5 break-words">
+                <ShieldCheck size={16} className="text-emerald-600 shrink-0 mt-0.5" /> <span className="min-w-0 break-words">Free Community Classes Through 2026</span>
               </span>
               <span className="flex items-center gap-1.5">
-                <ShieldCheck size={16} className="text-buddhist-gold" /> Community & Spiritual Learning
+                <ShieldCheck size={16} className="text-buddhist-gold shrink-0 mt-0.5" /> <span className="min-w-0 break-words">Community & Spiritual Learning</span>
               </span>
             </div>
           </div>
 
-          <div className="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200 shadow-sm space-y-4 text-center">
-            <h3 className="font-serif text-xl font-bold text-buddhist-burgundy">
+          <div className="min-w-0 w-full max-w-full overflow-hidden bg-white p-4 sm:p-8 rounded-2xl border border-stone-200 shadow-sm space-y-4 text-center">
+            <h3 className="break-words font-serif text-xl sm:text-xl font-bold leading-snug text-buddhist-burgundy">
               Your Moment of Stillness Starts Here
             </h3>
             <p className="text-stone-600 text-xs leading-relaxed">
               New to meditation or returning to your practice? You are welcome here. Explore at your own pace, discover what resonates, and take a gentle first step toward a more mindful life.
             </p>
-            <div className="pt-2 flex justify-center gap-3">
+            <div className="pt-2 flex flex-wrap justify-center gap-3">
               <Link
                 to="/teachings"
-                className="px-5 py-2.5 bg-buddhist-burgundy text-amber-50 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-red-900 transition-colors"
+                className="max-w-full whitespace-normal break-words px-4 sm:px-5 py-2.5 bg-buddhist-burgundy text-amber-50 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-red-900 transition-colors"
               >
                 Read Teachings
               </Link>
               <Link
                 to="/merchandise"
-                className="px-5 py-2.5 bg-stone-100 text-stone-800 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-stone-200 transition-colors"
+                className="max-w-full whitespace-normal break-words px-4 sm:px-5 py-2.5 bg-stone-100 text-stone-800 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-stone-200 transition-colors"
               >
                 Sacred Merchandise
               </Link>
