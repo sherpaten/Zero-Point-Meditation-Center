@@ -79,7 +79,10 @@ export default function About() {
             A Peaceful Refuge for Mind-Training & Awareness
           </h2>
           <p className="text-stone-700 text-xs sm:text-sm leading-relaxed">
-            Our mission is to support mental wellbeing, nurture compassion, and encourage peace across faiths and cultures. Through accessible meditation, learning, and community gatherings, we hope to create welcoming spaces where people can pause, learn from one another, and build resilience. Buddhist practice is at the heart of our work, while kindness, respect, and interfaith understanding help shape how we welcome the wider community.
+            We spend time caring for our bodies through rest, nourishment, and movement. Our minds also need care, attention, and space to settle. We believe a healthy life includes opportunities to pause, reflect, and nurture inner balance.
+          </p>
+          <p className="text-stone-700 text-xs sm:text-sm leading-relaxed">
+            Through meditation, Buddhist teachings, and community gatherings, we invite people to slow down, breathe, and reconnect with awareness, compassion, and the peaceful Buddha-nature within. Buddhist practice is at the heart of our work, while kindness, respect, and interfaith understanding shape how we welcome the wider community.
           </p>
         </div>
         <div className="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-2 text-center">
