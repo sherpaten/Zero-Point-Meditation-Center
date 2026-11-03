@@ -72,23 +72,11 @@ export default async function handler(req, res) {
   ]);
   const autoConfirm = type === 'event' && autoConfirmedFreeEvents.has(service);
   const morningMeditationSessions = {
-    '2026-11-07': {
-      language: 'Nepali',
-      url: 'https://us06web.zoom.us/j/88470677871?pwd=fSoWjI68vm75dRqY18M5QDPGm7fc0H.1',
-      meetingId: '884 7067 7871',
-      passcode: '510428'
-    },
     '2026-11-08': {
       language: 'English',
       url: 'https://us06web.zoom.us/j/84582891079?pwd=LEjQ7Io3Cd69EbhX1XpZCRlIXxbPLb.1',
       meetingId: '845 8289 1079',
       passcode: '202427'
-    },
-    '2026-11-14': {
-      language: 'Nepali',
-      url: 'https://us06web.zoom.us/j/88470677871?pwd=fSoWjI68vm75dRqY18M5QDPGm7fc0H.1',
-      meetingId: '884 7067 7871',
-      passcode: '510428'
     },
     '2026-11-15': {
       language: 'English',
