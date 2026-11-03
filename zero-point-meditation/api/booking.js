@@ -169,7 +169,7 @@ export default async function handler(req, res) {
             'Language: ' + morningMeditationSession.language,
             'Meeting ID: ' + morningMeditationSession.meetingId,
             'Passcode: ' + morningMeditationSession.passcode,
-            'Session time: 6:30–7:15 AM US Eastern Time (5:15–6:00 PM Nepal Time).'
+            'Session time: 6:30–7:15 AM US Eastern Time.'
           ] : ['The center will share any additional session or joining details separately if needed.'])
         ]
       : [
