@@ -31,7 +31,10 @@ export default function Teachings() {
         </span>
         <h1 className="font-serif text-4xl font-bold text-buddhist-burgundy sm:text-5xl">Meet Our Teachers</h1>
         <p className="leading-relaxed text-stone-600">
-          Meet the teachers who share Buddhist wisdom, meditation practices and opportunities for spiritual learning with our community.
+          Whether you are new to meditation, seeking greater inner peace, or continuing a spiritual path, you are welcome here. Our teachers share Buddhist wisdom, meditation practices, and opportunities to learn in a supportive community.
+        </p>
+        <p className="mx-auto max-w-2xl text-sm leading-relaxed text-stone-500">
+          Explore at your own pace, ask questions, and discover practices that help you bring greater awareness and compassion into everyday life.
         </p>
       </motion.header>
 
