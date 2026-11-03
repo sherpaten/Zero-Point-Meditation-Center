@@ -444,7 +444,10 @@ export default function Events() {
           Events, News & Partnerships
         </h1>
         <p className="text-stone-600 text-sm leading-relaxed">
-          Explore the Zero Point Meditation Center archive. Choose a year or collection to browse the photographs, event records, posters, and news. More verified details will be added as they are provided.
+          Our gatherings bring people together through meditation, Buddhist prayer, learning, and shared moments of community. You are welcome whether you are joining for the first time or returning to a familiar practice.
+        </p>
+        <p className="text-stone-500 text-xs sm:text-sm leading-relaxed">
+          Browse the Zero Point Meditation Center archive by year or collection to explore photographs, event records, posters, and news.
         </p>
       </motion.header>
 
