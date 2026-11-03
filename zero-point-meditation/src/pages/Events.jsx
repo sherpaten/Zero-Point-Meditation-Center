@@ -103,6 +103,14 @@ const galleryItems = [
     description: 'With a deeply saddened heart, we offer our thoughts and prayers for Nepal and everyone impacted by this devastating natural disaster. May all those affected receive swift support, strength, and healing. Honoring lives lost, strength for families, safety and care, and a collective call to compassion through the blessings of the Three Jewels. Om Mani Padme Hum. 🙏🙏🙏'
   },
   {
+    id: 47, group: 'Current', title: 'The Three Principle Stages of the Buddhist Path: Lam Rim',
+    type: 'event', category: 'Upcoming Event', date: 'November 19, 24 & December 3, 10, 2026',
+    location: 'Tibet House US, New York & Online',
+    image: 'https://shop.thus.org/cdn/shop/files/LAMRIM2-SQUARE_6cc2170b-5412-480c-ba7a-1cc6a5eeca7a_1024x1024.png?v=1793219873',
+    description: 'A four-session course on Lam Rim, the Tibetan Buddhist stages of the path, exploring renunciation, compassion, and wisdom through readings, discussion, and contemplative exercises. Sessions run from 6:30–8:30 PM Eastern Time. Presenters include Annie Bien, Dominique Townsend, and H.E. Gegye Yongyal Tulku Rinpoche. Available in person and online. Ticket options listed by Tibet House US range from $25 for a single general-admission session to $65 for the full series.',
+    ticketUrl: 'https://shop.thus.org/products/the-three-principle-stages-of-the-buddhist-path-lam-rim'
+  },
+  {
     id: 4, group: '2024', title: 'Global Peace & Dharma Discourse Poster',
     type: 'poster', category: 'Posters', date: '2024', location: 'Taipei, Taiwan',
     image: poster1, description: 'Official promotional poster for an international peace rally and mind-training retreat.'
@@ -412,6 +420,7 @@ export default function Events() {
     .sort(compareEventsNewestFirst);
 
   const getBadgeIcon = (type) => {
+    if (type === 'event') return <Calendar size={12} />;
     if (type === 'poster') return <FileText size={12} />;
     if (type === 'news') return <Newspaper size={12} />;
     return <ImageIcon size={12} />;
@@ -540,6 +549,12 @@ export default function Events() {
                     <a href={selectedMedia.videoUrl} target="_blank" rel="noreferrer"
                       className="inline-flex mt-3 text-sm font-bold text-amber-300 hover:text-amber-200 underline underline-offset-4">
                       Watch the Mindfulness Meditation video on YouTube
+                    </a>
+                  )}
+                  {selectedMedia.ticketUrl && (
+                    <a href={selectedMedia.ticketUrl} target="_blank" rel="noopener noreferrer"
+                      className="inline-flex mt-3 items-center rounded-full bg-amber-300 px-5 py-2.5 text-sm font-bold text-stone-950 hover:bg-amber-200 transition-colors">
+                      View event details & tickets
                     </a>
                   )}
                 </div>
