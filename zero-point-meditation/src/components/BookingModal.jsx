@@ -169,7 +169,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           )}
           {requiresDate && <div className="rounded-xl bg-amber-50 p-4 text-sm text-stone-700">
             <p className="flex items-center gap-2 font-semibold text-buddhist-burgundy"><CalendarDays size={17}/> {service === 'Free Morning Meditation' ? 'Free Morning Meditation · 6:30–7:15 AM' : 'Free Weekend Community Classes'}</p>
-            <p className="mt-1">{service === 'Free Morning Meditation' ? 'Only announced Saturday Nepali and Sunday English sessions are listed here. Session time is 6:30–7:15 AM US Eastern Time (5:15–6:00 PM Nepal Time). The matching language-specific Zoom link, meeting ID, and passcode are sent automatically after registration.' : 'Community classes are scheduled for Saturdays and Sundays through December 31, 2026. The center will confirm session details.'}</p>
+            <p className="mt-1">{service === 'Free Morning Meditation' ? 'Only announced meditation sessions are listed here. Session time is 6:30–7:15 AM US Eastern Time. The matching Zoom link, meeting ID, and passcode are sent by email for confirmed sessions.' : 'Community classes are scheduled for Saturdays and Sundays through December 31, 2026. The center will confirm session details.'}</p>
             {dateSessions.length ? <>
               <label htmlFor="booking-date" className="mt-3 block font-semibold">Choose a date</label>
               <select id="booking-date" value={date} onChange={event => setDate(event.target.value)} className={fieldClass} required>{dateSessions.map(session => <option key={session.value} value={session.value}>{session.label}</option>)}</select>
