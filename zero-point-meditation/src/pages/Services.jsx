@@ -107,6 +107,14 @@ export default function Services() {
         <meta name="twitter:description" content="Explore prayer ceremonies, Buddhist meditation courses, retreats, and workplace programs offered by Zero Point Meditation Center." />
       </Helmet>
 
+      <section aria-label="About our services" className="mx-auto max-w-3xl space-y-3 text-center">
+        <span className="text-buddhist-gold text-xs font-bold uppercase tracking-widest">Practice, prayer & spiritual support</span>
+        <h1 className="font-serif text-3xl sm:text-4xl font-bold text-buddhist-burgundy">A Welcoming Space to Learn, Reflect & Connect</h1>
+        <p className="text-sm sm:text-base leading-relaxed text-stone-600">
+          Explore meditation and Buddhist learning, join a retreat or community program, or enquire about prayer services and spiritual guidance. Whether you are taking a first step or deepening an established practice, we welcome you to find the support and opportunities that are right for you.
+        </p>
+      </section>
+
       <nav aria-label="Navigate service categories" className="flex justify-center gap-2 border-b border-stone-200 pb-4 flex-wrap">
         <div className="flex justify-center gap-2 flex-wrap">
           {[
