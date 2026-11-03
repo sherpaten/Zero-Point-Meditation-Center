@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { X, CalendarDays, CreditCard, ShieldCheck, CheckCircle2, LoaderCircle } from 'lucide-react';
 
 const announcedMorningMeditationDates = [
-  { value: '2026-11-07', label: 'Saturday, November 7, 2026 · Nepali' },
   { value: '2026-11-08', label: 'Sunday, November 8, 2026 · English' },
-  { value: '2026-11-14', label: 'Saturday, November 14, 2026 · Nepali' },
   { value: '2026-11-15', label: 'Sunday, November 15, 2026 · English' },
 ];
 function dateValue(d = new Date()) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
@@ -169,7 +167,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           )}
           {requiresDate && <div className="rounded-xl bg-amber-50 p-4 text-sm text-stone-700">
             <p className="flex items-center gap-2 font-semibold text-buddhist-burgundy"><CalendarDays size={17}/> {service === 'Free Morning Meditation' ? 'Free Morning Meditation · 6:30–7:15 AM' : 'Free Weekend Community Classes'}</p>
-            <p className="mt-1">{service === 'Free Morning Meditation' ? 'Only announced meditation sessions are listed here. Session time is 6:30–7:15 AM US Eastern Time. The matching Zoom link, meeting ID, and passcode are sent by email for confirmed sessions.' : 'Community classes are scheduled for Saturdays and Sundays through December 31, 2026. The center will confirm session details.'}</p>
+            <p className="mt-1">{service === 'Free Morning Meditation' ? 'Only announced English-language sessions are listed here. Session time is 6:30–7:15 AM US Eastern Time. The Zoom link, meeting ID, and passcode are emailed after registration.' : 'Community classes are scheduled for Saturdays and Sundays through December 31, 2026. The center will confirm session details.'}</p>
             {dateSessions.length ? <>
               <label htmlFor="booking-date" className="mt-3 block font-semibold">Choose a date</label>
               <select id="booking-date" value={date} onChange={event => setDate(event.target.value)} className={fieldClass} required>{dateSessions.map(session => <option key={session.value} value={session.value}>{session.label}</option>)}</select>
