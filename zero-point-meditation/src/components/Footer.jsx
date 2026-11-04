@@ -66,7 +66,7 @@ export default function Footer() {
             </p>
             <p className="flex items-center gap-2.5">
               <span className="text-base">✉️</span>
-              <span className="flex flex-col gap-1"><a href="mailto:info@zeropointmeditationcenter.org" className="hover:text-buddhist-gold transition-colors">info@zeropointmeditationcenter.org</a><a href="mailto:contact@zeropointmeditationcenter.org" className="hover:text-buddhist-gold transition-colors">contact@zeropointmeditationcenter.org</a></span>
+              <span className="flex flex-col gap-1"><a href="mailto:info@zeropointmeditationcenter.org" className="hover:text-buddhist-gold transition-colors">info@zeropointmeditationcenter.org</a></span>
             </p>
           </div>
         </div>
