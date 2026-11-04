@@ -10,6 +10,8 @@ import profile2 from '../assets/profile 2.jpg';
 import gegyeYongyalRinpoche from '../assets/Teams/Gegye Yongyal Rinpoche\'s.png';
 import tenzingNorkaySherpa from '../assets/Teams/Tenzing Norkay Sherpa.webp';
 import smrityPhoto from '../assets/Teams/Smty.jpeg';
+import mimiLamaPhoto from '../assets/Teams/Mimi Lama.jpeg';
+import mayaKarmaJinpaPhoto from '../assets/Teams/Maya Karma Jinpa.jpeg';
 
 const globalProjects = [
   {
@@ -291,8 +293,8 @@ export default function About() {
             {
               name: "Mimi Lama",
               role: "Secretary of ZPMC",
-              image: null,
-              alt: "Profile placeholder for Mimi Lama, Secretary of ZPMC"
+              image: mimiLamaPhoto,
+              alt: "Mimi Lama, Secretary of Zero Point Meditation Center"
             },
             {
               name: "Shirley Huang",
@@ -315,8 +317,8 @@ export default function About() {
             {
               name: "Maya Karma Jinpa",
               role: "Advisor",
-              image: null,
-              alt: "Profile placeholder for Maya Karma Jinpa, Advisor"
+              image: mayaKarmaJinpaPhoto,
+              alt: "Maya Karma Jinpa, Advisor to Zero Point Meditation Center"
             }
           ].map((member) => (
             <motion.article
