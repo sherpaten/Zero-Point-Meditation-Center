@@ -23,7 +23,12 @@ export default async function handler(req, res) {
   }
 
   const apiKey = process.env.RESEND_API_KEY;
-  const toEmail = process.env.BOOKING_TO_EMAIL || 'bookings@zeropointmeditationcenter.org';
+  const body = typeof req.body === 'string' ? (() => { try { return JSON.parse(req.body); } catch { return {}; } })() : (req.body || {});
+  const intent = clean(body.intent, 20) || 'standard';
+  if (!['standard', 'booking', 'inquiry'].includes(intent)) return res.status(400).json({ error: 'Invalid form type.' });
+  const toEmail = intent === 'inquiry'
+    ? 'info@zeropointmeditationcenter.org'
+    : (process.env.BOOKING_TO_EMAIL || 'bookings@zeropointmeditationcenter.org');
   const fromEmail = process.env.BOOKING_FROM_EMAIL;
 
   if (!apiKey || !fromEmail) {
@@ -32,11 +37,7 @@ export default async function handler(req, res) {
     });
   }
 
-  const body = typeof req.body === 'string' ? (() => {
-    try { return JSON.parse(req.body); } catch { return {}; }
-  })() : (req.body || {});
-
-  // Honeypot: normal visitors leave this hidden field empty. Silently ignore bots that fill it.
+    // Honeypot: normal visitors leave this hidden field empty. Silently ignore bots that fill it.
   if (clean(body.website, 200)) return res.status(200).json({ ok: true, receiptSent: false });
 
   const type = clean(body.type, 20);
@@ -57,7 +58,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Please enter a valid email address.' });
   }
   const freeEventNames = new Set(['Free Morning Meditation', 'Free Weekend Community Classes', 'Free Meditation Class', 'Free Event']);
-  const requiresPaymentPreference = type === 'service' || !freeEventNames.has(service);
+  const requiresPaymentPreference = intent === 'booking' || (intent === 'standard' && (type === 'service' || !freeEventNames.has(service)));
   if (requiresPaymentPreference && paymentPreference !== 'zelle') {
     return res.status(400).json({ error: 'Please choose a payment preference.' });
   }
@@ -95,16 +96,18 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Please choose an available Morning Meditation date.' });
   }
 
-  const token = autoConfirm ? '' : approvalToken({
+  const requiresApproval = !autoConfirm && intent !== 'inquiry';
+  const token = !requiresApproval ? '' : approvalToken({
     name, email, service, date: type === 'event' ? date : '',
     exp: Date.now() + 7 * 24 * 60 * 60 * 1000
   }, apiKey);
-  const approvalUrl = autoConfirm ? '' : siteUrl + '/api/booking-approve?token=' + encodeURIComponent(token);
+  const approvalUrl = requiresApproval ? siteUrl + '/api/booking-approve?token=' + encodeURIComponent(token) : '';
 
   const notificationText = [
-    autoConfirm ? 'New automatically confirmed free class registration' : 'New website booking enquiry',
+    autoConfirm ? 'New automatically confirmed free class registration' : intent === 'inquiry' ? 'New website service enquiry' : 'New website booking request',
     '',
-    'Booking status: ' + (autoConfirm ? 'Confirmed automatically — no staff approval required' : 'Awaiting center review'),
+    'Request type: ' + (intent === 'inquiry' ? 'General service enquiry — no payment requested' : 'Booking request'),
+    'Booking status: ' + (autoConfirm ? 'Confirmed automatically — no staff approval required' : intent === 'inquiry' ? 'Enquiry received — response required' : 'Awaiting center review'),
     '',
     'Type: ' + type,
     'Service or event: ' + service,
@@ -115,7 +118,7 @@ export default async function handler(req, res) {
     'Phone: ' + phone,
     'Place / city / country: ' + place,
     'Profession: ' + profession,
-    'Payment preference: ' + paymentLabel,
+    ...(intent === 'inquiry' ? ['Payment: Not applicable — enquiry only'] : ['Payment preference: ' + paymentLabel]),
     ...(morningMeditationSession ? [
       '',
       morningMeditationSession.language + ' Morning Meditation Zoom link: ' + morningMeditationSession.url,
@@ -126,9 +129,11 @@ export default async function handler(req, res) {
     '',
     autoConfirm
       ? 'The free class registration is already confirmed. No payment is required and no staff approval is needed.'
-      : 'This is an enquiry only. The booking is not confirmed and no payment has been collected.',
+      : intent === 'inquiry'
+        ? 'This is an information enquiry only. No booking or payment has been requested.'
+        : 'This is a booking request only. The booking is not confirmed and no payment has been collected.',
     '',
-    ...(autoConfirm ? [] : [
+    ...(requiresApproval ? [
       'After checking availability and details, open this link to review and approve the booking:',
       approvalUrl,
       '',
@@ -139,10 +144,12 @@ export default async function handler(req, res) {
   const receiptText = [
     'Hello ' + name + ',',
     '',
-    'Thank you for registering with Zero Point Meditation Center.',
+    intent === 'inquiry' ? 'Thank you for contacting Zero Point Meditation Center.' : 'Thank you for registering with Zero Point Meditation Center.',
     autoConfirm
       ? 'Your registration for this free class is confirmed. You do not need to wait for another approval email.'
-      : 'We have received your booking enquiry and sent it to the center team for review.',
+      : intent === 'inquiry'
+        ? 'We have received your service enquiry and forwarded it to our information team.'
+        : 'We have received your booking request and sent it to the bookings team for review.',
     '',
     'Service or event: ' + service,
     'Teacher: ' + (teacher || 'Not specified'),
@@ -160,10 +167,9 @@ export default async function handler(req, res) {
             'Session time: 6:30–7:15 AM US Eastern Time.'
           ] : ['The center will share any additional session or joining details separately if needed.'])
         ]
-      : [
-          'This email confirms receipt of your enquiry only. Your booking is not confirmed yet, and no payment has been collected.',
-          'The center will contact you after reviewing availability and next steps.'
-        ]),
+      : intent === 'inquiry'
+        ? ['This is an enquiry acknowledgement only. No payment is required or requested.', 'The information team will respond to your message.']
+        : ['This email confirms receipt of your booking request only. Your booking is not confirmed yet, and no payment has been collected.', 'The bookings team will contact you after reviewing availability and next steps.'],
     '',
     'With regards,',
     'Zero Point Meditation Center'
@@ -178,7 +184,7 @@ export default async function handler(req, res) {
           from: fromEmail,
           to: [toEmail],
           reply_to: email,
-          subject: (autoConfirm ? 'Free class registration confirmed: ' : 'Website booking enquiry: ') + service,
+          subject: (autoConfirm ? 'Free class registration confirmed: ' : intent === 'inquiry' ? 'Website service enquiry: ' : 'Website booking request: ') + service,
           text: notificationText
         })
       }),
@@ -188,7 +194,7 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           from: fromEmail,
           to: [email],
-          subject: (autoConfirm ? 'Your free class registration is confirmed: ' : 'We received your enquiry: ') + service,
+          subject: (autoConfirm ? 'Your free class registration is confirmed: ' : intent === 'inquiry' ? 'We received your service enquiry: ' : 'We received your booking request: ') + service,
           text: receiptText
         })
       })
