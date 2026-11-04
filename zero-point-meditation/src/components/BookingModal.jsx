@@ -109,7 +109,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           service_name: service,
           booking_type: type,
           form_location: 'booking_modal',
-          payment_preference: type === 'service' ? paymentPreference : 'not_applicable'
+          payment_preference: showPayment ? paymentPreference : 'not_applicable'
         });
       }
       setMessage(workflow === 'inquiry'
@@ -136,7 +136,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
         <header className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-stone-200 bg-white px-5 py-4 sm:px-7">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-amber-700">Zero Point Meditation Center</p>
-            <h2 id="booking-modal-title" className="mt-1 font-serif text-2xl font-bold text-buddhist-burgundy">{workflow === 'inquiry' ? 'Enquire about a service' : 'Book a service or event'}</h2>
+            <h2 id="booking-modal-title" className="mt-1 font-serif text-2xl font-bold text-buddhist-burgundy">{workflow === 'inquiry' ? 'Enquire about a service' : workflow === 'booking' ? 'Book this service' : 'Book a service or event'}</h2>
             <p className="mt-1 text-sm text-stone-600">{workflow === 'inquiry' ? 'Send a question to our information team. No payment details are required.' : 'Complete this form without leaving our website.'}</p>
           </div>
           <button type="button" onClick={onClose} aria-label="Close booking form" className="rounded-full p-2 text-stone-600 hover:bg-stone-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-700"><X size={22}/></button>
