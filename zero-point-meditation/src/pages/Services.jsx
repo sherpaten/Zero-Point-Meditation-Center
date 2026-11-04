@@ -41,7 +41,7 @@ const prayerServices = [
   { name: 'Extended prayer and dedication ceremony', duration: 'Not specified', description: 'Suited to major occasions that call for a fuller, more elaborate offering.' },
   { name: 'Special multi-monastic prayer gathering', duration: 'Depends on gathering size (about 400–2,000 monks)', description: 'Reserved for significant community or extended dedication events.' },
 ];
-function ServiceSection({ id, eyebrow, title, description, icon, items }) {
+function ServiceSection({ id, eyebrow, title, description, icon, items, onAction }) {
   return (
     <section id={id} className="scroll-mt-32 space-y-6">
       <div className="mx-auto max-w-3xl space-y-3 text-center">
@@ -57,6 +57,10 @@ function ServiceSection({ id, eyebrow, title, description, icon, items }) {
             {item.duration && <p className="mt-2 flex items-center gap-2 text-sm text-stone-500"><Clock3 size={15} />{item.duration}</p>}
             {item.description && <p className="mt-3 text-sm leading-relaxed text-stone-600">{item.description}</p>}
             {item.detail && <p className="mt-3 text-sm leading-relaxed text-stone-600">{item.detail}</p>}
+            <div className="mt-auto pt-5 grid grid-cols-2 gap-2">
+              <button type="button" onClick={() => onAction('booking', item.name)} className="rounded-full bg-buddhist-burgundy px-3 py-2.5 text-xs sm:text-sm font-bold text-white transition hover:bg-red-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700">Book now</button>
+              <button type="button" onClick={() => onAction('inquiry', item.name)} className="rounded-full border border-buddhist-burgundy px-3 py-2.5 text-xs sm:text-sm font-bold text-buddhist-burgundy transition hover:bg-amber-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700">Enquire</button>
+            </div>
           </motion.article>
         ))}
       </motion.div>
@@ -68,12 +72,14 @@ export default function Services() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [bookingType, setBookingType] = useState('service');
   const [bookingService, setBookingService] = useState('');
+  const [bookingWorkflow, setBookingWorkflow] = useState('inquiry');
   const [activeServiceTab, setActiveServiceTab] = useState('prayer-services');
-  const openBooking = (type, service) => {
+  const openBooking = (workflow, service) => {
     if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
-      window.gtag('event', 'service_booking_click', { service_name: service, booking_type: type, button_location: 'services_page' });
+      window.gtag('event', workflow === 'booking' ? 'service_booking_click' : 'service_enquiry_click', { service_name: service, booking_type: workflow, button_location: 'services_page' });
     }
-    setBookingType(type);
+    setBookingType('service');
+    setBookingWorkflow(workflow);
     setBookingService(service);
     setBookingOpen(true);
   };
@@ -100,7 +106,7 @@ export default function Services() {
         <p className="text-sm sm:text-base leading-relaxed text-stone-600">
           Explore meditation and Buddhist learning, join a retreat or community program, or enquire about prayer services and spiritual guidance. Whether you are taking a first step or deepening an established practice, we welcome you to find the support and opportunities that are right for you.
         </p>
-        <button type="button" onClick={() => openBooking('service', 'General services enquiry')} className="inline-flex items-center justify-center rounded-full bg-buddhist-burgundy px-7 py-3 text-sm font-bold text-amber-50 shadow-md transition-colors hover:bg-red-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-buddhist-gold focus-visible:ring-offset-2">Enquire about a service</button>
+        <button type="button" onClick={() => openBooking('inquiry', 'General services enquiry')} className="inline-flex items-center justify-center rounded-full bg-buddhist-burgundy px-7 py-3 text-sm font-bold text-amber-50 shadow-md transition-colors hover:bg-red-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-buddhist-gold focus-visible:ring-offset-2">Enquire about a service</button>
       </section>
 
       <nav aria-label="Navigate service categories" className="flex justify-center gap-2 border-b border-stone-200 pb-4 flex-wrap">
@@ -135,6 +141,7 @@ export default function Services() {
         description="Learn meditation, Buddhist teachings, philosophy, and traditional perspectives through guided sessions and multi-session courses."
         icon={<BookOpen size={20} />}
         items={courses}
+        onAction={openBooking}
 />
 
       <ServiceSection
@@ -144,6 +151,7 @@ export default function Services() {
         description="Half-day, full-day retreats for deeper study and practice."
         icon={<Sparkles size={20} />}
         items={retreats}
+        onAction={openBooking}
 />
 
       <ServiceSection
@@ -153,6 +161,7 @@ export default function Services() {
         description="Meditation, mindfulness, compassion, ethics, and reflective leadership programs for teams and organizations."
         icon={<Landmark size={20} />}
         items={workplaceServices}
+        onAction={openBooking}
 />
 
       <ServiceSection
@@ -162,6 +171,7 @@ export default function Services() {
         description="Traditional Buddhist prayers, blessings, dedications, and ceremonies for individuals and families."
         icon={<Flower2 size={20} />}
         items={prayerServices}
+        onAction={openBooking}
 />
 
 
@@ -186,7 +196,7 @@ export default function Services() {
         </div>
       </section>
 
-      <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} initialType={bookingType} initialService={bookingService} />
+      <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} initialType={bookingType} initialService={bookingService} workflow={bookingWorkflow} />
     </div>
   );
 }
