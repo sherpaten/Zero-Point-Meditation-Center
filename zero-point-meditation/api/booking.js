@@ -28,7 +28,7 @@ export default async function handler(req, res) {
   if (!['standard', 'booking', 'inquiry'].includes(intent)) return res.status(400).json({ error: 'Invalid form type.' });
   const toEmail = intent === 'inquiry'
     ? 'info@zeropointmeditationcenter.org'
-    : (process.env.BOOKING_TO_EMAIL || 'bookings@zeropointmeditationcenter.org');
+    : 'bookings@zeropointmeditationcenter.org';
   const fromEmail = process.env.BOOKING_FROM_EMAIL;
 
   if (!apiKey || !fromEmail) {
