@@ -273,12 +273,6 @@ export default function About() {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 max-w-5xl mx-auto">
           {[
             {
-              name: "Gegye Yongyal Rinpoche",
-              role: "Founder & Teacher",
-              image: gegyeYongyalRinpoche,
-              alt: "Gegye Yongyal Rinpoche, Founder and Teacher"
-            },
-            {
               name: "Tenzing Norkay Sherpa",
               role: "IT Head (Nepal Team)",
               image: tenzingNorkaySherpa,
