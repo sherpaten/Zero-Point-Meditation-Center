@@ -6,42 +6,41 @@ import { Flower2, BookOpen, Sparkles, HandHeart, Clock3, Landmark } from 'lucide
 import gegyeYongyalRinpoche from "../assets/Teams/Gegye Yongyal Rinpoche's.png";
 import karmaGyatsoPhoto from "../assets/Teams/Teachers/karma Gyatso lopon la .jpeg";
 
-const prayerServices = [
-  { name: 'Short personal blessing and prayer' },
-  { name: 'House blessing ceremony' },
-  { name: 'New home or business blessing' },
-  { name: 'Family prayer ceremony' },
-  { name: 'Long-life prayer and blessing' },
-  { name: 'Tara prayer ceremony' },
-  { name: 'Medicine Buddha prayer ceremony' },
-  { name: 'Chenrezig compassion prayer' },
-  { name: 'Guru Rinpoche prayer ceremony' },
-  { name: 'Memorial prayer for a deceased loved one' },
-  { name: 'Extended prayer and dedication ceremony' },
-  { name: 'Special multi-monastic prayer gathering', detail: 'Depending on gathering size (approximately 400–2,000 monks)' },
-];
-
 const courses = [
-  { name: 'Introduction to Buddhist Meditation', duration: '45 minutes' },
-  { name: 'Shamatha Meditation Workshop', duration: '2 hours' },
-  { name: 'Mindfulness and Emotional Awareness', duration: '2 hours' },
-  { name: 'Four Noble Truths Course', duration: '4 sessions' },
+  { name: 'Introduction to Buddhist Meditation', duration: '45 minutes', description: 'Serves as a low-commitment entry point for first-timers.' },
+  { name: 'Shamatha Meditation Workshop', duration: '2 hours', description: 'Combines guided instruction and practice to help participants start a steady daily routine.' },
+  { name: 'Mindfulness and Emotional Awareness', duration: '2 hours', description: 'Offers practical tools for stress, resilience, and emotional balance in daily life.' },
+  { name: 'Four Noble Truths Course', duration: '4 sessions', description: 'Gives a philosophical grounding that complements the meditation practices.' },
 ];
 
 const retreats = [
-  { name: 'Introduction to Meditation Retreat', duration: 'Half day' },
-  { name: 'Shamatha Meditation Retreat', duration: 'Full day' },
-  { name: 'Buddhist Philosophy Day Retreat', duration: 'Full day' },
-  { name: 'Noble Tara Practice Retreat', duration: 'Full day' },
+  { name: 'Introduction to Meditation Retreat', duration: 'Half day', description: 'Gives beginners a first taste of sustained practice beyond a single session.' },
+  { name: 'Shamatha Meditation Retreat', duration: 'Full day', description: 'Deepens focus and mental stability for those ready to go beyond the 2-hour workshop.' },
+  { name: 'Buddhist Philosophy Day Retreat', duration: 'Full day', description: 'Pairs study with contemplation, building on concepts like the Four Noble Truths.' },
+  { name: 'Noble Tara Practice Retreat', duration: 'Full day', description: 'Offers a traditional compassion-focused practice experience for committed participants.' },
 ];
 
 const workplaceServices = [
-  { name: 'Workplace Meditation Introduction', duration: '60 minutes' },
-  { name: 'Corporate Mindfulness Workshop', duration: '90 minutes' },
-  { name: 'Compassion and Leadership Workshop', duration: '2 hours' },
-  { name: 'Buddhist Ethics and Leadership Seminar', duration: '2 hours' },
+  { name: 'Workplace Meditation Introduction', duration: '60 minutes', description: 'Gives employees an easy, low-barrier start to reduce stress and improve focus.' },
+  { name: 'Corporate Mindfulness Workshop', duration: '90 minutes', description: 'Helps teams build healthier habits and a calmer, more focused work culture.' },
+  { name: 'Compassion and Leadership Workshop', duration: '2 hours', description: 'Equips leaders to manage with empathy while staying effective.' },
+  { name: 'Buddhist Ethics and Leadership Seminar', duration: '2 hours', description: 'Supports reflective, values-driven leadership for managers and executives.' },
 ];
 
+const prayerServices = [
+  { name: 'Short personal blessing and prayer', duration: 'Not specified', description: 'A simple, accessible way to receive spiritual support for a personal moment or need.' },
+  { name: 'House blessing ceremony', duration: 'Not specified', description: 'Suited to families settling in or renewing the atmosphere of their living space.' },
+  { name: 'New home or business blessing', duration: 'Not specified', description: 'Seeks auspicious conditions, stability, and success for the space and those in it.' },
+  { name: 'Family prayer ceremony', duration: 'Not specified', description: 'Strengthens family bonds and offers collective spiritual support.' },
+  { name: 'Long-life prayer and blessing', duration: 'Not specified', description: 'Commonly requested to mark birthdays, recovery, or milestone occasions.' },
+  { name: 'Tara prayer ceremony', duration: 'Not specified', description: 'Invoked for protection, overcoming obstacles, and fulfilling positive aspirations.' },
+  { name: 'Medicine Buddha prayer ceremony', duration: 'Not specified', description: 'Offered for physical and mental wellbeing and for those facing illness.' },
+  { name: 'Chenrezig compassion prayer', duration: 'Not specified', description: 'Cultivates loving-kindness and offers merit for the benefit of all beings.' },
+  { name: 'Guru Rinpoche prayer ceremony', duration: 'Not specified', description: 'Performed to remove obstacles and bring blessings and protection.' },
+  { name: 'Memorial prayer for a deceased loved one', duration: 'Not specified', description: 'Dedicates merit for a peaceful transition and comforts grieving family members.' },
+  { name: 'Extended prayer and dedication ceremony', duration: 'Not specified', description: 'Suited to major occasions that call for a fuller, more elaborate offering.' },
+  { name: 'Special multi-monastic prayer gathering', duration: 'Depends on gathering size (about 400–2,000 monks)', description: 'Reserved for significant community or extended dedication events.' },
+];
 function ServiceSection({ id, eyebrow, title, description, icon, items }) {
   return (
     <section id={id} className="scroll-mt-32 space-y-6">
@@ -56,6 +55,7 @@ function ServiceSection({ id, eyebrow, title, description, icon, items }) {
             <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-amber-50 text-buddhist-gold">{icon}</div>
             <h3 className="font-serif text-lg font-bold leading-snug text-buddhist-burgundy">{item.name}</h3>
             {item.duration && <p className="mt-2 flex items-center gap-2 text-sm text-stone-500"><Clock3 size={15} />{item.duration}</p>}
+            {item.description && <p className="mt-3 text-sm leading-relaxed text-stone-600">{item.description}</p>}
             {item.detail && <p className="mt-3 text-sm leading-relaxed text-stone-600">{item.detail}</p>}
           </motion.article>
         ))}
