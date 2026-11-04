@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   const apiKey = process.env.RESEND_API_KEY;
   // Merchandise enquiries are handled by the admin mailbox, independently
   // of the bookings mailbox used for meditation/service bookings.
-  const toEmail = process.env.ADMIN_TO_EMAIL || 'admin@zeropointmeditationcenter.org';
+  const toEmail = 'admin@zeropointmeditationcenter.org';
   const fromEmail = process.env.BOOKING_FROM_EMAIL;
   if (!apiKey || !fromEmail) return res.status(503).json({ error: 'The order form is being configured. Please contact the centre directly for now.' });
   const body = typeof req.body === 'string' ? (() => { try { return JSON.parse(req.body); } catch { return {}; } })() : (req.body || {});
