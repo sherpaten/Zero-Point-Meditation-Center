@@ -1,41 +1,28 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Clock, Send, Sparkles, HeartHandshake } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, MessageCircle, Sparkles, HeartHandshake } from 'lucide-react';
 import AssistantChat from '../components/AssistantChat';
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', subject: 'General Inquiry', message: '' });
   const [submitted, setSubmitted] = useState(false);
-  const [sending, setSending] = useState(false);
-  const [error, setError] = useState('');
-  const [website, setWebsite] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setError('');
-    if (website.trim()) return;
-    if (sending) return;
-
-    setSending(true);
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, website })
-      });
-      const result = await response.json().catch(() => ({}));
-      if (!response.ok || !result.ok) {
-        throw new Error(result.error || 'We could not send your message. Please try again or email the center directly.');
-      }
-      setSubmitted(true);
-      setFormData({ name: '', email: '', subject: 'General Inquiry', message: '' });
-      setWebsite('');
-    } catch (err) {
-      setError(err.message || 'We could not send your message. Please try again or email the center directly.');
-    } finally {
-      setSending(false);
-    }
+    const message = [
+      'Hello Zero Point Meditation Center,',
+      '',
+      `Name: ${formData.name}`,
+      `Email: ${formData.email}`,
+      `Subject: ${formData.subject}`,
+      '',
+      'Message:',
+      formData.message
+    ].join('\\n');
+    const whatsappUrl = `https://wa.me/16464560843?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    setSubmitted(true);
   };
 
   return (
@@ -88,7 +75,7 @@ export default function Contact() {
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="text-buddhist-gold shrink-0" size={18} />
-                <span>+1 (732) 619-5329</span>
+                <a href="https://wa.me/16464560843" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-buddhist-gold transition-colors"><MessageCircle size={15} /> +1 (646) 456-0843 (WhatsApp)</a>
               </div>
               <div className="flex items-start gap-3">
                 <Clock className="text-buddhist-gold shrink-0 mt-0.5" size={18} />
@@ -119,18 +106,14 @@ export default function Contact() {
               </div>
               <h3 className="font-serif text-2xl font-bold text-stone-900">Message sent successfully</h3>
               <p className="text-stone-600 text-xs max-w-sm">
-                Thank you for contacting Zero Point Meditation Center. Your message has been emailed to our team at info@zeropointmeditationcenter.org.
+                Thank you for contacting Zero Point Meditation Center. WhatsApp has opened with your message prepared. Please review it and tap Send in WhatsApp to deliver it to our team.
               </p>
-              <button onClick={() => setSubmitted(false)} className="text-xs font-bold text-buddhist-burgundy underline">
-                Send another message
-              </button>
+              <a href="https://wa.me/16464560843" target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-buddhist-burgundy underline">
+                Open WhatsApp again
+              </a>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
-              <div aria-hidden="true" className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden">
-                <label htmlFor="contact-website">Leave this field empty</label>
-                <input id="contact-website" type="text" tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
-              </div>
               <div className="grid sm:grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <label htmlFor="contact-name" className="text-xs font-bold text-stone-700 uppercase tracking-wider">Your Name</label>
@@ -193,14 +176,13 @@ export default function Contact() {
               </div>
 
               
-              {error && <p role="alert" className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-xl p-3">{error}</p>}
               <button
                 type="submit"
-                disabled={sending}
-                className="w-full py-4 bg-buddhist-burgundy hover:bg-red-900 disabled:opacity-60 disabled:cursor-not-allowed text-amber-50 font-bold rounded-xl text-xs uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2"
+                className="w-full py-4 bg-buddhist-burgundy hover:bg-red-900 text-amber-50 font-bold rounded-xl text-xs uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2"
               >
-                {sending ? 'Sending message…' : 'Send message by email'} <Send size={14} />
+                Continue to WhatsApp <MessageCircle size={16} />
               </button>
+              <p className="text-center text-xs leading-relaxed text-stone-500">Your message will open in WhatsApp. You will need to tap Send there to deliver it.</p>
             </form>
           )}
         </div>
