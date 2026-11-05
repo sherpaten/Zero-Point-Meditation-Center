@@ -163,8 +163,8 @@ export default function Home() {
           </div>
 
           {/* Introduction video: muted autoplay is permitted by most browsers */}
-          <div className="relative flex min-h-[320px] items-center justify-center bg-stone-950 p-4 sm:p-8 lg:min-h-[620px]">
-            <div className="relative w-full max-w-3xl overflow-hidden rounded-2xl border border-amber-500/30 bg-black shadow-2xl">
+          <div className="relative flex min-h-[320px] items-center justify-center bg-[#fbf8f3] p-4 sm:p-8 lg:min-h-[620px]">
+            <div className="relative w-full max-w-3xl overflow-hidden rounded-2xl border border-amber-200/80 bg-[#fbf8f3] shadow-xl">
               <video
                 ref={introVideoRef}
                 src={introductionVideo}
