@@ -2,47 +2,46 @@ import React, { useState } from 'react';
 import BookingModal from '../components/BookingModal.jsx';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { HeartHandshake, Flower2, BookOpen, Sparkles, Users, HandHeart, Clock3, Landmark } from 'lucide-react';
+import { Flower2, BookOpen, Sparkles, HandHeart, Clock3, Landmark } from 'lucide-react';
 import gegyeYongyalRinpoche from "../assets/Teams/Gegye Yongyal Rinpoche's.png";
 import karmaGyatsoPhoto from "../assets/Teams/Teachers/karma Gyatso lopon la .jpeg";
 
-const prayerServices = [
-  { name: 'Short personal blessing and prayer', price: 'Enquire for pricing' },
-  { name: 'House blessing ceremony', price: 'Enquire for pricing' },
-  { name: 'New home or business blessing', price: 'Enquire for pricing' },
-  { name: 'Family prayer ceremony', price: 'Enquire for pricing' },
-  { name: 'Long-life prayer and blessing', price: 'Enquire for pricing' },
-  { name: 'Tara prayer ceremony', price: 'Enquire for pricing' },
-  { name: 'Medicine Buddha prayer ceremony', price: 'Enquire for pricing' },
-  { name: 'Chenrezig compassion prayer', price: 'Enquire for pricing' },
-  { name: 'Guru Rinpoche prayer ceremony', price: 'Enquire for pricing' },
-  { name: 'Memorial prayer for a deceased loved one', price: 'Enquire for pricing' },
-  { name: 'Extended prayer and dedication ceremony', price: 'Enquire for pricing' },
-  { name: 'Special multi-monastic prayer gathering', price: 'Enquire for pricing', detail: 'Depending on gathering size (approximately 400–2,000 monks)' },
-];
-
 const courses = [
-  { name: 'Introduction to Buddhist Meditation', duration: '45 minutes', online: '$10', inPerson: '$15' },
-  { name: 'Shamatha Meditation Workshop', duration: '2 hours', online: '$25', inPerson: '$60' },
-  { name: 'Mindfulness and Emotional Awareness', duration: '2 hours', online: '$45', inPerson: '$99' },
-  { name: 'Four Noble Truths Course', duration: '4 sessions', online: '$60', inPerson: '$120' },
+  { name: 'Introduction to Buddhist Meditation', duration: '45 minutes', description: 'Serves as a low-commitment entry point for first-timers.' },
+  { name: 'Shamatha Meditation Workshop', duration: '2 hours', description: 'Combines guided instruction and practice to help participants start a steady daily routine.' },
+  { name: 'Mindfulness and Emotional Awareness', duration: '2 hours', description: 'Offers practical tools for stress, resilience, and emotional balance in daily life.' },
+  { name: 'Four Noble Truths Course', duration: '4 sessions', description: 'Gives a philosophical grounding that complements the meditation practices.' },
 ];
 
 const retreats = [
-  { name: 'Introduction to Meditation Retreat', duration: 'Half day', price: '$75/person' },
-  { name: 'Shamatha Meditation Retreat', duration: 'Full day', price: '$125/person' },
-  { name: 'Buddhist Philosophy Day Retreat', duration: 'Full day', price: '$150/person' },
-  { name: 'Noble Tara Practice Retreat', duration: 'Full day', price: '$150/person' },
+  { name: 'Introduction to Meditation Retreat', duration: 'Half day', description: 'Gives beginners a first taste of sustained practice beyond a single session.' },
+  { name: 'Shamatha Meditation Retreat', duration: 'Full day', description: 'Deepens focus and mental stability for those ready to go beyond the 2-hour workshop.' },
+  { name: 'Buddhist Philosophy Day Retreat', duration: 'Full day', description: 'Pairs study with contemplation, building on concepts like the Four Noble Truths.' },
+  { name: 'Noble Tara Practice Retreat', duration: 'Full day', description: 'Offers a traditional compassion-focused practice experience for committed participants.' },
 ];
 
 const workplaceServices = [
-  { name: 'Workplace Meditation Introduction', duration: '60 minutes', price: '$500' },
-  { name: 'Corporate Mindfulness Workshop', duration: '90 minutes', price: '$750' },
-  { name: 'Compassion and Leadership Workshop', duration: '2 hours', price: '$1,000' },
-  { name: 'Buddhist Ethics and Leadership Seminar', duration: '2 hours', price: '$1,000' },
+  { name: 'Workplace Meditation Introduction', duration: '60 minutes', description: 'Gives employees an easy, low-barrier start to reduce stress and improve focus.' },
+  { name: 'Corporate Mindfulness Workshop', duration: '90 minutes', description: 'Helps teams build healthier habits and a calmer, more focused work culture.' },
+  { name: 'Compassion and Leadership Workshop', duration: '2 hours', description: 'Equips leaders to manage with empathy while staying effective.' },
+  { name: 'Buddhist Ethics and Leadership Seminar', duration: '2 hours', description: 'Supports reflective, values-driven leadership for managers and executives.' },
 ];
 
-function ServiceSection({ id, eyebrow, title, description, icon, items, category }) {
+const prayerServices = [
+  { name: 'Short personal blessing and prayer', duration: 'Not specified', description: 'A simple, accessible way to receive spiritual support for a personal moment or need.' },
+  { name: 'House blessing ceremony', duration: 'Not specified', description: 'Suited to families settling in or renewing the atmosphere of their living space.' },
+  { name: 'New home or business blessing', duration: 'Not specified', description: 'Seeks auspicious conditions, stability, and success for the space and those in it.' },
+  { name: 'Family prayer ceremony', duration: 'Not specified', description: 'Strengthens family bonds and offers collective spiritual support.' },
+  { name: 'Long-life prayer and blessing', duration: 'Not specified', description: 'Commonly requested to mark birthdays, recovery, or milestone occasions.' },
+  { name: 'Tara prayer ceremony', duration: 'Not specified', description: 'Invoked for protection, overcoming obstacles, and fulfilling positive aspirations.' },
+  { name: 'Medicine Buddha prayer ceremony', duration: 'Not specified', description: 'Offered for physical and mental wellbeing and for those facing illness.' },
+  { name: 'Chenrezig compassion prayer', duration: 'Not specified', description: 'Cultivates loving-kindness and offers merit for the benefit of all beings.' },
+  { name: 'Guru Rinpoche prayer ceremony', duration: 'Not specified', description: 'Performed to remove obstacles and bring blessings and protection.' },
+  { name: 'Memorial prayer for a deceased loved one', duration: 'Not specified', description: 'Dedicates merit for a peaceful transition and comforts grieving family members.' },
+  { name: 'Extended prayer and dedication ceremony', duration: 'Not specified', description: 'Suited to major occasions that call for a fuller, more elaborate offering.' },
+  { name: 'Special multi-monastic prayer gathering', duration: 'Depends on gathering size (about 400–2,000 monks)', description: 'Reserved for significant community or extended dedication events.' },
+];
+function ServiceSection({ id, eyebrow, title, description, icon, items, onAction }) {
   return (
     <section id={id} className="scroll-mt-32 space-y-6">
       <div className="mx-auto max-w-3xl space-y-3 text-center">
@@ -56,16 +55,12 @@ function ServiceSection({ id, eyebrow, title, description, icon, items, category
             <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-amber-50 text-buddhist-gold">{icon}</div>
             <h3 className="font-serif text-lg font-bold leading-snug text-buddhist-burgundy">{item.name}</h3>
             {item.duration && <p className="mt-2 flex items-center gap-2 text-sm text-stone-500"><Clock3 size={15} />{item.duration}</p>}
-            {item.online && item.inPerson ? (
-              <div className="mt-4 space-y-2 text-sm">
-                <p className="text-stone-600">Online <strong className="text-buddhist-burgundy">{item.online}</strong></p>
-                <p className="text-stone-600">In-person <strong className="text-buddhist-burgundy">{item.inPerson}</strong></p>
-              </div>
-            ) : (
-              <p className="mt-4 text-sm font-bold text-buddhist-burgundy">{item.price}</p>
-            )}
-            {item.detail && <p className="mt-2 text-xs leading-relaxed text-stone-500">{item.detail}</p>}
-            <button type="button" onClick={() => category(item)} className="mt-auto inline-flex w-full items-center justify-center rounded-full bg-buddhist-burgundy px-4 py-2.5 mt-5 text-sm font-semibold text-white hover:opacity-90 focus:outline-none focus-visible:ring-2 focus-visible:ring-buddhist-gold focus-visible:ring-offset-2">Book / enquire</button>
+            {item.description && <p className="mt-3 text-sm leading-relaxed text-stone-600">{item.description}</p>}
+            {item.detail && <p className="mt-3 text-sm leading-relaxed text-stone-600">{item.detail}</p>}
+            <div className="mt-auto pt-5 grid grid-cols-2 gap-2">
+              <button type="button" onClick={() => onAction('booking', item.name)} className="rounded-full bg-buddhist-burgundy px-3 py-2.5 text-xs sm:text-sm font-bold text-white transition hover:bg-red-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700">Book now</button>
+              <button type="button" onClick={() => onAction('inquiry', item.name)} className="rounded-full border border-buddhist-burgundy px-3 py-2.5 text-xs sm:text-sm font-bold text-buddhist-burgundy transition hover:bg-amber-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700">Enquire</button>
+            </div>
           </motion.article>
         ))}
       </motion.div>
@@ -77,25 +72,23 @@ export default function Services() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [bookingType, setBookingType] = useState('service');
   const [bookingService, setBookingService] = useState('');
+  const [bookingWorkflow, setBookingWorkflow] = useState('inquiry');
   const [activeServiceTab, setActiveServiceTab] = useState('prayer-services');
-  const openBooking = (type, service) => {
+  const openBooking = (workflow, service) => {
     if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
-      window.gtag('event', 'service_booking_click', { service_name: service, booking_type: type, button_location: 'services_page' });
+      window.gtag('event', workflow === 'booking' ? 'service_booking_click' : 'service_enquiry_click', { service_name: service, booking_type: workflow, button_location: 'services_page' });
     }
-    setBookingType(type);
+    setBookingType('service');
+    setBookingWorkflow(workflow);
     setBookingService(service);
     setBookingOpen(true);
   };
-  const bookPrayer = (item) => openBooking('service', item.name);
-  const bookCourse = (item) => openBooking('service', item.name);
-  const bookRetreat = (item) => openBooking('event', item.name);
-  const bookWorkplace = (item) => openBooking('service', item.name);
 
   return (
     <div className="max-w-[1600px] mx-auto px-5 sm:px-6 py-12 space-y-16">
       <Helmet>
         <title>Prayer Services, Buddhist Courses & Retreats | Zero Point</title>
-        <meta name="description" content="Explore prayer ceremonies, Buddhist meditation courses, retreats, and workplace programs offered by Zero Point Meditation Center. View recommended prices and enquire online." />
+        <meta name="description" content="Explore prayer ceremonies, Buddhist meditation courses, retreats, and workplace programs offered by Zero Point Meditation Center. Explore our services and contact the center to enquire." />
         <link rel="canonical" href="https://www.zeropointmeditationcenter.org/services" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Zero Point Meditation Center" />
@@ -113,6 +106,7 @@ export default function Services() {
         <p className="text-sm sm:text-base leading-relaxed text-stone-600">
           Explore meditation and Buddhist learning, join a retreat or community program, or enquire about prayer services and spiritual guidance. Whether you are taking a first step or deepening an established practice, we welcome you to find the support and opportunities that are right for you.
         </p>
+        <button type="button" onClick={() => openBooking('inquiry', 'General services enquiry')} className="inline-flex items-center justify-center rounded-full bg-buddhist-burgundy px-7 py-3 text-sm font-bold text-amber-50 shadow-md transition-colors hover:bg-red-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-buddhist-gold focus-visible:ring-offset-2">Enquire about a service</button>
       </section>
 
       <nav aria-label="Navigate service categories" className="flex justify-center gap-2 border-b border-stone-200 pb-4 flex-wrap">
@@ -147,8 +141,8 @@ export default function Services() {
         description="Learn meditation, Buddhist teachings, philosophy, and traditional perspectives through guided sessions and multi-session courses."
         icon={<BookOpen size={20} />}
         items={courses}
-        category={bookCourse}
-      />
+        onAction={openBooking}
+/>
 
       <ServiceSection
         id="retreats"
@@ -157,8 +151,8 @@ export default function Services() {
         description="Half-day, full-day retreats for deeper study and practice."
         icon={<Sparkles size={20} />}
         items={retreats}
-        category={bookRetreat}
-      />
+        onAction={openBooking}
+/>
 
       <ServiceSection
         id="corporate-programs"
@@ -167,8 +161,8 @@ export default function Services() {
         description="Meditation, mindfulness, compassion, ethics, and reflective leadership programs for teams and organizations."
         icon={<Landmark size={20} />}
         items={workplaceServices}
-        category={bookWorkplace}
-      />
+        onAction={openBooking}
+/>
 
       <ServiceSection
         id="prayer-services"
@@ -177,8 +171,8 @@ export default function Services() {
         description="Traditional Buddhist prayers, blessings, dedications, and ceremonies for individuals and families."
         icon={<Flower2 size={20} />}
         items={prayerServices}
-        category={bookPrayer}
-      />
+        onAction={openBooking}
+/>
 
 
       <section id="our-guides" className="scroll-mt-32 space-y-6">
@@ -202,8 +196,7 @@ export default function Services() {
         </div>
       </section>
 
-      <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} initialType={bookingType} initialService={bookingService} />
-      <p className="text-xs text-stone-500 text-center max-w-3xl mx-auto">Prices are recommended starting ranges and may vary depending on the service, location, group size, and arrangements. Please wait for the centre to confirm your booking and final amount before making payment. Spiritual guidance and community activities are not a replacement for licensed mental health care.</p>
+      <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} initialType={bookingType} initialService={bookingService} workflow={bookingWorkflow} />
     </div>
   );
 }

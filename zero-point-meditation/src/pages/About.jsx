@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { Users, Trees, Sparkles, Compass, HeartHandshake, CheckCircle2, Building2, BookOpen } from 'lucide-react';
@@ -10,6 +10,11 @@ import profile2 from '../assets/profile 2.jpg';
 import gegyeYongyalRinpoche from '../assets/Teams/Gegye Yongyal Rinpoche\'s.png';
 import tenzingNorkaySherpa from '../assets/Teams/Tenzing Norkay Sherpa.webp';
 import smrityPhoto from '../assets/Teams/Smty.jpeg';
+import mimiLamaPhoto from '../assets/Teams/Mimi Lama.jpeg';
+import mayaKarmaJinpaPhoto from '../assets/Teams/Maya Karma Jinpa.jpeg';
+import journeyTeaching1 from '../assets/Teaching 1.webp';
+import journeyTeaching2 from '../assets/Teaching 2.jpg';
+import journeyTeaching3 from '../assets/Teaching 3.webp';
 
 const globalProjects = [
   {
@@ -35,6 +40,41 @@ const globalProjects = [
 ];
 
 export default function About() {
+  const journeySlides = [
+    { year: '2024 · Beginnings', title: 'A place to pause and practice', detail: 'The center’s story began with a commitment to share meditation and Buddhist mind-training in a welcoming setting. The aim was to make time for stillness, self-awareness, and compassion available to people navigating the pressures of everyday life.', image: journeyTeaching1, alt: 'Buddhist teaching and meditation practice' },
+    { year: '2025 · Community', title: 'Growing through shared purpose', detail: 'As the vision developed, community connection and collaboration became increasingly important. Meditation, learning, and interfaith dialogue offered ways for people from different backgrounds to listen, learn, and build understanding around shared human concerns.', image: journeyTeaching2, alt: 'Community gathering and shared learning' },
+    { year: '2026 · Wider connection', title: 'Bringing care closer to the community', detail: 'Today, the center is working toward stronger connections between the community and people whose work supports others, including healthcare workers and life coaches. By creating opportunities to meet, share knowledge, and collaborate, we aim to help make wellbeing support more connected, compassionate, and accessible.', image: journeyTeaching3, alt: 'Spiritual practice and community connection' }
+  ];
+  const [journeyIndex, setJourneyIndex] = useState(0);
+  const currentJourney = journeySlides[journeyIndex];
+  const people = [
+    { name: 'Tenzing Norkay Sherpa', role: 'IT Head (Nepal Team)', group: 'Team', image: tenzingNorkaySherpa, alt: 'Tenzing Norkay Sherpa, IT Head of the Nepal Team' },
+    { name: 'Smirti Pradhan', role: 'Analytics and Development Manager', group: 'Team', image: smrityPhoto, alt: 'Smirti Pradhan, Analytics and Development Manager' },
+    { name: 'Mimi Lama', role: 'Secretary of ZPMC', group: 'Team', image: mimiLamaPhoto, alt: 'Mimi Lama, Secretary of Zero Point Meditation Center' },
+    { name: 'Shirley Huang', role: 'Advisor', group: 'Advisors', image: null, alt: 'Profile placeholder for Shirley Huang, Advisor' },
+    { name: 'Maya Karma Jinpa', role: 'Advisor', group: 'Advisors', image: mayaKarmaJinpaPhoto, alt: 'Maya Karma Jinpa, Advisor to Zero Point Meditation Center' },
+    { name: 'Jessica', role: 'Member', group: 'Members', image: null, alt: 'Profile placeholder for Jessica, Member' },
+    { name: 'Dawa Dorje Sherpa', role: 'Member', group: 'Members', image: null, alt: 'Profile placeholder for Dawa Dorje Sherpa' }
+  ];
+  const renderPeople = (group) => (
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 max-w-5xl mx-auto">
+      {people.filter((person) => person.group === group).map((person) => (
+        <motion.article key={person.name} whileHover={{ y: -4 }} className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-shadow hover:shadow-lg">
+          <div className="aspect-square overflow-hidden bg-amber-50">
+            {person.image ? <img src={person.image} alt={person.alt} loading="lazy" className="h-full w-full object-cover object-center transition-transform duration-500 hover:scale-105" /> : (
+              <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-buddhist-burgundy/70" aria-label={person.alt}>
+                <Users size={36} strokeWidth={1.4} /><span className="text-[10px] font-semibold uppercase tracking-wider">Photo coming soon</span>
+              </div>
+            )}
+          </div>
+          <div className="space-y-1.5 p-3 sm:p-4 text-center">
+            <h3 className="font-serif text-sm sm:text-base font-bold text-stone-900 leading-snug">{person.name}</h3>
+            <p className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wide text-buddhist-gold">{person.role}</p>
+          </div>
+        </motion.article>
+      ))}
+    </div>
+  );
   return (
     
       <div className="max-w-6xl mx-auto px-6 py-12 space-y-16">
@@ -99,6 +139,30 @@ export default function About() {
         </div>
       </div>
 
+      {/* Vision and Mission — presented together for clear visibility */}
+      <section aria-labelledby="vision-mission-heading" className="relative overflow-hidden rounded-[2rem] bg-stone-900 px-7 py-10 sm:px-12 sm:py-14 text-amber-50 shadow-xl">
+        <div className="absolute -right-16 -top-20 h-64 w-64 rounded-full bg-buddhist-gold/10 blur-3xl" />
+        <div className="relative mx-auto max-w-4xl space-y-8">
+          <div className="text-center space-y-3">
+            <span className="text-buddhist-gold font-bold text-xs uppercase tracking-[0.2em]">Our purpose</span>
+            <h2 id="vision-mission-heading" className="font-serif text-3xl sm:text-4xl font-bold">Our Vision & Mission</h2>
+            <p className="mx-auto max-w-2xl text-stone-300 text-sm sm:text-base leading-relaxed">A shared commitment to inner wellbeing, compassionate action, and peace across communities and traditions.</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-5">
+            <article className="rounded-2xl border border-amber-200/20 bg-white/5 p-6 sm:p-8 space-y-3">
+              <span className="text-buddhist-gold text-xs font-bold uppercase tracking-widest">Our Vision</span>
+              <h3 className="font-serif text-2xl font-bold">A more peaceful and mindful world</h3>
+              <p className="text-stone-200 text-sm leading-relaxed">We envision a world where people from all backgrounds can access practices that nurture awareness, emotional balance, compassion, and mutual respect. We aspire to be a welcoming refuge where Himalayan Buddhist wisdom supports individual wellbeing and interfaith understanding.</p>
+            </article>
+            <article className="rounded-2xl border border-amber-200/20 bg-white/5 p-6 sm:p-8 space-y-3">
+              <span className="text-buddhist-gold text-xs font-bold uppercase tracking-widest">Our Mission</span>
+              <h3 className="font-serif text-2xl font-bold">Making care, practice, and connection accessible</h3>
+              <p className="text-stone-200 text-sm leading-relaxed">Our mission is to share meditation and compassionate practice, encourage respectful relationships across religious and cultural traditions, and connect healthcare workers, life coaches, and community members so experience and care can be shared for the benefit of all.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
       {/* Our Story: 2024–2026 */}
       <section aria-labelledby="our-story-heading" className="space-y-8">
         <div className="text-center max-w-3xl mx-auto space-y-3">
@@ -112,26 +176,33 @@ export default function About() {
             From 2024 to 2026, our story has been shaped by a simple belief: people and communities can thrive when they have space to reflect, care for their mental wellbeing, and meet one another with compassion.
           </p>
         </div>
-        <div className="grid md:grid-cols-3 gap-5">
-          <article className="rounded-2xl border border-stone-200 bg-white p-6 space-y-3">
-            <span className="inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-bold tracking-wide text-buddhist-burgundy">2024 · Beginnings</span>
-            <h3 className="font-serif text-xl font-bold text-stone-900">A place to pause and practice</h3>
-            <p className="text-stone-600 text-sm leading-relaxed">The center’s story began with a commitment to share meditation and Buddhist mind-training in a welcoming setting. The aim was to make time for stillness, self-awareness, and compassion available to people navigating the pressures of everyday life.</p>
-          </article>
-          <article className="rounded-2xl border border-stone-200 bg-white p-6 space-y-3">
-            <span className="inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-bold tracking-wide text-buddhist-burgundy">2025 · Community</span>
-            <h3 className="font-serif text-xl font-bold text-stone-900">Growing through shared purpose</h3>
-            <p className="text-stone-600 text-sm leading-relaxed">As the vision developed, community connection and collaboration became increasingly important. Meditation, learning, and interfaith dialogue offered ways for people from different backgrounds to listen, learn, and build understanding around shared human concerns.</p>
-          </article>
-          <article className="rounded-2xl border border-stone-200 bg-white p-6 space-y-3">
-            <span className="inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-bold tracking-wide text-buddhist-burgundy">2026 · Wider connection</span>
-            <h3 className="font-serif text-xl font-bold text-stone-900">Bringing care closer to the community</h3>
-            <p className="text-stone-600 text-sm leading-relaxed">Today, the center is working toward stronger connections between the community and people whose work supports others, including healthcare workers and life coaches. By creating opportunities to meet, share knowledge, and collaborate, we aim to help make wellbeing support more connected, compassionate, and accessible.</p>
-          </article>
-        </div>
-        <div className="rounded-3xl bg-amber-50/70 border border-amber-200/70 p-7 sm:p-9">
-          <h3 className="font-serif text-2xl font-bold text-buddhist-burgundy mb-3">Our mission: mental wellbeing and interfaith peace</h3>
-          <p className="text-stone-700 text-sm sm:text-base leading-relaxed">We believe mental wellbeing is strengthened by reflection, supportive relationships, and a sense of belonging. Our mission is to share meditation and compassionate practice, encourage respectful relationships across religious and cultural traditions, and connect healthcare workers, life coaches, and community members so that experience and care can be shared for the benefit of all.</p>
+        <div className="overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-lg">
+          <div className="grid md:grid-cols-2">
+            <div className="relative min-h-[260px] md:min-h-[390px] bg-stone-100">
+              <img src={currentJourney.image} alt={currentJourney.alt} className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-950/80 to-transparent p-6">
+                <span className="inline-flex rounded-full bg-amber-100 px-3 py-1 text-xs font-bold tracking-wide text-buddhist-burgundy">{currentJourney.year}</span>
+              </div>
+            </div>
+            <div className="flex flex-col justify-center p-7 sm:p-10 space-y-5">
+              <div className="space-y-3">
+                <span className="text-buddhist-gold text-xs font-bold uppercase tracking-[0.18em]">Our story, year by year</span>
+                <h3 className="font-serif text-2xl sm:text-3xl font-bold text-buddhist-burgundy">{currentJourney.title}</h3>
+                <p className="text-stone-600 text-sm sm:text-base leading-relaxed">{currentJourney.detail}</p>
+              </div>
+              <div className="flex items-center justify-between gap-3 pt-2">
+                <div className="flex gap-2" aria-label="Choose a journey year">
+                  {journeySlides.map((slide, index) => (
+                    <button key={slide.year} type="button" onClick={() => setJourneyIndex(index)} aria-label={`Show ${slide.year}`} aria-pressed={journeyIndex === index} className={`h-2.5 rounded-full transition-all ${journeyIndex === index ? 'w-8 bg-buddhist-burgundy' : 'w-2.5 bg-stone-300 hover:bg-buddhist-gold'}`} />
+                  ))}
+                </div>
+                <div className="flex gap-2">
+                  <button type="button" onClick={() => setJourneyIndex((journeyIndex + journeySlides.length - 1) % journeySlides.length)} className="rounded-full border border-stone-300 px-4 py-2 text-sm font-semibold text-buddhist-burgundy hover:bg-amber-50" aria-label="Previous journey slide">←</button>
+                  <button type="button" onClick={() => setJourneyIndex((journeyIndex + 1) % journeySlides.length)} className="rounded-full bg-buddhist-burgundy px-4 py-2 text-sm font-semibold text-amber-50 hover:bg-red-900" aria-label="Next journey slide">→</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -254,98 +325,25 @@ export default function About() {
         </div>
       </div>
 
-      {/* Team Section */}
-      <section id="team" className="space-y-8 pt-4 scroll-mt-24" aria-labelledby="team-heading">
+      {/* Team, Advisors and Members are shown in separate groups */}
+      <section id="team" className="space-y-12 pt-4 scroll-mt-24" aria-labelledby="team-heading">
         <div className="text-center max-w-2xl mx-auto space-y-3">
-          <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-1.5">
-            <Users size={14} /> The People Behind the Center
-          </span>
-          <h2 id="team-heading" className="font-serif text-3xl font-bold text-buddhist-burgundy">
-            Our Team
-          </h2>
-          <p className="text-stone-600 text-sm leading-relaxed">
-            Meet the people who guide the center’s spiritual work and support its technology and operations.
-          </p>
+          <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-1.5"><Users size={14} /> The People Behind the Center</span>
+          <h2 id="team-heading" className="font-serif text-3xl font-bold text-buddhist-burgundy">Our People</h2>
+          <p className="text-stone-600 text-sm leading-relaxed">Meet the people who guide the center’s work and support its community.</p>
         </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 max-w-5xl mx-auto">
-          {[
-            {
-              name: "Gegye Yongyal Rinpoche",
-              role: "Founder & Teacher",
-              image: gegyeYongyalRinpoche,
-              alt: "Gegye Yongyal Rinpoche, Founder and Teacher"
-            },
-            {
-              name: "Tenzing Norkay Sherpa",
-              role: "IT Head (Nepal Team)",
-              image: tenzingNorkaySherpa,
-              alt: "Tenzing Norkay Sherpa, IT Head of the Nepal Team"
-            },
-            {
-              name: "Smirti Pradhan",
-              role: "Analytics and Development Manager",
-              image: smrityPhoto,
-              alt: "Smirti Pradhan, Analytics and Development Manager"
-            },
-            {
-              name: "Mimi Lama",
-              role: "Secretary of ZPMC",
-              image: null,
-              alt: "Profile placeholder for Mimi Lama, Secretary of ZPMC"
-            },
-            {
-              name: "Shirley Huang",
-              role: "Advisor",
-              image: null,
-              alt: "Profile placeholder for Shirley Huang, Advisor"
-            },
-            {
-              name: "Jessica",
-              role: "Member",
-              image: null,
-              alt: "Profile placeholder for Jessica, Member"
-            },
-            {
-              name: "Dawa Dorje Sherpa",
-              role: "Member",
-              image: null,
-              alt: "Profile placeholder for Dawa Dorje Sherpa"
-            },
-            {
-              name: "Maya Karma Jinpa",
-              role: "Advisor",
-              image: null,
-              alt: "Profile placeholder for Maya Karma Jinpa, Advisor"
-            }
-          ].map((member) => (
-            <motion.article
-              key={member.name}
-              whileHover={{ y: -4 }}
-              className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-shadow hover:shadow-lg"
-            >
-              <div className="aspect-square overflow-hidden bg-amber-50">
-                {member.image ? (
-                  <img
-                    src={member.image}
-                    alt={member.alt}
-                    loading="lazy"
-                    className="h-full w-full object-cover object-center transition-transform duration-500 hover:scale-105"
-                  />
-                ) : (
-                  <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-buddhist-burgundy/70" aria-label={member.alt}>
-                    <Users size={36} strokeWidth={1.4} />
-                    <span className="text-[10px] font-semibold uppercase tracking-wider">Photo coming soon</span>
-                  </div>
-                )}
-              </div>
-              <div className="space-y-1.5 p-3 sm:p-4 text-center">
-                <h3 className="font-serif text-sm sm:text-base font-bold text-stone-900 leading-snug">{member.name}</h3>
-                <p className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wide text-buddhist-gold">{member.role}</p>
-              </div>
-            </motion.article>
-          ))}
-        </div>
+        <section aria-labelledby="team-members-heading" className="space-y-5">
+          <div className="text-center"><h3 id="team-members-heading" className="font-serif text-2xl font-bold text-buddhist-burgundy">Team</h3><p className="mt-1 text-sm text-stone-500">The people supporting the center’s day-to-day work</p></div>
+          {renderPeople('Team')}
+        </section>
+        <section aria-labelledby="advisors-heading" className="space-y-5">
+          <div className="text-center"><h3 id="advisors-heading" className="font-serif text-2xl font-bold text-buddhist-burgundy">Advisors</h3><p className="mt-1 text-sm text-stone-500">Offering guidance and experience to the center</p></div>
+          {renderPeople('Advisors')}
+        </section>
+        <section aria-labelledby="members-heading" className="space-y-5">
+          <div className="text-center"><h3 id="members-heading" className="font-serif text-2xl font-bold text-buddhist-burgundy">Members</h3><p className="mt-1 text-sm text-stone-500">Part of our growing community</p></div>
+          {renderPeople('Members')}
+        </section>
       </section>
 
       {/* Global Institutional Leadership Section */}
@@ -381,6 +379,18 @@ export default function About() {
           ))}
         </div>
       </div>
+      <section id="join-sangha" aria-labelledby="join-sangha-heading" className="relative overflow-hidden rounded-[2rem] bg-amber-50 border border-amber-200 p-8 sm:p-12 text-center">
+        <div className="mx-auto max-w-3xl space-y-4">
+          <span className="text-buddhist-gold font-bold text-xs uppercase tracking-[0.2em]">You are welcome here</span>
+          <h2 id="join-sangha-heading" className="font-serif text-3xl sm:text-4xl font-bold text-buddhist-burgundy">Join Our Sangha</h2>
+          <p className="text-stone-700 text-sm sm:text-base leading-relaxed">Whether you are beginning a meditation practice, exploring Buddhist teachings, or looking for a supportive community, we welcome you. Take part in our community classes, teachings, and gatherings, and grow together through kindness and awareness.</p>
+          <div className="flex flex-wrap justify-center gap-3 pt-2">
+            <a href="/contact" className="inline-flex items-center justify-center rounded-xl bg-buddhist-burgundy px-6 py-3 text-sm font-bold text-amber-50 hover:bg-red-900 transition-colors">Get in touch</a>
+            <a href="/services" className="inline-flex items-center justify-center rounded-xl border border-buddhist-burgundy/30 px-6 py-3 text-sm font-bold text-buddhist-burgundy hover:bg-white transition-colors">Explore our offerings</a>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }

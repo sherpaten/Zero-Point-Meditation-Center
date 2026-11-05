@@ -6,7 +6,9 @@ export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   if (req.method !== 'POST') { res.setHeader('Allow', 'POST'); return res.status(405).json({ error: 'Method not allowed.' }); }
   const apiKey = process.env.RESEND_API_KEY;
-  const toEmail = process.env.BOOKING_TO_EMAIL || 'bookings@zeropointmeditationcenter.org';
+  // Merchandise enquiries are handled by the admin mailbox, independently
+  // of the bookings mailbox used for meditation/service bookings.
+  const toEmail = 'admin@zeropointmeditationcenter.org';
   const fromEmail = process.env.BOOKING_FROM_EMAIL;
   if (!apiKey || !fromEmail) return res.status(503).json({ error: 'The order form is being configured. Please contact the centre directly for now.' });
   const body = typeof req.body === 'string' ? (() => { try { return JSON.parse(req.body); } catch { return {}; } })() : (req.body || {});

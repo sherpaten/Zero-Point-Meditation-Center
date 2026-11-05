@@ -28,7 +28,7 @@ const availableServices = [
 
 const fieldClass = 'mt-1 w-full rounded-xl border border-stone-300 bg-white px-3 py-2.5 text-stone-900 outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/20';
 
-export default function BookingModal({ open, onClose, initialType = 'event', initialService = '', initialTeacher = '', fixedSelection = false }) {
+export default function BookingModal({ open, onClose, initialType = 'event', initialService = '', initialTeacher = '', fixedSelection = false, workflow = 'standard' }) {
   const [type, setType] = useState(initialType);
   const [service, setService] = useState(initialService || 'Free Morning Meditation');
   const [teacher, setTeacher] = useState(initialTeacher);
@@ -63,6 +63,8 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
 
   const freeEventNames = ['Free Morning Meditation', 'Free Weekend Community Classes', 'Free Meditation Class', 'Free Event'];
   const isFree = type === 'event' && freeEventNames.includes(service);
+  const serviceWorkflow = workflow === 'booking' || workflow === 'inquiry';
+  const showPayment = workflow === 'booking' || (workflow === 'standard' && !isFree);
   const dateSessions = sessionsFor(service);
   const requiresDate = type === 'event' && ['Free Morning Meditation', 'Free Weekend Community Classes'].includes(service);
   const hasAvailableDate = !requiresDate || dateSessions.length > 0;
@@ -86,7 +88,8 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          type,
+          type: serviceWorkflow ? 'service' : type,
+          intent: workflow,
           service,
           date: type === 'event' && ['Free Morning Meditation', 'Free Weekend Community Classes'].includes(service) ? date : '',
           teacher: type === 'service' ? teacher : '',
@@ -95,7 +98,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           phone: form.phone.trim(),
           place: form.place.trim(),
           profession: form.profession.trim(),
-          paymentPreference: isFree ? 'not_applicable' : paymentPreference,
+          paymentPreference: showPayment ? paymentPreference : 'not_applicable',
           website
         })
       });
@@ -106,10 +109,12 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           service_name: service,
           booking_type: type,
           form_location: 'booking_modal',
-          payment_preference: type === 'service' ? paymentPreference : 'not_applicable'
+          payment_preference: showPayment ? paymentPreference : 'not_applicable'
         });
       }
-      setMessage(isFree && result.confirmed
+      setMessage(workflow === 'inquiry'
+        ? 'Thank you — your enquiry has been sent to the information team. A confirmation email has been sent to your address. The team will contact you with further details.'
+        : isFree && result.confirmed
         ? `Your registration for ${service} is confirmed! No payment is required. The correct Zoom link, meeting ID, and passcode for your selected date and language have been sent to your email.`
         : isFree
           ? `Thank you — your registration for ${service} has been sent. Please check your email for confirmation details.`
@@ -131,8 +136,8 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
         <header className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-stone-200 bg-white px-5 py-4 sm:px-7">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-amber-700">Zero Point Meditation Center</p>
-            <h2 id="booking-modal-title" className="mt-1 font-serif text-2xl font-bold text-buddhist-burgundy">Book a service or event</h2>
-            <p className="mt-1 text-sm text-stone-600">Complete this form without leaving our website.</p>
+            <h2 id="booking-modal-title" className="mt-1 font-serif text-2xl font-bold text-buddhist-burgundy">{workflow === 'inquiry' ? 'Enquire about a service' : workflow === 'booking' ? 'Book this service' : 'Book a service or event'}</h2>
+            <p className="mt-1 text-sm text-stone-600">{workflow === 'inquiry' ? 'Send a question to our information team. No payment details are required.' : 'Complete this form without leaving our website.'}</p>
           </div>
           <button type="button" onClick={onClose} aria-label="Close booking form" className="rounded-full p-2 text-stone-600 hover:bg-stone-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-amber-700"><X size={22}/></button>
         </header>
@@ -141,7 +146,12 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
             <label htmlFor="booking-website">Leave this field empty</label>
             <input id="booking-website" name="website" type="text" tabIndex={-1} autoComplete="off" value={website} onChange={event => setWebsite(event.target.value)} />
           </div>
-          {fixedSelection ? (
+          {serviceWorkflow ? (
+            <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
+              <p className="text-xs font-bold uppercase tracking-wider text-amber-800">{workflow === 'booking' ? 'Service selected for booking' : 'Service selected for enquiry'}</p>
+              <p className="mt-1 font-semibold text-buddhist-burgundy">{service}</p>
+            </div>
+          ) : fixedSelection ? (
             <div className="rounded-xl border border-amber-200 bg-amber-50 p-4">
               <p className="text-xs font-bold uppercase tracking-wider text-amber-800">Selected teacher service</p>
               <p className="mt-1 font-semibold text-buddhist-burgundy">{service}</p>
@@ -180,7 +190,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
             <div><label htmlFor="booking-place" className="text-sm font-semibold text-stone-800">Place / city / country *</label><input id="booking-place" className={fieldClass} name="place" autoComplete="address-level2" value={form.place} onChange={update} maxLength={120} required /></div>
             <div className="sm:col-span-2"><label htmlFor="booking-profession" className="text-sm font-semibold text-stone-800">Profession *</label><input id="booking-profession" className={fieldClass} name="profession" autoComplete="organization-title" value={form.profession} onChange={update} maxLength={120} required /></div>
           </div>
-          {!isFree && <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-stone-700 space-y-3">
+          {showPayment && <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-stone-700 space-y-3">
             <p className="flex items-center gap-2 font-semibold text-buddhist-burgundy"><CreditCard size={17}/> Payment preference</p>
             <p>The center will review your request and confirm availability and the final amount. If payment is required, the team will email you the authorised Zelle details. Please do not pay before receiving that email.</p>
             <fieldset className="space-y-2">
@@ -194,8 +204,8 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           </div>}
           {message && <p role="status" className={(message.startsWith('Thank you') || message.startsWith('Your registration')) ? 'rounded-xl border border-emerald-300 bg-emerald-50 p-4 text-sm leading-6 text-emerald-950' : 'rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm leading-6 text-amber-950'}>{(message.startsWith('Thank you') || message.startsWith('Your registration')) && <CheckCircle2 size={17} className="inline mr-2" />}{message}</p>}
           {(message.startsWith('Thank you') || message.startsWith('Your registration')) && <a href="https://wa.me/16464560843" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-600 px-5 py-3 text-sm font-semibold text-emerald-800 hover:bg-emerald-50">Questions? Contact us on WhatsApp</a>}
-          <button type="submit" disabled={submitting || !hasAvailableDate} className="flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3.5 font-semibold text-white transition hover:bg-buddhist-burgundy-hover disabled:cursor-wait disabled:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700">{submitting && <LoaderCircle size={18} className="animate-spin" />}{submitting ? 'Sending enquiry…' : isFree ? 'Register for free session' : type === 'service' ? 'Send booking enquiry' : 'Send event enquiry'}</button>
-          <p className="flex items-start gap-2 text-xs leading-5 text-stone-500"><ShieldCheck size={15} className="mt-0.5 shrink-0"/> {isFree ? 'Free class registrations are confirmed automatically after successful submission. No payment is required.' : 'This form sends an enquiry only. Your booking is not confirmed and no payment is collected until the center contacts you.'}</p>
+          <button type="submit" disabled={submitting || !hasAvailableDate} className="flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3.5 font-semibold text-white transition hover:bg-buddhist-burgundy-hover disabled:cursor-wait disabled:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700">{submitting && <LoaderCircle size={18} className="animate-spin" />}{submitting ? 'Sending…' : workflow === 'inquiry' ? 'Send enquiry' : workflow === 'booking' ? 'Send booking request' : isFree ? 'Register for free session' : type === 'service' ? 'Send booking enquiry' : 'Send event enquiry'}</button>
+          <p className="flex items-start gap-2 text-xs leading-5 text-stone-500"><ShieldCheck size={15} className="mt-0.5 shrink-0"/> {workflow === 'inquiry' ? 'Your enquiry will be sent to the information team. No payment method or payment is required.' : isFree ? 'Free class registrations are confirmed automatically after successful submission. No payment is required.' : 'Your booking request will be sent to the bookings team. It is not confirmed until the center reviews and approves it. Do not pay before receiving authorised instructions.'}</p>
         </form>
       </section>
     </div>
