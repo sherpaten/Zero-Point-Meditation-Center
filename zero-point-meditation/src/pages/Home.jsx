@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import HomeEventsCalendar from './HomeEventsCalendar';
-import { Calendar, MapPin, ArrowRight, Sparkles, Compass, HeartHandshake, ShieldCheck, Flame, Users, BookOpen, Award } from 'lucide-react';
+import { Calendar, MapPin, ArrowRight, Sparkles, Compass, HeartHandshake, ShieldCheck, Flame, Users, BookOpen, Award, Volume2, VolumeX, Play, Pause } from 'lucide-react';
 
 // Assets (Convert heavy images to .webp in src/assets for maximum speed on Vercel)
-import buddhaLotus from "../assets/buddha-lotus.webp"; 
+import buddhaLotus from "../assets/buddha-lotus.webp";\nimport introductionVideo from "../assets/Introduction.mp4"; 
 import rinpocheProfile from '../assets/profile.jpg';
 import worldPeacePrayerDay from '../assets/Events/2025/2025 World Peace Prayer Day.jpg';
 import weeklyMeditationMorning from '../assets/Events/2025/2025 Mindfulness Meditation.jpg';
@@ -63,6 +63,25 @@ const features = [
 
 export default function Home() {
   const location = useLocation();
+  const introVideoRef = useRef(null);
+  const [videoMuted, setVideoMuted] = useState(true);
+  const [videoPlaying, setVideoPlaying] = useState(true);
+
+  const toggleVideoPlayback = async () => {
+    const video = introVideoRef.current;
+    if (!video) return;
+    if (video.paused) {
+      try {
+        await video.play();
+        setVideoPlaying(true);
+      } catch {
+        setVideoPlaying(false);
+      }
+    } else {
+      video.pause();
+      setVideoPlaying(false);
+    }
+  };
   useEffect(() => {
     if (location.hash === '#home-calendar-heading') {
       requestAnimationFrame(() => {
@@ -88,58 +107,97 @@ export default function Home() {
         <meta name="twitter:description" content="Explore free meditation sessions, Tibetan Buddhist teachings, community events and compassionate spiritual support at Zero Point Meditation Center."/>
       </Helmet>
       
-      {/* Full-Section Edge-to-Edge Hero */}
-      <section className="relative w-full min-h-[620px] sm:min-h-[680px] flex items-center justify-center overflow-hidden bg-[#ded4c3]">
-        
-        {/* Full Image Container - Anchored to Top */}
-        <div className="absolute inset-0 z-0">
-          <img 
-            src={buddhaLotus} 
-            alt="Buddha Lotus Background" 
-            loading="eager"
-            fetchPriority="high"
-            decoding="async"
-            className="w-full h-full object-cover object-top"
-          />
-          {/* Vignette gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#fbf8f3] via-[#fbf8f3]/50 to-[#fbf8f3]/40" />
-        </div>
-
-        {/* Content Box */}
-        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-6 pt-24 pb-16">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="space-y-6"
-          >
-            <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest inline-flex items-center justify-center gap-1.5 bg-white/90 backdrop-blur-md px-5 py-2 rounded-full border border-amber-300/80 shadow-md">
-              <Sparkles size={14} /> Pause. Breathe. Find Your Center.
-            </span>
-
-            <h1 className="font-serif text-4xl sm:text-6xl font-bold text-buddhist-burgundy leading-tight drop-shadow-sm">
-              A Place to Pause, Reconnect & Find Peace
-            </h1>
-
-            <p className="text-stone-800 text-base sm:text-lg leading-relaxed max-w-3xl mx-auto font-medium drop-shadow-sm">
-              Life can feel busy, noisy, and overwhelming. Zero Point Meditation Center is an invitation to slow down, breathe, and reconnect with what matters. Through meditation, Buddhist wisdom, shared learning, and compassionate community, we create space for greater awareness, inner balance, and peace—one moment at a time.
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-4 pt-4">
-              <Link 
-                to="/home#home-calendar-heading" 
-                className="px-8 py-3.5 bg-buddhist-burgundy hover:bg-red-900 text-amber-50 font-bold rounded-xl text-xs uppercase tracking-wider shadow-xl transition-all flex items-center gap-2 hover:scale-105"
-              >
-                Find Your Next Gathering <ArrowRight size={14} />
-              </Link>
-              <Link 
-                to="/about" 
-                className="px-8 py-3.5 bg-white hover:bg-amber-50 text-buddhist-burgundy font-bold border border-amber-300/80 rounded-xl text-xs uppercase tracking-wider shadow-md transition-all hover:scale-105"
-              >
-                About the Center
-              </Link>
+      {/* Split Hero: keep the Buddha image and existing introduction text together, with autoplay video alongside */}
+      <section className="relative w-full overflow-hidden bg-[#ded4c3]">
+        <div className="grid lg:grid-cols-2 min-h-[620px]">
+          {/* Buddha image with the original hero copy and calls to action */}
+          <div className="relative flex min-h-[620px] items-center justify-center overflow-hidden">
+            <div className="absolute inset-0 z-0">
+              <img
+                src={buddhaLotus}
+                alt="Buddha seated on a lotus"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                className="h-full w-full object-cover object-top"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#fbf8f3]/95 via-[#fbf8f3]/65 to-[#fbf8f3]/45" />
             </div>
-          </motion.div>
+
+            <div className="relative z-10 mx-auto w-full max-w-3xl px-6 py-16 text-center sm:px-10 lg:px-12">
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="space-y-6"
+              >
+                <span className="inline-flex items-center justify-center gap-1.5 rounded-full border border-amber-300/80 bg-white/90 px-5 py-2 text-xs font-bold uppercase tracking-widest text-buddhist-gold shadow-md backdrop-blur-md">
+                  <Sparkles size={14} /> Pause. Breathe. Find Your Center.
+                </span>
+
+                <h1 className="font-serif text-4xl font-bold leading-tight text-buddhist-burgundy drop-shadow-sm sm:text-6xl">
+                  A Place to Pause, Reconnect & Find Peace
+                </h1>
+
+                <p className="mx-auto max-w-3xl text-base font-medium leading-relaxed text-stone-800 drop-shadow-sm sm:text-lg">
+                  Life can feel busy, noisy, and overwhelming. Zero Point Meditation Center is an invitation to slow down, breathe, and reconnect with what matters. Through meditation, Buddhist wisdom, shared learning, and compassionate community, we create space for greater awareness, inner balance, and peace—one moment at a time.
+                </p>
+
+                <div className="flex flex-wrap justify-center gap-4 pt-4">
+                  <Link
+                    to="/home#home-calendar-heading"
+                    className="flex items-center gap-2 rounded-xl bg-buddhist-burgundy px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-amber-50 shadow-xl transition-all hover:scale-105 hover:bg-red-900"
+                  >
+                    Find Your Next Gathering <ArrowRight size={14} />
+                  </Link>
+                  <Link
+                    to="/about"
+                    className="rounded-xl border border-amber-300/80 bg-white px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-buddhist-burgundy shadow-md transition-all hover:scale-105 hover:bg-amber-50"
+                  >
+                    About the Center
+                  </Link>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Introduction video: muted autoplay is permitted by most browsers */}
+          <div className="relative flex min-h-[320px] items-center justify-center bg-stone-950 p-4 sm:p-8 lg:min-h-[620px]">
+            <div className="relative w-full max-w-3xl overflow-hidden rounded-2xl border border-amber-500/30 bg-black shadow-2xl">
+              <video
+                ref={introVideoRef}
+                src={introductionVideo}
+                autoPlay
+                muted={videoMuted}
+                loop
+                playsInline
+                preload="auto"
+                onPlay={() => setVideoPlaying(true)}
+                onPause={() => setVideoPlaying(false)}
+                aria-label="Introduction to Zero Point Meditation Center"
+                className="block aspect-video h-full max-h-[560px] w-full object-contain"
+              />
+              <div className="absolute bottom-3 right-3 flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setVideoMuted((muted) => !muted)}
+                  aria-label={videoMuted ? "Unmute introduction video" : "Mute introduction video"}
+                  aria-pressed={!videoMuted}
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/30 bg-stone-950/75 text-white shadow-lg backdrop-blur transition-colors hover:bg-buddhist-burgundy focus:outline-none focus:ring-2 focus:ring-amber-300"
+                >
+                  {videoMuted ? <VolumeX size={19} /> : <Volume2 size={19} />}
+                </button>
+                <button
+                  type="button"
+                  onClick={toggleVideoPlayback}
+                  aria-label={videoPlaying ? "Pause introduction video" : "Play introduction video"}
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/30 bg-stone-950/75 text-white shadow-lg backdrop-blur transition-colors hover:bg-buddhist-burgundy focus:outline-none focus:ring-2 focus:ring-amber-300"
+                >
+                  {videoPlaying ? <Pause size={19} /> : <Play size={19} />}
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
