@@ -187,7 +187,7 @@ export default function Home() {
                 aria-label="Introduction to Zero Point Meditation Center"
                 className="block aspect-video h-full max-h-[560px] w-full object-contain"
               />
-              <div className="absolute bottom-3 right-3 flex items-center gap-2">
+              <div className="absolute right-3 top-3 z-20 flex items-center gap-2">
                 <button
                   type="button"
                   onClick={() => setVideoMuted((muted) => !muted)}
