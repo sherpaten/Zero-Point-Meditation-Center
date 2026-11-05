@@ -80,13 +80,13 @@ export default function Teachings() {
           </motion.article>
           {[
             {
-              name: 'Jamyang Thupten',
+              name: 'Venerable Geshe Jamyang Thupten',
               image: jamyangThuptenPhoto,
               summary: 'A Tibetan monastic scholar from Sera Mey Monastery, with 25 years of Buddhist philosophical study and a Geshe Lharampa degree completed in 2024.',
               biography: 'Venerable Geshe Jamyang Thupten is a Tibetan monastic scholar from Sera Mey Monastery and is currently studying at Emory University. He has 25 years of experience studying Buddhist philosophy and tradition. In 2024, he completed the prestigious Geshe Lharampa degree, the highest academic distinction in traditional Buddhist studies in the Gelug tradition.'
             },
             {
-              name: 'Tashi Dorjee',
+              name: 'Venerable Tashi Dorjee',
               image: tashiDorjeePhoto,
               summary: 'A Tibetan monastic scholar from Tashi Lhunpo Monastery, exploring connections between Buddhist philosophy, science, compassion, and mental well-being.',
               biography: 'Venerable Tashi Dorjee is a Tibetan monastic scholar from Tashi Lhunpo Monastery. He has completed 18 years of extensive monastic study in Buddhist philosophy and is currently part of the eighth cohort of the Tenzin Gyatso Science Scholars at Emory University. Through his study of science, he seeks to integrate scientific knowledge with Buddhist philosophy to promote human values, scientific education, mental well-being, compassion, and ethical values in society.'
