@@ -19,7 +19,7 @@ export default function Contact() {
       '',
       'Message:',
       formData.message
-    ].join('\\n');
+    ].join('\n');
     const whatsappUrl = `https://wa.me/16464560843?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     setSubmitted(true);
