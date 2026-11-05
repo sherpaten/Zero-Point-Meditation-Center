@@ -7,7 +7,7 @@ import { Users, Trees, Sparkles, Compass, HeartHandshake, CheckCircle2, Building
 import profileMain from '../assets/profile.jpg';
 import profile1 from '../assets/profile 1.jpg';
 import profile2 from '../assets/profile 2.jpg';
-import gegyeYongyalRinpoche from '../assets/Teams/Gegye Yongyal Rinpoche\\'s.png';
+import gegyeYongyalRinpoche from "../assets/Teams/Gegye Yongyal Rinpoche's.png";
 import tenzingNorkaySherpa from '../assets/Teams/Tenzing Norkay Sherpa.webp';
 import smrityPhoto from '../assets/Teams/Smty.jpeg';
 import mimiLamaPhoto from '../assets/Teams/Mimi Lama.jpeg';
