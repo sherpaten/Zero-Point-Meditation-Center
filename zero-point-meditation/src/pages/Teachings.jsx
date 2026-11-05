@@ -131,10 +131,7 @@ export default function Teachings() {
         </motion.article>
       </section>
 
-      <section aria-labelledby="additional-teachers-heading" className="space-y-6">
-        <div className="border-b border-stone-200 pb-3">
-          <h2 id="additional-teachers-heading" className="font-serif text-2xl font-bold text-buddhist-burgundy sm:text-3xl">More of Our Teachers</h2>
-        </div>
+      <section aria-label="Additional teacher profiles" className="space-y-6">
         <div className="grid gap-5 lg:grid-cols-3">
           {[
             {
