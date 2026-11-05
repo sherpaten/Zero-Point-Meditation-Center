@@ -42,6 +42,17 @@ export default function FloatingAssistant() {
         )}
       </AnimatePresence>
 
+      <a
+        href="https://wa.me/16464560843?text=Hello%20Zero%20Point%20Meditation%20Center%2C%20I%20would%20like%20to%20make%20an%20inquiry."
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat with Zero Point Meditation Center on WhatsApp"
+        className="flex h-14 items-center gap-2 rounded-full bg-[#25D366] px-5 text-white shadow-lg transition hover:scale-105 hover:bg-[#1fb95a] focus:outline-none focus:ring-2 focus:ring-[#25D366] focus:ring-offset-2"
+      >
+        <MessageCircle size={23} />
+        <span className="text-sm font-semibold">WhatsApp</span>
+      </a>
+
       <button
         type="button"
         onClick={() => setIsOpen((open) => !open)}
