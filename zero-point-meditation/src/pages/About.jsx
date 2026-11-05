@@ -61,7 +61,7 @@ export default function About() {
       {people.filter((person) => person.group === group).map((person) => (
         <motion.article key={person.name} whileHover={{ y: -4 }} className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-shadow hover:shadow-lg">
           <div className="aspect-square overflow-hidden bg-amber-50">
-            {person.image ? <img src={person.image} alt={person.alt} loading="lazy" className="h-full w-full object-cover object-center transition-transform duration-500 hover:scale-105" /> : (
+            {person.image ? <img src={person.image} alt={person.alt} loading="lazy" className={`h-full w-full ${person.name === 'Maya Karma Jinpa' ? 'object-contain' : 'object-cover object-center transition-transform duration-500 hover:scale-105'}`} /> : (
               <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-buddhist-burgundy/70" aria-label={person.alt}>
                 <Users size={36} strokeWidth={1.4} /><span className="text-[10px] font-semibold uppercase tracking-wider">Photo coming soon</span>
               </div>
