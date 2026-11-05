@@ -138,19 +138,36 @@ export default function Teachings() {
         <div className="border-b border-stone-200 pb-3">
           <h2 id="additional-teachers-heading" className="font-serif text-2xl font-bold text-buddhist-burgundy sm:text-3xl">More of Our Teachers</h2>
         </div>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-5 lg:grid-cols-3">
           {[
-            { name: 'Jamyang Thupten', image: jamyangThuptenPhoto },
-            { name: 'Tashi Dorjee', image: tashiDorjeePhoto },
-            { name: 'Thupten Sherap', image: thuptenSherapPhoto },
+            {
+              name: 'Jamyang Thupten',
+              image: jamyangThuptenPhoto,
+              biography: 'Venerable Geshe Jamyang Thupten is a Tibetan monastic scholar from Sera Mey Monastery and is currently studying at Emory University. He has 25 years of experience studying Buddhist philosophy and tradition. In 2024, he completed the prestigious Geshe Lharampa degree, the highest academic distinction in traditional Buddhist studies in the Gelug tradition.'
+            },
+            {
+              name: 'Tashi Dorjee',
+              image: tashiDorjeePhoto,
+              biography: 'Venerable Tashi Dorjee is a Tibetan monastic scholar from Tashi Lhunpo Monastery. He has completed 18 years of extensive monastic study in Buddhist philosophy and is currently part of the eighth cohort of the Tenzin Gyatso Science Scholars at Emory University. Through his study of science, he seeks to integrate scientific knowledge with Buddhist philosophy to promote human values, scientific education, mental well-being, compassion, and ethical values in society.'
+            },
+            {
+              name: 'Thupten Sherap',
+              image: thuptenSherapPhoto,
+              biography: 'Venerable Thupten Sherap is a Tibetan Buddhist monk from Drepung Loseling Monastery, a researcher, and an educator with extensive training in traditional Buddhist philosophy, equivalent to a master’s-level education. He has studied the Five Major Texts of Buddhist Philosophy and is currently pursuing his Geshe Lharampa degree, a doctoral-level qualification in the Geluk tradition, at Gelukpa University in India. He is also studying at Emory University as a member of the eighth cohort of the Tenzin Gyatso Science Scholar Program, exploring the intersection of Buddhist philosophy and modern science.',
+              additional: 'Since 2019, Sherap has been involved in the International Tukdam Research Project, which investigates long-term meditation practitioners and the post-death meditative state known as Tukdam. His work also encompasses Tibetan language education, translation, editing, and teaching Buddhist philosophy and the relationship between Buddhism and science. Through his diverse experience, Sherap is committed to preserving Tibetan language and culture and fostering dialogue between Buddhist wisdom, scientific inquiry, and human compassion.'
+            },
           ].map((teacher) => (
-            <motion.article key={teacher.name} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="overflow-hidden rounded-2xl border border-amber-100 bg-white shadow-sm">
+            <motion.article key={teacher.name} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="flex flex-col overflow-hidden rounded-2xl border border-amber-100 bg-white shadow-sm">
               <div className="aspect-[4/3] overflow-hidden bg-stone-100">
                 <img src={teacher.image} alt={teacher.name} className="h-full w-full object-cover object-top" loading="lazy" />
               </div>
-              <div className="space-y-1 p-4 text-center">
-                <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-buddhist-gold"><GraduationCap size={14} /> Teacher</span>
-                <h3 className="font-serif text-xl font-bold text-buddhist-burgundy">{teacher.name}</h3>
+              <div className="flex flex-1 flex-col gap-3 p-5">
+                <div className="space-y-1 text-center">
+                  <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-buddhist-gold"><GraduationCap size={14} /> Teacher</span>
+                  <h3 className="font-serif text-xl font-bold text-buddhist-burgundy">{teacher.name}</h3>
+                </div>
+                <p className="text-sm leading-relaxed text-stone-600">{teacher.biography}</p>
+                {teacher.additional && <p className="text-sm leading-relaxed text-stone-600">{teacher.additional}</p>}
               </div>
             </motion.article>
           ))}
