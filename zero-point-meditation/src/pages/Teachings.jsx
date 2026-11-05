@@ -92,7 +92,7 @@ export default function Teachings() {
               biography: 'Venerable Tashi Dorjee is a Tibetan monastic scholar from Tashi Lhunpo Monastery. He has completed 18 years of extensive monastic study in Buddhist philosophy and is currently part of the eighth cohort of the Tenzin Gyatso Science Scholars at Emory University. Through his study of science, he seeks to integrate scientific knowledge with Buddhist philosophy to promote human values, scientific education, mental well-being, compassion, and ethical values in society.'
             },
             {
-              name: 'Thupten Sherap',
+              name: 'Venerable Thupten Sherap',
               image: thuptenSherapPhoto,
               summary: 'A Tibetan Buddhist monk, researcher, and educator whose work connects traditional Buddhist philosophy, Tibetan culture, and modern science.',
               biography: 'Venerable Thupten Sherap is a Tibetan Buddhist monk from Drepung Loseling Monastery, a researcher, and an educator with extensive training in traditional Buddhist philosophy, equivalent to a master’s-level education. He has studied the Five Major Texts of Buddhist Philosophy and is currently pursuing his Geshe Lharampa degree, a doctoral-level qualification in the Geluk tradition, at Gelukpa University in India. He is also studying at Emory University as a member of the eighth cohort of the Tenzin Gyatso Science Scholar Program, exploring the intersection of Buddhist philosophy and modern science.',
