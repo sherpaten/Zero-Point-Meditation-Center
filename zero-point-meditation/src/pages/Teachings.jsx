@@ -4,6 +4,9 @@ import { motion } from 'framer-motion';
 import { BookOpen, GraduationCap, CalendarDays, ArrowRight } from 'lucide-react';
 import BookingModal from '../components/BookingModal.jsx';
 import karmaGyatsoPhoto from '../assets/Teams/Teachers/karma Gyatso lopon la .jpeg';
+import jamyangThuptenPhoto from '../assets/Teams/Teachers/Jamyang Thupten.jpeg';
+import tashiDorjeePhoto from '../assets/Teams/Teachers/Tashi Dorjee.jpeg';
+import thuptenSherapPhoto from '../assets/Teams/Teachers/Thupten Sherap.jpeg';
 import gegyeYongyalRinpoche from "../assets/Teams/Gegye Yongyal Rinpoche's.png";
 
 export default function Teachings() {
@@ -129,6 +132,29 @@ export default function Teachings() {
             </div>
           </div>
         </motion.article>
+      </section>
+
+      <section aria-labelledby="additional-teachers-heading" className="space-y-6">
+        <div className="border-b border-stone-200 pb-3">
+          <h2 id="additional-teachers-heading" className="font-serif text-2xl font-bold text-buddhist-burgundy sm:text-3xl">More of Our Teachers</h2>
+        </div>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            { name: 'Jamyang Thupten', image: jamyangThuptenPhoto },
+            { name: 'Tashi Dorjee', image: tashiDorjeePhoto },
+            { name: 'Thupten Sherap', image: thuptenSherapPhoto },
+          ].map((teacher) => (
+            <motion.article key={teacher.name} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="overflow-hidden rounded-2xl border border-amber-100 bg-white shadow-sm">
+              <div className="aspect-[4/3] overflow-hidden bg-stone-100">
+                <img src={teacher.image} alt={teacher.name} className="h-full w-full object-cover object-top" loading="lazy" />
+              </div>
+              <div className="space-y-1 p-4 text-center">
+                <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-buddhist-gold"><GraduationCap size={14} /> Teacher</span>
+                <h3 className="font-serif text-xl font-bold text-buddhist-burgundy">{teacher.name}</h3>
+              </div>
+            </motion.article>
+          ))}
+        </div>
       </section>
 
       <BookingModal
