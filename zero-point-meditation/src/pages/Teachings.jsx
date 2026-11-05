@@ -78,11 +78,6 @@ export default function Teachings() {
               <button type="button" onClick={() => { setSelectedTeacher('H.E. Gegye Yongyal Rinpoche'); setBookingOpen(true); }} className="mt-auto inline-flex w-fit items-center justify-center gap-2 rounded-full bg-buddhist-burgundy px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-buddhist-burgundy-hover">Book a lecture <ArrowRight size={16} /></button>
             </div>
           </motion.article>
-        </div>
-      </section>
-
-      <section aria-label="Additional teacher profiles" className="space-y-6">
-        <div className="grid gap-5 lg:grid-cols-3">
           {[
             {
               name: 'Jamyang Thupten',
@@ -118,7 +113,7 @@ export default function Teachings() {
               </div>
             </motion.article>
           ))}
-        </div>
+      </div>
       </section>
 
       {selectedBio && (
