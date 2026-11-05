@@ -47,88 +47,38 @@ export default function Teachings() {
           <h2 id="teacher-list-heading" className="font-serif text-2xl font-bold text-buddhist-burgundy sm:text-3xl">Our Teachers</h2>
         </div>
 
-        <motion.article
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45 }}
-          className="grid overflow-hidden rounded-3xl border border-amber-100 bg-white shadow-sm md:grid-cols-[minmax(260px,0.8fr)_1.2fr]"
-        >
-          <div className="min-h-[320px] bg-stone-100 sm:min-h-[400px]">
-            <img
-              src={karmaGyatsoPhoto}
-              alt="Karma Gyatso Lopon La"
-              className="h-full w-full object-cover object-top"
-              loading="lazy"
-            />
-          </div>
-          <div className="flex flex-col justify-center gap-5 p-6 sm:p-8 lg:p-10">
-            <div className="space-y-2">
-              <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-buddhist-gold">
-                <GraduationCap size={15} /> Teacher
-              </span>
-              <h3 className="font-serif text-2xl font-bold text-buddhist-burgundy sm:text-3xl">Karma Gyatso Lopon La</h3>
-              <p className="font-semibold text-stone-700">Teaches: Meditation &amp; Buddhist Practices</p>
+        <div className="grid gap-5 lg:grid-cols-3">
+          <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="flex flex-col overflow-hidden rounded-2xl border border-amber-100 bg-white shadow-sm">
+            <div className="aspect-[4/3] overflow-hidden bg-stone-100">
+              <img src={karmaGyatsoPhoto} alt="Karma Gyatso Lopon La" className="h-full w-full object-cover object-top" loading="lazy" />
             </div>
-
-            <p className="leading-relaxed text-stone-600">
-              Karma Gyatso Lopon La is a Buddhist teacher and student researcher at Emory University, with more than ten years of study in the Buddhist sutra tradition.
-            </p>
-            <button type="button" onClick={() => setSelectedBio({ name: 'Karma Gyatso Lopon La', image: karmaGyatsoPhoto, biography: 'Karma Gyatso Lopon La completed his Grade 12 education in India and spent more than ten years studying the Buddhist sutra tradition at Bokar Shedra. He is currently a student researcher at Emory University. At Zero Point Meditation Center, he will teach meditation and facilitate online Buddhist prayer programs planned for 2027. Program details and dates will be shared when they are confirmed.' })} className="w-fit text-sm font-semibold text-buddhist-burgundy underline decoration-amber-400 underline-offset-4 hover:text-amber-700">Read full bio</button>
-
-            <div className="flex flex-wrap items-center gap-3 border-t border-amber-100 pt-5">
-              <span className="inline-flex items-center gap-2 rounded-full bg-amber-50 px-3 py-2 text-sm font-medium text-buddhist-burgundy">
-                <CalendarDays size={16} /> Future programs planned for 2027
-              </span>
-              <button
-                type="button"
-                onClick={() => { setSelectedTeacher('Karma Gyatso Lopon La'); setBookingOpen(true); }}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-buddhist-burgundy px-5 py-3 text-sm font-semibold text-white transition hover:bg-buddhist-burgundy-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700"
-              >
-                Book a lecture <ArrowRight size={16} />
-              </button>
+            <div className="flex flex-1 flex-col gap-3 p-5">
+              <div className="space-y-1 text-center">
+                <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-buddhist-gold"><GraduationCap size={14} /> Teacher</span>
+                <h3 className="font-serif text-xl font-bold text-buddhist-burgundy">Karma Gyatso Lopon La</h3>
+              </div>
+              <p className="text-sm leading-relaxed text-stone-600">A Buddhist teacher and student researcher at Emory University, with more than ten years of study in the Buddhist sutra tradition.</p>
+              <span className="inline-flex w-fit items-center gap-2 rounded-full bg-amber-50 px-3 py-2 text-xs font-medium text-buddhist-burgundy"><CalendarDays size={14} /> Future programs planned for 2027</span>
+              <button type="button" onClick={() => setSelectedBio({ name: 'Karma Gyatso Lopon La', image: karmaGyatsoPhoto, biography: 'Karma Gyatso Lopon La completed his Grade 12 education in India and spent more than ten years studying the Buddhist sutra tradition at Bokar Shedra. He is currently a student researcher at Emory University. At Zero Point Meditation Center, he will teach meditation and facilitate online Buddhist prayer programs planned for 2027. Program details and dates will be shared when they are confirmed.' })} className="w-fit text-sm font-semibold text-buddhist-burgundy underline decoration-amber-400 underline-offset-4 hover:text-amber-700">Read full bio</button>
+              <button type="button" onClick={() => { setSelectedTeacher('Karma Gyatso Lopon La'); setBookingOpen(true); }} className="mt-auto inline-flex w-fit items-center justify-center gap-2 rounded-full bg-buddhist-burgundy px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-buddhist-burgundy-hover">Book a lecture <ArrowRight size={16} /></button>
             </div>
-          </div>
-        </motion.article>
+          </motion.article>
 
-        <motion.article
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, delay: 0.1 }}
-          className="grid overflow-hidden rounded-3xl border border-amber-100 bg-white shadow-sm md:grid-cols-[minmax(260px,0.8fr)_1.2fr]"
-        >
-          <div className="min-h-[320px] bg-stone-100 sm:min-h-[400px]">
-            <img
-              src={gegyeYongyalRinpoche}
-              alt="H.E. Gegye Yongyal Rinpoche"
-              className="h-full w-full object-cover object-top"
-              loading="lazy"
-            />
-          </div>
-          <div className="flex flex-col justify-center gap-5 p-6 sm:p-8 lg:p-10">
-            <div className="space-y-2">
-              <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-buddhist-gold">
-                <GraduationCap size={15} /> Teacher &amp; Spiritual Guide
-              </span>
-              <h3 className="font-serif text-2xl font-bold text-buddhist-burgundy sm:text-3xl">H.E. Gegye Yongyal Rinpoche</h3>
-              <p className="font-semibold text-stone-700">Teaches: Meditation &amp; Buddhist Practices</p>
+          <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="flex flex-col overflow-hidden rounded-2xl border border-amber-100 bg-white shadow-sm">
+            <div className="aspect-[4/3] overflow-hidden bg-stone-100">
+              <img src={gegyeYongyalRinpoche} alt="H.E. Gegye Yongyal Rinpoche" className="h-full w-full object-cover object-top" loading="lazy" />
             </div>
-
-            <p className="leading-relaxed text-stone-600">
-              H.E. Gegye Yongyal Rinpoche offers Buddhist spiritual guidance and traditional prayer services through Zero Point Meditation Center.
-            </p>
-            <button type="button" onClick={() => setSelectedBio({ name: 'H.E. Gegye Yongyal Rinpoche', image: gegyeYongyalRinpoche, biography: 'H.E. Gegye Yongyal Rinpoche offers Buddhist spiritual guidance and traditional prayer services through Zero Point Meditation Center. Learn more about his spiritual guidance and enquire about opportunities for Buddhist practice through the centre.' })} className="w-fit text-sm font-semibold text-buddhist-burgundy underline decoration-amber-400 underline-offset-4 hover:text-amber-700">Read full bio</button>
-
-            <div className="flex flex-wrap items-center gap-3 border-t border-amber-100 pt-5">
-              <button
-                type="button"
-                onClick={() => { setSelectedTeacher('H.E. Gegye Yongyal Rinpoche'); setBookingOpen(true); }}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-buddhist-burgundy px-5 py-3 text-sm font-semibold text-white transition hover:bg-buddhist-burgundy-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700"
-              >
-                Book a lecture <ArrowRight size={16} />
-              </button>
+            <div className="flex flex-1 flex-col gap-3 p-5">
+              <div className="space-y-1 text-center">
+                <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-buddhist-gold"><GraduationCap size={14} /> Teacher &amp; Spiritual Guide</span>
+                <h3 className="font-serif text-xl font-bold text-buddhist-burgundy">H.E. Gegye Yongyal Rinpoche</h3>
+              </div>
+              <p className="text-sm leading-relaxed text-stone-600">Offers Buddhist spiritual guidance and traditional prayer services through Zero Point Meditation Center.</p>
+              <button type="button" onClick={() => setSelectedBio({ name: 'H.E. Gegye Yongyal Rinpoche', image: gegyeYongyalRinpoche, biography: 'H.E. Gegye Yongyal Rinpoche offers Buddhist spiritual guidance and traditional prayer services through Zero Point Meditation Center. Learn more about his spiritual guidance and enquire about opportunities for Buddhist practice through the centre.' })} className="w-fit text-sm font-semibold text-buddhist-burgundy underline decoration-amber-400 underline-offset-4 hover:text-amber-700">Read full bio</button>
+              <button type="button" onClick={() => { setSelectedTeacher('H.E. Gegye Yongyal Rinpoche'); setBookingOpen(true); }} className="mt-auto inline-flex w-fit items-center justify-center gap-2 rounded-full bg-buddhist-burgundy px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-buddhist-burgundy-hover">Book a lecture <ArrowRight size={16} /></button>
             </div>
-          </div>
-        </motion.article>
+          </motion.article>
+        </div>
       </section>
 
       <section aria-label="Additional teacher profiles" className="space-y-6">
