@@ -123,9 +123,10 @@ export default function Home() {
                 className="h-full w-full object-cover object-top"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#fbf8f3]/95 via-[#fbf8f3]/65 to-[#fbf8f3]/45" />
+              <div className="absolute inset-y-0 right-0 z-10 hidden w-28 bg-gradient-to-r from-transparent to-[#fbf8f3] lg:block" />
             </div>
 
-            <div className="relative z-10 mx-auto w-full max-w-3xl px-6 py-16 text-center sm:px-10 lg:px-12">
+            <div className="relative z-20 mx-auto w-full max-w-3xl px-6 py-16 text-center sm:px-10 lg:px-12">
               <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -163,7 +164,15 @@ export default function Home() {
           </div>
 
           {/* Introduction video: muted autoplay is permitted by most browsers */}
-          <div className="relative flex min-h-[320px] items-center justify-center bg-[#fbf8f3] p-4 sm:p-8 lg:min-h-[620px]">
+          <div className="relative flex min-h-[320px] flex-col items-center justify-center gap-5 bg-[#fbf8f3] px-4 py-10 sm:px-8 lg:min-h-[620px] lg:py-12">
+            <div className="w-full max-w-3xl space-y-1 text-center">
+              <h2 className="font-serif text-3xl font-bold text-buddhist-burgundy sm:text-4xl">
+                Discover Our Center
+              </h2>
+              <p className="text-sm leading-relaxed text-stone-600 sm:text-base">
+                Get to know our community, teachings, and vision.
+              </p>
+            </div>
             <div className="relative w-full max-w-3xl overflow-hidden rounded-2xl border border-amber-200/80 bg-[#fbf8f3] shadow-xl">
               <video
                 ref={introVideoRef}
