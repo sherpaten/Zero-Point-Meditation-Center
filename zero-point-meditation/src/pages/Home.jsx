@@ -6,7 +6,8 @@ import HomeEventsCalendar from './HomeEventsCalendar';
 import { Calendar, MapPin, ArrowRight, Sparkles, Compass, HeartHandshake, ShieldCheck, Flame, Users, BookOpen, Award, Volume2, VolumeX, Play, Pause } from 'lucide-react';
 
 // Assets (Convert heavy images to .webp in src/assets for maximum speed on Vercel)
-import buddhaLotus from "../assets/buddha-lotus.webp";\nimport introductionVideo from "../assets/Introduction.mp4"; 
+import buddhaLotus from "../assets/buddha-lotus.webp";
+import introductionVideo from "../assets/Introduction.mp4"; 
 import rinpocheProfile from '../assets/profile.jpg';
 import worldPeacePrayerDay from '../assets/Events/2025/2025 World Peace Prayer Day.jpg';
 import weeklyMeditationMorning from '../assets/Events/2025/2025 Mindfulness Meditation.jpg';
