@@ -7,7 +7,7 @@ import { Users, Trees, Sparkles, Compass, HeartHandshake, CheckCircle2, Building
 import profileMain from '../assets/profile.jpg';
 import profile1 from '../assets/profile 1.jpg';
 import profile2 from '../assets/profile 2.jpg';
-import gegyeYongyalRinpoche from '../assets/Teams/Gegye Yongyal Rinpoche\'s.png';
+import gegyeYongyalRinpoche from "../assets/Teams/Gegye Yongyal Rinpoche's.png";
 import tenzingNorkaySherpa from '../assets/Teams/Tenzing Norkay Sherpa.webp';
 import smrityPhoto from '../assets/Teams/Smty.jpeg';
 import mimiLamaPhoto from '../assets/Teams/Mimi Lama.jpeg';
@@ -60,8 +60,8 @@ export default function About() {
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 max-w-5xl mx-auto">
       {people.filter((person) => person.group === group).map((person) => (
         <motion.article key={person.name} whileHover={{ y: -4 }} className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-shadow hover:shadow-lg">
-          <div className="aspect-square overflow-hidden bg-amber-50">
-            {person.image ? <img src={person.image} alt={person.alt} loading="lazy" className={`h-full w-full ${person.name === 'Maya Karma Jinpa' ? 'object-contain' : 'object-cover object-center transition-transform duration-500 hover:scale-105'}`} /> : (
+          <div className={`aspect-square overflow-hidden bg-amber-50 ${person.name === 'Maya Karma Jinpa' ? 'flex items-center justify-center p-2' : ''}`}>
+            {person.image ? <img src={person.image} alt={person.alt} loading="lazy" className={`h-full w-full ${person.name === 'Maya Karma Jinpa' ? 'object-contain object-center' : 'object-cover object-center transition-transform duration-500 hover:scale-105'}`} /> : (
               <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-buddhist-burgundy/70" aria-label={person.alt}>
                 <Users size={36} strokeWidth={1.4} /><span className="text-[10px] font-semibold uppercase tracking-wider">Photo coming soon</span>
               </div>
