@@ -109,7 +109,8 @@ export default function Teachings() {
                   <h3 className="font-serif text-xl font-bold text-buddhist-burgundy">{teacher.name}</h3>
                 </div>
                 <p className="text-sm leading-relaxed text-stone-600">{teacher.summary}</p>
-                <button type="button" onClick={() => setSelectedBio({ name: teacher.name, image: teacher.image, biography: [teacher.biography, teacher.additional].filter(Boolean).join('\n\n') })} className="mt-auto w-fit text-sm font-semibold text-buddhist-burgundy underline decoration-amber-400 underline-offset-4 hover:text-amber-700">Read full bio</button>
+                <button type="button" onClick={() => setSelectedBio({ name: teacher.name, image: teacher.image, biography: [teacher.biography, teacher.additional].filter(Boolean).join('\n\n') })} className="w-fit text-sm font-semibold text-buddhist-burgundy underline decoration-amber-400 underline-offset-4 hover:text-amber-700">Read full bio</button>
+                <button type="button" onClick={() => { setSelectedTeacher(teacher.name); setBookingOpen(true); }} className="mt-auto inline-flex w-fit items-center justify-center gap-2 rounded-full bg-buddhist-burgundy px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-buddhist-burgundy-hover">Book a lecture <ArrowRight size={16} /></button>
               </div>
             </motion.article>
           ))}
