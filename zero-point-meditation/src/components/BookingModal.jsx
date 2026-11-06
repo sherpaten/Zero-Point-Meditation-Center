@@ -2,10 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { X, CalendarDays, CreditCard, ShieldCheck, CheckCircle2, LoaderCircle } from 'lucide-react';
 
 const announcedMorningMeditationDates = [
-  { value: '2026-11-07', label: 'Saturday, November 7, 2026 · Nepali' },
-  { value: '2026-11-08', label: 'Sunday, November 8, 2026 · English' },
-  { value: '2026-11-14', label: 'Saturday, November 14, 2026 · Nepali' },
-  { value: '2026-11-15', label: 'Sunday, November 15, 2026 · English' },
+  { value: '2026-11-08', label: 'Sunday, November 8, 2026' },
+  { value: '2026-11-15', label: 'Sunday, November 15, 2026' },
 ];
 function dateValue(d = new Date()) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
 function weekendSessions() {
@@ -117,7 +115,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
       setMessage(workflow === 'inquiry'
         ? 'Thank you — your enquiry has been sent to the information team. A confirmation email has been sent to your address. The team will contact you with further details.'
         : isFree && result.confirmed
-        ? `Your registration for ${service} is confirmed! No payment is required. The correct Zoom link, meeting ID, and passcode for your selected date and language have been sent to your email.`
+        ? `Your registration for ${service} is confirmed! No payment is required. The Zoom link and meeting ID for your selected session have been sent to your email.`
         : isFree
           ? `Thank you — your registration for ${service} has been sent. Please check your email for confirmation details.`
           : type === 'event'
@@ -160,26 +158,39 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
               {teacher && <p className="mt-1 text-sm text-stone-700">Teacher: {teacher}</p>}
             </div>
           ) : (
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-4 rounded-2xl border border-stone-200 bg-stone-50 p-4">
               <div>
+                <p className="mb-2 text-xs font-bold uppercase tracking-wider text-amber-800">Step 1</p>
                 <label htmlFor="booking-type" className="text-sm font-semibold text-stone-800">What would you like to book?</label>
                 <select id="booking-type" value={type} onChange={event => { const nextType=event.target.value; const nextService=nextType==='event'?'Free Morning Meditation':'Meditation & Mindfulness'; setType(nextType); setService(nextService); setDate(sessionsFor(nextService)[0]?.value||''); setMessage(''); }} className={fieldClass}>
                   <option value="event">Event / class</option><option value="service">Service / appointment</option>
                 </select>
               </div>
               <div>
-                <label htmlFor="booking-service" className="text-sm font-semibold text-stone-800">{type === 'event' ? 'Choose an event' : 'Choose a service'}</label>
+                <p className="mb-2 text-xs font-bold uppercase tracking-wider text-amber-800">Step 2</p>
+                <label htmlFor="booking-service" className="text-sm font-semibold text-stone-800">{type === 'event' ? 'Choose an event or class' : 'Choose a service'}</label>
                 <select id="booking-service" value={service} onChange={event => { setService(event.target.value); setDate(sessionsFor(event.target.value)[0]?.value||''); setMessage(''); }} className={fieldClass}>
                   {type === 'event' ? <>
-                    <option>Free Morning Meditation</option><option>Free Weekend Community Classes</option><option>Free Meditation Class</option><option>Free Event</option><option>Community Gathering</option><option>Prayer Event</option><option>Other Event</option>
-                  </> : availableServices.map(item => <option key={item} value={item}>{item}</option>)}
+                    <optgroup label="Meditation classes">
+                      <option>Free Morning Meditation</option><option>Free Meditation Class</option>
+                    </optgroup>
+                    <optgroup label="Community classes & gatherings">
+                      <option>Free Weekend Community Classes</option><option>Community Gathering</option>
+                    </optgroup>
+                    <optgroup label="Other events">
+                      <option>Free Event</option><option>Prayer Event</option><option>Other Event</option>
+                    </optgroup>
+                  </> : <>
+                    <optgroup label="Meditation & wellbeing">{availableServices.slice(0, 2).concat(availableServices[3]).map(item => <option key={item} value={item}>{item}</option>)}</optgroup>
+                    <optgroup label="Guidance & community">{availableServices.slice(2, 3).concat(availableServices.slice(4)).map(item => <option key={item} value={item}>{item}</option>)}</optgroup>
+                  </>}
                 </select>
               </div>
             </div>
           )}
           {requiresDate && <div className="rounded-xl bg-amber-50 p-4 text-sm text-stone-700">
             <p className="flex items-center gap-2 font-semibold text-buddhist-burgundy"><CalendarDays size={17}/> {service === 'Free Morning Meditation' ? 'Free Morning Meditation · 6:30–7:15 AM' : 'Free Weekend Community Classes'}</p>
-            <p className="mt-1">{service === 'Free Morning Meditation' ? 'English-language Sunday sessions and Nepali-language Saturday sessions are listed here. Session time is 6:30–7:15 AM US Eastern Time. Your confirmation email includes the Zoom link and meeting ID for the selected date.' : 'Community classes are scheduled for Saturdays and Sundays through December 31, 2026. The center will confirm session details.'}</p>
+            <p className="mt-1">{service === 'Free Morning Meditation' ? 'Sunday morning sessions are held from 6:30–7:15 AM US Eastern Time. Your confirmation email includes the Zoom link and meeting ID for the selected date.' : 'Community classes are scheduled for Saturdays and Sundays through December 31, 2026. The center will confirm session details.'}</p>
             {dateSessions.length ? <>
               <label htmlFor="booking-date" className="mt-3 block font-semibold">Choose a date</label>
               <select id="booking-date" value={date} onChange={event => setDate(event.target.value)} className={fieldClass} required>{dateSessions.map(session => <option key={session.value} value={session.value}>{session.label}</option>)}</select>
