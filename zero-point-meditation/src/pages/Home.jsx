@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import HomeEventsCalendar from './HomeEventsCalendar';
-import { Calendar, MapPin, ArrowRight, Sparkles, Compass, HeartHandshake, ShieldCheck, Flame, Users, BookOpen, Award, Volume2, VolumeX, Play, Pause } from 'lucide-react';
+import { Calendar, MapPin, ArrowRight, Sparkles, Compass, HeartHandshake, ShieldCheck, Flame, Users, BookOpen, Award, Volume2, VolumeX, Play, Pause, Quote } from 'lucide-react';
 
 // Assets (Convert heavy images to .webp in src/assets for maximum speed on Vercel)
 import buddhaLotus from "../assets/buddha-lotus.webp";
@@ -51,6 +51,27 @@ const eventGallery = [
     description: 'A major gathering hosted with community partners, bringing people together through prayer, compassion, unity, and a shared aspiration for world peace.'
   }
 ];;
+
+const testimonials = [
+  { name: 'Maya Karma Jinpa', quote: "Rinpoche's teachings are deeply inspiring. His explanations of Buddhist philosophy make difficult subjects easy to understand and apply in everyday life." },
+  { name: 'Maya Chen', quote: 'I found the meditation session incredibly peaceful. Rinpoche has a wonderful way of helping people reconnect with themselves and develop compassion.' },
+  { name: 'Anjali Sharma', quote: 'The teachings on compassion and mindfulness touched my heart. I left feeling peaceful, encouraged, and motivated to become a kinder person.' },
+  { name: 'Kenji Nakamura', quote: 'A beautiful experience. Rinpoche explains ancient Buddhist wisdom in a way that feels relevant to modern life.' },
+  { name: 'Jessica Wu', quote: "Rinpoche's teachings reminded me of the importance of genuine compassion, patience, and developing a sincere heart toward all beings." },
+  { name: 'Priya Patel', quote: 'I especially appreciated the practical meditation guidance. It was not simply philosophy; it was something I could bring into my daily life.' },
+  { name: 'David Wong', quote: 'The atmosphere was welcoming, and the teachings were profound without being complicated. I would highly recommend attending.' },
+  { name: 'Lhakpa Sherpa', quote: 'Rinpoche communicates with warmth and sincerity. His teachings on the mind, suffering, and compassion gave me a new perspective.' },
+  { name: 'Sakura Tanaka', quote: 'An enriching spiritual experience. I appreciated the opportunity to learn about Tibetan Buddhist traditions and experience meditation in such a welcoming environment.' },
+  { name: 'David Rosenberg', quote: 'I appreciated how Rinpoche presented compassion as something universal. His teachings connected with values I have always cherished.' },
+  { name: 'Sarah Goldstein', quote: "The meditation was deeply calming. Rinpoche's message about kindness, compassion, and understanding others was especially meaningful to me." },
+  { name: 'Michael Cohen', quote: 'I enjoyed the openness of the discussion. The teachings encouraged me to reflect on my own life and how I relate to other people.' },
+  { name: 'Rachel Levine', quote: "Rinpoche has a gentle and thoughtful teaching style. I appreciated his reflections on suffering, impermanence, and the importance of living meaningfully." },
+  { name: 'Daniel Friedman', quote: 'As someone raised in the Jewish tradition, I found the discussion of compassion across spiritual traditions particularly beautiful. It was an enriching experience.' },
+  { name: 'Rebecca Stein', quote: 'The session offered a wonderful opportunity to slow down and reflect. I left with a greater appreciation for mindfulness and the importance of compassion.' },
+  { name: 'Jonathan Weiss', quote: "Rinpoche's teachings on death and the meaning of life were thought-provoking. I appreciated the respectful and welcoming atmosphere." },
+  { name: 'Esther Kaplan', quote: 'A beautiful gathering with a meaningful message. The teachings reminded me that compassion and love are values that bring people from different backgrounds together.' },
+  { name: 'Aaron Bernstein', quote: 'I appreciated the depth of Tibetan Buddhist philosophy and the practical approach to meditation. Rinpoche made the teachings accessible and inspiring.' },
+];
 
 const features = [
   {
@@ -274,6 +295,48 @@ export default function Home() {
             </motion.div>
           ))}
         </div>
+
+        {/* Community reflections */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          aria-labelledby="community-reflections-heading"
+          className="space-y-8"
+        >
+          <div className="mx-auto max-w-3xl space-y-3 text-center">
+            <span className="inline-flex items-center justify-center gap-2 text-buddhist-gold text-xs font-bold uppercase tracking-widest">
+              <HeartHandshake size={15} /> Shared Experiences
+            </span>
+            <h2 id="community-reflections-heading" className="font-serif text-3xl font-bold text-buddhist-burgundy sm:text-4xl">
+              Words from Our Community
+            </h2>
+            <p className="text-sm leading-relaxed text-stone-600 sm:text-base">
+              Reflections shared by people who have joined our teachings, meditation sessions, and community gatherings.
+            </p>
+          </div>
+
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {testimonials.map((review, index) => (
+              <motion.article
+                key={review.name}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.35, delay: (index % 3) * 0.06 }}
+                className="flex h-full flex-col rounded-2xl border border-amber-200/70 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+              >
+                <Quote size={23} aria-hidden="true" className="mb-3 text-buddhist-gold/80" />
+                <p className="flex-1 text-sm leading-relaxed text-stone-700">“{review.quote}”</p>
+                <div className="mt-5 border-t border-stone-100 pt-4">
+                  <p className="font-serif text-base font-bold text-buddhist-burgundy">{review.name}</p>
+                  <p className="mt-1 text-[10px] font-semibold uppercase tracking-wider text-stone-400">Community reflection</p>
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </motion.section>
 
         <HomeEventsCalendar />
 
