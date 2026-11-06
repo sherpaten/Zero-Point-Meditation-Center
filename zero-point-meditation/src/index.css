@@ -15,6 +15,12 @@
   --color-buddhist-muted: #71717A;
 }
 
+/* Prevent horizontal page overflow while preserving normal vertical scrolling. */
+html, body, #root {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
 /* Global page background anchor */
 body {
   font-family: 'Inter', sans-serif;
