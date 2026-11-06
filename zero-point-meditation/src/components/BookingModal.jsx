@@ -180,7 +180,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
                 <select id="booking-service" value={service} onChange={event => { setService(event.target.value); setDate(sessionsFor(event.target.value)[0]?.value||''); setMessage(''); }} className={fieldClass}>
                   {type === 'event' ? <>
                     <option>Free Meditation Class</option>
-                    <option>Free Events</option>
+                    <option value="Free Events">Paid event</option>
                     <option>Other</option>
                   </> : <>
                     <optgroup label="Meditation & wellbeing">{availableServices.slice(0, 2).concat(availableServices[3]).map(item => <option key={item} value={item}>{item}</option>)}</optgroup>
