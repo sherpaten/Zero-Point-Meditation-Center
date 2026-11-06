@@ -7,6 +7,8 @@ import { Calendar, MapPin, ArrowRight, Sparkles, Compass, HeartHandshake, Shield
 
 // Assets (Convert heavy images to .webp in src/assets for maximum speed on Vercel)
 import buddhaLotus from "../assets/buddha-lotus.webp";
+import morningMeditationUsPoster from '../assets/Classes/Poster 1.jpeg';
+import morningMeditationNepalPoster from '../assets/Classes/Poster 2.jpeg';
 import introductionVideo from "../assets/Introduction.mp4"; 
 import rinpocheProfile from '../assets/profile.jpg';
 import worldPeacePrayerDay from '../assets/Events/2025/2025 World Peace Prayer Day.jpg';
@@ -30,6 +32,7 @@ const eventGallery = [
     location: 'Tibet House US',
     date: 'Nov 20',
     image: currentEventImage,
+    externalUrl: 'https://shop.thus.org/products/bardo-after-life-reincarnation-with-gegye-yongyal-rinpoche',
     description: 'An upcoming teaching exploring Buddhist perspectives on the bardo, life after death, and reincarnation.'
   },
   {
@@ -244,35 +247,112 @@ export default function Home() {
       {/* Main Content Body */}
       <div className="max-w-6xl mx-auto px-6 space-y-20">
         
-        {/* Welcome message: caring for the mind */}
+        {/* Focused path from the homepage into the center's services */}
         <motion.section
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.45 }}
-          aria-labelledby="mind-care-heading"
-          className="rounded-3xl border border-amber-200/70 bg-amber-50/70 px-6 py-8 sm:px-10 sm:py-10 text-center space-y-4"
+          aria-labelledby="explore-services-heading"
+          className="rounded-3xl border border-amber-200/70 bg-amber-50/70 px-6 py-8 sm:px-10 sm:py-9 text-center"
         >
-          <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest">
-            A moment for yourself
-          </span>
-          <h2 id="mind-care-heading" className="font-serif text-3xl sm:text-4xl font-bold text-buddhist-burgundy">
-            Your Mind Deserves Care, Too
+          <h2 id="explore-services-heading" className="font-serif text-2xl sm:text-3xl font-bold text-buddhist-burgundy">
+            Explore Our Services
           </h2>
-          <div className="mx-auto max-w-3xl space-y-3 text-stone-700 text-sm sm:text-base leading-relaxed">
-            <p>
-              We make time to care for our bodies, but our minds need care, attention, and room to rest as well. In a busy world, taking a moment to slow down and breathe can help us reconnect with what matters.
-            </p>
-            <p>
-              At Zero Point Meditation Center, we welcome you to explore meditation, Buddhist wisdom, and shared practice in a supportive community. Whether you are beginning or continuing your journey, there is space here to learn, reflect, and reconnect with the peaceful Buddha-nature within.
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-stone-600">
+            Discover meditation, Buddhist learning, retreats, prayer services, and remote teacher-led programmes.
+          </p>
+          <Link to="/services" className="mt-5 inline-flex items-center gap-2 rounded-xl bg-buddhist-burgundy px-6 py-3 text-xs font-bold uppercase tracking-wider text-amber-50 shadow-md transition-colors hover:bg-red-900">
+            Explore Services <ArrowRight size={14} />
+          </Link>
+        </motion.section>
+
+
+        {/* Free Morning Meditation posters */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          aria-labelledby="free-morning-meditation-heading"
+          className="space-y-8"
+        >
+          <div className="mx-auto max-w-3xl space-y-3 text-center">
+            <span className="text-buddhist-gold text-xs font-bold uppercase tracking-widest">
+              Open to Everyone
+            </span>
+            <h2 id="free-morning-meditation-heading" className="font-serif text-3xl font-bold text-buddhist-burgundy sm:text-4xl">
+              Free Morning Meditation
+            </h2>
+            <p className="text-sm leading-relaxed text-stone-600 sm:text-base">
+              Join our online morning meditation practice. The sessions are offered in two languages, and both schedules use US time.
             </p>
           </div>
-          <div className="flex flex-wrap justify-center gap-3 pt-2">
-            <Link to="/teachings" className="inline-flex items-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3 text-xs font-bold uppercase tracking-wider text-amber-50 shadow-md transition-colors hover:bg-red-900">
-              Explore Our Teachings <ArrowRight size={14} />
-            </Link>
-            <Link to="/about" className="inline-flex items-center rounded-xl border border-amber-300 bg-white px-5 py-3 text-xs font-bold uppercase tracking-wider text-buddhist-burgundy transition-colors hover:bg-amber-50">
-              Learn About Our Mission
+
+          <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2">
+            <figure className="overflow-hidden rounded-2xl border border-amber-200/70 bg-white p-3 shadow-sm">
+              <a
+                href="https://bit.ly/morningmeditation_zpmc"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open registration for the Nepal-hosted morning meditation session"
+                className="block rounded-xl focus:outline-none focus:ring-4 focus:ring-amber-300"
+              >
+                <img
+                  src={morningMeditationUsPoster}
+                  alt="Morning Meditation weekly practice poster with registration QR code"
+                  loading="lazy"
+                  decoding="async"
+                  className="mx-auto h-auto max-h-[680px] w-full rounded-xl object-contain transition-opacity hover:opacity-90"
+                />
+              </a>
+              <a
+                href="https://bit.ly/morningmeditation_zpmc"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3 text-xs font-bold uppercase tracking-wider text-amber-50 transition-colors hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2"
+              >
+                Register for This Session <ArrowRight size={14} />
+              </a>
+              <figcaption className="px-2 pb-2 pt-3 text-center text-xs font-semibold uppercase tracking-wider text-stone-600">
+                Nepali language · US time
+              </figcaption>
+            </figure>
+            <figure className="overflow-hidden rounded-2xl border border-amber-200/70 bg-white p-3 shadow-sm">
+              <a
+                href="https://bit.ly/morningmeditation2_zpmc"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open registration for the English morning meditation session"
+                className="block rounded-xl focus:outline-none focus:ring-4 focus:ring-amber-300"
+              >
+                <img
+                  src={morningMeditationNepalPoster}
+                  alt="English morning meditation weekly practice poster with registration QR code"
+                  loading="lazy"
+                  decoding="async"
+                  className="mx-auto h-auto max-h-[680px] w-full rounded-xl object-contain transition-opacity hover:opacity-90"
+                />
+              </a>
+              <a
+                href="https://bit.ly/morningmeditation2_zpmc"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3 text-xs font-bold uppercase tracking-wider text-amber-50 transition-colors hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2"
+              >
+                Register for This Session <ArrowRight size={14} />
+              </a>
+              <figcaption className="px-2 pb-2 pt-3 text-center text-xs font-semibold uppercase tracking-wider text-stone-600">
+                English language · US time
+              </figcaption>
+            </figure>
+          </div>
+          <div className="text-center">
+            <Link
+              to="/home#home-calendar-heading"
+              className="inline-flex items-center gap-2 rounded-xl bg-buddhist-burgundy px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-amber-50 shadow-md transition-colors hover:bg-red-900"
+            >
+              View Schedule & Register <ArrowRight size={14} />
             </Link>
           </div>
         </motion.section>
@@ -336,61 +416,6 @@ export default function Home() {
 
         <HomeEventsCalendar />
 
-        {/* Spiritual Leader — a supporting part of the center's story */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="bg-stone-900 text-amber-50 rounded-3xl p-6 sm:p-8 border border-stone-800 shadow-xl grid lg:grid-cols-12 gap-8 items-center"
-        >
-          <div className="lg:col-span-5 relative">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-amber-500/30 aspect-[4/5] bg-stone-800">
-              <img 
-                src={rinpocheProfile} 
-                alt="H.E. Gegye Yongyal Tulku Rinpoche" 
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-transparent flex items-end p-5">
-                <span className="bg-buddhist-gold text-stone-950 font-bold text-[10px] uppercase tracking-wider px-3 py-1 rounded-full">
-                  Spiritual Master & Founder
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div className="lg:col-span-7 space-y-5">
-            <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest flex items-center gap-1.5">
-              <Award size={15} /> Our Spiritual Guide
-            </span>
-            
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-amber-50 leading-snug">
-              H.E. Gegye Yongyal Tulku Rinpoche
-            </h2>
-
-            <p className="text-stone-300 text-xs sm:text-sm leading-relaxed">
-              Gegye Yongyal Rinpoche offers spiritual guidance connected with the center's Buddhist traditions. Learn more about his background and teachings on our About page.
-            </p>
-
-            <div className="bg-stone-800/80 p-4 rounded-xl border border-stone-700 space-y-2">
-              <p className="font-serif italic text-amber-200/90 text-xs sm:text-sm">
-                "May our practice help nurture wisdom, compassion, and peace in everyday life."
-              </p>
-            </div>
-
-            <div className="pt-2">
-              <Link
-                to="/about"
-                className="inline-flex items-center gap-2 px-6 py-3.5 bg-buddhist-gold hover:bg-amber-500 text-stone-950 font-bold rounded-xl text-xs uppercase tracking-wider transition-all shadow-md"
-              >
-                Meet Our Spiritual Guide <ArrowRight size={15} />
-              </Link>
-            </div>
-          </div>
-        </motion.div>
-
         {/* Event & Practice Gallery */}
         <div className="space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-2">
@@ -452,12 +477,23 @@ export default function Home() {
                 </div>
 
                 <div className="p-6 pt-0">
-                  <Link
-                    to="/events"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-buddhist-burgundy group-hover:underline group-hover:translate-x-1 transition-all"
-                  >
-                    View Event Details <ArrowRight size={13} />
-                  </Link>
+                  {item.externalUrl ? (
+                    <a
+                      href={item.externalUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-buddhist-burgundy group-hover:underline group-hover:translate-x-1 transition-all"
+                    >
+                      View Event Details <ArrowRight size={13} />
+                    </a>
+                  ) : (
+                    <Link
+                      to="/events"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-buddhist-burgundy group-hover:underline group-hover:translate-x-1 transition-all"
+                    >
+                      View Event Details <ArrowRight size={13} />
+                    </Link>
+                  )}
                 </div>
               </motion.div>
             ))}

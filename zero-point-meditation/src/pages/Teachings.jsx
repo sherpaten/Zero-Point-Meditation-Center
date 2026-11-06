@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { BookOpen, GraduationCap, CalendarDays, ArrowRight, X } from 'lucide-react';
+import { BookOpen, GraduationCap, CalendarDays, ArrowRight, X, Users } from 'lucide-react';
 import BookingModal from '../components/BookingModal.jsx';
 import karmaGyatsoPhoto from '../assets/Teams/Teachers/karma Gyatso lopon la .jpeg';
 import jamyangThuptenPhoto from '../assets/Teams/Teachers/Jamyang Thupten.jpeg';
 import tashiDorjeePhoto from '../assets/Teams/Teachers/Tashi Dorjee.jpeg';
 import thuptenSherapPhoto from '../assets/Teams/Teachers/Thupten Sherap.jpeg';
 import gegyeYongyalRinpoche from "../assets/Teams/Gegye Yongyal Rinpoche's.png";
+import mayaKarmaJinpaPhoto from "../assets/Teams/Maya Karma Jinpa.jpeg";
 
 export default function Teachings() {
   const [bookingOpen, setBookingOpen] = useState(false);
@@ -33,7 +34,7 @@ export default function Teachings() {
         <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-buddhist-gold">
           <BookOpen size={15} /> Learn and practice
         </span>
-        <h1 className="font-serif text-4xl font-bold text-buddhist-burgundy sm:text-5xl">Meet Our Teachers</h1>
+        <h1 className="font-serif text-4xl font-bold text-buddhist-burgundy sm:text-5xl">Meet Our Teachers & Advisors</h1>
         <p className="leading-relaxed text-stone-600">
           Whether you are new to meditation, seeking greater inner peace, or continuing a spiritual path, you are welcome here. Our teachers share Buddhist wisdom, meditation practices, and opportunities to learn in a supportive community.
         </p>
@@ -115,6 +116,36 @@ export default function Teachings() {
             </motion.article>
           ))}
       </div>
+      </section>
+
+      <section aria-labelledby="advisor-list-heading" className="space-y-6">
+        <div className="border-b border-stone-200 pb-3">
+          <h2 id="advisor-list-heading" className="font-serif text-2xl font-bold text-buddhist-burgundy sm:text-3xl">Our Advisors</h2>
+          <p className="mt-2 text-sm text-stone-600">People who offer guidance and experience to support the center and its community.</p>
+        </div>
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            { name: 'Maya Karma Jinpa', image: mayaKarmaJinpaPhoto },
+            { name: 'Shirley Huang', image: null },
+          ].map((advisor) => (
+            <article key={advisor.name} className="overflow-hidden rounded-2xl border border-amber-100 bg-white shadow-sm">
+              <div className="flex items-center justify-center overflow-hidden bg-stone-100">
+                {advisor.image ? (
+                  <img src={advisor.image} alt={advisor.name} loading="lazy" className="block h-auto max-h-[420px] w-full object-contain object-center" />
+                ) : (
+                  <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-buddhist-burgundy/70">
+                    <Users size={36} strokeWidth={1.4} />
+                    <span className="text-[10px] font-semibold uppercase tracking-wider">Photo coming soon</span>
+                  </div>
+                )}
+              </div>
+              <div className="p-5 text-center">
+                <span className="text-xs font-bold uppercase tracking-widest text-buddhist-gold">Advisor</span>
+                <h3 className="mt-1 font-serif text-lg font-bold text-buddhist-burgundy">{advisor.name}</h3>
+              </div>
+            </article>
+          ))}
+        </div>
       </section>
 
       {selectedBio && (

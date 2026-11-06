@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { Users, Trees, Sparkles, Compass, HeartHandshake, CheckCircle2, Building2, BookOpen } from 'lucide-react';
@@ -40,6 +41,16 @@ const globalProjects = [
 ];
 
 export default function About() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash === '#team' || location.hash === '#members') {
+      requestAnimationFrame(() => {
+        document.querySelector(location.hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+  }, [location.hash]);
+
   const journeySlides = [
     { year: '2024 · Beginnings', title: 'A place to pause and practice', detail: 'The center’s story began with a commitment to share meditation and Buddhist mind-training in a welcoming setting. The aim was to make time for stillness, self-awareness, and compassion available to people navigating the pressures of everyday life.', image: journeyTeaching1, alt: 'Buddhist teaching and meditation practice' },
     { year: '2025 · Community', title: 'Growing through shared purpose', detail: 'As the vision developed, community connection and collaboration became increasingly important. Meditation, learning, and interfaith dialogue offered ways for people from different backgrounds to listen, learn, and build understanding around shared human concerns.', image: journeyTeaching2, alt: 'Community gathering and shared learning' },
@@ -332,15 +343,11 @@ export default function About() {
           <h2 id="team-heading" className="font-serif text-3xl font-bold text-buddhist-burgundy">Our People</h2>
           <p className="text-stone-600 text-sm leading-relaxed">Meet the people who guide the center’s work and support its community.</p>
         </div>
-        <section aria-labelledby="team-members-heading" className="space-y-5">
+        <section id="team" aria-labelledby="team-members-heading" className="space-y-5 scroll-mt-28">
           <div className="text-center"><h3 id="team-members-heading" className="font-serif text-2xl font-bold text-buddhist-burgundy">Team</h3><p className="mt-1 text-sm text-stone-500">The people supporting the center’s day-to-day work</p></div>
           {renderPeople('Team')}
         </section>
-        <section aria-labelledby="advisors-heading" className="space-y-5">
-          <div className="text-center"><h3 id="advisors-heading" className="font-serif text-2xl font-bold text-buddhist-burgundy">Advisors</h3><p className="mt-1 text-sm text-stone-500">Offering guidance and experience to the center</p></div>
-          {renderPeople('Advisors')}
-        </section>
-        <section aria-labelledby="members-heading" className="space-y-5">
+        <section id="members" aria-labelledby="members-heading" className="space-y-5 scroll-mt-28">
           <div className="text-center"><h3 id="members-heading" className="font-serif text-2xl font-bold text-buddhist-burgundy">Members</h3><p className="mt-1 text-sm text-stone-500">Part of our growing community</p></div>
           {renderPeople('Members')}
         </section>

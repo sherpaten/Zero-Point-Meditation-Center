@@ -6,9 +6,16 @@ import logo from '../assets/LOGO.svg';
 const navigation = [
   { to: '/home', label: 'Home', end: true },
   { to: '/about', label: 'About' },
-  { to: '/services', label: 'What We Offer' },
+  { to: '/services', label: 'Services' },
   { to: '/events', label: 'Events' },
-  { to: '/teachers', label: 'Teachers' },
+  {
+    label: 'Our People',
+    children: [
+      { to: '/teachers', label: 'Teachers & Advisors' },
+      { to: '/about#team', label: 'Our Team' },
+      { to: '/about#members', label: 'Our Members' },
+    ],
+  },
   { to: '/merchandise', label: 'Merchandise' },
   { to: '/contact', label: 'Contact' },
 ];
@@ -60,22 +67,37 @@ export default function Navbar() {
 
         <nav aria-label="Main navigation" className="hidden items-center gap-5 text-xs uppercase tracking-wider md:flex lg:gap-7">
           {navigation.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.end}
-              className={({ isActive }) =>
-                `transition-colors duration-200 focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-buddhist-gold ${
-                  item.to === '/contact'
-                    ? 'border-b-2 border-buddhist-gold pb-1 font-bold text-buddhist-burgundy hover:text-stone-900'
-                    : isActive
-                      ? 'border-b-2 border-buddhist-gold pb-1 font-bold text-buddhist-burgundy'
-                      : 'font-semibold text-stone-700 hover:text-buddhist-burgundy'
-                }`
-              }
-            >
-              {item.label}
-            </NavLink>
+            item.children ? (
+              <details key={item.label} className="group relative">
+                <summary className="cursor-pointer list-none font-semibold text-stone-700 transition-colors hover:text-buddhist-burgundy focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-buddhist-gold">
+                  {item.label} <span aria-hidden="true" className="ml-1 text-[10px]">▾</span>
+                </summary>
+                <div className="absolute left-0 top-full z-50 mt-3 min-w-52 rounded-xl border border-stone-200 bg-white p-2 shadow-xl">
+                  {item.children.map((child) => (
+                    <NavLink key={child.to} to={child.to} className={({ isActive }) => `block rounded-lg px-3 py-2.5 text-xs font-semibold transition-colors ${isActive ? 'bg-amber-50 text-buddhist-burgundy' : 'text-stone-700 hover:bg-stone-50 hover:text-buddhist-burgundy'}`}>
+                      {child.label}
+                    </NavLink>
+                  ))}
+                </div>
+              </details>
+            ) : (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.end}
+                className={({ isActive }) =>
+                  `transition-colors duration-200 focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-buddhist-gold ${
+                    item.to === '/contact'
+                      ? 'border-b-2 border-buddhist-gold pb-1 font-bold text-buddhist-burgundy hover:text-stone-900'
+                      : isActive
+                        ? 'border-b-2 border-buddhist-gold pb-1 font-bold text-buddhist-burgundy'
+                        : 'font-semibold text-stone-700 hover:text-buddhist-burgundy'
+                  }`
+                }
+              >
+                {item.label}
+              </NavLink>
+            )
           ))}
         </nav>
 
@@ -99,15 +121,26 @@ export default function Navbar() {
         >
           <ul className="mx-auto max-w-6xl space-y-1">
             {navigation.map((item) => (
-              <li key={item.to}>
-                <NavLink
-                  to={item.to}
-                  end={item.end}
-                  className={linkStyles}
-                >
-                  {item.label}
-                  {item.to === '/contact' && <Sparkles size={15} className="ml-2 inline text-buddhist-gold" aria-hidden="true" />}
-                </NavLink>
+              <li key={item.label}>
+                {item.children ? (
+                  <details className="rounded-md">
+                    <summary className="cursor-pointer rounded-md px-3 py-2.5 text-sm font-semibold text-stone-700 hover:bg-stone-100 hover:text-buddhist-burgundy">
+                      {item.label}
+                    </summary>
+                    <div className="ml-3 border-l border-amber-200 pl-2">
+                      {item.children.map((child) => (
+                        <NavLink key={child.to} to={child.to} className={linkStyles}>
+                          {child.label}
+                        </NavLink>
+                      ))}
+                    </div>
+                  </details>
+                ) : (
+                  <NavLink to={item.to} end={item.end} className={linkStyles}>
+                    {item.label}
+                    {item.to === '/contact' && <Sparkles size={15} className="ml-2 inline text-buddhist-gold" aria-hidden="true" />}
+                  </NavLink>
+                )}
               </li>
             ))}
           </ul>

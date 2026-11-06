@@ -1,7 +1,7 @@
 import { createHmac } from 'node:crypto';
 
 const allowedTypes = new Set(['event', 'service']);
-const maxLengths = { name: 120, email: 254, phone: 40, place: 120, profession: 120, service: 160, date: 40, teacher: 160 };
+const maxLengths = { name: 120, email: 254, phone: 40, place: 120, profession: 120, service: 160, date: 40, teacher: 160, externalEvent: 40 };
 const siteUrl = 'https://www.zeropointmeditationcenter.org';
 
 function clean(value, maxLength = 500) {
@@ -50,6 +50,7 @@ export default async function handler(req, res) {
   const date = clean(body.date, maxLengths.date);
   const teacher = clean(body.teacher, maxLengths.teacher);
   const paymentPreference = clean(body.paymentPreference, 40);
+  const externalEvent = clean(body.externalEvent, maxLengths.externalEvent);
 
   if (!allowedTypes.has(type) || !service || !name || !email || !phone || !place || !profession) {
     return res.status(400).json({ error: 'Please complete all required fields and try again.' });
@@ -57,7 +58,23 @@ export default async function handler(req, res) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ error: 'Please enter a valid email address.' });
   }
-  const freeEventNames = new Set(['Free Morning Meditation', 'Free Weekend Community Classes', 'Free Meditation Class', 'Free Event']);
+  const freeEventNames = new Set(['Free Morning Meditation', 'Free Weekend Community Classes', 'Free Meditation Class', 'Free Event', 'Free Events']);
+  const externalEventDetails = {
+    'lam-rim': {
+      title: 'The Three Principle Stages of the Buddhist Path: Lam Rim',
+      dates: 'November 19, 24 and December 3 and 10, 2026',
+      url: 'https://shop.thus.org/products/the-three-principle-stages-of-the-buddhist-path-lam-rim'
+    },
+    bardo: {
+      title: 'Bardo, After-Life & Reincarnation with Gegye Yongyal Rinpoche',
+      dates: 'November 20 and December 4, 11 and 18, 2026',
+      url: 'https://shop.thus.org/products/bardo-after-life-reincarnation-with-gegye-yongyal-rinpoche'
+    }
+  };
+  const selectedExternalEvent = type === 'event' && service === 'Free Events' ? externalEventDetails[externalEvent] : null;
+  if (type === 'event' && service === 'Free Events' && !selectedExternalEvent) {
+    return res.status(400).json({ error: 'Please choose one of the available event packages.' });
+  }
   const requiresPaymentPreference = intent === 'booking' || (intent === 'standard' && (type === 'service' || !freeEventNames.has(service)));
   if (requiresPaymentPreference && paymentPreference !== 'zelle') {
     return res.status(400).json({ error: 'Please choose a payment preference.' });
@@ -72,6 +89,7 @@ export default async function handler(req, res) {
     'Free Event'
   ]);
   const autoConfirm = type === 'event' && autoConfirmedFreeEvents.has(service);
+  const externalEventLinkSent = Boolean(selectedExternalEvent);
   const morningMeditationSessions = {
     '2026-11-07': {
       language: 'Nepali',
@@ -95,17 +113,17 @@ export default async function handler(req, res) {
     }
   };
   const morningMeditationSession = autoConfirm
-    && ['Free Morning Meditation', 'Free Weekend Community Classes'].includes(service)
+    && ['Free Morning Meditation', 'Free Meditation Class', 'Free Weekend Community Classes'].includes(service)
     ? morningMeditationSessions[date]
     : null;
-  if (type === 'event' && ['Free Morning Meditation', 'Free Weekend Community Classes'].includes(service) && !date) {
+  if (type === 'event' && ['Free Morning Meditation', 'Free Meditation Class', 'Free Weekend Community Classes'].includes(service) && !date) {
     return res.status(400).json({ error: 'Please choose an available class date.' });
   }
-  if (type === 'event' && service === 'Free Morning Meditation' && !morningMeditationSessions[date]) {
+  if (type === 'event' && ['Free Morning Meditation', 'Free Meditation Class'].includes(service) && !morningMeditationSessions[date]) {
     return res.status(400).json({ error: 'Please choose an available Morning Meditation date.' });
   }
 
-  const requiresApproval = !autoConfirm && intent !== 'inquiry';
+  const requiresApproval = !autoConfirm && !externalEventLinkSent && intent !== 'inquiry';
   const token = !requiresApproval ? '' : approvalToken({
     name, email, service, date: type === 'event' ? date : '',
     exp: Date.now() + 7 * 24 * 60 * 60 * 1000
@@ -116,10 +134,11 @@ export default async function handler(req, res) {
     autoConfirm ? 'New automatically confirmed free class registration' : intent === 'inquiry' ? 'New website service enquiry' : 'New website booking request',
     '',
     'Request type: ' + (intent === 'inquiry' ? 'General service enquiry — no payment requested' : 'Booking request'),
-    'Booking status: ' + (autoConfirm ? 'Confirmed automatically — no staff approval required' : intent === 'inquiry' ? 'Enquiry received — response required' : 'Awaiting center review'),
+    'Booking status: ' + (externalEventLinkSent ? 'External registration link emailed — visitor must register with the organiser' : autoConfirm ? 'Confirmed automatically — no staff approval required' : intent === 'inquiry' ? 'Enquiry received — response required' : 'Awaiting center review'),
     '',
     'Type: ' + type,
     'Service or event: ' + service,
+    ...(selectedExternalEvent ? ['Selected event package: ' + selectedExternalEvent.title, 'Package dates: ' + selectedExternalEvent.dates, 'Official registration link: ' + selectedExternalEvent.url] : []),
     'Teacher: ' + (teacher || 'Not specified'),
     'Requested date: ' + (date || 'Not specified'),
     'Name: ' + name,
@@ -135,7 +154,9 @@ export default async function handler(req, res) {
       'Meeting ID: ' + morningMeditationSession.meetingId
     ] : []),
     '',
-    autoConfirm
+    externalEventLinkSent
+      ? 'The visitor has been emailed the official external registration link. Their place is not reserved until they complete registration with the event organiser.'
+      : autoConfirm
       ? 'The free class registration is already confirmed. No payment is required and no staff approval is needed.'
       : intent === 'inquiry'
         ? 'This is an information enquiry only. No booking or payment has been requested.'
@@ -146,14 +167,16 @@ export default async function handler(req, res) {
       approvalUrl,
       '',
       'The customer receives a final confirmation only after you approve it. The link expires in 7 days.'
-    ])
+    ] : [])
   ].join('\n');
 
   const receiptText = [
     'Hello ' + name + ',',
     '',
     intent === 'inquiry' ? 'Thank you for contacting Zero Point Meditation Center.' : 'Thank you for registering with Zero Point Meditation Center.',
-    autoConfirm
+    externalEventLinkSent
+      ? 'This is a multi-session event package. Please use the official organiser link below to complete your registration.'
+      : autoConfirm
       ? 'Your registration for this free class is confirmed. You do not need to wait for another approval email.'
       : intent === 'inquiry'
         ? 'We have received your service enquiry and forwarded it to our information team.'
@@ -163,7 +186,9 @@ export default async function handler(req, res) {
     'Teacher: ' + (teacher || 'Not specified'),
     'Requested date: ' + (date || 'Not specified'),
     '',
-    ...(autoConfirm
+    ...(externalEventLinkSent
+      ? ['Event package: ' + selectedExternalEvent.title, 'Session dates: ' + selectedExternalEvent.dates, 'Register through the official event organiser:', selectedExternalEvent.url, 'Your place is not reserved until you complete registration on the organiser website.']
+      : autoConfirm
       ? [
           'No payment is required for this free class.',
           ...(morningMeditationSession ? [
@@ -176,7 +201,7 @@ export default async function handler(req, res) {
         ]
       : intent === 'inquiry'
         ? ['This is an enquiry acknowledgement only. No payment is required or requested.', 'The information team will respond to your message.']
-        : ['This email confirms receipt of your booking request only. Your booking is not confirmed yet, and no payment has been collected.', 'The bookings team will contact you after reviewing availability and next steps.'],
+        : ['This email confirms receipt of your booking request only. Your booking is not confirmed yet, and no payment has been collected.', 'The bookings team will contact you after reviewing availability and next steps.']),
     '',
     'With regards,',
     'Zero Point Meditation Center'
@@ -191,7 +216,7 @@ export default async function handler(req, res) {
           from: fromEmail,
           to: [toEmail],
           reply_to: email,
-          subject: (autoConfirm ? 'Free class registration confirmed: ' : intent === 'inquiry' ? 'Website service enquiry: ' : 'Website booking request: ') + service,
+          subject: (externalEventLinkSent ? 'Free event registration link: ' : autoConfirm ? 'Free class registration confirmed: ' : intent === 'inquiry' ? 'Website service enquiry: ' : 'Website booking request: ') + service,
           text: notificationText
         })
       }),
@@ -201,7 +226,7 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           from: fromEmail,
           to: [email],
-          subject: (autoConfirm ? 'Your free class registration is confirmed: ' : intent === 'inquiry' ? 'We received your service enquiry: ' : 'We received your booking request: ') + service,
+          subject: (externalEventLinkSent ? 'Your event registration link: ' : autoConfirm ? 'Your free class registration is confirmed: ' : intent === 'inquiry' ? 'We received your service enquiry: ' : 'We received your booking request: ') + service,
           text: receiptText
         })
       })
@@ -221,7 +246,7 @@ export default async function handler(req, res) {
       });
     }
 
-    return res.status(200).json({ ok: true, receiptSent: true, confirmed: autoConfirm });
+    return res.status(200).json({ ok: true, receiptSent: true, confirmed: autoConfirm, externalEvent: externalEventLinkSent });
   } catch (error) {
     console.error('Booking email request failed:', error);
     return res.status(502).json({ error: 'We could not send your enquiry right now. Please contact the center directly.' });
