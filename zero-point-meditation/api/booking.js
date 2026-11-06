@@ -113,13 +113,13 @@ export default async function handler(req, res) {
     }
   };
   const morningMeditationSession = autoConfirm
-    && ['Free Morning Meditation', 'Free Weekend Community Classes'].includes(service)
+    && ['Free Morning Meditation', 'Free Meditation Class', 'Free Weekend Community Classes'].includes(service)
     ? morningMeditationSessions[date]
     : null;
-  if (type === 'event' && ['Free Morning Meditation', 'Free Weekend Community Classes'].includes(service) && !date) {
+  if (type === 'event' && ['Free Morning Meditation', 'Free Meditation Class', 'Free Weekend Community Classes'].includes(service) && !date) {
     return res.status(400).json({ error: 'Please choose an available class date.' });
   }
-  if (type === 'event' && service === 'Free Morning Meditation' && !morningMeditationSessions[date]) {
+  if (type === 'event' && ['Free Morning Meditation', 'Free Meditation Class'].includes(service) && !morningMeditationSessions[date]) {
     return res.status(400).json({ error: 'Please choose an available Morning Meditation date.' });
   }
 
