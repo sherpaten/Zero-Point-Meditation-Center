@@ -31,6 +31,7 @@ const fieldClass = 'mt-1 w-full rounded-xl border border-stone-300 bg-white px-3
 export default function BookingModal({ open, onClose, initialType = 'event', initialService = '', initialTeacher = '', fixedSelection = false, workflow = 'standard' }) {
   const [type, setType] = useState(initialType);
   const [service, setService] = useState(initialService || 'Free Morning Meditation');
+  const [externalEvent, setExternalEvent] = useState('lam-rim');
   const [teacher, setTeacher] = useState(initialTeacher);
   const [date, setDate] = useState('');
   const [form, setForm] = useState({ name: '', email: '', phone: '', place: '', profession: '' });
@@ -44,6 +45,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
       setType(initialType);
       const nextService = initialService || (initialType === 'event' ? 'Free Morning Meditation' : 'Meditation & Mindfulness');
       setService(nextService);
+      setExternalEvent('lam-rim');
       setTeacher(initialTeacher);
       setDate(sessionsFor(nextService)[0]?.value || '');
       setMessage('');
@@ -61,7 +63,8 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
 
   if (!open) return null;
 
-  const freeEventNames = ['Free Morning Meditation', 'Free Weekend Community Classes', 'Free Meditation Class', 'Free Event'];
+  const freeEventNames = ['Free Morning Meditation', 'Free Weekend Community Classes', 'Free Meditation Class', 'Free Event', 'Free Events'];
+  const isExternalEvent = type === 'event' && service === 'Free Events';
   const isFree = type === 'event' && freeEventNames.includes(service);
   const serviceWorkflow = workflow === 'booking' || workflow === 'inquiry';
   const showPayment = workflow === 'booking' || (workflow === 'standard' && !isFree);
@@ -91,6 +94,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           type: serviceWorkflow ? 'service' : type,
           intent: workflow,
           service,
+          externalEvent: isExternalEvent ? externalEvent : '',
           date: type === 'event' && ['Free Morning Meditation', 'Free Weekend Community Classes'].includes(service) ? date : '',
           teacher: type === 'service' ? teacher : '',
           name: form.name.trim(),
@@ -114,6 +118,8 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
       }
       setMessage(workflow === 'inquiry'
         ? 'Thank you — your enquiry has been sent to the information team. A confirmation email has been sent to your address. The team will contact you with further details.'
+        : isExternalEvent && result.externalEvent
+          ? 'Thank you — we have emailed you the official registration link and event dates. Please complete your registration through the event organiser.'
         : isFree && result.confirmed
         ? `Your registration for ${service} is confirmed! No payment is required. The Zoom link and meeting ID for your selected session have been sent to your email.`
         : isFree
@@ -171,15 +177,9 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
                 <label htmlFor="booking-service" className="text-sm font-semibold text-stone-800">{type === 'event' ? 'Choose an event or class' : 'Choose a service'}</label>
                 <select id="booking-service" value={service} onChange={event => { setService(event.target.value); setDate(sessionsFor(event.target.value)[0]?.value||''); setMessage(''); }} className={fieldClass}>
                   {type === 'event' ? <>
-                    <optgroup label="Meditation classes">
-                      <option>Free Morning Meditation</option><option>Free Meditation Class</option>
-                    </optgroup>
-                    <optgroup label="Community classes & gatherings">
-                      <option>Free Weekend Community Classes</option><option>Community Gathering</option>
-                    </optgroup>
-                    <optgroup label="Other events">
-                      <option>Free Event</option><option>Prayer Event</option><option>Other Event</option>
-                    </optgroup>
+                    <option>Free Meditation Class</option>
+                    <option>Free Events</option>
+                    <option>Other</option>
                   </> : <>
                     <optgroup label="Meditation & wellbeing">{availableServices.slice(0, 2).concat(availableServices[3]).map(item => <option key={item} value={item}>{item}</option>)}</optgroup>
                     <optgroup label="Guidance & community">{availableServices.slice(2, 3).concat(availableServices.slice(4)).map(item => <option key={item} value={item}>{item}</option>)}</optgroup>
@@ -188,6 +188,14 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
               </div>
             </div>
           )}
+          {isExternalEvent && <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-stone-700">
+            <p className="font-semibold text-buddhist-burgundy">Choose an event package</p>
+            <select value={externalEvent} onChange={event => setExternalEvent(event.target.value)} className={fieldClass}>
+              <option value="lam-rim">The Three Principle Stages of the Buddhist Path: Lam Rim</option>
+              <option value="bardo">Bardo, After-Life & Reincarnation with Gegye Yongyal Rinpoche</option>
+            </select>
+            <p className="mt-2">Each option is a multi-session package. We will email you the official registration link and all session dates.</p>
+          </div>}
           {requiresDate && <div className="rounded-xl bg-amber-50 p-4 text-sm text-stone-700">
             <p className="flex items-center gap-2 font-semibold text-buddhist-burgundy"><CalendarDays size={17}/> {service === 'Free Morning Meditation' ? 'Free Morning Meditation · 6:30–7:15 AM' : 'Free Weekend Community Classes'}</p>
             <p className="mt-1">{service === 'Free Morning Meditation' ? 'Sunday morning sessions are held from 6:30–7:15 AM US Eastern Time. Your confirmation email includes the Zoom link and meeting ID for the selected date.' : 'Community classes are scheduled for Saturdays and Sundays through December 31, 2026. The center will confirm session details.'}</p>
@@ -218,7 +226,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           {message && <p role="status" className={(message.startsWith('Thank you') || message.startsWith('Your registration')) ? 'rounded-xl border border-emerald-300 bg-emerald-50 p-4 text-sm leading-6 text-emerald-950' : 'rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm leading-6 text-amber-950'}>{(message.startsWith('Thank you') || message.startsWith('Your registration')) && <CheckCircle2 size={17} className="inline mr-2" />}{message}</p>}
           {(message.startsWith('Thank you') || message.startsWith('Your registration')) && <a href="https://wa.me/16464560843" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-xl border border-emerald-600 px-5 py-3 text-sm font-semibold text-emerald-800 hover:bg-emerald-50">Questions? Contact us on WhatsApp</a>}
           <button type="submit" disabled={submitting || !hasAvailableDate} className="flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3.5 font-semibold text-white transition hover:bg-buddhist-burgundy-hover disabled:cursor-wait disabled:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700">{submitting && <LoaderCircle size={18} className="animate-spin" />}{submitting ? 'Sending…' : workflow === 'inquiry' ? 'Send enquiry' : workflow === 'booking' ? 'Send booking request' : isFree ? 'Register for free session' : type === 'service' ? 'Send booking enquiry' : 'Send event enquiry'}</button>
-          <p className="flex items-start gap-2 text-xs leading-5 text-stone-500"><ShieldCheck size={15} className="mt-0.5 shrink-0"/> {workflow === 'inquiry' ? 'Your enquiry will be sent to the information team. No payment method or payment is required.' : isFree ? 'Free class registrations are confirmed automatically after successful submission. No payment is required.' : 'Your booking request will be sent to the bookings team. It is not confirmed until the center reviews and approves it. Do not pay before receiving authorised instructions.'}</p>
+          <p className="flex items-start gap-2 text-xs leading-5 text-stone-500"><ShieldCheck size={15} className="mt-0.5 shrink-0"/> {workflow === 'inquiry' ? 'Your enquiry will be sent to the information team. No payment method or payment is required.' : isExternalEvent ? 'We will email the official external registration link. Your place is not reserved until you complete registration with the event organiser.' : isFree ? 'Free class registrations are confirmed automatically after successful submission. No payment is required.' : 'Your booking request will be sent to the bookings team. It is not confirmed until the center reviews and approves it. Do not pay before receiving authorised instructions.'}</p>
         </form>
       </section>
     </div>
