@@ -13,7 +13,7 @@ function weekendSessions() {
 }
 function sessionsFor(service) {
  if(service==='Free Weekend Community Classes')return weekendSessions();
- if(service==='Free Morning Meditation')return announcedMorningMeditationDates.filter(s=>s.value>=dateValue());
+ if(service==='Free Morning Meditation' || service==='Free Meditation Class')return announcedMorningMeditationDates.filter(s=>s.value>=dateValue());
  return [];
 }
 
@@ -69,7 +69,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
   const serviceWorkflow = workflow === 'booking' || workflow === 'inquiry';
   const showPayment = workflow === 'booking' || (workflow === 'standard' && !isFree);
   const dateSessions = sessionsFor(service);
-  const requiresDate = type === 'event' && ['Free Morning Meditation', 'Free Weekend Community Classes'].includes(service);
+  const requiresDate = type === 'event' && ['Free Morning Meditation', 'Free Meditation Class', 'Free Weekend Community Classes'].includes(service);
   const hasAvailableDate = !requiresDate || dateSessions.length > 0;
   function update(event) {
     setForm(current => ({ ...current, [event.target.name]: event.target.value }));
@@ -95,7 +95,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           intent: workflow,
           service,
           externalEvent: isExternalEvent ? externalEvent : '',
-          date: type === 'event' && ['Free Morning Meditation', 'Free Weekend Community Classes'].includes(service) ? date : '',
+          date: type === 'event' && ['Free Morning Meditation', 'Free Meditation Class', 'Free Weekend Community Classes'].includes(service) ? date : '',
           teacher: type === 'service' ? teacher : '',
           name: form.name.trim(),
           email: form.email.trim(),
@@ -197,8 +197,8 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
             <p className="mt-2">Each option is a multi-session package. We will email you the official registration link and all session dates.</p>
           </div>}
           {requiresDate && <div className="rounded-xl bg-amber-50 p-4 text-sm text-stone-700">
-            <p className="flex items-center gap-2 font-semibold text-buddhist-burgundy"><CalendarDays size={17}/> {service === 'Free Morning Meditation' ? 'Free Morning Meditation · 6:30–7:15 AM' : 'Free Weekend Community Classes'}</p>
-            <p className="mt-1">{service === 'Free Morning Meditation' ? 'Sunday morning sessions are held from 6:30–7:15 AM US Eastern Time. Your confirmation email includes the Zoom link and meeting ID for the selected date.' : 'Community classes are scheduled for Saturdays and Sundays through December 31, 2026. The center will confirm session details.'}</p>
+            <p className="flex items-center gap-2 font-semibold text-buddhist-burgundy"><CalendarDays size={17}/> {['Free Morning Meditation', 'Free Meditation Class'].includes(service) ? 'Free Meditation Class · 6:30–7:15 AM' : 'Free Weekend Community Classes'}</p>
+            <p className="mt-1">{['Free Morning Meditation', 'Free Meditation Class'].includes(service) ? 'Sunday morning sessions are held from 6:30–7:15 AM US Eastern Time. Your confirmation email includes the Zoom link and meeting ID for the selected date.' : 'Community classes are scheduled for Saturdays and Sundays through December 31, 2026. The center will confirm session details.'}</p>
             {dateSessions.length ? <>
               <label htmlFor="booking-date" className="mt-3 block font-semibold">Choose a date</label>
               <select id="booking-date" value={date} onChange={event => setDate(event.target.value)} className={fieldClass} required>{dateSessions.map(session => <option key={session.value} value={session.value}>{session.label}</option>)}</select>
