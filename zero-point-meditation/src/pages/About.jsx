@@ -108,7 +108,7 @@ export default function About() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="relative isolate flex min-h-[440px] sm:min-h-[520px] items-center justify-center overflow-hidden rounded-3xl bg-[#ded4c3] shadow-xl"
+        className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] isolate flex min-h-[440px] sm:min-h-[560px] w-screen items-center justify-center overflow-hidden rounded-none border-0 bg-[#ded4c3] shadow-none"
       >
         <img
           src={taraGoddess}
