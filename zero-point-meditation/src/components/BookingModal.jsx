@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { X, CalendarDays, CreditCard, ShieldCheck, CheckCircle2, LoaderCircle } from 'lucide-react';
 
 const announcedMorningMeditationDates = [
-  { value: '2026-11-08', label: 'Sunday, November 8, 2026' },
-  { value: '2026-11-15', label: 'Sunday, November 15, 2026' },
+  { value: '2026-11-07', label: 'Saturday, November 7, 2026 · Nepali' },
+  { value: '2026-11-08', label: 'Sunday, November 8, 2026 · English' },
+  { value: '2026-11-14', label: 'Saturday, November 14, 2026 · Nepali' },
+  { value: '2026-11-15', label: 'Sunday, November 15, 2026 · English' },
 ];
 function dateValue(d = new Date()) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
 function weekendSessions() {
@@ -198,7 +200,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           </div>}
           {requiresDate && <div className="rounded-xl bg-amber-50 p-4 text-sm text-stone-700">
             <p className="flex items-center gap-2 font-semibold text-buddhist-burgundy"><CalendarDays size={17}/> {['Free Morning Meditation', 'Free Meditation Class'].includes(service) ? 'Free Meditation Class · 6:30–7:15 AM' : 'Free Weekend Community Classes'}</p>
-            <p className="mt-1">{['Free Morning Meditation', 'Free Meditation Class'].includes(service) ? 'Sunday morning sessions are held from 6:30–7:15 AM US Eastern Time. Your confirmation email includes the Zoom link and meeting ID for the selected date.' : 'Community classes are scheduled for Saturdays and Sundays through December 31, 2026. The center will confirm session details.'}</p>
+            <p className="mt-1">{['Free Morning Meditation', 'Free Meditation Class'].includes(service) ? 'Saturday sessions are in Nepali and Sunday sessions are in English. All sessions run from 6:30–7:15 AM US Eastern Time. Your confirmation email includes the correct Zoom link and meeting ID for your selected date.' : 'Community classes are scheduled for Saturdays and Sundays through December 31, 2026. The center will confirm session details.'}</p>
             {dateSessions.length ? <>
               <label htmlFor="booking-date" className="mt-3 block font-semibold">Choose a date</label>
               <select id="booking-date" value={date} onChange={event => setDate(event.target.value)} className={fieldClass} required>{dateSessions.map(session => <option key={session.value} value={session.value}>{session.label}</option>)}</select>
