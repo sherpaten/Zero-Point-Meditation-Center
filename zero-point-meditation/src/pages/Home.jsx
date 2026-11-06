@@ -428,61 +428,6 @@ export default function Home() {
 
         <HomeEventsCalendar />
 
-        {/* Spiritual Leader — a supporting part of the center's story */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="bg-stone-900 text-amber-50 rounded-3xl p-6 sm:p-8 border border-stone-800 shadow-xl grid lg:grid-cols-12 gap-8 items-center"
-        >
-          <div className="lg:col-span-5 relative">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-amber-500/30 aspect-[4/5] bg-stone-800">
-              <img 
-                src={rinpocheProfile} 
-                alt="H.E. Gegye Yongyal Tulku Rinpoche" 
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-transparent flex items-end p-5">
-                <span className="bg-buddhist-gold text-stone-950 font-bold text-[10px] uppercase tracking-wider px-3 py-1 rounded-full">
-                  Spiritual Master & Founder
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div className="lg:col-span-7 space-y-5">
-            <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest flex items-center gap-1.5">
-              <Award size={15} /> Our Spiritual Guide
-            </span>
-            
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-amber-50 leading-snug">
-              H.E. Gegye Yongyal Tulku Rinpoche
-            </h2>
-
-            <p className="text-stone-300 text-xs sm:text-sm leading-relaxed">
-              Gegye Yongyal Rinpoche offers spiritual guidance connected with the center's Buddhist traditions. Learn more about his background and teachings on our About page.
-            </p>
-
-            <div className="bg-stone-800/80 p-4 rounded-xl border border-stone-700 space-y-2">
-              <p className="font-serif italic text-amber-200/90 text-xs sm:text-sm">
-                "May our practice help nurture wisdom, compassion, and peace in everyday life."
-              </p>
-            </div>
-
-            <div className="pt-2">
-              <Link
-                to="/about"
-                className="inline-flex items-center gap-2 px-6 py-3.5 bg-buddhist-gold hover:bg-amber-500 text-stone-950 font-bold rounded-xl text-xs uppercase tracking-wider transition-all shadow-md"
-              >
-                Meet Our Spiritual Guide <ArrowRight size={15} />
-              </Link>
-            </div>
-          </div>
-        </motion.div>
-
         {/* Event & Practice Gallery */}
         <div className="space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-2">
