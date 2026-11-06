@@ -30,7 +30,7 @@ const fieldClass = 'mt-1 w-full rounded-xl border border-stone-300 bg-white px-3
 
 export default function BookingModal({ open, onClose, initialType = 'event', initialService = '', initialTeacher = '', fixedSelection = false, workflow = 'standard' }) {
   const [type, setType] = useState(initialType);
-  const [service, setService] = useState(initialService || 'Free Morning Meditation');
+  const [service, setService] = useState(initialService || 'Free Meditation Class');
   const [externalEvent, setExternalEvent] = useState('lam-rim');
   const [teacher, setTeacher] = useState(initialTeacher);
   const [date, setDate] = useState('');
@@ -43,7 +43,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
   useEffect(() => {
     if (open) {
       setType(initialType);
-      const nextService = initialService || (initialType === 'event' ? 'Free Morning Meditation' : 'Meditation & Mindfulness');
+      const nextService = initialService || (initialType === 'event' ? 'Free Meditation Class' : 'Meditation & Mindfulness');
       setService(nextService);
       setExternalEvent('lam-rim');
       setTeacher(initialTeacher);
@@ -168,7 +168,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
               <div>
                 <p className="mb-2 text-xs font-bold uppercase tracking-wider text-amber-800">Step 1</p>
                 <label htmlFor="booking-type" className="text-sm font-semibold text-stone-800">What would you like to book?</label>
-                <select id="booking-type" value={type} onChange={event => { const nextType=event.target.value; const nextService=nextType==='event'?'Free Morning Meditation':'Meditation & Mindfulness'; setType(nextType); setService(nextService); setDate(sessionsFor(nextService)[0]?.value||''); setMessage(''); }} className={fieldClass}>
+                <select id="booking-type" value={type} onChange={event => { const nextType=event.target.value; const nextService=nextType==='event'?'Free Meditation Class':'Meditation & Mindfulness'; setType(nextType); setService(nextService); setDate(sessionsFor(nextService)[0]?.value||''); setMessage(''); }} className={fieldClass}>
                   <option value="event">Event / class</option><option value="service">Service / appointment</option>
                 </select>
               </div>
