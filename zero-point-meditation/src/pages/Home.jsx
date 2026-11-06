@@ -303,25 +303,57 @@ export default function Home() {
 
           <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2">
             <figure className="overflow-hidden rounded-2xl border border-amber-200/70 bg-white p-3 shadow-sm">
-              <img
-                src={morningMeditationUsPoster}
-                alt="Free Morning Meditation poster in Nepali language; schedule shown in US time"
-                loading="lazy"
-                decoding="async"
-                className="mx-auto h-auto max-h-[680px] w-full rounded-xl object-contain"
-              />
+              <a
+                href="https://bit.ly/morningmeditation_zpmc"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open registration for the Nepal-hosted morning meditation session"
+                className="block rounded-xl focus:outline-none focus:ring-4 focus:ring-amber-300"
+              >
+                <img
+                  src={morningMeditationUsPoster}
+                  alt="Morning Meditation weekly practice poster with registration QR code"
+                  loading="lazy"
+                  decoding="async"
+                  className="mx-auto h-auto max-h-[680px] w-full rounded-xl object-contain transition-opacity hover:opacity-90"
+                />
+              </a>
+              <a
+                href="https://bit.ly/morningmeditation_zpmc"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3 text-xs font-bold uppercase tracking-wider text-amber-50 transition-colors hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2"
+              >
+                Register for This Session <ArrowRight size={14} />
+              </a>
               <figcaption className="px-2 pb-2 pt-3 text-center text-xs font-semibold uppercase tracking-wider text-stone-600">
                 Nepali language · US time
               </figcaption>
             </figure>
             <figure className="overflow-hidden rounded-2xl border border-amber-200/70 bg-white p-3 shadow-sm">
-              <img
-                src={morningMeditationNepalPoster}
-                alt="Free Morning Meditation poster in English language; schedule shown in US time"
-                loading="lazy"
-                decoding="async"
-                className="mx-auto h-auto max-h-[680px] w-full rounded-xl object-contain"
-              />
+              <a
+                href="https://bit.ly/morningmeditation2_zpmc"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open registration for the English morning meditation session"
+                className="block rounded-xl focus:outline-none focus:ring-4 focus:ring-amber-300"
+              >
+                <img
+                  src={morningMeditationNepalPoster}
+                  alt="English morning meditation weekly practice poster with registration QR code"
+                  loading="lazy"
+                  decoding="async"
+                  className="mx-auto h-auto max-h-[680px] w-full rounded-xl object-contain transition-opacity hover:opacity-90"
+                />
+              </a>
+              <a
+                href="https://bit.ly/morningmeditation2_zpmc"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3 text-xs font-bold uppercase tracking-wider text-amber-50 transition-colors hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2"
+              >
+                Register for This Session <ArrowRight size={14} />
+              </a>
               <figcaption className="px-2 pb-2 pt-3 text-center text-xs font-semibold uppercase tracking-wider text-stone-600">
                 English language · US time
               </figcaption>
