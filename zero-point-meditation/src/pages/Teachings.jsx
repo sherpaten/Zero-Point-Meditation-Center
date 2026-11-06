@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { BookOpen, GraduationCap, CalendarDays, ArrowRight, X } from 'lucide-react';
+import { BookOpen, GraduationCap, CalendarDays, ArrowRight, X, Users } from 'lucide-react';
 import BookingModal from '../components/BookingModal.jsx';
 import karmaGyatsoPhoto from '../assets/Teams/Teachers/karma Gyatso lopon la .jpeg';
 import jamyangThuptenPhoto from '../assets/Teams/Teachers/Jamyang Thupten.jpeg';
