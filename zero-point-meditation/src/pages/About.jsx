@@ -132,8 +132,7 @@ export default function About() {
             </p>
           </div>
         </div>
-          </div>
-        </div>
+      </div>
       </motion.section>
 
       {/* About Zero Point Center Banner (SEO Block) */}
