@@ -121,7 +121,7 @@ export default function About() {
               className="h-full w-full object-contain"
             />
           </div>
-          <div className="flex h-[300px] flex-col items-center justify-center bg-[#f6f0e6] px-5 py-6 text-center sm:h-[380px] sm:px-8 sm:py-7 lg:h-[480px] lg:px-10 lg:py-8">
+          <div className="flex h-auto min-h-[300px] flex-col items-center justify-center bg-[#f6f0e6] px-5 py-8 text-center sm:min-h-[380px] sm:px-8 sm:py-9 lg:h-[480px] lg:min-h-0 lg:px-10 lg:py-8">
             <div className="mx-auto w-full max-w-2xl space-y-4">
               <span className="inline-flex items-center justify-center gap-1.5 rounded-full border border-amber-300/80 bg-white/90 px-5 py-2 text-xs font-bold uppercase tracking-widest text-buddhist-gold shadow-md">
                 <Building2 size={14} /> Tibetan Buddhist Sanctuary & Meditation Center
