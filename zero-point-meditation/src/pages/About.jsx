@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { Users, Trees, Sparkles, Compass, HeartHandshake, CheckCircle2, Building2, BookOpen } from 'lucide-react';
@@ -40,6 +41,16 @@ const globalProjects = [
 ];
 
 export default function About() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash === '#team' || location.hash === '#members') {
+      requestAnimationFrame(() => {
+        document.querySelector(location.hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+  }, [location.hash]);
+
   const journeySlides = [
     { year: '2024 · Beginnings', title: 'A place to pause and practice', detail: 'The center’s story began with a commitment to share meditation and Buddhist mind-training in a welcoming setting. The aim was to make time for stillness, self-awareness, and compassion available to people navigating the pressures of everyday life.', image: journeyTeaching1, alt: 'Buddhist teaching and meditation practice' },
     { year: '2025 · Community', title: 'Growing through shared purpose', detail: 'As the vision developed, community connection and collaboration became increasingly important. Meditation, learning, and interfaith dialogue offered ways for people from different backgrounds to listen, learn, and build understanding around shared human concerns.', image: journeyTeaching2, alt: 'Community gathering and shared learning' },
