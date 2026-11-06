@@ -32,6 +32,7 @@ const eventGallery = [
     location: 'Tibet House US',
     date: 'Nov 20',
     image: currentEventImage,
+    externalUrl: 'https://shop.thus.org/products/bardo-after-life-reincarnation-with-gegye-yongyal-rinpoche',
     description: 'An upcoming teaching exploring Buddhist perspectives on the bardo, life after death, and reincarnation.'
   },
   {
@@ -489,12 +490,23 @@ export default function Home() {
                 </div>
 
                 <div className="p-6 pt-0">
-                  <Link
-                    to="/events"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-buddhist-burgundy group-hover:underline group-hover:translate-x-1 transition-all"
-                  >
-                    View Event Details <ArrowRight size={13} />
-                  </Link>
+                  {item.externalUrl ? (
+                    <a
+                      href={item.externalUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-buddhist-burgundy group-hover:underline group-hover:translate-x-1 transition-all"
+                    >
+                      View Event Details <ArrowRight size={13} />
+                    </a>
+                  ) : (
+                    <Link
+                      to="/events"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-buddhist-burgundy group-hover:underline group-hover:translate-x-1 transition-all"
+                    >
+                      View Event Details <ArrowRight size={13} />
+                    </Link>
+                  )}
                 </div>
               </motion.div>
             ))}
