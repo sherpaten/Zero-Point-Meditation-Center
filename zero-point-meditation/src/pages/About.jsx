@@ -111,7 +111,7 @@ export default function About() {
         className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] -mt-12 w-screen overflow-hidden rounded-none border-0 shadow-none"
       >
         <div className="grid lg:grid-cols-2 lg:min-h-[620px]">
-          <div className="relative flex min-h-[340px] items-center justify-center overflow-hidden bg-[#ded4c3] sm:min-h-[460px] lg:min-h-[620px]">
+          <div className="relative flex h-[300px] items-center justify-center overflow-hidden bg-[#ded4c3] sm:h-[380px] lg:h-[480px]">
             <img
               src={taraGoddess}
               alt="Tara Goddess"
