@@ -276,26 +276,6 @@ export default function Home() {
           </div>
         </motion.section>
 
-        {/* Core Features */}
-        <div className="grid sm:grid-cols-3 gap-6">
-          {features.map((item, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm space-y-3"
-            >
-              <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200/60 flex items-center justify-center">
-                {item.icon}
-              </div>
-              <h3 className="font-serif font-bold text-lg text-stone-900">{item.title}</h3>
-              <p className="text-stone-600 text-xs leading-relaxed">{item.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-
         {/* Community reflections */}
         <motion.section
           initial={{ opacity: 0, y: 20 }}
