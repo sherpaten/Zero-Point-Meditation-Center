@@ -167,7 +167,7 @@ export default async function handler(req, res) {
       approvalUrl,
       '',
       'The customer receives a final confirmation only after you approve it. The link expires in 7 days.'
-    ])
+    ] : [])
   ].join('\n');
 
   const receiptText = [
