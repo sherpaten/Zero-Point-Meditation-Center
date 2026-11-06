@@ -73,17 +73,25 @@ export default async function handler(req, res) {
   ]);
   const autoConfirm = type === 'event' && autoConfirmedFreeEvents.has(service);
   const morningMeditationSessions = {
+    '2026-11-07': {
+      language: 'Nepali',
+      url: 'https://us06web.zoom.us/j/88470677871',
+      meetingId: '884 7067 7871'
+    },
     '2026-11-08': {
       language: 'English',
-      url: 'https://us06web.zoom.us/j/84582891079?pwd=LEjQ7Io3Cd69EbhX1XpZCRlIXxbPLb.1',
-      meetingId: '845 8289 1079',
-      passcode: '202427'
+      url: 'https://us06web.zoom.us/j/84582891079',
+      meetingId: '845 8289 1079'
+    },
+    '2026-11-14': {
+      language: 'Nepali',
+      url: 'https://us06web.zoom.us/j/88470677871',
+      meetingId: '884 7067 7871'
     },
     '2026-11-15': {
       language: 'English',
-      url: 'https://us06web.zoom.us/j/84582891079?pwd=LEjQ7Io3Cd69EbhX1XpZCRlIXxbPLb.1',
-      meetingId: '845 8289 1079',
-      passcode: '202427'
+      url: 'https://us06web.zoom.us/j/84582891079',
+      meetingId: '845 8289 1079'
     }
   };
   const morningMeditationSession = autoConfirm && service === 'Free Morning Meditation'
@@ -123,8 +131,7 @@ export default async function handler(req, res) {
       '',
       morningMeditationSession.language + ' Morning Meditation Zoom link: ' + morningMeditationSession.url,
       'Language: ' + morningMeditationSession.language,
-      'Meeting ID: ' + morningMeditationSession.meetingId,
-      'Passcode: ' + morningMeditationSession.passcode
+      'Meeting ID: ' + morningMeditationSession.meetingId
     ] : []),
     '',
     autoConfirm
@@ -163,7 +170,6 @@ export default async function handler(req, res) {
             morningMeditationSession.url,
             'Language: ' + morningMeditationSession.language,
             'Meeting ID: ' + morningMeditationSession.meetingId,
-            'Passcode: ' + morningMeditationSession.passcode,
             'Session time: 6:30–7:15 AM US Eastern Time.'
           ] : ['The center will share any additional session or joining details separately if needed.'])
         ]
