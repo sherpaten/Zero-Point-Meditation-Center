@@ -103,36 +103,38 @@ export default function About() {
         <meta name="twitter:title" content="About Our Center & Spiritual Guide | Zero Point Meditation Center"/>
         <meta name="twitter:description" content="Learn about Zero Point Meditation Center, its mission, H.E. Gegye Yongyal Tulku Rinpoche, and the team supporting meditation, Buddhist learning and community service."/>
       </Helmet>
-      {/* Hero Title Section - Tara Goddess */}
+      {/* Split Hero: Tara image on the left, introduction on the right */}
       <motion.section
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] -mt-12 isolate flex h-[460px] w-screen items-center justify-center overflow-hidden rounded-none border-0 bg-[#ded4c3] shadow-none sm:h-[540px] lg:h-[620px]"
+        className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] -mt-12 w-screen overflow-hidden rounded-none border-0 shadow-none"
       >
-        <img
-          src={taraGoddess}
-          alt="Tara Goddess"
-          loading="eager"
-          fetchPriority="high"
-          decoding="async"
-          className="absolute inset-0 h-full w-full object-contain"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#fbf8f3]/95 via-[#fbf8f3]/55 to-[#fbf8f3]/30" />
-        <div className="absolute inset-0 flex items-center justify-center"><div className="mx-auto w-full max-w-4xl px-6 py-8 text-center sm:px-10">
-          <div className="space-y-5">
-            <span className="inline-flex items-center justify-center gap-1.5 rounded-full border border-amber-300/80 bg-white/90 px-5 py-2 text-xs font-bold uppercase tracking-widest text-buddhist-gold shadow-md backdrop-blur-md">
-              <Building2 size={14} /> Tibetan Buddhist Sanctuary & Meditation Center
-            </span>
-            <h1 className="font-serif text-4xl font-bold leading-tight text-buddhist-burgundy drop-shadow-sm sm:text-6xl">
-              About Zero Point Meditation Center
-            </h1>
-            <p className="mx-auto max-w-3xl text-sm font-medium leading-relaxed text-stone-800 drop-shadow-sm sm:text-base">
-              The story of Zero Point Meditation Center is one of a growing community bringing people together through meditation, compassion, and shared humanity. From its beginnings in 2024 through the community-building work of 2025 and into 2026, the center has developed its vision of making inner wellbeing and interfaith understanding more accessible. Guided by <strong>H.E. Gegye Yongyal Tulku Rinpoche</strong>, we connect Himalayan Buddhist wisdom with practical support for people and communities today.
-            </p>
+        <div className="grid lg:grid-cols-2 lg:min-h-[620px]">
+          <div className="relative flex min-h-[340px] items-center justify-center overflow-hidden bg-[#ded4c3] sm:min-h-[460px] lg:min-h-[620px]">
+            <img
+              src={taraGoddess}
+              alt="Tara Goddess"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              className="h-full w-full object-contain"
+            />
+          </div>
+          <div className="flex min-h-[360px] flex-col items-center justify-center bg-[#fbf8f3] px-6 py-14 text-center sm:px-10 lg:min-h-[620px] lg:px-12">
+            <div className="mx-auto w-full max-w-2xl space-y-5">
+              <span className="inline-flex items-center justify-center gap-1.5 rounded-full border border-amber-300/80 bg-white/90 px-5 py-2 text-xs font-bold uppercase tracking-widest text-buddhist-gold shadow-md">
+                <Building2 size={14} /> Tibetan Buddhist Sanctuary & Meditation Center
+              </span>
+              <h1 className="font-serif text-4xl font-bold leading-tight text-buddhist-burgundy sm:text-5xl xl:text-6xl">
+                About Zero Point Meditation Center
+              </h1>
+              <p className="text-sm font-medium leading-relaxed text-stone-700 sm:text-base">
+                The story of Zero Point Meditation Center is one of a growing community bringing people together through meditation, compassion, and shared humanity. From its beginnings in 2024 through the community-building work of 2025 and into 2026, the center has developed its vision of making inner wellbeing and interfaith understanding more accessible. Guided by <strong>H.E. Gegye Yongyal Tulku Rinpoche</strong>, we connect Himalayan Buddhist wisdom with practical support for people and communities today.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
       </motion.section>
 
       {/* About Zero Point Center Banner (SEO Block) */}
