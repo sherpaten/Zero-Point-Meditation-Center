@@ -201,7 +201,7 @@ export default async function handler(req, res) {
         ]
       : intent === 'inquiry'
         ? ['This is an enquiry acknowledgement only. No payment is required or requested.', 'The information team will respond to your message.']
-        : ['This email confirms receipt of your booking request only. Your booking is not confirmed yet, and no payment has been collected.', 'The bookings team will contact you after reviewing availability and next steps.'],
+        : ['This email confirms receipt of your booking request only. Your booking is not confirmed yet, and no payment has been collected.', 'The bookings team will contact you after reviewing availability and next steps.']),
     '',
     'With regards,',
     'Zero Point Meditation Center'
