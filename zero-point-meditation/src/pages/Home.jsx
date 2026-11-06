@@ -7,6 +7,8 @@ import { Calendar, MapPin, ArrowRight, Sparkles, Compass, HeartHandshake, Shield
 
 // Assets (Convert heavy images to .webp in src/assets for maximum speed on Vercel)
 import buddhaLotus from "../assets/buddha-lotus.webp";
+import morningMeditationUsPoster from '../assets/Classes/Poster 1.jpeg';
+import morningMeditationNepalPoster from '../assets/Classes/Poster 2.jpeg';
 import introductionVideo from "../assets/Introduction.mp4"; 
 import rinpocheProfile from '../assets/profile.jpg';
 import worldPeacePrayerDay from '../assets/Events/2025/2025 World Peace Prayer Day.jpg';
@@ -273,6 +275,64 @@ export default function Home() {
             </Link>
             <Link to="/about" className="inline-flex items-center rounded-xl border border-amber-300 bg-white px-5 py-3 text-xs font-bold uppercase tracking-wider text-buddhist-burgundy transition-colors hover:bg-amber-50">
               Learn About Our Mission
+            </Link>
+          </div>
+        </motion.section>
+
+
+        {/* Free Morning Meditation posters */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          aria-labelledby="free-morning-meditation-heading"
+          className="space-y-8"
+        >
+          <div className="mx-auto max-w-3xl space-y-3 text-center">
+            <span className="text-buddhist-gold text-xs font-bold uppercase tracking-widest">
+              Open to Everyone
+            </span>
+            <h2 id="free-morning-meditation-heading" className="font-serif text-3xl font-bold text-buddhist-burgundy sm:text-4xl">
+              Free Morning Meditation
+            </h2>
+            <p className="text-sm leading-relaxed text-stone-600 sm:text-base">
+              Join our online morning meditation practice. Both posters share the session schedule in different time references.
+            </p>
+          </div>
+
+          <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2">
+            <figure className="overflow-hidden rounded-2xl border border-amber-200/70 bg-white p-3 shadow-sm">
+              <img
+                src={morningMeditationUsPoster}
+                alt="Free Morning Meditation poster showing the US schedule"
+                loading="lazy"
+                decoding="async"
+                className="mx-auto h-auto max-h-[680px] w-full rounded-xl object-contain"
+              />
+              <figcaption className="px-2 pb-2 pt-3 text-center text-xs font-semibold uppercase tracking-wider text-stone-600">
+                US time
+              </figcaption>
+            </figure>
+            <figure className="overflow-hidden rounded-2xl border border-amber-200/70 bg-white p-3 shadow-sm">
+              <img
+                src={morningMeditationNepalPoster}
+                alt="Free Morning Meditation poster showing the Nepal local-time reference"
+                loading="lazy"
+                decoding="async"
+                className="mx-auto h-auto max-h-[680px] w-full rounded-xl object-contain"
+              />
+              <figcaption className="px-2 pb-2 pt-3 text-center text-xs font-semibold uppercase tracking-wider text-stone-600">
+                Nepal time reference
+              </figcaption>
+            </figure>
+          </div>
+          <div className="text-center">
+            <Link
+              to="/home#home-calendar-heading"
+              className="inline-flex items-center gap-2 rounded-xl bg-buddhist-burgundy px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-amber-50 shadow-md transition-colors hover:bg-red-900"
+            >
+              View Schedule & Register <ArrowRight size={14} />
             </Link>
           </div>
         </motion.section>
