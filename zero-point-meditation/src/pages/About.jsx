@@ -108,7 +108,7 @@ export default function About() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] -mt-12 isolate flex w-screen items-center justify-center overflow-hidden rounded-none border-0 bg-[#ded4c3] shadow-none"
+        className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] -mt-12 isolate flex h-[460px] w-screen items-center justify-center overflow-hidden rounded-none border-0 bg-[#ded4c3] shadow-none sm:h-[540px] lg:h-[620px]"
       >
         <img
           src={taraGoddess}
@@ -116,7 +116,7 @@ export default function About() {
           loading="eager"
           fetchPriority="high"
           decoding="async"
-          className="block h-auto w-full object-contain"
+          className="absolute inset-0 h-full w-full object-contain"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#fbf8f3]/95 via-[#fbf8f3]/55 to-[#fbf8f3]/30" />
         <div className="absolute inset-0 flex items-center justify-center"><div className="mx-auto w-full max-w-4xl px-6 py-8 text-center sm:px-10">
