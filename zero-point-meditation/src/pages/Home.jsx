@@ -247,37 +247,24 @@ export default function Home() {
       {/* Main Content Body */}
       <div className="max-w-6xl mx-auto px-6 space-y-20">
         
-        {/* Welcome message: caring for the mind */}
+        {/* Focused path from the homepage into the center's services */}
         <motion.section
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.45 }}
-          aria-labelledby="mind-care-heading"
-          className="rounded-3xl border border-amber-200/70 bg-amber-50/70 px-6 py-8 sm:px-10 sm:py-10 text-center space-y-4"
+          aria-labelledby="explore-services-heading"
+          className="rounded-3xl border border-amber-200/70 bg-amber-50/70 px-6 py-8 sm:px-10 sm:py-9 text-center"
         >
-          <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest">
-            A moment for yourself
-          </span>
-          <h2 id="mind-care-heading" className="font-serif text-3xl sm:text-4xl font-bold text-buddhist-burgundy">
-            Your Mind Deserves Care, Too
+          <h2 id="explore-services-heading" className="font-serif text-2xl sm:text-3xl font-bold text-buddhist-burgundy">
+            Explore Our Services
           </h2>
-          <div className="mx-auto max-w-3xl space-y-3 text-stone-700 text-sm sm:text-base leading-relaxed">
-            <p>
-              We make time to care for our bodies, but our minds need care, attention, and room to rest as well. In a busy world, taking a moment to slow down and breathe can help us reconnect with what matters.
-            </p>
-            <p>
-              At Zero Point Meditation Center, we welcome you to explore meditation, Buddhist wisdom, and shared practice in a supportive community. Whether you are beginning or continuing your journey, there is space here to learn, reflect, and reconnect with the peaceful Buddha-nature within.
-            </p>
-          </div>
-          <div className="flex flex-wrap justify-center gap-3 pt-2">
-            <Link to="/teachings" className="inline-flex items-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3 text-xs font-bold uppercase tracking-wider text-amber-50 shadow-md transition-colors hover:bg-red-900">
-              Explore Our Teachings <ArrowRight size={14} />
-            </Link>
-            <Link to="/about" className="inline-flex items-center rounded-xl border border-amber-300 bg-white px-5 py-3 text-xs font-bold uppercase tracking-wider text-buddhist-burgundy transition-colors hover:bg-amber-50">
-              Learn About Our Mission
-            </Link>
-          </div>
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-stone-600">
+            Discover meditation, Buddhist learning, retreats, prayer services, and remote teacher-led programmes.
+          </p>
+          <Link to="/services" className="mt-5 inline-flex items-center gap-2 rounded-xl bg-buddhist-burgundy px-6 py-3 text-xs font-bold uppercase tracking-wider text-amber-50 shadow-md transition-colors hover:bg-red-900">
+            Explore Services <ArrowRight size={14} />
+          </Link>
         </motion.section>
 
 
