@@ -131,7 +131,7 @@ export default function Teachings() {
             <article key={advisor.name} className="overflow-hidden rounded-2xl border border-amber-100 bg-white shadow-sm">
               <div className="flex aspect-[4/3] items-center justify-center overflow-hidden bg-amber-50">
                 {advisor.image ? (
-                  <img src={advisor.image} alt={advisor.name} loading="lazy" className="h-full w-full object-contain object-center" />
+                  <img src={advisor.image} alt={advisor.name} loading="lazy" className="h-full w-full object-cover object-center" />
                 ) : (
                   <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-buddhist-burgundy/70">
                     <Users size={36} strokeWidth={1.4} />
