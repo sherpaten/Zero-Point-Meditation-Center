@@ -44,8 +44,11 @@ export default function Footer() {
           <h4 className="font-serif font-bold text-base text-buddhist-burgundy">Navigation</h4>
           <ul className="space-y-2.5 text-sm text-stone-800 font-medium">
             <li><Link to="/home" className="hover:text-buddhist-gold transition-colors">Home</Link></li>
-            <li><Link to="/about" className="hover:text-buddhist-gold transition-colors">About Rinpoche</Link></li>
-            <li><Link to="/teachings" className="hover:text-buddhist-gold transition-colors">Teachings</Link></li>
+            <li><Link to="/about" className="hover:text-buddhist-gold transition-colors">About Us</Link></li>
+            <li><Link to="/services" className="hover:text-buddhist-gold transition-colors">Services</Link></li>
+            <li><Link to="/teachers" className="hover:text-buddhist-gold transition-colors">Teachers & Advisors</Link></li>
+            <li><Link to="/about#team" className="hover:text-buddhist-gold transition-colors">Our Team</Link></li>
+            <li><Link to="/about#members" className="hover:text-buddhist-gold transition-colors">Our Members</Link></li>
             <li><Link to="/events" className="hover:text-buddhist-gold transition-colors">Events & Programs</Link></li>
             <li><Link to="/merchandise" className="hover:text-buddhist-gold transition-colors">Merchandise</Link></li>
             <li><Link to="/contact" className="hover:text-buddhist-gold transition-colors">Contact</Link></li>
