@@ -94,7 +94,8 @@ export default async function handler(req, res) {
       meetingId: '845 8289 1079'
     }
   };
-  const morningMeditationSession = autoConfirm && service === 'Free Morning Meditation'
+  const morningMeditationSession = autoConfirm
+    && ['Free Morning Meditation', 'Free Weekend Community Classes'].includes(service)
     ? morningMeditationSessions[date]
     : null;
   if (type === 'event' && ['Free Morning Meditation', 'Free Weekend Community Classes'].includes(service) && !date) {
