@@ -297,7 +297,7 @@ export default function Home() {
               Free Morning Meditation
             </h2>
             <p className="text-sm leading-relaxed text-stone-600 sm:text-base">
-              Join our online morning meditation practice. Both posters share the session schedule in different time references.
+              Join our online morning meditation practice. The sessions are offered in two languages, and both schedules use US time.
             </p>
           </div>
 
@@ -305,25 +305,25 @@ export default function Home() {
             <figure className="overflow-hidden rounded-2xl border border-amber-200/70 bg-white p-3 shadow-sm">
               <img
                 src={morningMeditationUsPoster}
-                alt="Free Morning Meditation poster showing the US schedule"
+                alt="Free Morning Meditation poster in Nepali language; schedule shown in US time"
                 loading="lazy"
                 decoding="async"
                 className="mx-auto h-auto max-h-[680px] w-full rounded-xl object-contain"
               />
               <figcaption className="px-2 pb-2 pt-3 text-center text-xs font-semibold uppercase tracking-wider text-stone-600">
-                US time
+                Nepali language · US time
               </figcaption>
             </figure>
             <figure className="overflow-hidden rounded-2xl border border-amber-200/70 bg-white p-3 shadow-sm">
               <img
                 src={morningMeditationNepalPoster}
-                alt="Free Morning Meditation poster showing the Nepal local-time reference"
+                alt="Free Morning Meditation poster in English language; schedule shown in US time"
                 loading="lazy"
                 decoding="async"
                 className="mx-auto h-auto max-h-[680px] w-full rounded-xl object-contain"
               />
               <figcaption className="px-2 pb-2 pt-3 text-center text-xs font-semibold uppercase tracking-wider text-stone-600">
-                Nepal time reference
+                English language · US time
               </figcaption>
             </figure>
           </div>
