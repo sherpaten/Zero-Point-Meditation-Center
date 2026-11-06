@@ -134,7 +134,7 @@ export default async function handler(req, res) {
     autoConfirm ? 'New automatically confirmed free class registration' : intent === 'inquiry' ? 'New website service enquiry' : 'New website booking request',
     '',
     'Request type: ' + (intent === 'inquiry' ? 'General service enquiry — no payment requested' : 'Booking request'),
-    'Booking status: ' + (autoConfirm ? 'Confirmed automatically — no staff approval required' : intent === 'inquiry' ? 'Enquiry received — response required' : 'Awaiting center review'),
+    'Booking status: ' + (externalEventLinkSent ? 'External registration link emailed — visitor must register with the organiser' : autoConfirm ? 'Confirmed automatically — no staff approval required' : intent === 'inquiry' ? 'Enquiry received — response required' : 'Awaiting center review'),
     '',
     'Type: ' + type,
     'Service or event: ' + service,
@@ -216,7 +216,7 @@ export default async function handler(req, res) {
           from: fromEmail,
           to: [toEmail],
           reply_to: email,
-          subject: (autoConfirm ? 'Free class registration confirmed: ' : intent === 'inquiry' ? 'Website service enquiry: ' : 'Website booking request: ') + service,
+          subject: (externalEventLinkSent ? 'Free event registration link: ' : autoConfirm ? 'Free class registration confirmed: ' : intent === 'inquiry' ? 'Website service enquiry: ' : 'Website booking request: ') + service,
           text: notificationText
         })
       }),
@@ -226,7 +226,7 @@ export default async function handler(req, res) {
         body: JSON.stringify({
           from: fromEmail,
           to: [email],
-          subject: (autoConfirm ? 'Your free class registration is confirmed: ' : intent === 'inquiry' ? 'We received your service enquiry: ' : 'We received your booking request: ') + service,
+          subject: (externalEventLinkSent ? 'Your event registration link: ' : autoConfirm ? 'Your free class registration is confirmed: ' : intent === 'inquiry' ? 'We received your service enquiry: ' : 'We received your booking request: ') + service,
           text: receiptText
         })
       })
