@@ -96,6 +96,7 @@ export default function Home() {
   const introVideoRef = useRef(null);
   const [videoMuted, setVideoMuted] = useState(true);
   const [videoPlaying, setVideoPlaying] = useState(true);
+  const [showAllTestimonials, setShowAllTestimonials] = useState(false);
 
   const toggleVideoPlayback = async () => {
     const video = introVideoRef.current;
@@ -297,8 +298,8 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {testimonials.map((review, index) => (
+          <div id="community-testimonials-grid" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {testimonials.slice(0, showAllTestimonials ? testimonials.length : 6).map((review, index) => (
               <motion.article
                 key={review.name}
                 initial={{ opacity: 0, y: 18 }}
@@ -316,6 +317,21 @@ export default function Home() {
               </motion.article>
             ))}
           </div>
+
+          {testimonials.length > 6 && (
+            <div className="flex justify-center pt-2">
+              <button
+                type="button"
+                onClick={() => setShowAllTestimonials((show) => !show)}
+                aria-expanded={showAllTestimonials}
+                aria-controls="community-testimonials-grid"
+                className="inline-flex items-center gap-2 rounded-xl border border-amber-300 bg-white px-6 py-3 text-xs font-bold uppercase tracking-wider text-buddhist-burgundy shadow-sm transition-colors hover:bg-amber-50 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2"
+              >
+                {showAllTestimonials ? 'Show fewer reflections' : 'Show more reflections'}
+                <ArrowRight size={14} className={showAllTestimonials ? '-rotate-90' : 'rotate-90'} />
+              </button>
+            </div>
+          )}
         </motion.section>
 
         <HomeEventsCalendar />
