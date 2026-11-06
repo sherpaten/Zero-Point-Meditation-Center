@@ -332,15 +332,11 @@ export default function About() {
           <h2 id="team-heading" className="font-serif text-3xl font-bold text-buddhist-burgundy">Our People</h2>
           <p className="text-stone-600 text-sm leading-relaxed">Meet the people who guide the center’s work and support its community.</p>
         </div>
-        <section aria-labelledby="team-members-heading" className="space-y-5">
+        <section id="team" aria-labelledby="team-members-heading" className="space-y-5 scroll-mt-28">
           <div className="text-center"><h3 id="team-members-heading" className="font-serif text-2xl font-bold text-buddhist-burgundy">Team</h3><p className="mt-1 text-sm text-stone-500">The people supporting the center’s day-to-day work</p></div>
           {renderPeople('Team')}
         </section>
-        <section aria-labelledby="advisors-heading" className="space-y-5">
-          <div className="text-center"><h3 id="advisors-heading" className="font-serif text-2xl font-bold text-buddhist-burgundy">Advisors</h3><p className="mt-1 text-sm text-stone-500">Offering guidance and experience to the center</p></div>
-          {renderPeople('Advisors')}
-        </section>
-        <section aria-labelledby="members-heading" className="space-y-5">
+        <section id="members" aria-labelledby="members-heading" className="space-y-5 scroll-mt-28">
           <div className="text-center"><h3 id="members-heading" className="font-serif text-2xl font-bold text-buddhist-burgundy">Members</h3><p className="mt-1 text-sm text-stone-500">Part of our growing community</p></div>
           {renderPeople('Members')}
         </section>
