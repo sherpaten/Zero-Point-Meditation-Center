@@ -13,6 +13,14 @@ import worldPeacePrayerDay from '../assets/Events/2025/2025 World Peace Prayer D
 import weeklyMeditationMorning from '../assets/Events/2025/2025 Mindfulness Meditation.jpg';
 import currentEventImage from '../assets/Event 3.jpeg';
 import taraPrayerPoster from '../assets/poste/2026 the sacred Zabtik Dolma (Green Tara) Prayer.jpg';
+import caipaFoundationLogo from '../assets/Partners Logo/CAIPA-Foundation_fus.png';
+import chhayaLogo from '../assets/Partners Logo/Chhaya.png';
+import nassauCountyLogo from '../assets/Partners Logo/Nassau County _0.jpg';
+import ophcIfcLogo from '../assets/Partners Logo/OPHC-IFC_Clean1-01.jpg';
+import plantingFieldsLogo from '../assets/Partners Logo/Planting Fields Foundation.png';
+import rotaryQueensLogo from '../assets/Partners Logo/Rotary Queens.png';
+import rubinLogo from '../assets/Partners Logo/Rubin.jpg';
+import tibetHouseUsLogo from '../assets/Partners Logo/Tibet House US.jpg';
 
 const eventGallery = [
   {
@@ -406,51 +414,52 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Mission & Overview */}
-        <div className="bg-amber-50/70 rounded-3xl p-8 sm:p-12 border border-amber-200/70 grid md:grid-cols-2 gap-8 items-center">
-          <div className="space-y-4">
-            <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest flex items-center gap-1.5">
-              <HeartHandshake size={15} /> A Space for Reflection & Connection
+        {/* Community partners */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          aria-labelledby="community-partners-heading"
+          className="space-y-8 rounded-3xl border border-amber-200/70 bg-amber-50/60 px-6 py-10 sm:px-10 sm:py-12"
+        >
+          <div className="mx-auto max-w-3xl space-y-3 text-center">
+            <span className="inline-flex items-center justify-center gap-2 text-buddhist-gold text-xs font-bold uppercase tracking-widest">
+              <HeartHandshake size={16} /> Working Together
             </span>
-            <h2 className="min-w-0 break-words font-serif text-2xl sm:text-3xl font-bold leading-tight text-stone-900">
-              Come As You Are. Begin Where You Are.
+            <h2 id="community-partners-heading" className="font-serif text-3xl font-bold text-buddhist-burgundy sm:text-4xl">
+              Our Partners & Community Supporters
             </h2>
-            <p className="min-w-0 break-words text-stone-700 text-sm leading-relaxed">
-              At Zero Point Meditation Center, there is room to pause, ask questions, learn, and simply be present. We bring people together through meditation, Buddhist teachings, prayer, and community activities—cultivating compassion within ourselves and extending it into the world around us.
+            <p className="text-sm leading-relaxed text-stone-600 sm:text-base">
+              We are grateful to the organizations and community partners whose support helps bring people together through learning, compassion, and service.
             </p>
-            <div className="pt-2 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 text-xs font-semibold text-stone-800 min-w-0">
-              <span className="flex min-w-0 items-start gap-1.5 break-words">
-                <ShieldCheck size={16} className="text-emerald-600 shrink-0 mt-0.5" /> <span className="min-w-0 break-words">Free Community Classes Through 2026</span>
-              </span>
-              <span className="flex items-center gap-1.5">
-                <ShieldCheck size={16} className="text-buddhist-gold shrink-0 mt-0.5" /> <span className="min-w-0 break-words">Community & Spiritual Learning</span>
-              </span>
-            </div>
           </div>
-
-          <div className="min-w-0 w-full max-w-full overflow-hidden bg-white p-4 sm:p-8 rounded-2xl border border-stone-200 shadow-sm space-y-4 text-center">
-            <h3 className="break-words font-serif text-xl sm:text-xl font-bold leading-snug text-buddhist-burgundy">
-              Your Moment of Stillness Starts Here
-            </h3>
-            <p className="text-stone-600 text-xs leading-relaxed">
-              New to meditation or returning to your practice? You are welcome here. Explore at your own pace, discover what resonates, and take a gentle first step toward a more mindful life.
-            </p>
-            <div className="pt-2 flex flex-wrap justify-center gap-3">
-              <Link
-                to="/teachings"
-                className="max-w-full whitespace-normal break-words px-4 sm:px-5 py-2.5 bg-buddhist-burgundy text-amber-50 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-red-900 transition-colors"
+          <div className="grid grid-cols-2 items-center gap-4 sm:grid-cols-3 lg:grid-cols-4">
+            {[
+              { name: 'CAIPA Foundation', image: caipaFoundationLogo },
+              { name: 'Chhaya', image: chhayaLogo },
+              { name: 'Nassau County', image: nassauCountyLogo },
+              { name: 'OPHC-IFC', image: ophcIfcLogo },
+              { name: 'Planting Fields Foundation', image: plantingFieldsLogo },
+              { name: 'Rotary Queens', image: rotaryQueensLogo },
+              { name: 'Rubin', image: rubinLogo },
+              { name: 'Tibet House US', image: tibetHouseUsLogo },
+            ].map((partner) => (
+              <div
+                key={partner.name}
+                className="flex h-32 items-center justify-center rounded-2xl border border-stone-200/80 bg-white p-4 shadow-sm transition-shadow hover:shadow-md sm:h-36 sm:p-5"
               >
-                Read Teachings
-              </Link>
-              <Link
-                to="/merchandise"
-                className="max-w-full whitespace-normal break-words px-4 sm:px-5 py-2.5 bg-stone-100 text-stone-800 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-stone-200 transition-colors"
-              >
-                Sacred Merchandise
-              </Link>
-            </div>
+                <img
+                  src={partner.image}
+                  alt={partner.name}
+                  loading="lazy"
+                  decoding="async"
+                  className="max-h-full max-w-full object-contain"
+                />
+              </div>
+            ))}
           </div>
-        </div>
+        </motion.section>
 
       </div>
 
