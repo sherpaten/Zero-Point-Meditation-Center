@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { X, CalendarDays, CreditCard, ShieldCheck, CheckCircle2, LoaderCircle } from 'lucide-react';
 import MembershipPrompt from './MembershipPrompt.jsx';
 
@@ -238,13 +239,16 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           <p className="flex items-start gap-2 text-xs leading-5 text-stone-500"><ShieldCheck size={15} className="mt-0.5 shrink-0"/> {workflow === 'inquiry' ? 'Your enquiry will be sent to the information team. No payment method or payment is required.' : isExternalEvent ? 'We will email the official external registration link. Your place is not reserved until you complete registration with the event organiser.' : isFree ? 'Free class registrations are confirmed automatically after successful submission. No payment is required.' : 'Your booking request will be sent to the bookings team. It is not confirmed until the center reviews and approves it. Do not pay before receiving authorised instructions.'}</p>
         </form>
       </section>
-      <MembershipPrompt
-        open={membershipPromptOpen}
-        onClose={() => setMembershipPromptOpen(false)}
-        initialName={membershipPrefill.full_name}
-        initialEmail={membershipPrefill.email}
-        initialPhone={membershipPrefill.phone}
-      />
+      {typeof document !== 'undefined' && createPortal(
+        <MembershipPrompt
+          open={membershipPromptOpen}
+          onClose={() => setMembershipPromptOpen(false)}
+          initialName={membershipPrefill.full_name}
+          initialEmail={membershipPrefill.email}
+          initialPhone={membershipPrefill.phone}
+        />,
+        document.body
+      )}
     </div>
   );
 }
