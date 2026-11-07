@@ -8,7 +8,6 @@ const navigation = [
   { to: '/about', label: 'About' },
   { to: '/services', label: 'Services' },
   { to: '/events', label: 'Events' },
-  { to: '/membership', label: 'Community Membership' },
   {
     label: 'Our People',
     children: [
