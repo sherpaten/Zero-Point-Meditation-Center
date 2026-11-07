@@ -1,3 +1,4 @@
+
 import React, { useEffect, Suspense, lazy } from 'react';
 import {
   BrowserRouter as Router,
@@ -11,7 +12,6 @@ import { HelmetProvider } from 'react-helmet-async';
 import { preload } from 'react-dom';
 import welcomeHeroImage from './assets/Boudha.jpg?url';
 
-// Preload the welcome-screen LCP image before React renders the lazy page.
 if (typeof window !== 'undefined' && window.location.pathname === '/') {
   preload(welcomeHeroImage, { as: 'image', fetchPriority: 'high' });
 }
@@ -19,7 +19,6 @@ if (typeof window !== 'undefined' && window.location.pathname === '/') {
 const Navbar = lazy(() => import('./components/Navbar.jsx'));
 const Footer = lazy(() => import('./components/Footer.jsx'));
 const FloatingAssistant = lazy(() => import('./components/FloatingAssistant.jsx'));
-
 
 const Home = lazy(() => import('./pages/Home.jsx'));
 const About = lazy(() => import('./pages/About.jsx'));
@@ -30,9 +29,21 @@ const Contact = lazy(() => import('./pages/Contact.jsx'));
 const Welcome = lazy(() => import('./pages/Welcome.jsx'));
 const Services = lazy(() => import('./pages/Services.jsx'));
 
+const Membership = lazy(() => import('./pages/Membership.jsx'));
+const MembershipCheckin = lazy(
+  () => import('./pages/MembershipCheckin.jsx')
+);
+const MembershipAdmin = lazy(
+  () => import('./pages/MembershipAdmin.jsx')
+);
+
 function ScrollToTop() {
   const { pathname } = useLocation();
-  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return null;
 }
 
@@ -41,28 +52,73 @@ function SiteLayout() {
   const isWelcome = pathname === '/';
 
   return (
-    <div className={isWelcome
-      ? 'min-h-screen bg-black'
-      : 'relative z-10 flex min-h-screen flex-col justify-between bg-buddhist-bg font-sans text-buddhist-charcoal selection:bg-buddhist-gold-light selection:text-buddhist-burgundy'}>
-      {!isWelcome && <Suspense fallback={null}><Navbar /></Suspense>}
+    <div
+      className={
+        isWelcome
+          ? 'min-h-screen bg-black'
+          : 'relative z-10 flex min-h-screen flex-col justify-between bg-buddhist-bg font-sans text-buddhist-charcoal selection:bg-buddhist-gold-light selection:text-buddhist-burgundy'
+      }
+    >
+      {!isWelcome && (
+        <Suspense fallback={null}>
+          <Navbar />
+        </Suspense>
+      )}
+
       <main className={isWelcome ? '' : 'grow'}>
-        <Suspense fallback={<div className="min-h-[50vh] flex items-center justify-center text-buddhist-burgundy" role="status">Loading page…</div>}>
+        <Suspense
+          fallback={
+            <div
+              className="min-h-[50vh] flex items-center justify-center text-buddhist-burgundy"
+              role="status"
+            >
+              Loading page…
+            </div>
+          }
+        >
           <Routes>
             <Route path="/" element={<Welcome />} />
             <Route path="/home" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
+
+            <Route path="/membership" element={<Membership />} />
+
+            <Route
+              path="/membership-checkin"
+              element={<MembershipCheckin />}
+            />
+
+            <Route
+              path="/membership-admin"
+              element={<MembershipAdmin />}
+            />
+
             <Route path="/teachers" element={<Teachings />} />
-            <Route path="/teachings" element={<Navigate to="/teachers" replace />} />
+            <Route
+              path="/teachings"
+              element={<Navigate to="/teachers" replace />}
+            />
             <Route path="/events" element={<Events />} />
             <Route path="/merchandise" element={<Merchandise />} />
             <Route path="/contact" element={<Contact />} />
+
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>
       </main>
-      {!isWelcome && <Suspense fallback={null}><Footer /></Suspense>}
-      {!isWelcome && <Suspense fallback={null}><FloatingAssistant /></Suspense>}
+
+      {!isWelcome && (
+        <Suspense fallback={null}>
+          <Footer />
+        </Suspense>
+      )}
+
+      {!isWelcome && (
+        <Suspense fallback={null}>
+          <FloatingAssistant />
+        </Suspense>
+      )}
     </div>
   );
 }
