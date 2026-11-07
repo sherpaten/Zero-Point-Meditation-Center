@@ -52,6 +52,7 @@ export default function Footer() {
             <li><Link to="/events" className="hover:text-buddhist-gold transition-colors">Events & Programs</Link></li>
             <li><Link to="/merchandise" className="hover:text-buddhist-gold transition-colors">Merchandise</Link></li>
             <li><Link to="/contact" className="hover:text-buddhist-gold transition-colors">Contact</Link></li>
+            <li><Link to="/membership" className="text-stone-600 hover:text-buddhist-gold transition-colors">Member Login</Link></li>
           </ul>
         </div>
 
