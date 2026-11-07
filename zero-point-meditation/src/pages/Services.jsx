@@ -153,6 +153,7 @@ export default function Services() {
         description="Learn meditation, Buddhist teachings, philosophy, and traditional perspectives through guided sessions and multi-session courses."
         icon={<BookOpen size={20} />}
         items={courses}
+        imageKey="learning"
         onAction={openBooking}
 />
 
@@ -163,6 +164,7 @@ export default function Services() {
         description="Half-day, full-day retreats for deeper study and practice."
         icon={<Sparkles size={20} />}
         items={retreats}
+        imageKey="retreat"
         onAction={openBooking}
 />
 
@@ -173,6 +175,7 @@ export default function Services() {
         description="Meditation, mindfulness, compassion, ethics, and reflective leadership programs for teams and organizations."
         icon={<Landmark size={20} />}
         items={workplaceServices}
+        imageKey="workplace"
         onAction={openBooking}
 />
 
@@ -183,6 +186,7 @@ export default function Services() {
         description="Traditional Buddhist prayers, blessings, dedications, and ceremonies for individuals and families."
         icon={<Flower2 size={20} />}
         items={prayerServices}
+        imageKey="prayer"
         onAction={openBooking}
 />
 
