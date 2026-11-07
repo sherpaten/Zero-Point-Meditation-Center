@@ -42,10 +42,30 @@ const prayerServices = [
   { name: 'Special multi-monastic prayer gathering', duration: 'Depends on gathering size (about 400–2,000 monks)', description: 'Reserved for significant community or extended dedication events.' },
 ];
 const serviceImages = {
-  learning: { src: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=900&q=80', alt: 'A peaceful meditation practice' },
-  retreat: { src: 'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=900&q=80', alt: 'Quiet natural scenery for retreat and reflection' },
-  workplace: { src: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=80', alt: 'Colleagues working together in a calm team setting' },
-  prayer: { src: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=900&q=80', alt: 'Peaceful spiritual setting' },
+  learning: [
+    { src: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=900&q=80', alt: 'A person sitting in meditation' },
+    { src: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=900&q=80', alt: 'A peaceful yoga and mindfulness practice' },
+    { src: 'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=900&q=80', alt: 'A quiet natural setting for reflection' },
+    { src: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80', alt: 'A peaceful landscape for contemplation' },
+  ],
+  retreat: [
+    { src: 'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=900&q=80', alt: 'Sunrise over a peaceful landscape' },
+    { src: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=80', alt: 'A quiet forest retreat setting' },
+    { src: 'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=80', alt: 'A tranquil mountain landscape' },
+    { src: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=900&q=80', alt: 'A calm lakeside landscape' },
+  ],
+  workplace: [
+    { src: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=80', alt: 'Colleagues working together' },
+    { src: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=80', alt: 'A team collaborating around a table' },
+    { src: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=80', alt: 'A workplace team discussion' },
+    { src: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80', alt: 'A group workshop and discussion' },
+  ],
+  prayer: [
+    { src: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=900&q=80', alt: 'A peaceful spiritual setting' },
+    { src: 'https://images.unsplash.com/photo-1545389336-cf090694435e?auto=format&fit=crop&w=900&q=80', alt: 'A quiet meditation and prayer space' },
+    { src: 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=900&q=80', alt: 'A peaceful natural scene for reflection' },
+    { src: 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80', alt: 'A serene mountain setting' },
+  ],
 };
 
 function ServiceSection({ id, eyebrow, title, description, icon, items, imageKey, onAction }) {
@@ -57,10 +77,10 @@ function ServiceSection({ id, eyebrow, title, description, icon, items, imageKey
         {description && <p className="text-stone-600 leading-relaxed">{description}</p>}
       </div>
       <motion.div variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.06 } } }} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.08 }} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-        {items.map((item) => (
+        {items.map((item, index) => (
           <motion.article key={item.name} variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.35 } } }} whileHover={{ y: -5, transition: { duration: 0.18 } }} className="overflow-hidden bg-white rounded-2xl border border-stone-200 shadow-sm hover:shadow-lg transition-shadow flex flex-col">
             <div className="aspect-[16/9] overflow-hidden bg-amber-50">
-              <img src={serviceImages[imageKey].src} alt={serviceImages[imageKey].alt} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 hover:scale-[1.03]" />
+              <img src={serviceImages[imageKey][index % serviceImages[imageKey].length].src} alt={serviceImages[imageKey][index % serviceImages[imageKey].length].alt} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 hover:scale-[1.03]" />
             </div>
             <div className="flex flex-1 flex-col p-5">
             <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-amber-50 text-buddhist-gold">{icon}</div>
