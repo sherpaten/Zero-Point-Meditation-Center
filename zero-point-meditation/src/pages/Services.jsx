@@ -68,6 +68,50 @@ const serviceImages = {
   ],
 };
 
+
+function GuideCarousel({ guides }) {
+  const [activeGuide, setActiveGuide] = useState(0);
+  const showGuide = (direction) => {
+    setActiveGuide((current) => (current + direction + guides.length) % guides.length);
+  };
+
+  React.useEffect(() => {
+    if (guides.length < 2) return undefined;
+    const interval = window.setInterval(() => {
+      setActiveGuide((current) => (current + 1) % guides.length);
+    }, 5000);
+    return () => window.clearInterval(interval);
+  }, [guides.length]);
+
+  const guide = guides[activeGuide];
+  return (
+    <div className="mx-auto w-full max-w-3xl">
+      <div className="relative overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-sm">
+        <a href="/teachers" aria-label={`Learn more about ${guide.name} on the Teachers page`} className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-buddhist-gold focus-visible:ring-inset">
+          <div className="h-[320px] sm:h-[420px] bg-amber-50 flex items-center justify-center">
+            <img key={guide.name} src={guide.image} alt={guide.alt} loading="lazy" decoding="async" className="h-full w-full object-contain object-center transition-opacity duration-300" />
+          </div>
+          <div className="p-4 sm:p-5 text-center">
+            <h3 className="font-serif text-lg sm:text-xl font-bold text-buddhist-burgundy">{guide.name}</h3>
+            <p className="mt-1 text-sm text-stone-500">View teacher profile</p>
+          </div>
+        </a>
+        {guides.length > 1 && (
+          <>
+            <button type="button" onClick={() => showGuide(-1)} aria-label="Previous teacher" className="absolute left-3 top-[42%] flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-buddhist-burgundy shadow-md transition hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-buddhist-gold">‹</button>
+            <button type="button" onClick={() => showGuide(1)} aria-label="Next teacher" className="absolute right-3 top-[42%] flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-buddhist-burgundy shadow-md transition hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-buddhist-gold">›</button>
+            <div className="flex items-center justify-center gap-2 bg-white py-3" aria-label="Choose teacher">
+              {guides.map((item, index) => (
+                <button key={item.name} type="button" onClick={() => setActiveGuide(index)} aria-label={`Show ${item.name}`} aria-pressed={activeGuide === index} className={`h-2.5 rounded-full transition-all ${activeGuide === index ? 'w-7 bg-buddhist-burgundy' : 'w-2.5 bg-stone-300 hover:bg-stone-400'}`} />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function ServiceSection({ id, eyebrow, title, description, icon, items, imageKey, onAction }) {
   return (
     <section id={id} className="scroll-mt-32 space-y-6">
@@ -217,19 +261,12 @@ export default function Services() {
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-buddhist-burgundy">Prayer & Spiritual Guidance</h2>
           <p className="text-stone-600 leading-relaxed">Learn more about our teachers and spiritual guides.</p>
         </div>
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 max-w-5xl mx-auto">
-          {[
+        <GuideCarousel
+          guides={[
             { name: "Gegye Yongyal Rinpoche", image: gegyeYongyalRinpoche, alt: "Gegye Yongyal Rinpoche" },
             { name: "Karma Gyatso Lopon La", image: karmaGyatsoPhoto, alt: "Karma Gyatso Lopon La" }
-          ].map((guide) => (
-            <a key={guide.name} href="/teachers" aria-label={`Learn more about ${guide.name} on the Teachers page`} className="block overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-shadow hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-buddhist-gold focus-visible:ring-offset-2">
-              <div className="aspect-square overflow-hidden bg-amber-50 flex items-center justify-center">
-                <img src={guide.image} alt={guide.alt} loading="lazy" className="h-full w-full object-contain object-center" />
-              </div>
-              <div className="space-y-1.5 p-3 sm:p-4 text-center"><h3 className="font-serif text-sm sm:text-base font-bold text-stone-900 leading-snug">{guide.name}</h3></div>
-            </a>
-          ))}
-        </div>
+          ]}
+        />
       </section>
 
       <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} initialType={bookingType} initialService={bookingService} workflow={bookingWorkflow} />
