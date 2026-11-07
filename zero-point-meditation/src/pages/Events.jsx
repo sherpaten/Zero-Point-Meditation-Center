@@ -116,7 +116,7 @@ const galleryItems = [
     image: poster1, description: 'Official promotional poster for an international peace rally and mind-training retreat.'
   },
   {
-    id: 5, group: 'Older', title: 'Retreat & Meditation Workshop Announcement',
+    id: 5, group: 'Poste&News', title: 'Retreat & Meditation Workshop Announcement',
     type: 'poster', category: 'Posters', date: '2023', location: 'New York, USA',
     image: poster2, description: 'Event announcement flyer for public lectures on Buddhist philosophy.'
   },

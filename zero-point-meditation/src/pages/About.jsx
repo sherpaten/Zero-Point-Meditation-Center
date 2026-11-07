@@ -6,6 +6,7 @@ import { Users, Trees, Sparkles, Compass, HeartHandshake, CheckCircle2, Building
 
 // Local Image Imports
 import profileMain from '../assets/profile.jpg';
+import taraGoddess from '../assets/Tara Godesss.webp';
 import profile1 from '../assets/profile 1.jpg';
 import profile2 from '../assets/profile 2.jpg';
 import gegyeYongyalRinpoche from "../assets/Teams/Gegye Yongyal Rinpoche's.png";
@@ -102,23 +103,39 @@ export default function About() {
         <meta name="twitter:title" content="About Our Center & Spiritual Guide | Zero Point Meditation Center"/>
         <meta name="twitter:description" content="Learn about Zero Point Meditation Center, its mission, H.E. Gegye Yongyal Tulku Rinpoche, and the team supporting meditation, Buddhist learning and community service."/>
       </Helmet>
-      {/* Hero Title Section - Center & Spiritual Director */}
-      <motion.div 
+      {/* Split Hero: Tara image on the left, introduction on the right */}
+      <motion.section
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="text-center max-w-3xl mx-auto space-y-4"
+        transition={{ duration: 0.6 }}
+        className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] -mt-12 w-screen overflow-hidden rounded-none border-0 shadow-none"
       >
-        <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-1.5">
-          <Building2 size={14} /> Tibetan Buddhist Sanctuary & Meditation Center
-        </span>
-        <h1 className="font-serif text-4xl sm:text-5xl font-bold text-buddhist-burgundy">
-          About Zero Point Meditation Center
-        </h1>
-        <p className="text-stone-600 text-sm sm:text-base leading-relaxed">
-          The story of Zero Point Meditation Center is one of a growing community bringing people together through meditation, compassion, and shared humanity. From its beginnings in 2024 through the community-building work of 2025 and into 2026, the center has developed its vision of making inner wellbeing and interfaith understanding more accessible. Guided by <strong>H.E. Gegye Yongyal Tulku Rinpoche</strong>, we connect Himalayan Buddhist wisdom with practical support for people and communities today.
-        </p>
-      </motion.div>
+        <div className="grid grid-cols-1 bg-[#f6f0e6] lg:grid-cols-2">
+          <div className="relative flex h-[300px] items-center justify-center overflow-hidden bg-[#f6f0e6] sm:h-[380px] lg:h-[480px]">
+            <img
+              src={taraGoddess}
+              alt="Tara Goddess"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+              className="h-full w-full object-contain"
+            />
+          </div>
+          <div className="flex h-auto min-h-[300px] flex-col items-center justify-center bg-[#f6f0e6] px-5 py-8 text-center sm:min-h-[380px] sm:px-8 sm:py-9 lg:h-[480px] lg:min-h-0 lg:px-10 lg:py-8">
+            <div className="mx-auto w-full max-w-2xl space-y-4">
+              <span className="inline-flex items-center justify-center gap-1.5 rounded-full border border-amber-300/80 bg-white/90 px-5 py-2 text-xs font-bold uppercase tracking-widest text-buddhist-gold shadow-md">
+                <Building2 size={14} /> Tibetan Buddhist Sanctuary & Meditation Center
+              </span>
+              <h1 className="font-serif text-4xl font-bold leading-tight text-buddhist-burgundy sm:text-5xl xl:text-6xl">
+                About Zero Point Meditation Center
+              </h1>
+              <p className="text-sm font-medium leading-relaxed text-stone-700 sm:text-base">
+                The story of Zero Point Meditation Center is one of a growing community bringing people together through meditation, compassion, and shared humanity. From its beginnings in 2024 through the community-building work of 2025 and into 2026, the center has developed its vision of making inner wellbeing and interfaith understanding more accessible. Guided by <strong>H.E. Gegye Yongyal Tulku Rinpoche</strong>, we connect Himalayan Buddhist wisdom with practical support for people and communities today.
+              </p>
+            </div>
+          </div>
+        </div>
+      </motion.section>
 
       {/* About Zero Point Center Banner (SEO Block) */}
       <div className="bg-amber-50/70 p-8 sm:p-10 rounded-3xl border border-amber-200/70 grid md:grid-cols-3 gap-6 items-center">
