@@ -157,17 +157,17 @@ const galleryItems = [
   },
   {
     id: 13, group: 'Older', title: 'Guided Meditation Instruction',
-    type: 'photo', category: 'Event Photos', date: '2021', location: 'Online Center',
+    type: 'photo', category: 'Event Photos', date: '2025', location: 'Online Center',
     image: event9, description: 'Demonstration of posture, breathing, and alignment for beginners.'
   },
   {
     id: 14, group: 'Older', title: 'Annual Peace Gathering Highlights',
-    type: 'photo', category: 'Event Photos', date: '2021', location: 'New York',
+    type: 'photo', category: 'Event Photos', date: '2025', location: 'New York',
     image: event10, description: 'Group portrait of practitioners, guests, and community supporters.'
   },
   {
     id: 15, group: 'Older', title: 'Dharma & Wisdom Exchange',
-    type: 'photo', category: 'Event Photos', date: '2021', location: 'New York',
+    type: 'photo', category: 'Event Photos', date: '2025', location: 'New York',
     image: event11, description: 'Open forum exploring Buddhist philosophy and stress-reduction methods.'
   },
 
