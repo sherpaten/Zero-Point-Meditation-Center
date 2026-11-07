@@ -5,6 +5,9 @@ import { motion } from 'framer-motion';
 import { Flower2, BookOpen, Sparkles, HandHeart, Clock3, Landmark } from 'lucide-react';
 import gegyeYongyalRinpoche from "../assets/Teams/Gegye Yongyal Rinpoche's.png";
 import karmaGyatsoPhoto from "../assets/Teams/Teachers/karma Gyatso lopon la .jpeg";
+import jamyangThuptenPhoto from "../assets/Teams/Teachers/Jamyang Thupten.jpeg";
+import tashiDorjeePhoto from "../assets/Teams/Teachers/Tashi Dorjee.jpeg";
+import thuptenSherapPhoto from "../assets/Teams/Teachers/Thupten Sherap.jpeg";
 
 const courses = [
   { name: 'Introduction to Buddhist Meditation', duration: '45 minutes', description: 'Serves as a low-commitment entry point for first-timers.' },
@@ -68,49 +71,6 @@ const serviceImages = {
   ],
 };
 
-
-function GuideCarousel({ guides }) {
-  const [activeGuide, setActiveGuide] = useState(0);
-  const showGuide = (direction) => {
-    setActiveGuide((current) => (current + direction + guides.length) % guides.length);
-  };
-
-  React.useEffect(() => {
-    if (guides.length < 2) return undefined;
-    const interval = window.setInterval(() => {
-      setActiveGuide((current) => (current + 1) % guides.length);
-    }, 5000);
-    return () => window.clearInterval(interval);
-  }, [guides.length]);
-
-  const guide = guides[activeGuide];
-  return (
-    <div className="mx-auto w-full max-w-3xl">
-      <div className="relative overflow-hidden rounded-3xl border border-stone-200 bg-white shadow-sm">
-        <a href="/teachers" aria-label={`Learn more about ${guide.name} on the Teachers page`} className="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-buddhist-gold focus-visible:ring-inset">
-          <div className="h-[320px] sm:h-[420px] bg-amber-50 flex items-center justify-center">
-            <img key={guide.name} src={guide.image} alt={guide.alt} loading="lazy" decoding="async" className="h-full w-full object-contain object-center transition-opacity duration-300" />
-          </div>
-          <div className="p-4 sm:p-5 text-center">
-            <h3 className="font-serif text-lg sm:text-xl font-bold text-buddhist-burgundy">{guide.name}</h3>
-            <p className="mt-1 text-sm text-stone-500">View teacher profile</p>
-          </div>
-        </a>
-        {guides.length > 1 && (
-          <>
-            <button type="button" onClick={() => showGuide(-1)} aria-label="Previous teacher" className="absolute left-3 top-[42%] flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-buddhist-burgundy shadow-md transition hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-buddhist-gold">‹</button>
-            <button type="button" onClick={() => showGuide(1)} aria-label="Next teacher" className="absolute right-3 top-[42%] flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-buddhist-burgundy shadow-md transition hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-buddhist-gold">›</button>
-            <div className="flex items-center justify-center gap-2 bg-white py-3" aria-label="Choose teacher">
-              {guides.map((item, index) => (
-                <button key={item.name} type="button" onClick={() => setActiveGuide(index)} aria-label={`Show ${item.name}`} aria-pressed={activeGuide === index} className={`h-2.5 rounded-full transition-all ${activeGuide === index ? 'w-7 bg-buddhist-burgundy' : 'w-2.5 bg-stone-300 hover:bg-stone-400'}`} />
-              ))}
-            </div>
-          </>
-        )}
-      </div>
-    </div>
-  );
-}
 
 function ServiceSection({ id, eyebrow, title, description, icon, items, imageKey, onAction }) {
   return (
@@ -259,14 +219,27 @@ export default function Services() {
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <span className="inline-flex items-center gap-2 text-buddhist-gold font-bold text-xs uppercase tracking-widest"><HandHeart size={14} /> Meet our guides</span>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-buddhist-burgundy">Prayer & Spiritual Guidance</h2>
-          <p className="text-stone-600 leading-relaxed">Learn more about our teachers and spiritual guides.</p>
+          <p className="text-stone-600 leading-relaxed">Meet the teachers and spiritual guides who support our community.</p>
         </div>
-        <GuideCarousel
-          guides={[
-            { name: "Gegye Yongyal Rinpoche", image: gegyeYongyalRinpoche, alt: "Gegye Yongyal Rinpoche" },
-            { name: "Karma Gyatso Lopon La", image: karmaGyatsoPhoto, alt: "Karma Gyatso Lopon La" }
-          ]}
-        />
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            { name: "Gegye Yongyal Rinpoche", image: gegyeYongyalRinpoche },
+            { name: "Karma Gyatso Lopon La", image: karmaGyatsoPhoto },
+            { name: "Venerable Geshe Jamyang Thupten", image: jamyangThuptenPhoto },
+            { name: "Venerable Tashi Dorjee", image: tashiDorjeePhoto },
+            { name: "Venerable Thupten Sherap", image: thuptenSherapPhoto },
+          ].map((guide) => (
+            <a key={guide.name} href="/teachers" aria-label={`View ${guide.name} on the Teachers page`} className="group overflow-hidden rounded-2xl border border-amber-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-buddhist-gold">
+              <div className="aspect-[4/3] overflow-hidden bg-amber-50">
+                <img src={guide.image} alt={guide.name} loading="lazy" decoding="async" className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]" />
+              </div>
+              <div className="p-4 text-center">
+                <h3 className="font-serif text-lg font-bold text-buddhist-burgundy">{guide.name}</h3>
+                <p className="mt-1 text-sm text-stone-500">View teacher profile</p>
+              </div>
+            </a>
+          ))}
+        </div>
       </section>
 
       <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} initialType={bookingType} initialService={bookingService} workflow={bookingWorkflow} />
