@@ -41,7 +41,14 @@ const prayerServices = [
   { name: 'Extended prayer and dedication ceremony', duration: 'Not specified', description: 'Suited to major occasions that call for a fuller, more elaborate offering.' },
   { name: 'Special multi-monastic prayer gathering', duration: 'Depends on gathering size (about 400–2,000 monks)', description: 'Reserved for significant community or extended dedication events.' },
 ];
-function ServiceSection({ id, eyebrow, title, description, icon, items, onAction }) {
+const serviceImages = {
+  learning: { src: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=900&q=80', alt: 'A peaceful meditation practice' },
+  retreat: { src: 'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=900&q=80', alt: 'Quiet natural scenery for retreat and reflection' },
+  workplace: { src: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=80', alt: 'Colleagues working together in a calm team setting' },
+  prayer: { src: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=900&q=80', alt: 'Peaceful spiritual setting' },
+};
+
+function ServiceSection({ id, eyebrow, title, description, icon, items, imageKey, onAction }) {
   return (
     <section id={id} className="scroll-mt-32 space-y-6">
       <div className="mx-auto max-w-3xl space-y-3 text-center">
