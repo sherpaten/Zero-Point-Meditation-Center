@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { X, CalendarDays, CreditCard, ShieldCheck, CheckCircle2, LoaderCircle } from 'lucide-react';
+import MembershipPrompt from './MembershipPrompt.jsx';
 
 const announcedMorningMeditationDates = [
   { value: '2026-11-07', label: 'Saturday, November 7, 2026 · Nepali' },
@@ -41,6 +42,8 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
   const [submitting, setSubmitting] = useState(false);
   const [paymentPreference, setPaymentPreference] = useState('zelle');
   const [website, setWebsite] = useState('');
+  const [membershipPromptOpen, setMembershipPromptOpen] = useState(false);
+  const [membershipPrefill, setMembershipPrefill] = useState({ full_name: '', email: '', phone: '' });
 
   useEffect(() => {
     if (open) {
@@ -129,6 +132,10 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           : type === 'event'
             ? 'Thank you — your event registration request has been sent. The center will contact you to confirm your place and share any relevant details. No payment is collected through this form.'
             : 'Thank you — your enquiry has been sent to Zero Point Meditation Center. The team will contact you to confirm availability, pricing, and next steps. Please wait for confirmation before making any payment.');
+      if (workflow !== 'inquiry') {
+        setMembershipPrefill({ full_name: form.name.trim(), email: form.email.trim(), phone: form.phone.trim() });
+        setMembershipPromptOpen(true);
+      }
       setForm({ name: '', email: '', phone: '', place: '', profession: '' });
       setWebsite('');
     } catch (error) {
@@ -231,6 +238,13 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           <p className="flex items-start gap-2 text-xs leading-5 text-stone-500"><ShieldCheck size={15} className="mt-0.5 shrink-0"/> {workflow === 'inquiry' ? 'Your enquiry will be sent to the information team. No payment method or payment is required.' : isExternalEvent ? 'We will email the official external registration link. Your place is not reserved until you complete registration with the event organiser.' : isFree ? 'Free class registrations are confirmed automatically after successful submission. No payment is required.' : 'Your booking request will be sent to the bookings team. It is not confirmed until the center reviews and approves it. Do not pay before receiving authorised instructions.'}</p>
         </form>
       </section>
+      <MembershipPrompt
+        open={membershipPromptOpen}
+        onClose={() => setMembershipPromptOpen(false)}
+        initialName={membershipPrefill.full_name}
+        initialEmail={membershipPrefill.email}
+        initialPhone={membershipPrefill.phone}
+      />
     </div>
   );
 }
