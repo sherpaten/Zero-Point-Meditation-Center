@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CheckCircle2, Users, X } from 'lucide-react';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
@@ -14,6 +14,21 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const [member, setMember] = useState(null);
+
+  useEffect(() => {
+    if (!open) return;
+    setMode('choice');
+    setName(initialName);
+    setEmail(initialEmail);
+    setPhone(initialPhone);
+    setCountry('');
+    setPassword('');
+    setConfirmPassword('');
+    setLoading(false);
+    setError('');
+    setMessage('');
+    setMember(null);
+  }, [open, initialName, initialEmail, initialPhone]);
 
   if (!open) return null;
 
