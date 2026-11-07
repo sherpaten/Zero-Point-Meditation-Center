@@ -32,7 +32,7 @@ const availableServices = [
 
 const fieldClass = 'mt-1 w-full rounded-xl border border-stone-300 bg-white px-3 py-2.5 text-stone-900 outline-none focus:border-amber-700 focus:ring-2 focus:ring-amber-700/20';
 
-export default function BookingModal({ open, onClose, initialType = 'event', initialService = '', initialTeacher = '', fixedSelection = false, workflow = 'standard' }) {
+export default function BookingModal({ open, onClose, initialType = 'event', initialService = '', initialTeacher = '', fixedSelection = false, workflow = 'standard', showMembershipPrompt = false }) {
   const [type, setType] = useState(initialType);
   const [service, setService] = useState(initialService || 'Free Meditation Class');
   const [externalEvent, setExternalEvent] = useState('lam-rim');
@@ -133,7 +133,7 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           : type === 'event'
             ? 'Thank you — your event registration request has been sent. The center will contact you to confirm your place and share any relevant details. No payment is collected through this form.'
             : 'Thank you — your enquiry has been sent to Zero Point Meditation Center. The team will contact you to confirm availability, pricing, and next steps. Please wait for confirmation before making any payment.');
-      if (workflow !== 'inquiry') {
+      if (showMembershipPrompt && workflow !== 'inquiry') {
         setMembershipPrefill({ full_name: form.name.trim(), email: form.email.trim(), phone: form.phone.trim() });
         setMembershipPromptOpen(true);
       }
