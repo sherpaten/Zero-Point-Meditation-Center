@@ -58,7 +58,11 @@ function ServiceSection({ id, eyebrow, title, description, icon, items, imageKey
       </div>
       <motion.div variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.06 } } }} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.08 }} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
         {items.map((item) => (
-          <motion.article key={item.name} variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.35 } } }} whileHover={{ y: -5, transition: { duration: 0.18 } }} className="bg-white rounded-2xl border border-stone-200 p-5 shadow-sm hover:shadow-lg transition-shadow flex flex-col">
+          <motion.article key={item.name} variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.35 } } }} whileHover={{ y: -5, transition: { duration: 0.18 } }} className="overflow-hidden bg-white rounded-2xl border border-stone-200 shadow-sm hover:shadow-lg transition-shadow flex flex-col">
+            <div className="aspect-[16/9] overflow-hidden bg-amber-50">
+              <img src={serviceImages[imageKey].src} alt={serviceImages[imageKey].alt} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 hover:scale-[1.03]" />
+            </div>
+            <div className="flex flex-1 flex-col p-5">
             <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-amber-50 text-buddhist-gold">{icon}</div>
             <h3 className="font-serif text-lg font-bold leading-snug text-buddhist-burgundy">{item.name}</h3>
             {item.duration && <p className="mt-2 flex items-center gap-2 text-sm text-stone-500"><Clock3 size={15} />{item.duration}</p>}
@@ -67,6 +71,7 @@ function ServiceSection({ id, eyebrow, title, description, icon, items, imageKey
             <div className="mt-auto pt-5 grid grid-cols-2 gap-2">
               <button type="button" onClick={() => onAction('booking', item.name)} className="rounded-full bg-buddhist-burgundy px-3 py-2.5 text-xs sm:text-sm font-bold text-white transition hover:bg-red-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700">Book now</button>
               <button type="button" onClick={() => onAction('inquiry', item.name)} className="rounded-full border border-buddhist-burgundy px-3 py-2.5 text-xs sm:text-sm font-bold text-buddhist-burgundy transition hover:bg-amber-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700">Enquire</button>
+            </div>
             </div>
           </motion.article>
         ))}
