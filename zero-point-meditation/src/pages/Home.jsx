@@ -244,7 +244,7 @@ export default function Home() {
                 Get to know our community, teachings, and vision.
               </p>
             </div>
-            <div className="relative w-full max-w-3xl overflow-hidden rounded-2xl border border-amber-200/80 bg-[#fbf8f3] shadow-xl">
+            <div className="relative aspect-video w-full max-w-3xl overflow-hidden rounded-2xl border border-amber-200/80 bg-[#fbf8f3] shadow-xl">
               <video
                 ref={introVideoRef}
                 src={videoSourceReady ? introductionVideo : undefined}
@@ -256,7 +256,7 @@ export default function Home() {
                 onPlay={() => setVideoPlaying(true)}
                 onPause={() => setVideoPlaying(false)}
                 aria-label="Introduction to Zero Point Meditation Center"
-                className="block aspect-video h-full max-h-[560px] w-full object-contain"
+                className="absolute inset-0 h-full w-full object-contain"
               />
               <div className="absolute right-3 top-3 z-20 flex items-center gap-2">
                 <button
@@ -334,14 +334,14 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Open registration for the Nepal-hosted morning meditation session"
-                className="block rounded-xl focus:outline-none focus:ring-4 focus:ring-amber-300"
+                className="block aspect-[4/5] overflow-hidden rounded-xl focus:outline-none focus:ring-4 focus:ring-amber-300"
               >
                 <img
                   src={morningMeditationUsPoster}
                   alt="Morning Meditation weekly practice poster with registration QR code"
                   loading="lazy"
                   decoding="async"
-                  className="mx-auto h-auto max-h-[680px] w-full rounded-xl object-contain transition-opacity hover:opacity-90"
+                  className="h-full w-full rounded-xl object-contain transition-opacity hover:opacity-90"
                 />
               </a>
               <a
