@@ -1,8 +1,52 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useLocation } from 'react-router-dom';
-import { LazyMotion, domAnimation, m } from 'framer-motion';
-import HomeEventsCalendar from './HomeEventsCalendar';
+const HomeEventsCalendar = lazy(() => import('./HomeEventsCalendar'));
+
+function DeferredHomeEventsCalendar({ forceLoad = false }) {
+  const containerRef = useRef(null);
+  const [shouldLoad, setShouldLoad] = useState(forceLoad);
+
+  useEffect(() => {
+    if (forceLoad) {
+      setShouldLoad(true);
+      return undefined;
+    }
+
+    const target = containerRef.current;
+    if (!target) return undefined;
+
+    if (!('IntersectionObserver' in window)) {
+      setShouldLoad(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '1200px 0px' }
+    );
+
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, [forceLoad]);
+
+  return (
+    <div id="home-calendar-heading" ref={containerRef} className="min-h-[700px]">
+      {shouldLoad ? (
+        <Suspense fallback={<div className="min-h-[700px]" aria-hidden="true" />}>
+          <HomeEventsCalendar />
+        </Suspense>
+      ) : (
+        <div className="min-h-[700px]" aria-hidden="true" />
+      )}
+    </div>
+  );
+}
 import { Calendar, MapPin, ArrowRight, Sparkles, Compass, HeartHandshake, ShieldCheck, Flame, Users, BookOpen, Award, Volume2, VolumeX, Play, Pause, Quote } from 'lucide-react';
 
 // Assets (Convert heavy images to .webp in src/assets for maximum speed on Vercel)
@@ -157,7 +201,6 @@ export default function Home() {
   }, [location.hash]);
 
   return (
-    <LazyMotion features={domAnimation}>
       <div className="w-full space-y-16 pb-16">
       <Helmet>
         <title>Meditation & Buddhist Community | Zero Point Meditation Center</title>
@@ -277,11 +320,7 @@ export default function Home() {
       <div className="max-w-6xl mx-auto px-6 space-y-20">
         
         {/* Focused path from the homepage into the center's services */}
-        <m.section
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.45 }}
+        <section
           aria-labelledby="explore-services-heading"
           className="rounded-3xl border border-amber-200/70 bg-amber-50/70 px-6 py-8 sm:px-10 sm:py-9 text-center"
         >
@@ -294,15 +333,11 @@ export default function Home() {
           <Link to="/services" className="mt-5 inline-flex items-center gap-2 rounded-xl bg-buddhist-burgundy px-6 py-3 text-xs font-bold uppercase tracking-wider text-amber-50 shadow-md transition-colors hover:bg-red-900">
             Explore Services <ArrowRight size={14} />
           </Link>
-        </m.section>
+        </section>
 
 
         {/* Free Morning Meditation posters */}
-        <m.section
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <section
           aria-labelledby="free-morning-meditation-heading"
           className="space-y-8"
         >
@@ -386,14 +421,10 @@ export default function Home() {
               View Schedule & Register <ArrowRight size={14} />
             </Link>
           </div>
-        </m.section>
+        </section>
 
         {/* Community reflections */}
-        <m.section
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <section
           aria-labelledby="community-reflections-heading"
           className="space-y-8"
         >
@@ -411,12 +442,8 @@ export default function Home() {
 
           <div id="community-testimonials-grid" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {testimonials.slice(0, showAllTestimonials ? testimonials.length : 6).map((review, index) => (
-              <m.article
+              <article
                 key={review.name}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.35, delay: (index % 3) * 0.06 }}
                 className="flex h-full flex-col rounded-2xl border border-amber-200/70 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
               >
                 <Quote size={23} aria-hidden="true" className="mb-3 text-buddhist-gold/80" />
@@ -425,7 +452,7 @@ export default function Home() {
                   <p className="font-serif text-base font-bold text-buddhist-burgundy">{review.name}</p>
                   <p className="mt-1 text-[10px] font-semibold uppercase tracking-wider text-stone-400">Community reflection</p>
                 </div>
-              </m.article>
+              </article>
             ))}
           </div>
 
@@ -443,9 +470,9 @@ export default function Home() {
               </button>
             </div>
           )}
-        </m.section>
+        </section>
 
-        <HomeEventsCalendar />
+        <DeferredHomeEventsCalendar forceLoad={location.hash === '#home-calendar-heading'} />
 
         {/* Event & Practice Gallery */}
         <div className="space-y-8">
@@ -463,13 +490,8 @@ export default function Home() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {eventGallery.map((item, index) => (
-              <m.div
+              <div
                 key={item.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -8 }}
                 className="bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm hover:shadow-xl transition-all flex flex-col justify-between group"
               >
                 <div>
@@ -526,7 +548,7 @@ export default function Home() {
                     </Link>
                   )}
                 </div>
-              </m.div>
+              </div>
             ))}
           </div>
 
@@ -541,11 +563,7 @@ export default function Home() {
         </div>
 
         {/* Community partners */}
-        <m.section
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+        <section
           aria-labelledby="community-partners-heading"
           className="space-y-8 rounded-3xl border border-amber-200/70 bg-amber-50/60 px-6 py-10 sm:px-10 sm:py-12"
         >
@@ -585,11 +603,10 @@ export default function Home() {
               </div>
             ))}
           </div>
-        </m.section>
+        </section>
 
       </div>
 
       </div>
-    </LazyMotion>
   );
 }
