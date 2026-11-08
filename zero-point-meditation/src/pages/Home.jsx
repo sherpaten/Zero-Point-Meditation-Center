@@ -1,8 +1,53 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useLocation } from 'react-router-dom';
 import { LazyMotion, domAnimation, m } from 'framer-motion';
-import HomeEventsCalendar from './HomeEventsCalendar';
+const HomeEventsCalendar = lazy(() => import('./HomeEventsCalendar'));
+
+function DeferredHomeEventsCalendar({ forceLoad = false }) {
+  const containerRef = useRef(null);
+  const [shouldLoad, setShouldLoad] = useState(forceLoad);
+
+  useEffect(() => {
+    if (forceLoad) {
+      setShouldLoad(true);
+      return undefined;
+    }
+
+    const target = containerRef.current;
+    if (!target) return undefined;
+
+    if (!('IntersectionObserver' in window)) {
+      setShouldLoad(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '1200px 0px' }
+    );
+
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, [forceLoad]);
+
+  return (
+    <div id="home-calendar-heading" ref={containerRef} className="min-h-[700px]">
+      {shouldLoad ? (
+        <Suspense fallback={<div className="min-h-[700px]" aria-hidden="true" />}>
+          <DeferredHomeEventsCalendar forceLoad={location.hash === '#home-calendar-heading'} />
+        </Suspense>
+      ) : (
+        <div className="min-h-[700px]" aria-hidden="true" />
+      )}
+    </div>
+  );
+}
 import { Calendar, MapPin, ArrowRight, Sparkles, Compass, HeartHandshake, ShieldCheck, Flame, Users, BookOpen, Award, Volume2, VolumeX, Play, Pause, Quote } from 'lucide-react';
 
 // Assets (Convert heavy images to .webp in src/assets for maximum speed on Vercel)
