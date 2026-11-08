@@ -339,6 +339,8 @@ export default function Home() {
                 href="https://bit.ly/morningmeditation_zpmc"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Register for the Nepali morning meditation session"
+                aria-label="Register for the English morning meditation session"
                 className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3 text-xs font-bold uppercase tracking-wider text-amber-50 transition-colors hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2"
               >
                 Register for This Session <ArrowRight size={14} />
