@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { LazyMotion, domAnimation, m } from 'framer-motion';
 import HomeEventsCalendar from './HomeEventsCalendar';
 import { Calendar, MapPin, ArrowRight, Sparkles, Compass, HeartHandshake, ShieldCheck, Flame, Users, BookOpen, Award, Volume2, VolumeX, Play, Pause, Quote } from 'lucide-react';
 
 // Assets (Convert heavy images to .webp in src/assets for maximum speed on Vercel)
-import buddhaLotus from "../assets/buddha-lotus.webp";
-import morningMeditationUsPoster from '../assets/Classes/Poster 1.jpeg';
-import morningMeditationNepalPoster from '../assets/Classes/Poster 2.jpeg';
+import buddhaLotus from "../assets/buddha-lotus-optimized.webp";
+import morningMeditationUsPoster from '../assets/Classes/poster-1-optimized.webp';
+import morningMeditationNepalPoster from '../assets/Classes/poster-2-optimized.webp';
 import introductionVideo from "../assets/Introduction.mp4"; 
 import rinpocheProfile from '../assets/profile.jpg';
 import worldPeacePrayerDay from '../assets/Events/2025/2025 World Peace Prayer Day.jpg';
@@ -98,12 +98,44 @@ export default function Home() {
   const location = useLocation();
   const introVideoRef = useRef(null);
   const [videoMuted, setVideoMuted] = useState(true);
-  const [videoPlaying, setVideoPlaying] = useState(true);
+  const [videoPlaying, setVideoPlaying] = useState(false);
+  const [videoSourceReady, setVideoSourceReady] = useState(false);
   const [showAllTestimonials, setShowAllTestimonials] = useState(false);
+
+  // Load the introduction video only when it approaches the viewport.
+  // On mobile, this keeps the below-the-fold video out of the initial page request.
+  // Once visible, it still autoplays muted and loops as before.
+  useEffect(() => {
+    const video = introVideoRef.current;
+    if (!video) return undefined;
+
+    if (!('IntersectionObserver' in window)) {
+      setVideoSourceReady(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVideoSourceReady(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '0px 0px -120px 0px', threshold: 0.1 }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
 
   const toggleVideoPlayback = async () => {
     const video = introVideoRef.current;
     if (!video) return;
+    if (!video.getAttribute('src')) {
+      setVideoSourceReady(true);
+      setVideoPlaying(true);
+      return;
+    }
     if (video.paused) {
       try {
         await video.play();
@@ -125,7 +157,7 @@ export default function Home() {
   }, [location.hash]);
 
   return (
-    
+    <LazyMotion features={domAnimation}>
       <div className="w-full space-y-16 pb-16">
       <Helmet>
         <title>Meditation & Buddhist Community | Zero Point Meditation Center</title>
@@ -150,6 +182,8 @@ export default function Home() {
               <img
                 src={buddhaLotus}
                 alt="Buddha seated on a lotus"
+                width="1440"
+                height="960"
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
@@ -160,12 +194,7 @@ export default function Home() {
             </div>
 
             <div className="relative z-20 mx-auto w-full max-w-3xl px-6 py-16 text-center sm:px-10 lg:px-12">
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="space-y-6"
-              >
+              <div className="space-y-6">
                 <span className="inline-flex items-center justify-center gap-1.5 rounded-full border border-amber-300/80 bg-white/90 px-5 py-2 text-xs font-bold uppercase tracking-widest text-buddhist-gold shadow-md backdrop-blur-md">
                   <Sparkles size={14} /> Pause. Breathe. Find Your Center.
                 </span>
@@ -192,7 +221,7 @@ export default function Home() {
                     About the Center
                   </Link>
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
 
@@ -206,19 +235,19 @@ export default function Home() {
                 Get to know our community, teachings, and vision.
               </p>
             </div>
-            <div className="relative w-full max-w-3xl overflow-hidden rounded-2xl border border-amber-200/80 bg-[#fbf8f3] shadow-xl">
+            <div className="relative aspect-video w-full max-w-3xl overflow-hidden rounded-2xl border border-amber-200/80 bg-[#fbf8f3] shadow-xl">
               <video
                 ref={introVideoRef}
-                src={introductionVideo}
+                src={videoSourceReady ? introductionVideo : undefined}
                 autoPlay
                 muted={videoMuted}
                 loop
                 playsInline
-                preload="auto"
+                preload="none"
                 onPlay={() => setVideoPlaying(true)}
                 onPause={() => setVideoPlaying(false)}
                 aria-label="Introduction to Zero Point Meditation Center"
-                className="block aspect-video h-full max-h-[560px] w-full object-contain"
+                className="absolute inset-0 h-full w-full object-contain"
               />
               <div className="absolute right-3 top-3 z-20 flex items-center gap-2">
                 <button
@@ -248,7 +277,7 @@ export default function Home() {
       <div className="max-w-6xl mx-auto px-6 space-y-20">
         
         {/* Focused path from the homepage into the center's services */}
-        <motion.section
+        <m.section
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -265,11 +294,11 @@ export default function Home() {
           <Link to="/services" className="mt-5 inline-flex items-center gap-2 rounded-xl bg-buddhist-burgundy px-6 py-3 text-xs font-bold uppercase tracking-wider text-amber-50 shadow-md transition-colors hover:bg-red-900">
             Explore Services <ArrowRight size={14} />
           </Link>
-        </motion.section>
+        </m.section>
 
 
         {/* Free Morning Meditation posters */}
-        <motion.section
+        <m.section
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -296,20 +325,21 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Open registration for the Nepal-hosted morning meditation session"
-                className="block rounded-xl focus:outline-none focus:ring-4 focus:ring-amber-300"
+                className="block aspect-[4/5] overflow-hidden rounded-xl focus:outline-none focus:ring-4 focus:ring-amber-300"
               >
                 <img
                   src={morningMeditationUsPoster}
                   alt="Morning Meditation weekly practice poster with registration QR code"
                   loading="lazy"
                   decoding="async"
-                  className="mx-auto h-auto max-h-[680px] w-full rounded-xl object-contain transition-opacity hover:opacity-90"
+                  className="h-full w-full rounded-xl object-contain transition-opacity hover:opacity-90"
                 />
               </a>
               <a
                 href="https://bit.ly/morningmeditation_zpmc"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Register for the Nepali morning meditation session"
                 className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3 text-xs font-bold uppercase tracking-wider text-amber-50 transition-colors hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2"
               >
                 Register for This Session <ArrowRight size={14} />
@@ -323,15 +353,16 @@ export default function Home() {
                 href="https://bit.ly/morningmeditation2_zpmc"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Register for the English morning meditation session"
                 aria-label="Open registration for the English morning meditation session"
-                className="block rounded-xl focus:outline-none focus:ring-4 focus:ring-amber-300"
+                className="block aspect-[4/5] overflow-hidden rounded-xl focus:outline-none focus:ring-4 focus:ring-amber-300"
               >
                 <img
                   src={morningMeditationNepalPoster}
                   alt="English morning meditation weekly practice poster with registration QR code"
                   loading="lazy"
                   decoding="async"
-                  className="mx-auto h-auto max-h-[680px] w-full rounded-xl object-contain transition-opacity hover:opacity-90"
+                  className="h-full w-full rounded-xl object-contain transition-opacity hover:opacity-90"
                 />
               </a>
               <a
@@ -355,10 +386,10 @@ export default function Home() {
               View Schedule & Register <ArrowRight size={14} />
             </Link>
           </div>
-        </motion.section>
+        </m.section>
 
         {/* Community reflections */}
-        <motion.section
+        <m.section
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -380,7 +411,7 @@ export default function Home() {
 
           <div id="community-testimonials-grid" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {testimonials.slice(0, showAllTestimonials ? testimonials.length : 6).map((review, index) => (
-              <motion.article
+              <m.article
                 key={review.name}
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -394,7 +425,7 @@ export default function Home() {
                   <p className="font-serif text-base font-bold text-buddhist-burgundy">{review.name}</p>
                   <p className="mt-1 text-[10px] font-semibold uppercase tracking-wider text-stone-400">Community reflection</p>
                 </div>
-              </motion.article>
+              </m.article>
             ))}
           </div>
 
@@ -412,7 +443,7 @@ export default function Home() {
               </button>
             </div>
           )}
-        </motion.section>
+        </m.section>
 
         <HomeEventsCalendar />
 
@@ -432,7 +463,7 @@ export default function Home() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {eventGallery.map((item, index) => (
-              <motion.div
+              <m.div
                 key={item.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -495,7 +526,7 @@ export default function Home() {
                     </Link>
                   )}
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
 
@@ -510,7 +541,7 @@ export default function Home() {
         </div>
 
         {/* Community partners */}
-        <motion.section
+        <m.section
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -554,10 +585,11 @@ export default function Home() {
               </div>
             ))}
           </div>
-        </motion.section>
+        </m.section>
 
       </div>
 
-    </div>
+      </div>
+    </LazyMotion>
   );
 }

@@ -1,4 +1,3 @@
-
 import React, { useEffect, Suspense, lazy } from 'react';
 import {
   BrowserRouter as Router,
@@ -9,6 +8,7 @@ import {
 } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
+import Footer from './components/Footer.jsx'; // Eager render prevents the footer from shifting after initial paint.
 import { preload } from 'react-dom';
 import welcomeHeroImage from './assets/Boudha.jpg?url';
 
@@ -17,7 +17,6 @@ if (typeof window !== 'undefined' && window.location.pathname === '/') {
 }
 
 const Navbar = lazy(() => import('./components/Navbar.jsx'));
-const Footer = lazy(() => import('./components/Footer.jsx'));
 const FloatingAssistant = lazy(() => import('./components/FloatingAssistant.jsx'));
 
 const Home = lazy(() => import('./pages/Home.jsx'));
@@ -30,20 +29,14 @@ const Welcome = lazy(() => import('./pages/Welcome.jsx'));
 const Services = lazy(() => import('./pages/Services.jsx'));
 
 const Membership = lazy(() => import('./pages/Membership.jsx'));
-const MembershipCheckin = lazy(
-  () => import('./pages/MembershipCheckin.jsx')
-);
-const MembershipAdmin = lazy(
-  () => import('./pages/MembershipAdmin.jsx')
-);
+const MembershipCheckin = lazy(() => import('./pages/MembershipCheckin.jsx'));
+const MembershipAdmin = lazy(() => import('./pages/MembershipAdmin.jsx'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-
   return null;
 }
 
@@ -81,38 +74,20 @@ function SiteLayout() {
             <Route path="/home" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
-
             <Route path="/membership" element={<Membership />} />
-
-            <Route
-              path="/membership-checkin"
-              element={<MembershipCheckin />}
-            />
-
-            <Route
-              path="/membership-admin"
-              element={<MembershipAdmin />}
-            />
-
+            <Route path="/membership-checkin" element={<MembershipCheckin />} />
+            <Route path="/membership-admin" element={<MembershipAdmin />} />
             <Route path="/teachers" element={<Teachings />} />
-            <Route
-              path="/teachings"
-              element={<Navigate to="/teachers" replace />}
-            />
+            <Route path="/teachings" element={<Navigate to="/teachers" replace />} />
             <Route path="/events" element={<Events />} />
             <Route path="/merchandise" element={<Merchandise />} />
             <Route path="/contact" element={<Contact />} />
-
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>
       </main>
 
-      {!isWelcome && (
-        <Suspense fallback={null}>
-          <Footer />
-        </Suspense>
-      )}
+      {!isWelcome && <Footer />}
 
       {!isWelcome && (
         <Suspense fallback={null}>

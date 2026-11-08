@@ -1,30 +1,34 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Queue analytics immediately, then load the third-party library after the initial page load. -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){window.dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-3TBJRRVRGH');
-      window.addEventListener('load', function () {
-        var loadGoogleTag = function () {
-          if (document.getElementById('google-analytics-tag')) return;
-          var script = document.createElement('script');
-          script.id = 'google-analytics-tag';
-          script.async = true;
-          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-3TBJRRVRGH';
-          document.head.appendChild(script);
-        };
-        if ('requestIdleCallback' in window) {
-          window.requestIdleCallback(loadGoogleTag, { timeout: 2500 });
-        } else {
-          window.setTimeout(loadGoogleTag, 1200);
-        }
-      }, { once: true });
+      var analyticsLoaded = false;
+      var loadGoogleTag = function () {
+        if (analyticsLoaded || document.getElementById('google-analytics-tag')) return;
+        analyticsLoaded = true;
+        var script = document.createElement('script');
+        script.id = 'google-analytics-tag';
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-3TBJRRVRGH';
+        document.head.appendChild(script);
+        ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (eventName) {
+          window.removeEventListener(eventName, loadGoogleTag);
+        });
+      };
+      ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (eventName) {
+        window.addEventListener(eventName, loadGoogleTag, { once: true, passive: true });
+      });
+      // Keep analytics off the critical loading path; load it after 12 seconds if
+      // the visitor does not interact first.
+      window.setTimeout(loadGoogleTag, 12000);
     </script>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#FAF6F0" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="icon" type="image/svg+xml" href="/src/assets/LOGO.svg" />

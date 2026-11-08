@@ -47,7 +47,7 @@ export default function FloatingAssistant() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with Zero Point Meditation Center on WhatsApp"
-        className="flex h-14 items-center gap-2 rounded-full bg-[#25D366] px-5 text-white shadow-lg transition hover:scale-105 hover:bg-[#1fb95a] focus:outline-none focus:ring-2 focus:ring-[#25D366] focus:ring-offset-2"
+        className="flex h-14 items-center gap-2 rounded-full bg-[#087F3E] px-5 text-white shadow-lg transition hover:scale-105 hover:bg-[#066633] focus:outline-none focus:ring-2 focus:ring-[#087F3E] focus:ring-offset-2"
       >
         <MessageCircle size={23} />
         <span className="text-sm font-semibold">WhatsApp</span>
