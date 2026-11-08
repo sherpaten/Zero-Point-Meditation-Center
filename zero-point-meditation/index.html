@@ -19,9 +19,9 @@
           document.head.appendChild(script);
         };
         if ('requestIdleCallback' in window) {
-          window.requestIdleCallback(loadGoogleTag, { timeout: 2500 });
+          window.requestIdleCallback(loadGoogleTag, { timeout: 8000 });
         } else {
-          window.setTimeout(loadGoogleTag, 1200);
+          window.setTimeout(loadGoogleTag, 8000);
         }
       }, { once: true });
     </script>
