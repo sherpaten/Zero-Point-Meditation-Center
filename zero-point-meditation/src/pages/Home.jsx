@@ -40,7 +40,7 @@ function DeferredHomeEventsCalendar({ forceLoad = false }) {
     <div id="home-calendar-heading" ref={containerRef} className="min-h-[700px]">
       {shouldLoad ? (
         <Suspense fallback={<div className="min-h-[700px]" aria-hidden="true" />}>
-          <DeferredHomeEventsCalendar forceLoad={location.hash === '#home-calendar-heading'} />
+          <HomeEventsCalendar />
         </Suspense>
       ) : (
         <div className="min-h-[700px]" aria-hidden="true" />
@@ -490,7 +490,7 @@ export default function Home() {
           )}
         </m.section>
 
-        <HomeEventsCalendar />
+        <DeferredHomeEventsCalendar forceLoad={location.hash === '#home-calendar-heading'} />
 
         {/* Event & Practice Gallery */}
         <div className="space-y-8">
