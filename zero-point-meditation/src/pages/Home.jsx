@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { preload } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { LazyMotion, domAnimation, m } from 'framer-motion';
 import HomeEventsCalendar from './HomeEventsCalendar';
 import { Calendar, MapPin, ArrowRight, Sparkles, Compass, HeartHandshake, ShieldCheck, Flame, Users, BookOpen, Award, Volume2, VolumeX, Play, Pause, Quote } from 'lucide-react';
 
@@ -156,7 +156,7 @@ export default function Home() {
   }, [location.hash]);
 
   return (
-    
+    <LazyMotion features={domAnimation}>
       <div className="w-full space-y-16 pb-16">
       <Helmet>
         <title>Meditation & Buddhist Community | Zero Point Meditation Center</title>
@@ -191,7 +191,7 @@ export default function Home() {
             </div>
 
             <div className="relative z-20 mx-auto w-full max-w-3xl px-6 py-16 text-center sm:px-10 lg:px-12">
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
@@ -223,7 +223,7 @@ export default function Home() {
                     About the Center
                   </Link>
                 </div>
-              </motion.div>
+              </m.div>
             </div>
           </div>
 
@@ -279,7 +279,7 @@ export default function Home() {
       <div className="max-w-6xl mx-auto px-6 space-y-20">
         
         {/* Focused path from the homepage into the center's services */}
-        <motion.section
+        <m.section
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -296,11 +296,11 @@ export default function Home() {
           <Link to="/services" className="mt-5 inline-flex items-center gap-2 rounded-xl bg-buddhist-burgundy px-6 py-3 text-xs font-bold uppercase tracking-wider text-amber-50 shadow-md transition-colors hover:bg-red-900">
             Explore Services <ArrowRight size={14} />
           </Link>
-        </motion.section>
+        </m.section>
 
 
         {/* Free Morning Meditation posters */}
-        <motion.section
+        <m.section
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -386,10 +386,10 @@ export default function Home() {
               View Schedule & Register <ArrowRight size={14} />
             </Link>
           </div>
-        </motion.section>
+        </m.section>
 
         {/* Community reflections */}
-        <motion.section
+        <m.section
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -411,7 +411,7 @@ export default function Home() {
 
           <div id="community-testimonials-grid" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {testimonials.slice(0, showAllTestimonials ? testimonials.length : 6).map((review, index) => (
-              <motion.article
+              <m.article
                 key={review.name}
                 initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -425,7 +425,7 @@ export default function Home() {
                   <p className="font-serif text-base font-bold text-buddhist-burgundy">{review.name}</p>
                   <p className="mt-1 text-[10px] font-semibold uppercase tracking-wider text-stone-400">Community reflection</p>
                 </div>
-              </motion.article>
+              </m.article>
             ))}
           </div>
 
@@ -443,7 +443,7 @@ export default function Home() {
               </button>
             </div>
           )}
-        </motion.section>
+        </m.section>
 
         <HomeEventsCalendar />
 
@@ -463,7 +463,7 @@ export default function Home() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {eventGallery.map((item, index) => (
-              <motion.div
+              <m.div
                 key={item.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -526,7 +526,7 @@ export default function Home() {
                     </Link>
                   )}
                 </div>
-              </motion.div>
+              </m.div>
             ))}
           </div>
 
@@ -541,7 +541,7 @@ export default function Home() {
         </div>
 
         {/* Community partners */}
-        <motion.section
+        <m.section
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -585,10 +585,11 @@ export default function Home() {
               </div>
             ))}
           </div>
-        </motion.section>
+        </m.section>
 
       </div>
 
-    </div>
+      </div>
+    </LazyMotion>
   );
 }
