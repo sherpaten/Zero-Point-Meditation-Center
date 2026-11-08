@@ -6,9 +6,9 @@ import HomeEventsCalendar from './HomeEventsCalendar';
 import { Calendar, MapPin, ArrowRight, Sparkles, Compass, HeartHandshake, ShieldCheck, Flame, Users, BookOpen, Award, Volume2, VolumeX, Play, Pause, Quote } from 'lucide-react';
 
 // Assets (Convert heavy images to .webp in src/assets for maximum speed on Vercel)
-import buddhaLotus from "../assets/buddha-lotus.webp";
-import morningMeditationUsPoster from '../assets/Classes/Poster 1.jpeg';
-import morningMeditationNepalPoster from '../assets/Classes/Poster 2.jpeg';
+import buddhaLotus from "../assets/buddha-lotus-optimized.webp";
+import morningMeditationUsPoster from '../assets/Classes/poster-1-optimized.webp';
+import morningMeditationNepalPoster from '../assets/Classes/poster-2-optimized.webp';
 import introductionVideo from "../assets/Introduction.mp4"; 
 import rinpocheProfile from '../assets/profile.jpg';
 import worldPeacePrayerDay from '../assets/Events/2025/2025 World Peace Prayer Day.jpg';
@@ -182,8 +182,8 @@ export default function Home() {
               <img
                 src={buddhaLotus}
                 alt="Buddha seated on a lotus"
-                width="1536"
-                height="1024"
+                width="1440"
+                height="960"
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
