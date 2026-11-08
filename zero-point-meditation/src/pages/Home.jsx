@@ -106,25 +106,30 @@ export default function Home() {
   // Let the browser prioritize the visible hero image before loading lower-priority media.
   preload(buddhaLotus, { as: 'image', fetchPriority: 'high' });
 
-  // Defer the introduction video request until the browser has an idle opportunity.
-  // The video still autoplays muted and loops once its source is attached.
+  // Load the introduction video only when it approaches the viewport.
+  // On mobile, this keeps the below-the-fold video out of the initial page request.
+  // Once visible, it still autoplays muted and loops as before.
   useEffect(() => {
-    let idleHandle;
-    let timeoutHandle;
-    const prepareVideo = () => setVideoSourceReady(true);
+    const video = introVideoRef.current;
+    if (!video) return undefined;
 
-    if ('requestIdleCallback' in window) {
-      idleHandle = window.requestIdleCallback(prepareVideo, { timeout: 2500 });
-    } else {
-      timeoutHandle = window.setTimeout(prepareVideo, 1200);
+    if (!('IntersectionObserver' in window)) {
+      setVideoSourceReady(true);
+      return undefined;
     }
 
-    return () => {
-      if (idleHandle !== undefined && 'cancelIdleCallback' in window) {
-        window.cancelIdleCallback(idleHandle);
-      }
-      if (timeoutHandle !== undefined) window.clearTimeout(timeoutHandle);
-    };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVideoSourceReady(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '0px 0px -120px 0px', threshold: 0.1 }
+    );
+
+    observer.observe(video);
+    return () => observer.disconnect();
   }, []);
 
   const toggleVideoPlayback = async () => {
