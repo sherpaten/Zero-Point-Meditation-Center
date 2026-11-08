@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { preload } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import HomeEventsCalendar from './HomeEventsCalendar';
@@ -99,11 +100,41 @@ export default function Home() {
   const introVideoRef = useRef(null);
   const [videoMuted, setVideoMuted] = useState(true);
   const [videoPlaying, setVideoPlaying] = useState(true);
+  const [videoSourceReady, setVideoSourceReady] = useState(false);
   const [showAllTestimonials, setShowAllTestimonials] = useState(false);
+
+  // Let the browser prioritize the visible hero image before loading lower-priority media.
+  preload(buddhaLotus, { as: 'image', fetchPriority: 'high' });
+
+  // Defer the introduction video request until the browser has an idle opportunity.
+  // The video still autoplays muted and loops once its source is attached.
+  useEffect(() => {
+    let idleHandle;
+    let timeoutHandle;
+    const prepareVideo = () => setVideoSourceReady(true);
+
+    if ('requestIdleCallback' in window) {
+      idleHandle = window.requestIdleCallback(prepareVideo, { timeout: 2500 });
+    } else {
+      timeoutHandle = window.setTimeout(prepareVideo, 1200);
+    }
+
+    return () => {
+      if (idleHandle !== undefined && 'cancelIdleCallback' in window) {
+        window.cancelIdleCallback(idleHandle);
+      }
+      if (timeoutHandle !== undefined) window.clearTimeout(timeoutHandle);
+    };
+  }, []);
 
   const toggleVideoPlayback = async () => {
     const video = introVideoRef.current;
     if (!video) return;
+    if (!video.getAttribute('src')) {
+      setVideoSourceReady(true);
+      setVideoPlaying(true);
+      return;
+    }
     if (video.paused) {
       try {
         await video.play();
@@ -209,12 +240,12 @@ export default function Home() {
             <div className="relative w-full max-w-3xl overflow-hidden rounded-2xl border border-amber-200/80 bg-[#fbf8f3] shadow-xl">
               <video
                 ref={introVideoRef}
-                src={introductionVideo}
+                src={videoSourceReady ? introductionVideo : undefined}
                 autoPlay
                 muted={videoMuted}
                 loop
                 playsInline
-                preload="auto"
+                preload="none"
                 onPlay={() => setVideoPlaying(true)}
                 onPause={() => setVideoPlaying(false)}
                 aria-label="Introduction to Zero Point Meditation Center"
