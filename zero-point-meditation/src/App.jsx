@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
-import Footer from './components/Footer.jsx';
+import Footer from './components/Footer.jsx'; // Eager render prevents the footer from shifting after initial paint.
 import { preload } from 'react-dom';
 import welcomeHeroImage from './assets/Boudha.jpg?url';
 
