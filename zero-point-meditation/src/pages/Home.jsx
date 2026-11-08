@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { preload } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
 import { LazyMotion, domAnimation, m } from 'framer-motion';
 import HomeEventsCalendar from './HomeEventsCalendar';
@@ -103,9 +102,6 @@ export default function Home() {
   const [videoSourceReady, setVideoSourceReady] = useState(false);
   const [showAllTestimonials, setShowAllTestimonials] = useState(false);
 
-  // Let the browser prioritize the visible hero image before loading lower-priority media.
-  preload(buddhaLotus, { as: 'image', fetchPriority: 'high' });
-
   // Load the introduction video only when it approaches the viewport.
   // On mobile, this keeps the below-the-fold video out of the initial page request.
   // Once visible, it still autoplays muted and loops as before.
@@ -198,12 +194,7 @@ export default function Home() {
             </div>
 
             <div className="relative z-20 mx-auto w-full max-w-3xl px-6 py-16 text-center sm:px-10 lg:px-12">
-              <m.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="space-y-6"
-              >
+              <div className="space-y-6">
                 <span className="inline-flex items-center justify-center gap-1.5 rounded-full border border-amber-300/80 bg-white/90 px-5 py-2 text-xs font-bold uppercase tracking-widest text-buddhist-gold shadow-md backdrop-blur-md">
                   <Sparkles size={14} /> Pause. Breathe. Find Your Center.
                 </span>
@@ -230,7 +221,7 @@ export default function Home() {
                     About the Center
                   </Link>
                 </div>
-              </m.div>
+              </div>
             </div>
           </div>
 
