@@ -362,14 +362,14 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Open registration for the English morning meditation session"
-                className="block rounded-xl focus:outline-none focus:ring-4 focus:ring-amber-300"
+                className="block aspect-[4/5] overflow-hidden rounded-xl focus:outline-none focus:ring-4 focus:ring-amber-300"
               >
                 <img
                   src={morningMeditationNepalPoster}
                   alt="English morning meditation weekly practice poster with registration QR code"
                   loading="lazy"
                   decoding="async"
-                  className="mx-auto h-auto max-h-[680px] w-full rounded-xl object-contain transition-opacity hover:opacity-90"
+                  className="h-full w-full rounded-xl object-contain transition-opacity hover:opacity-90"
                 />
               </a>
               <a
