@@ -99,7 +99,7 @@ export default function Home() {
   const location = useLocation();
   const introVideoRef = useRef(null);
   const [videoMuted, setVideoMuted] = useState(true);
-  const [videoPlaying, setVideoPlaying] = useState(true);
+  const [videoPlaying, setVideoPlaying] = useState(false);
   const [videoSourceReady, setVideoSourceReady] = useState(false);
   const [showAllTestimonials, setShowAllTestimonials] = useState(false);
 
@@ -181,6 +181,8 @@ export default function Home() {
               <img
                 src={buddhaLotus}
                 alt="Buddha seated on a lotus"
+                width="1536"
+                height="1024"
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
