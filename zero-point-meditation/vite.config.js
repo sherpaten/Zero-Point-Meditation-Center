@@ -15,7 +15,7 @@ export default defineConfig({
           (asset) =>
             asset.type === 'asset' &&
             asset.fileName.includes('buddha-lotus') &&
-            /\\.webp$/i.test(asset.fileName)
+            /\.webp$/i.test(asset.fileName)
         );
 
         const htmlAsset = bundle['index.html'];
@@ -23,7 +23,7 @@ export default defineConfig({
 
         const href = `/${heroAsset.fileName}`;
         const preloadTag = `<link rel="preload" as="image" href="${href}" fetchpriority="high" type="image/webp">`;
-        htmlAsset.source = String(htmlAsset.source).replace('</head>', `  ${preloadTag}\\n</head>`);
+        htmlAsset.source = String(htmlAsset.source).replace('</head>', `  ${preloadTag}\n</head>`);
       },
     },
   ],
