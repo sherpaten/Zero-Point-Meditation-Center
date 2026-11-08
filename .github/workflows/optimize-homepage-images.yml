@@ -24,40 +24,32 @@ jobs:
       - name: Install image optimizer
         run: npm install --no-save --no-package-lock sharp
         working-directory: zero-point-meditation
-      - name: Convert homepage images to optimized WebP
+      - name: Convert homepage and footer images to optimized WebP
         working-directory: zero-point-meditation
         run: |
           node --input-type=module <<'NODE'
           import sharp from 'sharp';
           import fs from 'node:fs/promises';
           const jobs = [
-            ['src/assets/buddha-lotus.webp', 'src/assets/buddha-lotus-optimized.webp', 1440, 78],
-            ['src/assets/Classes/Poster 1.jpeg', 'src/assets/Classes/poster-1-optimized.webp', 720, 90],
-            ['src/assets/Classes/Poster 2.jpeg', 'src/assets/Classes/poster-2-optimized.webp', 720, 90],
+            ['src/assets/buddha-lotus.webp', 'src/assets/buddha-lotus-optimized.webp', 1440, 70],
+            ['src/assets/Classes/Poster 1.jpeg', 'src/assets/Classes/poster-1-optimized.webp', 540, 82],
+            ['src/assets/Classes/Poster 2.jpeg', 'src/assets/Classes/poster-2-optimized.webp', 540, 82],
+            ['src/assets/LOGO.png', 'src/assets/LOGO-optimized.webp', 120, 82],
+            ['src/assets/Icons/facebook.jpg', 'src/assets/Icons/facebook-optimized.webp', 106, 82],
+            ['src/assets/Icons/Instagram.jpg', 'src/assets/Icons/Instagram-optimized.webp', 106, 82],
+            ['src/assets/Icons/LinkedIn.png', 'src/assets/Icons/LinkedIn-optimized.webp', 106, 82],
+            ['src/assets/Icons/Twitter.png', 'src/assets/Icons/Twitter-optimized.webp', 106, 82],
           ];
           for (const [source, target, width, quality] of jobs) {
             const before = (await fs.stat(source)).size;
             await sharp(source)
-              .resize({ width, withoutEnlargement: true })
+              .resize({ width, height: width, fit: 'inside', withoutEnlargement: true })
               .webp({ quality, effort: 6, smartSubsample: true })
               .toFile(target);
             const after = (await fs.stat(target)).size;
             console.log(`${source}: ${before} -> ${after} bytes (${Math.round((1-after/before)*100)}% smaller)`);
           }
           NODE
-      - name: Update homepage imports and image dimensions
-        working-directory: zero-point-meditation
-        run: |
-          python3 - <<'PY'
-          from pathlib import Path
-          p = Path('src/pages/Home.jsx')
-          s = p.read_text()
-          s = s.replace('../assets/buddha-lotus.webp', '../assets/buddha-lotus-optimized.webp')
-          s = s.replace("../assets/Classes/Poster 1.jpeg", "../assets/Classes/poster-1-optimized.webp")
-          s = s.replace("../assets/Classes/Poster 2.jpeg", "../assets/Classes/poster-2-optimized.webp")
-          s = s.replace('width="1536"\n                height="1024"', 'width="1440"\n                height="960"')
-          p.write_text(s)
-          PY
       - name: Commit optimized assets to the feature branch
         run: |
           git config user.name "github-actions[bot]"
@@ -65,6 +57,8 @@ jobs:
           git add zero-point-meditation/src/assets/buddha-lotus-optimized.webp
           git add zero-point-meditation/src/assets/Classes/poster-1-optimized.webp
           git add zero-point-meditation/src/assets/Classes/poster-2-optimized.webp
+          git add zero-point-meditation/src/assets/LOGO-optimized.webp
+          git add zero-point-meditation/src/assets/Icons/*-optimized.webp
           git add zero-point-meditation/src/pages/Home.jsx
           git commit -m "Optimize homepage image assets"
           git push origin HEAD:feature/homepage-performance-optimization
