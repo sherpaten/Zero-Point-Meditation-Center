@@ -269,6 +269,24 @@ export default function Membership() {
 
       if (signupError) throw signupError;
 
+      try {
+        const notificationResponse = await fetch('/api/membership-notification', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: form.full_name.trim(),
+            email: form.email.trim(),
+            phone: form.phone.trim(),
+            country: form.country.trim(),
+          }),
+        });
+        if (!notificationResponse.ok) {
+          console.error('Membership was created, but the team notification email could not be sent.');
+        }
+      } catch (notificationError) {
+        console.error('Membership was created, but the team notification request failed:', notificationError);
+      }
+
       setMessage(
         'Thank you for joining us! Please check your email for a verification link to activate your account.'
       );

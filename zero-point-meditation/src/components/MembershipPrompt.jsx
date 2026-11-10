@@ -77,6 +77,23 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
         },
       });
       if (signupError) throw signupError;
+      try {
+        const notificationResponse = await fetch('/api/membership-notification', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: name.trim(),
+            email: email.trim(),
+            phone: phone.trim(),
+            country: country.trim(),
+          }),
+        });
+        if (!notificationResponse.ok) {
+          console.error('Membership was created, but the team notification email could not be sent.');
+        }
+      } catch (notificationError) {
+        console.error('Membership was created, but the team notification request failed:', notificationError);
+      }
       if (data.session && data.user) {
         await loadMember(data.user.id);
         setMessage('Welcome to the ZPMC community. Your membership has been created.');
