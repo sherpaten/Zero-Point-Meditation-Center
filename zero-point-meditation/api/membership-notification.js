@@ -1,4 +1,7 @@
-const recipient = 'bookings@zeropointmeditationcenter.org';
+const recipients = [
+  'bookings@zeropointmeditationcenter.org',
+  'admin@zeropointmeditationcenter.org'
+];
 const allowedOrigins = new Set([
   'https://www.zeropointmeditationcenter.org',
   'https://zeropointmeditationcenter.org',
@@ -18,7 +21,9 @@ export default async function handler(req, res) {
   }
 
   const origin = req.headers.origin;
-  if (!origin || !allowedOrigins.has(origin)) {
+  const isProjectPreviewOrigin = typeof origin === 'string'
+    && /^https:\/\/zero-point-meditation-[a-z0-9-]+-tenzings-projects\.vercel\.app$/.test(origin);
+  if (!origin || (!allowedOrigins.has(origin) && !isProjectPreviewOrigin)) {
     return res.status(403).json({ error: 'Request origin is not allowed.' });
   }
 
@@ -71,7 +76,7 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         from: fromEmail,
-        to: [recipient],
+        to: recipients,
         reply_to: email,
         subject: 'New ZPMC membership application: ' + name,
         text
