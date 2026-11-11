@@ -168,8 +168,8 @@ export default function Teachings() {
             { name: 'Mimi Lama', role: 'Secretary of ZPMC', image: mimiLamaPhoto },
           ].map((person) => (
             <article key={person.name} className="overflow-hidden rounded-2xl border border-amber-100 bg-white shadow-sm">
-              <div className="aspect-[4/3] overflow-hidden bg-stone-100">
-                <img src={person.image} alt={person.name} loading="lazy" className="h-full w-full object-cover object-top" />
+              <div className={`aspect-[4/3] overflow-hidden bg-stone-100 ${person.name === 'Smirti Pradhan' ? 'flex items-center justify-center' : ''}`}>
+                <img src={person.image} alt={person.name} loading="lazy" className={`h-full w-full ${person.name === 'Smirti Pradhan' ? 'object-contain' : 'object-cover object-top'}`} />
               </div>
               <div className="p-5 text-center">
                 <h3 className="font-serif text-lg font-bold text-buddhist-burgundy">{person.name}</h3>
