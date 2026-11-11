@@ -103,7 +103,7 @@ const galleryItems = [
     description: 'With a deeply saddened heart, we offer our thoughts and prayers for Nepal and everyone impacted by this devastating natural disaster. May all those affected receive swift support, strength, and healing. Honoring lives lost, strength for families, safety and care, and a collective call to compassion through the blessings of the Three Jewels. Om Mani Padme Hum. 🙏🙏🙏'
   },
   {
-    id: 47, group: 'Current', title: 'The Three Principle Stages of the Buddhist Path: Lam Rim',
+    id: 47, group: 'Current', featured: true, title: 'The Three Principle Stages of the Buddhist Path: Lam Rim',
     type: 'event', category: 'Upcoming Event', date: 'November 19, 24 & December 3, 10, 2026',
     location: 'Tibet House US, New York & Online',
     image: 'https://shop.thus.org/cdn/shop/files/LAMRIM2-SQUARE_6cc2170b-5412-480c-ba7a-1cc6a5eeca7a_1024x1024.png?v=1793219873',
@@ -483,10 +483,11 @@ export default function Events() {
               onClick={() => setSelectedMedia(item)}
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedMedia(item); } }}
               role="button" tabIndex={0} aria-label={`View details for ${item.title}`}
-              className="bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm hover:shadow-lg transition-shadow cursor-pointer group flex flex-col">
+              className={`bg-white rounded-2xl border overflow-hidden shadow-sm hover:shadow-lg transition-shadow cursor-pointer group flex flex-col ${item.featured ? 'border-amber-400 ring-2 ring-amber-200 shadow-md sm:col-span-2 lg:col-span-2' : 'border-stone-200'}`}>
 {/* Posters are displayed as artwork only; event cards retain their details. */}
               <div className={`relative overflow-hidden bg-stone-100 ${item.type === 'poster' ? 'aspect-[3/4]' : 'aspect-[4/3]'}`}>
                 <EventPhotoSlider item={item} />
+                {item.featured && <span className="absolute top-3 right-3 z-10 bg-amber-400 text-stone-950 text-[10px] font-extrabold px-3 py-1.5 rounded-full uppercase tracking-wider shadow">Featured Event</span>}
                 <div className="absolute inset-0 bg-stone-950/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <span className="bg-white/20 backdrop-blur-md text-white p-3 rounded-full border border-white/30"><Eye size={20} /></span>
                 </div>
