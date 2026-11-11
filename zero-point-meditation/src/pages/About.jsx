@@ -14,6 +14,8 @@ import tenzingNorkaySherpa from '../assets/Teams/Tenzing Norkay Sherpa.webp';
 import smrityPhoto from '../assets/Teams/Smty.jpeg';
 import mimiLamaPhoto from '../assets/Teams/Mimi Lama.jpeg';
 import mayaKarmaJinpaPhoto from '../assets/Teams/Maya Karma Jinpa.jpeg';
+import ugenSherpaPhoto from '../assets/Teams/Ugen Sherpa.jpeg';
+import gyanBahadurLamaPhoto from '../assets/Teams/Gyan Bahadur Lama .jpeg';
 import journeyTeaching1 from '../assets/Teaching 1.webp';
 import journeyTeaching2 from '../assets/Teaching 2.jpg';
 import journeyTeaching3 from '../assets/Teaching 3.webp';
@@ -65,6 +67,8 @@ export default function About() {
     { name: 'Mimi Lama', role: 'Secretary of ZPMC', group: 'Team', image: mimiLamaPhoto, alt: 'Mimi Lama, Secretary of Zero Point Meditation Center' },
     { name: 'Shirley Huang', role: 'Advisor', group: 'Advisors', image: null, alt: 'Profile placeholder for Shirley Huang, Advisor' },
     { name: 'Maya Karma Jinpa', role: 'Advisor', group: 'Advisors', image: mayaKarmaJinpaPhoto, alt: 'Maya Karma Jinpa, Advisor to Zero Point Meditation Center' },
+    { name: 'Ugen Sherpa', role: 'Advisor', group: 'Advisors', image: ugenSherpaPhoto, alt: 'Ugen Sherpa, Advisor to Zero Point Meditation Center' },
+    { name: 'Gyan Bahadur Lama', role: 'Advisor', group: 'Advisors', image: gyanBahadurLamaPhoto, alt: 'Gyan Bahadur Lama, Advisor to Zero Point Meditation Center' },
     { name: 'Jessica', role: 'Member', group: 'Members', image: null, alt: 'Profile placeholder for Jessica, Member' },
     { name: 'Dawa Dorje Sherpa', role: 'Member', group: 'Members', image: null, alt: 'Profile placeholder for Dawa Dorje Sherpa' }
   ];
@@ -363,6 +367,10 @@ export default function About() {
         <section id="team" aria-labelledby="team-members-heading" className="space-y-5 scroll-mt-28">
           <div className="text-center"><h3 id="team-members-heading" className="font-serif text-2xl font-bold text-buddhist-burgundy">Team</h3><p className="mt-1 text-sm text-stone-500">The people supporting the center’s day-to-day work</p></div>
           {renderPeople('Team')}
+        </section>
+        <section id="advisors" aria-labelledby="advisors-heading" className="space-y-5 scroll-mt-28">
+          <div className="text-center"><h3 id="advisors-heading" className="font-serif text-2xl font-bold text-buddhist-burgundy">Advisors</h3><p className="mt-1 text-sm text-stone-500">Guidance and wisdom supporting the center’s mission</p></div>
+          {renderPeople('Advisors')}
         </section>
         <section id="members" aria-labelledby="members-heading" className="space-y-5 scroll-mt-28">
           <div className="text-center"><h3 id="members-heading" className="font-serif text-2xl font-bold text-buddhist-burgundy">Members</h3><p className="mt-1 text-sm text-stone-500">Part of our growing community</p></div>
