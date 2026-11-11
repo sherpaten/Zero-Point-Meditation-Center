@@ -483,7 +483,7 @@ export default function Events() {
               onClick={() => setSelectedMedia(item)}
               onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedMedia(item); } }}
               role="button" tabIndex={0} aria-label={`View details for ${item.title}`}
-              className={`bg-white rounded-2xl border overflow-hidden shadow-sm hover:shadow-lg transition-shadow cursor-pointer group flex flex-col ${item.featured ? 'border-amber-400 ring-2 ring-amber-200 shadow-md sm:col-span-2 lg:col-span-2' : 'border-stone-200'}`}>
+              className={`bg-white rounded-2xl border overflow-hidden shadow-sm hover:shadow-lg transition-shadow cursor-pointer group flex flex-col ${item.featured ? 'border-amber-400 ring-2 ring-amber-200 shadow-md' : 'border-stone-200'}`}>
 {/* Posters are displayed as artwork only; event cards retain their details. */}
               <div className={`relative overflow-hidden bg-stone-100 ${item.type === 'poster' ? 'aspect-[3/4]' : 'aspect-[4/3]'}`}>
                 <EventPhotoSlider item={item} />
