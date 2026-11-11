@@ -100,8 +100,8 @@ const eventGallery = [
 ];;
 
 const testimonials = [
-  { name: 'Maya Karma Jinpa', quote: "Rinpoche's teachings are deeply inspiring. His explanations of Buddhist philosophy make difficult subjects easy to understand and apply in everyday life." }
-  { name: 'Maya Chen', quote: 'I found the meditation session incredibly peaceful. Rinpoche has a wonderful way of helping people reconnect with themselves and develop compassion.' }
+  { name: 'Maya Karma Jinpa', quote: "Rinpoche's teachings are deeply inspiring. His explanations of Buddhist philosophy make difficult subjects easy to understand and apply in everyday life." },
+  { name: 'Maya Chen', quote: 'I found the meditation session incredibly peaceful. Rinpoche has a wonderful way of helping people reconnect with themselves and develop compassion.' },
   { name: 'Anjali Sharma', quote: 'The teachings on compassion and mindfulness touched my heart. I left feeling peaceful, encouraged, and motivated to become a kinder person.' }
 ];
 
