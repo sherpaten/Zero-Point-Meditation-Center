@@ -102,22 +102,7 @@ const eventGallery = [
 const testimonials = [
   { name: 'Maya Karma Jinpa', quote: "Rinpoche's teachings are deeply inspiring. His explanations of Buddhist philosophy make difficult subjects easy to understand and apply in everyday life." },
   { name: 'Maya Chen', quote: 'I found the meditation session incredibly peaceful. Rinpoche has a wonderful way of helping people reconnect with themselves and develop compassion.' },
-  { name: 'Anjali Sharma', quote: 'The teachings on compassion and mindfulness touched my heart. I left feeling peaceful, encouraged, and motivated to become a kinder person.' },
-  { name: 'Kenji Nakamura', quote: 'A beautiful experience. Rinpoche explains ancient Buddhist wisdom in a way that feels relevant to modern life.' },
-  { name: 'Jessica Wu', quote: "Rinpoche's teachings reminded me of the importance of genuine compassion, patience, and developing a sincere heart toward all beings." },
-  { name: 'Priya Patel', quote: 'I especially appreciated the practical meditation guidance. It was not simply philosophy; it was something I could bring into my daily life.' },
-  { name: 'David Wong', quote: 'The atmosphere was welcoming, and the teachings were profound without being complicated. I would highly recommend attending.' },
-  { name: 'Lhakpa Sherpa', quote: 'Rinpoche communicates with warmth and sincerity. His teachings on the mind, suffering, and compassion gave me a new perspective.' },
-  { name: 'Sakura Tanaka', quote: 'An enriching spiritual experience. I appreciated the opportunity to learn about Tibetan Buddhist traditions and experience meditation in such a welcoming environment.' },
-  { name: 'David Rosenberg', quote: 'I appreciated how Rinpoche presented compassion as something universal. His teachings connected with values I have always cherished.' },
-  { name: 'Sarah Goldstein', quote: "The meditation was deeply calming. Rinpoche's message about kindness, compassion, and understanding others was especially meaningful to me." },
-  { name: 'Michael Cohen', quote: 'I enjoyed the openness of the discussion. The teachings encouraged me to reflect on my own life and how I relate to other people.' },
-  { name: 'Rachel Levine', quote: "Rinpoche has a gentle and thoughtful teaching style. I appreciated his reflections on suffering, impermanence, and the importance of living meaningfully." },
-  { name: 'Daniel Friedman', quote: 'As someone raised in the Jewish tradition, I found the discussion of compassion across spiritual traditions particularly beautiful. It was an enriching experience.' },
-  { name: 'Rebecca Stein', quote: 'The session offered a wonderful opportunity to slow down and reflect. I left with a greater appreciation for mindfulness and the importance of compassion.' },
-  { name: 'Jonathan Weiss', quote: "Rinpoche's teachings on death and the meaning of life were thought-provoking. I appreciated the respectful and welcoming atmosphere." },
-  { name: 'Esther Kaplan', quote: 'A beautiful gathering with a meaningful message. The teachings reminded me that compassion and love are values that bring people from different backgrounds together.' },
-  { name: 'Aaron Bernstein', quote: 'I appreciated the depth of Tibetan Buddhist philosophy and the practical approach to meditation. Rinpoche made the teachings accessible and inspiring.' },
+  { name: 'Anjali Sharma', quote: 'The teachings on compassion and mindfulness touched my heart. I left feeling peaceful, encouraged, and motivated to become a kinder person.' }
 ];
 
 const features = [
@@ -144,7 +129,6 @@ export default function Home() {
   const [videoMuted, setVideoMuted] = useState(true);
   const [videoPlaying, setVideoPlaying] = useState(false);
   const [videoSourceReady, setVideoSourceReady] = useState(false);
-  const [showAllTestimonials, setShowAllTestimonials] = useState(false);
 
   // Load the introduction video only when it approaches the viewport.
   // On mobile, this keeps the below-the-fold video out of the initial page request.
@@ -441,7 +425,7 @@ export default function Home() {
           </div>
 
           <div id="community-testimonials-grid" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {testimonials.slice(0, showAllTestimonials ? testimonials.length : 6).map((review, index) => (
+            {testimonials.map((review) => (
               <article
                 key={review.name}
                 className="flex h-full flex-col rounded-2xl border border-amber-200/70 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
@@ -456,20 +440,7 @@ export default function Home() {
             ))}
           </div>
 
-          {testimonials.length > 6 && (
-            <div className="flex justify-center pt-2">
-              <button
-                type="button"
-                onClick={() => setShowAllTestimonials((show) => !show)}
-                aria-expanded={showAllTestimonials}
-                aria-controls="community-testimonials-grid"
-                className="inline-flex items-center gap-2 rounded-xl border border-amber-300 bg-white px-6 py-3 text-xs font-bold uppercase tracking-wider text-buddhist-burgundy shadow-sm transition-colors hover:bg-amber-50 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2"
-              >
-                {showAllTestimonials ? 'Show fewer reflections' : 'Show more reflections'}
-                <ArrowRight size={14} className={showAllTestimonials ? '-rotate-90' : 'rotate-90'} />
-              </button>
-            </div>
-          )}
+
         </section>
 
         <DeferredHomeEventsCalendar forceLoad={location.hash === '#home-calendar-heading'} />
