@@ -2,12 +2,7 @@ import React, { useState } from 'react';
 import BookingModal from '../components/BookingModal.jsx';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { Flower2, BookOpen, Sparkles, HandHeart, Clock3, Landmark } from 'lucide-react';
-import gegyeYongyalRinpoche from "../assets/Teams/Gegye Yongyal Rinpoche's.png";
-import karmaGyatsoPhoto from "../assets/Teams/Teachers/karma Gyatso lopon la .jpeg";
-import jamyangThuptenPhoto from "../assets/Teams/Teachers/Jamyang Thupten.jpeg";
-import tashiDorjeePhoto from "../assets/Teams/Teachers/Tashi Dorjee.jpeg";
-import thuptenSherapPhoto from "../assets/Teams/Teachers/Thupten Sherap.jpeg";
+import { Flower2, BookOpen, Sparkles, Clock3, Landmark } from 'lucide-react';
 
 const courses = [
   { name: 'Introduction to Buddhist Meditation', duration: '45 minutes', description: 'Serves as a low-commitment entry point for first-timers.' },
@@ -152,7 +147,6 @@ export default function Services() {
             { label: 'Retreats', id: 'retreats' },
             { label: 'Corporate Programs', id: 'corporate-programs' },
             { label: 'Prayer Services', id: 'prayer-services' },
-            { label: 'Our Guides', id: 'our-guides' },
           ].map((tab) => (
             <button key={tab.id} type="button"
               onClick={() => {
@@ -214,33 +208,6 @@ export default function Services() {
         onAction={openBooking}
 />
 
-
-      <section id="our-guides" className="scroll-mt-32 space-y-6">
-        <div className="text-center max-w-2xl mx-auto space-y-3">
-          <span className="inline-flex items-center gap-2 text-buddhist-gold font-bold text-xs uppercase tracking-widest"><HandHeart size={14} /> Meet our guides</span>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-buddhist-burgundy">Prayer & Spiritual Guidance</h2>
-          <p className="text-stone-600 leading-relaxed">Meet the teachers and spiritual guides who support our community.</p>
-        </div>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {[
-            { name: "Gegye Yongyal Rinpoche", image: gegyeYongyalRinpoche },
-            { name: "Karma Gyatso Lopon La", image: karmaGyatsoPhoto },
-            { name: "Venerable Geshe Jamyang Thupten", image: jamyangThuptenPhoto },
-            { name: "Venerable Tashi Dorjee", image: tashiDorjeePhoto },
-            { name: "Venerable Thupten Sherap", image: thuptenSherapPhoto },
-          ].map((guide) => (
-            <a key={guide.name} href="/teachers" aria-label={`View ${guide.name} on the Teachers page`} className="group overflow-hidden rounded-2xl border border-amber-100 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-buddhist-gold">
-              <div className="aspect-[4/3] overflow-hidden bg-amber-50">
-                <img src={guide.image} alt={guide.name} loading="lazy" decoding="async" className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]" />
-              </div>
-              <div className="p-4 text-center">
-                <h3 className="font-serif text-lg font-bold text-buddhist-burgundy">{guide.name}</h3>
-                <p className="mt-1 text-sm text-stone-500">View teacher profile</p>
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
 
       <BookingModal open={bookingOpen} onClose={() => setBookingOpen(false)} initialType={bookingType} initialService={bookingService} workflow={bookingWorkflow} />
     </div>
