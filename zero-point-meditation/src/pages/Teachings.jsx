@@ -14,6 +14,8 @@ import gyanBahadurLamaPhoto from '../assets/Teams/Gyan Bahadur Lama .jpeg';
 import tenzingNorkaySherpa from '../assets/Teams/Tenzing Norkay Sherpa.webp';
 import smrityPhoto from '../assets/Teams/Smty.jpeg';
 import mimiLamaPhoto from '../assets/Teams/Mimi Lama.jpeg';
+import zoeLiangPhoto from '../assets/Teams/Zoe Liang.jpeg';
+import shirleyHuangPhoto from '../assets/Teams/Shirley Huang.jpeg';
 
 export default function Teachings() {
   const [bookingOpen, setBookingOpen] = useState(false);
@@ -98,6 +100,12 @@ export default function Teachings() {
               biography: 'Venerable Tashi Dorjee is a Tibetan monastic scholar from Tashi Lhunpo Monastery. He has completed 18 years of extensive monastic study in Buddhist philosophy and is currently part of the eighth cohort of the Tenzin Gyatso Science Scholars at Emory University. Through his study of science, he seeks to integrate scientific knowledge with Buddhist philosophy to promote human values, scientific education, mental well-being, compassion, and ethical values in society.'
             },
             {
+              name: 'Zoe Liang',
+              image: zoeLiangPhoto,
+              summary: 'Psychotherapist, advisor, and teacher at Zero Point Meditation Center.',
+              biography: 'Zoe Liang is a psychotherapist who serves as an advisor and teacher at Zero Point Meditation Center.'
+            },
+            {
               name: 'Venerable Thupten Sherap',
               image: thuptenSherapPhoto,
               summary: 'A Tibetan Buddhist monk, researcher, and educator whose work connects traditional Buddhist philosophy, Tibetan culture, and modern science.',
@@ -131,7 +139,8 @@ export default function Teachings() {
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {[
             { name: 'Maya Karma Jinpa', image: mayaKarmaJinpaPhoto },
-            { name: 'Shirley Huang', image: null },
+            { name: 'Shirley Huang', image: shirleyHuangPhoto },
+            { name: 'Zoe Liang', image: zoeLiangPhoto, role: 'Advisor & Teacher' },
             { name: 'Ugen Sherpa', image: ugenSherpaPhoto },
             { name: 'Gyan Bahadur Lama', image: gyanBahadurLamaPhoto },
           ].map((advisor) => (
@@ -147,7 +156,7 @@ export default function Teachings() {
                 )}
               </div>
               <div className="p-5 text-center">
-                <span className="text-xs font-bold uppercase tracking-widest text-buddhist-gold">Advisor</span>
+                <span className="text-xs font-bold uppercase tracking-widest text-buddhist-gold">{advisor.role || 'Advisor'}</span>
                 <h3 className="mt-1 font-serif text-lg font-bold text-buddhist-burgundy">{advisor.name}</h3>
               </div>
             </article>
