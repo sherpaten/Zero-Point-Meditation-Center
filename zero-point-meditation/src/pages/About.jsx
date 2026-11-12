@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
-import { Users, Trees, Sparkles, Compass, HeartHandshake, CheckCircle2, Building2, BookOpen } from 'lucide-react';
+import { Trees, Sparkles, Compass, HeartHandshake, CheckCircle2, Building2, BookOpen } from 'lucide-react';
 
 // Local Image Imports
 import profileMain from '../assets/profile.jpg';
@@ -10,12 +9,6 @@ import taraGoddess from '../assets/Tara Godesss.webp';
 import profile1 from '../assets/profile 1.jpg';
 import profile2 from '../assets/profile 2.jpg';
 import gegyeYongyalRinpoche from "../assets/Teams/Gegye Yongyal Rinpoche's.png";
-import tenzingNorkaySherpa from '../assets/Teams/Tenzing Norkay Sherpa.webp';
-import smrityPhoto from '../assets/Teams/Smty.jpeg';
-import mimiLamaPhoto from '../assets/Teams/Mimi Lama.jpeg';
-import mayaKarmaJinpaPhoto from '../assets/Teams/Maya Karma Jinpa.jpeg';
-import ugenSherpaPhoto from '../assets/Teams/Ugen Sherpa.jpeg';
-import gyanBahadurLamaPhoto from '../assets/Teams/Gyan Bahadur Lama .jpeg';
 import journeyTeaching1 from '../assets/Teaching 1.webp';
 import journeyTeaching2 from '../assets/Teaching 2.jpg';
 import journeyTeaching3 from '../assets/Teaching 3.webp';
@@ -44,16 +37,6 @@ const globalProjects = [
 ];
 
 export default function About() {
-  const location = useLocation();
-
-  useEffect(() => {
-    if (location.hash === '#team' || location.hash === '#members') {
-      requestAnimationFrame(() => {
-        document.querySelector(location.hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    }
-  }, [location.hash]);
-
   const journeySlides = [
     { year: '2024 · Beginnings', title: 'A place to pause and practice', detail: 'The center’s story began with a commitment to share meditation and Buddhist mind-training in a welcoming setting. The aim was to make time for stillness, self-awareness, and compassion available to people navigating the pressures of everyday life.', image: journeyTeaching1, alt: 'Buddhist teaching and meditation practice' },
     { year: '2025 · Community', title: 'Growing through shared purpose', detail: 'As the vision developed, community connection and collaboration became increasingly important. Meditation, learning, and interfaith dialogue offered ways for people from different backgrounds to listen, learn, and build understanding around shared human concerns.', image: journeyTeaching2, alt: 'Community gathering and shared learning' },
@@ -61,42 +44,12 @@ export default function About() {
   ];
   const [journeyIndex, setJourneyIndex] = useState(0);
   const currentJourney = journeySlides[journeyIndex];
-  const people = [
-    { name: 'Tenzing Norkay Sherpa', role: 'IT Head (Nepal Team)', group: 'Team', image: tenzingNorkaySherpa, alt: 'Tenzing Norkay Sherpa, IT Head of the Nepal Team' },
-    { name: 'Smirti Pradhan', role: 'Analytics and Development Manager', group: 'Team', image: smrityPhoto, alt: 'Smirti Pradhan, Analytics and Development Manager' },
-    { name: 'Mimi Lama', role: 'Secretary of ZPMC', group: 'Team', image: mimiLamaPhoto, alt: 'Mimi Lama, Secretary of Zero Point Meditation Center' },
-    { name: 'Shirley Huang', role: 'Advisor', group: 'Advisors', image: null, alt: 'Profile placeholder for Shirley Huang, Advisor' },
-    { name: 'Maya Karma Jinpa', role: 'Advisor', group: 'Advisors', image: mayaKarmaJinpaPhoto, alt: 'Maya Karma Jinpa, Advisor to Zero Point Meditation Center' },
-    { name: 'Ugen Sherpa', role: 'Advisor', group: 'Advisors', image: ugenSherpaPhoto, alt: 'Ugen Sherpa, Advisor to Zero Point Meditation Center' },
-    { name: 'Gyan Bahadur Lama', role: 'Advisor', group: 'Advisors', image: gyanBahadurLamaPhoto, alt: 'Gyan Bahadur Lama, Advisor to Zero Point Meditation Center' },
-    { name: 'Jessica', role: 'Member', group: 'Members', image: null, alt: 'Profile placeholder for Jessica, Member' },
-    { name: 'Dawa Dorje Sherpa', role: 'Member', group: 'Members', image: null, alt: 'Profile placeholder for Dawa Dorje Sherpa' }
-  ];
-  const renderPeople = (group) => (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 max-w-5xl mx-auto">
-      {people.filter((person) => person.group === group).map((person) => (
-        <motion.article key={person.name} whileHover={{ y: -4 }} className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm transition-shadow hover:shadow-lg">
-          <div className={`aspect-square overflow-hidden bg-amber-50 ${person.name === 'Maya Karma Jinpa' ? 'flex items-center justify-center p-2' : ''}`}>
-            {person.image ? <img src={person.image} alt={person.alt} loading="lazy" className={`h-full w-full ${person.name === 'Maya Karma Jinpa' ? 'object-contain object-center' : 'object-cover object-center transition-transform duration-500 hover:scale-105'}`} /> : (
-              <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-buddhist-burgundy/70" aria-label={person.alt}>
-                <Users size={36} strokeWidth={1.4} /><span className="text-[10px] font-semibold uppercase tracking-wider">Photo coming soon</span>
-              </div>
-            )}
-          </div>
-          <div className="space-y-1.5 p-3 sm:p-4 text-center">
-            <h3 className="font-serif text-sm sm:text-base font-bold text-stone-900 leading-snug">{person.name}</h3>
-            <p className="text-[10px] sm:text-[11px] font-semibold uppercase tracking-wide text-buddhist-gold">{person.role}</p>
-          </div>
-        </motion.article>
-      ))}
-    </div>
-  );
   return (
     
       <div className="max-w-6xl mx-auto px-6 py-12 space-y-16">
       <Helmet>
         <title>About Our Center & Spiritual Guide | Zero Point Meditation Center</title>
-        <meta name="description" content="Learn about Zero Point Meditation Center, its mission, H.E. Gegye Yongyal Tulku Rinpoche, and the team supporting meditation, Buddhist learning and community service."/>
+        <meta name="description" content="Learn about Zero Point Meditation Center, its mission, H.E. Gegye Yongyal Tulku Rinpoche, and its mission, spiritual guidance, and community initiatives."/>
         <link rel="canonical" href="https://www.zeropointmeditationcenter.org/about"/>
         <meta property="og:type" content="website"/>
         <meta property="og:site_name" content="Zero Point Meditation Center"/>
@@ -162,10 +115,10 @@ export default function About() {
           <p className="text-stone-600 text-xs">Explore free community classes, weekly discourses, and ritual gatherings.</p>
           <div className="pt-2">
             <a 
-              href="#team" 
+              href="/teachers" 
               className="inline-block px-5 py-2.5 bg-buddhist-burgundy text-amber-50 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-red-900 transition-colors"
             >
-              Check Our Team
+              Meet Our People
             </a>
           </div>
         </div>
@@ -356,27 +309,6 @@ export default function About() {
           </motion.div>
         </div>
       </div>
-
-      {/* Team, Advisors and Members are shown in separate groups */}
-      <section id="team" className="space-y-12 pt-4 scroll-mt-24" aria-labelledby="team-heading">
-        <div className="text-center max-w-2xl mx-auto space-y-3">
-          <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-1.5"><Users size={14} /> The People Behind the Center</span>
-          <h2 id="team-heading" className="font-serif text-3xl font-bold text-buddhist-burgundy">Our People</h2>
-          <p className="text-stone-600 text-sm leading-relaxed">Meet the people who guide the center’s work and support its community.</p>
-        </div>
-        <section id="team" aria-labelledby="team-members-heading" className="space-y-5 scroll-mt-28">
-          <div className="text-center"><h3 id="team-members-heading" className="font-serif text-2xl font-bold text-buddhist-burgundy">Team</h3><p className="mt-1 text-sm text-stone-500">The people supporting the center’s day-to-day work</p></div>
-          {renderPeople('Team')}
-        </section>
-        <section id="advisors" aria-labelledby="advisors-heading" className="space-y-5 scroll-mt-28">
-          <div className="text-center"><h3 id="advisors-heading" className="font-serif text-2xl font-bold text-buddhist-burgundy">Advisors</h3><p className="mt-1 text-sm text-stone-500">Guidance and wisdom supporting the center’s mission</p></div>
-          {renderPeople('Advisors')}
-        </section>
-        <section id="members" aria-labelledby="members-heading" className="space-y-5 scroll-mt-28">
-          <div className="text-center"><h3 id="members-heading" className="font-serif text-2xl font-bold text-buddhist-burgundy">Members</h3><p className="mt-1 text-sm text-stone-500">Part of our growing community</p></div>
-          {renderPeople('Members')}
-        </section>
-      </section>
 
       {/* Global Institutional Leadership Section */}
       <div className="bg-stone-900 text-amber-50 rounded-3xl p-8 sm:p-12 border border-stone-800 space-y-8 shadow-xl">
