@@ -24,13 +24,14 @@ const registrationOptions = [
     action: 'Register for a community class',
   },
   {
-    service: 'Free Events',
+    service: 'Special Events',
     eyebrow: 'Special teachings',
     title: 'Special Events & Teaching Series',
-    description: 'Request the official registration information for current multi-session teachings and ticketed events.',
-    details: ['Choose the event or teaching series', 'Receive official registration details by email', 'Complete ticketing with the event organiser'],
+    description: 'Register directly with the event organiser using the official partner booking page linked from our event calendar.',
+    details: ['Official event-partner registration', 'Booking and payment handled by the organiser', 'See the event calendar for current dates and details'],
     icon: Globe2,
-    action: 'Continue to event registration',
+    action: 'Register with event organiser',
+    href: 'https://shop.thus.org/products/the-three-principle-stages-of-the-buddhist-path-lam-rim',
   },
 ];
 
@@ -82,13 +83,24 @@ export default function EventRegistration() {
                   </li>
                 ))}
               </ul>
-              <button
-                type="button"
-                onClick={() => openRegistration(option.service)}
-                className="mt-auto inline-flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-4 py-3 text-sm font-bold text-amber-50 transition-colors hover:bg-red-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700"
-              >
-                {option.action} <ArrowRight size={15} />
-              </button>
+              {option.href ? (
+                <a
+                  href={option.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-auto inline-flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-4 py-3 text-sm font-bold text-amber-50 transition-colors hover:bg-red-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700"
+                >
+                  {option.action} <ArrowRight size={15} />
+                </a>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => openRegistration(option.service)}
+                  className="mt-auto inline-flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-4 py-3 text-sm font-bold text-amber-50 transition-colors hover:bg-red-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-700"
+                >
+                  {option.action} <ArrowRight size={15} />
+                </button>
+              )}
             </article>
           );
         })}
