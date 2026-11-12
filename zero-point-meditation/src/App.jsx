@@ -23,6 +23,7 @@ const Home = lazy(() => import('./pages/Home.jsx'));
 const About = lazy(() => import('./pages/About.jsx'));
 const Teachings = lazy(() => import('./pages/Teachings.jsx'));
 const Events = lazy(() => import('./pages/Events.jsx'));
+const EventRegistration = lazy(() => import('./pages/EventRegistration.jsx'));
 const Merchandise = lazy(() => import('./pages/Merchandise.jsx'));
 const Contact = lazy(() => import('./pages/Contact.jsx'));
 const Welcome = lazy(() => import('./pages/Welcome.jsx'));
@@ -80,6 +81,7 @@ function SiteLayout() {
             <Route path="/teachers" element={<Teachings />} />
             <Route path="/teachings" element={<Navigate to="/teachers" replace />} />
             <Route path="/events" element={<Events />} />
+            <Route path="/event-registration" element={<EventRegistration />} />
             <Route path="/merchandise" element={<Merchandise />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<Navigate to="/" replace />} />
