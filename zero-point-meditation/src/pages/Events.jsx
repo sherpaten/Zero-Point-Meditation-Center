@@ -460,6 +460,16 @@ export default function Events() {
         </p>
       </motion.header>
 
+      <section className="mx-auto flex max-w-3xl flex-col items-center gap-3 rounded-2xl border border-amber-200/80 bg-amber-50/70 px-5 py-5 text-center sm:flex-row sm:justify-between sm:text-left">
+        <div>
+          <h2 className="font-serif text-xl font-bold text-buddhist-burgundy">Ready to join an event or session?</h2>
+          <p className="mt-1 text-sm text-stone-600">Find registration options for meditation sessions, community classes, and special teachings.</p>
+        </div>
+        <a href="/event-registration" className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3 text-sm font-bold text-amber-50 transition-colors hover:bg-red-900">
+          Register now <span aria-hidden="true">→</span>
+        </a>
+      </section>
+
       {/* Archive navigation follows the requested order. */}
       <nav aria-label="Filter event archive" className="flex justify-center gap-2 border-b border-stone-200 pb-4 flex-wrap">
         {tabs.map((tab) => (
