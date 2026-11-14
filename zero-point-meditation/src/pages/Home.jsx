@@ -73,30 +73,31 @@ const eventGallery = [
   {
     id: 1,
     category: 'Upcoming Event',
-    title: 'Bardo at THUS',
+    title: 'Bardo: After Life & Reincarnation',
     location: 'Tibet House US',
-    date: 'Nov 20',
+    date: 'Nov 20 · 6 PM ET',
     image: currentEventImage,
     externalUrl: 'https://shop.thus.org/products/bardo-after-life-reincarnation-with-gegye-yongyal-rinpoche',
-    description: 'An upcoming teaching exploring Buddhist perspectives on the bardo, life after death, and reincarnation.'
+    description: 'A four-session teaching series with Gegye Yongyal Rinpoche, beginning November 20 at Tibet House US and online.'
   },
   {
     id: 2,
     category: 'Meditation Practice',
-    title: 'Weekly Meditation Morning',
+    title: 'Weekly Morning Meditation',
     location: 'Zero Point Meditation Center',
-    date: 'Nov 4th',
+    date: 'Nov 14–15',
     image: weeklyMeditationMorning,
-    description: 'Join the community for a morning of meditation, mindful breathing, and shared practice.'
+    description: 'Free online sessions this weekend: Nepali on Saturday and English on Sunday, 6:30–7:15 AM Eastern Time.'
   },
   {
     id: 3,
-    category: 'Community Event',
-    title: 'World Peace Prayer Day',
-    location: 'Planting Fields, Long Island, New York',
-    date: '2025',
-    image: worldPeacePrayerDay,
-    description: 'A major gathering hosted with community partners, bringing people together through prayer, compassion, unity, and a shared aspiration for world peace.'
+    category: 'Upcoming Event',
+    title: 'The Three Principal Stages of the Buddhist Path: Lam Rim',
+    location: 'Tibet House US, New York & Online',
+    date: 'Nov 19 · 6:30 PM ET',
+    image: 'https://shop.thus.org/cdn/shop/files/LAMRIM2-SQUARE_6cc2170b-5412-480c-ba7a-1cc6a5eeca7a_1024x1024.png?v=1793219873',
+    externalUrl: 'https://shop.thus.org/products/the-three-principle-stages-of-the-buddhist-path-lam-rim',
+    description: 'A four-session Lam Rim course exploring renunciation, compassion, and wisdom, offered in person and online.'
   }
 ];;
 
