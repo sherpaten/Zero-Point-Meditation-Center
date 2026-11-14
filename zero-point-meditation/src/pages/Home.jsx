@@ -552,14 +552,14 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-2 items-center gap-4 sm:grid-cols-3 lg:grid-cols-4">
             {[
-              { name: 'CAIPA Foundation', image: caipaFoundationLogo },
-              { name: 'Chhaya', image: chhayaLogo },
-              { name: 'Nassau County', image: nassauCountyLogo },
-              { name: 'OPHC-IFC', image: ophcIfcLogo },
-              { name: 'Planting Fields Foundation', image: plantingFieldsLogo },
-              { name: 'Rotary Queens', image: rotaryQueensLogo },
-              { name: 'Rubin', image: rubinLogo },
-              { name: 'Tibet House US', image: tibetHouseUsLogo },
+              { name: 'CAIPA Foundation', image: caipaFoundationLogo, website: 'https://www.caipafoundation.org/' },
+              { name: 'Chhaya', image: chhayaLogo, website: 'https://chhayacdc.org/' },
+              { name: 'Nassau County', image: nassauCountyLogo, website: 'https://www.nassaucountyny.gov/' },
+              { name: 'OPHC-IFC', image: ophcIfcLogo, website: 'https://home4.nyc.gov/site/stophate/initiatives/interfaith-council.page' },
+              { name: 'Planting Fields Foundation', image: plantingFieldsLogo, website: 'https://plantingfields.org/' },
+              { name: 'Rotary Queens', image: rotaryQueensLogo, website: 'https://rotarynyqueens.org/' },
+              { name: 'Rubin', image: rubinLogo, website: 'https://rubinmuseum.org/' },
+              { name: 'Tibet House US', image: tibetHouseUsLogo, website: 'https://thus.org/' },
               { name: 'Creto Studio', image: cretoStudioLogo, website: 'https://cretostudio.com/' },
             ].map((partner) => (
               <a
