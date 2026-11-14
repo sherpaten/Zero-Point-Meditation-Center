@@ -67,6 +67,7 @@ import plantingFieldsLogo from '../assets/Partners Logo/Planting Fields Foundati
 import rotaryQueensLogo from '../assets/Partners Logo/Rotary Queens.png';
 import rubinLogo from '../assets/Partners Logo/Rubin.jpg';
 import tibetHouseUsLogo from '../assets/Partners Logo/Tibet House US.jpg';
+import cretoStudioLogo from '../assets/Partners Logo/CretoStudio.jpeg';
 
 const eventGallery = [
   {
@@ -559,10 +560,15 @@ export default function Home() {
               { name: 'Rotary Queens', image: rotaryQueensLogo },
               { name: 'Rubin', image: rubinLogo },
               { name: 'Tibet House US', image: tibetHouseUsLogo },
+              { name: 'Creto Studio', image: cretoStudioLogo, website: 'https://cretostudio.com/' },
             ].map((partner) => (
-              <div
+              <a
                 key={partner.name}
-                className="flex h-32 items-center justify-center rounded-2xl border border-stone-200/80 bg-white p-4 shadow-sm transition-shadow hover:shadow-md sm:h-36 sm:p-5"
+                href={partner.website || undefined}
+                target={partner.website ? '_blank' : undefined}
+                rel={partner.website ? 'noopener noreferrer' : undefined}
+                aria-label={partner.website ? `Visit ${partner.name} website (opens in a new tab)` : partner.name}
+                className="flex h-32 items-center justify-center rounded-2xl border border-stone-200/80 bg-white p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-buddhist-gold sm:h-36 sm:p-5"
               >
                 <img
                   src={partner.image}
@@ -571,7 +577,7 @@ export default function Home() {
                   decoding="async"
                   className="max-h-full max-w-full object-contain"
                 />
-              </div>
+              </a>
             ))}
           </div>
         </section>
