@@ -69,6 +69,7 @@ import posterThreeNew from '../assets/poste/poste3.jpg';
 import posterSixNew from '../assets/poste/poste6.jpg';
 import posterSevenNew from '../assets/poste/poste7.jpg';
 import posterEightNew from '../assets/poste/poste8.jpg';
+import weeklyMeditationPoster from '../assets/Classes/poster-1-optimized.webp';
 
 
 /*
@@ -103,12 +104,27 @@ const galleryItems = [
     description: 'With a deeply saddened heart, we offer our thoughts and prayers for Nepal and everyone impacted by this devastating natural disaster. May all those affected receive swift support, strength, and healing. Honoring lives lost, strength for families, safety and care, and a collective call to compassion through the blessings of the Three Jewels. Om Mani Padme Hum. 🙏🙏🙏'
   },
   {
-    id: 47, group: 'Current', featured: true, title: 'The Three Principle Stages of the Buddhist Path: Lam Rim',
+    id: 47, group: 'Current', featured: true, title: 'The Three Principal Stages of the Buddhist Path: Lam Rim',
     type: 'event', category: 'Upcoming Event', date: 'November 19, 24 & December 3, 10, 2026',
     location: 'Tibet House US, New York & Online',
     image: 'https://shop.thus.org/cdn/shop/files/LAMRIM2-SQUARE_6cc2170b-5412-480c-ba7a-1cc6a5eeca7a_1024x1024.png?v=1793219873',
     description: 'A four-session course on Lam Rim, the Tibetan Buddhist stages of the path, exploring renunciation, compassion, and wisdom through readings, discussion, and contemplative exercises. Sessions run from 6:30–8:30 PM Eastern Time. Presenters include Annie Bien, Dominique Townsend, and H.E. Gegye Yongyal Tulku Rinpoche. Available in person and online. Ticket options listed by Tibet House US range from $25 for a single general-admission session to $65 for the full series.',
     ticketUrl: 'https://shop.thus.org/products/the-three-principle-stages-of-the-buddhist-path-lam-rim'
+  },
+  {
+    id: 48, group: 'Current', featured: true, title: 'Bardo: After Life & Reincarnation',
+    type: 'event', category: 'Upcoming Event', date: 'November 20; December 4, 11 & 18, 2026',
+    location: 'Tibet House US, New York & Online',
+    image: event3,
+    description: 'A four-session teaching series with Gegye Yongyal Rinpoche exploring the bardo, life after death, and reincarnation. The opening session begins November 20 at 6:00 PM Eastern Time. Check Tibet House US for the full schedule and current ticket options.',
+    ticketUrl: 'https://shop.thus.org/products/bardo-after-life-reincarnation-with-gegye-yongyal-rinpoche'
+  },
+  {
+    id: 49, group: 'Current', featured: true, title: 'Weekly Morning Meditation',
+    type: 'event', category: 'Upcoming Meditation', date: 'November 14 & 15, 2026',
+    location: 'Online · Join from home', image: weeklyMeditationPoster,
+    description: 'This weekend’s free online morning meditation: Nepali session on Saturday, November 14, and English session on Sunday, November 15. Both sessions run from 6:30–7:15 AM Eastern Time. The next weekly dates will be added once confirmed.',
+    ticketUrl: 'https://bit.ly/morningmeditation_zpmc'
   },
   {
     id: 4, group: '2024', title: 'Global Peace & Dharma Discourse Poster',
