@@ -39,35 +39,8 @@ const prayerServices = [
   { name: 'Extended prayer and dedication ceremony', duration: 'Not specified', description: 'Suited to major occasions that call for a fuller, more elaborate offering.' },
   { name: 'Special multi-monastic prayer gathering', duration: 'Depends on gathering size (about 400–2,000 monks)', description: 'Reserved for significant community or extended dedication events.' },
 ];
-const serviceImages = {
-  learning: [
-    { src: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=900&q=80', alt: 'A person sitting in meditation' },
-    { src: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=900&q=80', alt: 'A peaceful yoga and mindfulness practice' },
-    { src: 'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=900&q=80', alt: 'A quiet natural setting for reflection' },
-    { src: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80', alt: 'A peaceful landscape for contemplation' },
-  ],
-  retreat: [
-    { src: 'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=900&q=80', alt: 'Sunrise over a peaceful landscape' },
-    { src: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=900&q=80', alt: 'A quiet forest retreat setting' },
-    { src: 'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=900&q=80', alt: 'A tranquil mountain landscape' },
-    { src: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=900&q=80', alt: 'A calm lakeside landscape' },
-  ],
-  workplace: [
-    { src: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=80', alt: 'Colleagues working together' },
-    { src: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=900&q=80', alt: 'A team collaborating around a table' },
-    { src: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=80', alt: 'A workplace team discussion' },
-    { src: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&q=80', alt: 'A group workshop and discussion' },
-  ],
-  prayer: [
-    { src: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=900&q=80', alt: 'A peaceful spiritual setting' },
-    { src: 'https://images.unsplash.com/photo-1545389336-cf090694435e?auto=format&fit=crop&w=900&q=80', alt: 'A quiet meditation and prayer space' },
-    { src: 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=900&q=80', alt: 'A peaceful natural scene for reflection' },
-    { src: 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80', alt: 'A serene mountain setting' },
-  ],
-};
 
-
-function ServiceSection({ id, eyebrow, title, description, icon, items, imageKey, onAction }) {
+function ServiceSection({ id, eyebrow, title, description, icon, items, onAction }) {
   return (
     <section id={id} className="scroll-mt-32 space-y-6">
       <div className="mx-auto max-w-3xl space-y-3 text-center">
@@ -77,12 +50,18 @@ function ServiceSection({ id, eyebrow, title, description, icon, items, imageKey
       </div>
       <motion.div variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.06 } } }} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.08 }} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
         {items.map((item, index) => (
-          <motion.article key={item.name} variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.35 } } }} whileHover={{ y: -5, transition: { duration: 0.18 } }} className="overflow-hidden bg-white rounded-2xl border border-stone-200 shadow-sm hover:shadow-lg transition-shadow flex flex-col">
-            <div className="aspect-[16/9] overflow-hidden bg-amber-50">
-              <img src={serviceImages[imageKey][index % serviceImages[imageKey].length].src} alt={serviceImages[imageKey][index % serviceImages[imageKey].length].alt} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-500 hover:scale-[1.03]" />
+          <motion.article key={item.name} variants={{ hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.35 } } }} whileHover={{ y: -5, transition: { duration: 0.18 } }} className="group relative overflow-hidden rounded-2xl border border-[#e8dcc7] bg-gradient-to-br from-[#fffdf8] via-white to-[#f8f0e3] shadow-sm transition-all duration-300 hover:border-[#c9a86a] hover:shadow-xl flex flex-col">
+            <div aria-hidden="true" className="relative flex h-28 items-center justify-between overflow-hidden border-b border-[#eadfcf] bg-[radial-gradient(ellipse_at_top_left,_rgba(190,150,83,0.20),_transparent_65%),linear-gradient(135deg,_#fbf4e7,_#fffdf8_58%,_#f4ead9)] px-6">
+              <div className="absolute -right-7 -top-12 h-36 w-36 rounded-full border border-[#c8a66a]/30" />
+              <div className="absolute -right-1 -top-6 h-24 w-24 rounded-full border border-[#c8a66a]/25" />
+              <div className="absolute right-8 top-5 h-12 w-12 rotate-45 border border-[#c8a66a]/30" />
+              <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl border border-[#d8c29b] bg-white/80 text-buddhist-burgundy shadow-sm transition-transform duration-300 group-hover:scale-105">{icon}</div>
+              <div className="relative z-10 text-right">
+                <span className="block font-serif text-2xl text-[#b18b4e]/80">༄</span>
+                <span className="text-[9px] font-semibold uppercase tracking-[0.22em] text-[#9b8057]">Wisdom · Compassion · Practice</span>
+              </div>
             </div>
             <div className="flex flex-1 flex-col p-5">
-            <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-amber-50 text-buddhist-gold">{icon}</div>
             <h3 className="font-serif text-lg font-bold leading-snug text-buddhist-burgundy">{item.name}</h3>
             {item.duration && <p className="mt-2 flex items-center gap-2 text-sm text-stone-500"><Clock3 size={15} />{item.duration}</p>}
             {item.description && <p className="mt-3 text-sm leading-relaxed text-stone-600">{item.description}</p>}
@@ -171,7 +150,6 @@ export default function Services() {
         description="Learn meditation, Buddhist teachings, philosophy, and traditional perspectives through guided sessions and multi-session courses."
         icon={<BookOpen size={20} />}
         items={courses}
-        imageKey="learning"
         onAction={openBooking}
 />
 
@@ -182,7 +160,6 @@ export default function Services() {
         description="Half-day, full-day retreats for deeper study and practice."
         icon={<Sparkles size={20} />}
         items={retreats}
-        imageKey="retreat"
         onAction={openBooking}
 />
 
@@ -193,7 +170,6 @@ export default function Services() {
         description="Meditation, mindfulness, compassion, ethics, and reflective leadership programs for teams and organizations."
         icon={<Landmark size={20} />}
         items={workplaceServices}
-        imageKey="workplace"
         onAction={openBooking}
 />
 
@@ -204,7 +180,6 @@ export default function Services() {
         description="Traditional Buddhist prayers, blessings, dedications, and ceremonies for individuals and families."
         icon={<Flower2 size={20} />}
         items={prayerServices}
-        imageKey="prayer"
         onAction={openBooking}
 />
 
