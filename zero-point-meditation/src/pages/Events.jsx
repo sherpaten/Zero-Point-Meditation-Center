@@ -115,7 +115,7 @@ const galleryItems = [
     id: 48, group: 'Current', featured: true, title: 'Bardo: After Life & Reincarnation',
     type: 'event', category: 'Upcoming Event', date: 'November 20; December 4, 11 & 18, 2026',
     location: 'Tibet House US, New York & Online',
-    image: 'https://shop.thus.org/cdn/shop/files/BARDO_1024x1024.png',
+    image: event3,
     description: 'A four-session teaching series with Gegye Yongyal Rinpoche exploring the bardo, life after death, and reincarnation. The opening session begins November 20 at 6:00 PM Eastern Time. Check Tibet House US for the full schedule and current ticket options.',
     ticketUrl: 'https://shop.thus.org/products/bardo-after-life-reincarnation-with-gegye-yongyal-rinpoche'
   },
