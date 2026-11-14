@@ -68,6 +68,8 @@ import rotaryQueensLogo from '../assets/Partners Logo/Rotary Queens.png';
 import rubinLogo from '../assets/Partners Logo/Rubin.jpg';
 import tibetHouseUsLogo from '../assets/Partners Logo/Tibet House US.jpg';
 import cretoStudioLogo from '../assets/Partners Logo/CretoStudio.jpeg';
+import seedsOfCompassionLogo from '../assets/Partners Logo/Seedf of compassion.png';
+import hamiNepaliLogo from '../assets/Partners Logo/Hami Nepali.png';
 
 const eventGallery = [
   {
@@ -562,15 +564,10 @@ export default function Home() {
               { name: 'Rubin', image: rubinLogo, website: 'https://rubinmuseum.org/' },
               { name: 'Tibet House US', image: tibetHouseUsLogo, website: 'https://thus.org/' },
               { name: 'Creto Studio', image: cretoStudioLogo, website: 'https://cretostudio.com/' },
-            ].map((partner) => (
-              <a
-                key={partner.name}
-                href={partner.website || undefined}
-                target={partner.website ? '_blank' : undefined}
-                rel={partner.website ? 'noopener noreferrer' : undefined}
-                aria-label={partner.website ? `Visit ${partner.name} website (opens in a new tab)` : partner.name}
-                className="flex h-32 items-center justify-center rounded-2xl border border-stone-200/80 bg-white p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-buddhist-gold sm:h-36 sm:p-5"
-              >
+              { name: 'Seeds of Compassion', image: seedsOfCompassionLogo },
+              { name: 'Hami Nepali', image: hamiNepaliLogo, website: 'https://haminepali.global/' },
+            ].map((partner) => {
+              const logo = (
                 <img
                   src={partner.image}
                   alt={partner.name}
@@ -578,8 +575,25 @@ export default function Home() {
                   decoding="async"
                   className="max-h-full max-w-full object-contain"
                 />
-              </a>
-            ))}
+              );
+              const cardClass = "flex h-32 items-center justify-center rounded-2xl border border-stone-200/80 bg-white p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-buddhist-gold sm:h-36 sm:p-5";
+              return partner.website ? (
+                <a
+                  key={partner.name}
+                  href={partner.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Visit ${partner.name} website (opens in a new tab)`}
+                  className={cardClass}
+                >
+                  {logo}
+                </a>
+              ) : (
+                <div key={partner.name} className={cardClass}>
+                  {logo}
+                </div>
+              );
+            })}
           </div>
         </section>
 
