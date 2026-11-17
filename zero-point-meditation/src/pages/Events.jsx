@@ -69,7 +69,6 @@ import posterThreeNew from '../assets/poste/poste3.jpg';
 import posterSixNew from '../assets/poste/poste6.jpg';
 import posterSevenNew from '../assets/poste/poste7.jpg';
 import posterEightNew from '../assets/poste/poste8.jpg';
-import weeklyMeditationPoster from '../assets/Classes/poster-1-optimized.webp';
 
 
 /*
@@ -116,15 +115,8 @@ const galleryItems = [
     type: 'event', category: 'Four-Session Course & Offering', date: 'November 20; December 4, 11 & 18, 2026',
     location: 'Tibet House US, New York & Online · Final offering at Boudhanath Stupa, Nepal',
     image: event3,
-    description: 'Session 1 · November 20 — Art of Dying and the Reincarnation of Gegye Yongyal Tulku Rinpoche: understanding impermanence as preparation for life’s greatest transition. Session 2 · December 4 — Bardo and Its Stages: the intermediate state between death and rebirth. Session 3 · December 11 — Understanding Phowa: the Buddhist teaching on transference of consciousness at the time of death. Session 4 · December 18 — Butterlamp Offering by the Sangha of Boudha, Nepal: an aspiration to light 10,000 butter lamps at Boudhanath Stupa for flood victims and Prof. Bob Thurman, broadcast live from Kathmandu to Tibet House US by a ZPMC member. Sessions 1–3 are at 6:00 PM Eastern Time; the December 18 offering time will be announced.',
+    description: 'Session 1 · November 20 — Art of Dying and the Reincarnation of Gegye Yongyal Tulku Rinpoche: understanding impermanence as preparation for life’s greatest transition. Session 2 · December 4 — Bardo and Its Stages: the intermediate state between death and rebirth. Session 3 · December 11 — Understanding Phowa: the Buddhist teaching on transference of consciousness at the time of death. Session 4 · December 18 — Butterlamp Offering by the Sangha of Boudha, Nepal: an aspiration to light 10,000 butter lamps at Boudhanath Stupa for flood victims and Prof. Bob Thurman, broadcast live from Kathmandu to Tibet House US by a ZPMC member. All four sessions run from 6:00–8:00 PM EST. Format: hybrid — in person and online.',
     ticketUrl: 'https://shop.thus.org/products/bardo-after-life-reincarnation-with-gegye-yongyal-rinpoche'
-  },
-  {
-    id: 49, group: 'Current', featured: true, title: 'Weekly Morning Meditation',
-    type: 'event', category: 'Upcoming Meditation', date: 'November 14 & 15, 2026',
-    location: 'Online · Join from home', image: weeklyMeditationPoster,
-    description: 'This weekend’s free online morning meditation: Nepali session on Saturday, November 14, and English session on Sunday, November 15. Both sessions run from 6:30–7:15 AM Eastern Time. The next weekly dates will be added once confirmed.',
-    ticketUrl: 'https://bit.ly/morningmeditation_zpmc'
   },
   {
     id: 4, group: '2024', title: 'Global Peace & Dharma Discourse Poster',
