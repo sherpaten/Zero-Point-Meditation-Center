@@ -77,6 +77,13 @@ export default function Contact() {
                 <Phone className="text-buddhist-gold shrink-0" size={18} />
                 <a href="https://wa.me/16464560843" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-buddhist-gold transition-colors"><MessageCircle size={15} /> +1 (646) 456-0843 (WhatsApp)</a>
               </div>
+              <div className="flex items-center gap-3">
+                <Phone className="text-buddhist-gold shrink-0" size={18} />
+                <div>
+                  <p className="font-bold text-amber-50">Mimi</p>
+                  <a href="tel:+19295448252" className="hover:text-buddhist-gold transition-colors">929-544-8252</a>
+                </div>
+              </div>
               <div className="flex items-start gap-3">
                 <Clock className="text-buddhist-gold shrink-0 mt-0.5" size={18} />
                 <div>
