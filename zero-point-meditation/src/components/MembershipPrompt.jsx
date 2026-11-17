@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { CheckCircle2, Users, X } from 'lucide-react';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
 
-export default function MembershipPrompt({ open, onClose, initialName = '', initialEmail = '', initialPhone = '' }) {
+export default function MembershipPrompt({ open, onClose, initialName = '', initialEmail = '', initialPhone = '', source = 'booking' }) {
   const [mode, setMode] = useState('choice');
   const [name, setName] = useState(initialName);
   const [email, setEmail] = useState(initialEmail);
@@ -139,8 +139,8 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
         <div className="text-center">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-amber-50 text-buddhist-gold"><Users size={27}/></div>
           <p className="mt-4 text-xs font-bold uppercase tracking-[0.18em] text-amber-700">ZPMC Community</p>
-          <h2 id="membership-invite-title" className="mt-2 font-serif text-2xl font-bold text-buddhist-burgundy">Stay connected with our sangha</h2>
-          <p className="mt-3 text-sm leading-6 text-stone-600">Your booking has been submitted. Would you like to join the ZPMC community? Membership is optional — you can continue as a guest.</p>
+          <h2 id="membership-invite-title" className="mt-2 font-serif text-2xl font-bold text-buddhist-burgundy">{source === 'booking' ? 'Stay connected with our sangha' : 'Register for ZPMC Membership'}</h2>
+          <p className="mt-3 text-sm leading-6 text-stone-600">{source === 'booking' ? 'Your booking has been submitted. Would you like to join the ZPMC community? Membership is optional — you can continue as a guest.' : 'Join the Zero Point Meditation Center community or sign in if you already have a membership account.'}</p>
         </div>
 
         {member ? (
@@ -178,7 +178,7 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
         )}
         {error && mode === 'choice' && <p role="alert" className="mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">{error}</p>}
         {message && mode === 'choice' && <p role="status" className="mt-4 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-900">{message}</p>}
-        {mode !== 'choice' && !member && <p className="mt-4 text-center text-xs text-stone-500">Membership is optional. You may close this window and keep your booking as a guest.</p>}
+        {mode !== 'choice' && !member && <p className="mt-4 text-center text-xs text-stone-500">{source === 'booking' ? 'Membership is optional. You may close this window and keep your booking as a guest.' : 'Your ZPMC membership account gives you access to your member information and community updates.'}</p>}
       </section>
     </div>
   );

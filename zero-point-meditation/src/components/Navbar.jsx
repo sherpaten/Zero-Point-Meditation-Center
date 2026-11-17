@@ -9,6 +9,7 @@ const navigation = [
   { to: '/services', label: 'Services' },
   { to: '/events', label: 'Events' },
   { to: '/event-registration', label: 'Event Registration' },
+  { to: '/membership-registration', label: 'Member Registration' },
   { to: '/teachers', label: 'Our People' },
   { to: '/merchandise', label: 'Merchandise' },
   { to: '/contact', label: 'Contact' },
