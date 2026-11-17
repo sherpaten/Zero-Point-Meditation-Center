@@ -491,6 +491,49 @@ export default function Membership() {
           </p>
         </div>
 
+        {/* MEMBERSHIP OPTIONS */}
+
+        <section className="mb-8 rounded-2xl border border-amber-200 bg-white p-6 shadow-sm sm:p-8">
+          <div className="text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-buddhist-gold">
+              Membership Options
+            </p>
+            <h2 className="mt-2 font-serif text-2xl font-bold text-buddhist-burgundy">
+              Choose Your Membership
+            </h2>
+          </div>
+
+          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            <div className="rounded-xl border border-amber-300 bg-amber-50/70 p-5 text-center">
+              <h3 className="font-semibold text-buddhist-burgundy">Yearly Membership</h3>
+              <p className="mt-3 font-serif text-3xl font-bold text-buddhist-burgundy">$25</p>
+              <p className="mt-1 text-xs text-stone-600">Per year</p>
+              <p className="mt-3 text-sm font-semibold text-amber-800">
+                New-member offer: 2 years for $25
+              </p>
+              <p className="mt-1 text-xs text-stone-600">
+                Pay for one year and receive two years of membership.
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-stone-200 p-5 text-center">
+              <h3 className="font-semibold text-buddhist-burgundy">Benefactor Membership</h3>
+              <p className="mt-3 font-serif text-3xl font-bold text-buddhist-burgundy">$500</p>
+              <p className="mt-1 text-xs text-stone-600">Per year</p>
+            </div>
+
+            <div className="rounded-xl border border-stone-200 p-5 text-center">
+              <h3 className="font-semibold text-buddhist-burgundy">Lifetime Membership</h3>
+              <p className="mt-3 font-serif text-3xl font-bold text-buddhist-burgundy">$3,000</p>
+              <p className="mt-1 text-xs text-stone-600">One-time membership</p>
+            </div>
+          </div>
+
+          <p className="mt-5 text-center text-xs leading-relaxed text-stone-500">
+            This registration form creates your member account; payment is not collected online through this form.
+          </p>
+        </section>
+
         {/* MEMBERSHIP BENEFITS */}
 
         <div className="mb-8 grid gap-4 sm:grid-cols-2">
@@ -993,7 +1036,8 @@ export default function Membership() {
 
                     <p className="text-xs leading-relaxed text-stone-500">
                       Fields marked * are required. By registering, you are
-                      requesting a free ZPMC Community Membership.
+                      creating your ZPMC membership account. Please contact the
+                      center for payment instructions.
                     </p>
 
                     <button
