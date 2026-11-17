@@ -29,6 +29,7 @@ const getWeekStart = () => {
 
 export default function Membership() {
   const [mode, setMode] = useState('signup');
+  const [membershipPlan, setMembershipPlan] = useState('yearly');
 
   const [form, setForm] = useState({
     full_name: '',
@@ -263,6 +264,7 @@ export default function Membership() {
             full_name: form.full_name.trim(),
             phone: form.phone.trim(),
             country: form.country.trim(),
+            membership_plan: membershipPlan,
           },
         },
       });
@@ -278,6 +280,7 @@ export default function Membership() {
             email: form.email.trim(),
             phone: form.phone.trim(),
             country: form.country.trim(),
+            membershipPlan,
           }),
         });
         if (!notificationResponse.ok) {
@@ -906,6 +909,15 @@ export default function Membership() {
                   </h2>
 
                   <form onSubmit={handleSignup} className="space-y-5">
+                    <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4">
+                      <label htmlFor="membership-plan" className="mb-2 block text-sm font-semibold text-buddhist-burgundy">Choose your membership plan</label>
+                      <select id="membership-plan" value={membershipPlan} onChange={event => setMembershipPlan(event.target.value)} className="w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-stone-900 outline-none focus:border-buddhist-gold focus:ring-2 focus:ring-amber-100">
+                        <option value="yearly">Yearly Membership — $25/year (new members: 2 years for $25)</option>
+                        <option value="benefactor">Benefactor Membership — $500/year</option>
+                        <option value="lifetime">Lifetime Membership — $3,000 one-time</option>
+                      </select>
+                      <p className="mt-2 text-xs text-stone-600">Your selected plan will be included with your registration. Payment is arranged separately.</p>
+                    </div>
                     <div>
                       <label
                         htmlFor="full_name"
