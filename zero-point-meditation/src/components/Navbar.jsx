@@ -3,6 +3,9 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Menu, X, Sparkles } from 'lucide-react';
 import logo from '../assets/LOGO.svg';
 
+const actionNavigation = [
+];
+
 const navigation = [
   { to: '/home', label: 'Home', end: true },
   { to: '/about', label: 'About' },
@@ -96,6 +99,24 @@ export default function Navbar() {
           ))}
         </nav>
 
+        <div className="hidden items-center gap-1 rounded-xl bg-buddhist-burgundy p-1 shadow-sm lg:flex">
+          {actionNavigation.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              className={({ isActive }) =>
+                `rounded-lg px-3 py-2 text-[10px] font-extrabold uppercase tracking-wider transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200 xl:px-3.5 ${
+                  isActive
+                    ? 'bg-amber-100 text-buddhist-burgundy shadow-sm'
+                    : 'text-white hover:bg-white/15 hover:text-amber-100'
+                }`
+              }
+            >
+              {item.label}
+            </NavLink>
+          ))}
+        </div>
+
         <button
           type="button"
           className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg border border-stone-200 text-buddhist-burgundy transition-colors hover:bg-amber-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-buddhist-gold lg:hidden"
@@ -138,6 +159,21 @@ export default function Navbar() {
                 )}
               </li>
             ))}
+            <li className="mt-3 grid gap-1 rounded-xl bg-buddhist-burgundy p-2">
+              {actionNavigation.map((item) => (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  className={({ isActive }) =>
+                    `block rounded-lg px-3 py-2.5 text-sm font-extrabold uppercase tracking-wide transition-colors ${
+                      isActive ? 'bg-amber-100 text-buddhist-burgundy' : 'text-white hover:bg-white/15 hover:text-amber-100'
+                    }`
+                  }
+                >
+                  {item.label}
+                </NavLink>
+              ))}
+            </li>
           </ul>
         </nav>
       )}
