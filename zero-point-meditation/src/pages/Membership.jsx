@@ -496,21 +496,37 @@ export default function Membership() {
         <div className="mb-8 grid gap-4 sm:grid-cols-2">
           <div className="rounded-xl border border-amber-200 bg-white p-5">
             <h2 className="font-semibold text-buddhist-burgundy">
-              Weekly Meditation
+              200+ Free Meditation Sessions
             </h2>
-
             <p className="mt-2 text-sm text-stone-600">
-              One free community meditation class each week.
+              Access more than 200 free meditation sessions held every Saturday and Sunday.
             </p>
           </div>
 
           <div className="rounded-xl border border-amber-200 bg-white p-5">
             <h2 className="font-semibold text-buddhist-burgundy">
-              Community Benefits
+              Free English Learning Camp in 2027
             </h2>
-
             <p className="mt-2 text-sm text-stone-600">
-              Member discounts on selected activities and early event updates.
+              Take part in a free English Learning Camp running for approximately 4–6 months in 2027.
+            </p>
+          </div>
+
+          <div className="rounded-xl border border-amber-200 bg-white p-5">
+            <h2 className="font-semibold text-buddhist-burgundy">
+              Butter Lamp Offering
+            </h2>
+            <p className="mt-2 text-sm text-stone-600">
+              One butter lamp offering will be made in each new member’s name.
+            </p>
+          </div>
+
+          <div className="rounded-xl border border-amber-200 bg-white p-5">
+            <h2 className="font-semibold text-buddhist-burgundy">
+              Join Our Community
+            </h2>
+            <p className="mt-2 text-sm text-stone-600">
+              Build a connection with the Zero Point Meditation Center community.
             </p>
           </div>
         </div>
@@ -657,15 +673,10 @@ export default function Membership() {
                     </h3>
 
                     <ul className="mt-3 space-y-2 text-sm text-stone-600">
-                      <li>
-                        • One free community meditation class each week
-                      </li>
-                      <li>
-                        • Discounts on selected ZPMC activities
-                      </li>
-                      <li>
-                        • Early notice of events and community activities
-                      </li>
+                      <li>• Access to 200+ free meditation sessions held every Saturday and Sunday</li>
+                      <li>• Free English Learning Camp in 2027, running for approximately 4–6 months</li>
+                      <li>• One butter lamp offering made in your name</li>
+                      <li>• Connection with the Zero Point Meditation Center community</li>
                     </ul>
                   </div>
 
