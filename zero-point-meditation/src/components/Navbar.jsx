@@ -99,16 +99,14 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-1 rounded-xl bg-buddhist-burgundy p-1 shadow-sm lg:flex">
+        <div className="hidden items-center gap-2 lg:flex">
           {actionNavigation.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `rounded-lg px-3 py-2 text-[10px] font-extrabold uppercase tracking-wider transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-200 xl:px-3.5 ${
-                  isActive
-                    ? 'bg-amber-100 text-buddhist-burgundy shadow-sm'
-                    : 'text-white hover:bg-white/15 hover:text-amber-100'
+                `rounded-lg bg-buddhist-burgundy px-3.5 py-2.5 text-[10px] font-extrabold uppercase tracking-wider text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-buddhist-burgundy/90 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-buddhist-gold xl:px-4 ${
+                  isActive ? 'ring-2 ring-amber-300 ring-offset-2' : ''
                 }`
               }
             >
@@ -159,14 +157,14 @@ export default function Navbar() {
                 )}
               </li>
             ))}
-            <li className="mt-3 grid gap-1 rounded-xl bg-buddhist-burgundy p-2">
+            <li className="mt-3 grid gap-2 pt-2">
               {actionNavigation.map((item) => (
                 <NavLink
                   key={item.to}
                   to={item.to}
                   className={({ isActive }) =>
-                    `block rounded-lg px-3 py-2.5 text-sm font-extrabold uppercase tracking-wide transition-colors ${
-                      isActive ? 'bg-amber-100 text-buddhist-burgundy' : 'text-white hover:bg-white/15 hover:text-amber-100'
+                    `block rounded-lg bg-buddhist-burgundy px-3 py-2.5 text-sm font-extrabold uppercase tracking-wide text-white shadow-sm transition-colors hover:bg-buddhist-burgundy/90 ${
+                      isActive ? 'ring-2 ring-amber-300 ring-offset-2' : ''
                     }`
                   }
                 >
