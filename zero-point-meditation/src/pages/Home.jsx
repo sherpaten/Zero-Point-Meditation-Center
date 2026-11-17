@@ -355,12 +355,9 @@ export default function Home() {
             ))}
           </div>
 
-
         </section>
 
-        <DeferredHomeEventsCalendar forceLoad={location.hash === '#home-calendar-heading'} />
-
-        {/* Featured teaching promotion placed directly below the homepage calendar */}
+        {/* Featured teaching promotion placed directly below community reflections */}
         <section
           aria-labelledby="bardo-teaching-promo-heading"
           className="mx-auto grid w-full max-w-5xl gap-4 rounded-2xl border border-amber-200/80 bg-amber-50/70 px-5 py-5 shadow-sm sm:px-7 md:grid-cols-[1fr_auto] md:items-center"
@@ -388,6 +385,10 @@ export default function Home() {
             View Details & Tickets <ArrowRight size={14} />
           </a>
         </section>
+
+        <DeferredHomeEventsCalendar forceLoad={location.hash === '#home-calendar-heading'} />
+
+
 
         {/* Event & Practice Gallery */}
         <div className="space-y-8">
