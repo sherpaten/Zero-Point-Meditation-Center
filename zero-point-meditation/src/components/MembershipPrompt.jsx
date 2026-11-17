@@ -8,6 +8,7 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
   const [email, setEmail] = useState(initialEmail);
   const [phone, setPhone] = useState(initialPhone);
   const [country, setCountry] = useState('');
+  const [membershipPlan, setMembershipPlan] = useState('yearly');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -22,6 +23,7 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
     setEmail(initialEmail);
     setPhone(initialPhone);
     setCountry('');
+    setMembershipPlan('yearly');
     setPassword('');
     setConfirmPassword('');
     setLoading(false);
@@ -73,7 +75,7 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
         password,
         options: {
           emailRedirectTo: `${window.location.origin}/membership`,
-          data: { full_name: name.trim(), phone: phone.trim(), country: country.trim() },
+          data: { full_name: name.trim(), phone: phone.trim(), country: country.trim(), membership_plan: membershipPlan },
         },
       });
       if (signupError) throw signupError;
@@ -86,6 +88,7 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
             email: email.trim(),
             phone: phone.trim(),
             country: country.trim(),
+            membershipPlan,
           }),
         });
         if (!notificationResponse.ok) {
@@ -165,21 +168,17 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
               <section className="rounded-2xl border border-amber-200 bg-amber-50/70 p-4" aria-label="Membership prices and benefits">
                 <h3 className="font-serif text-lg font-bold text-buddhist-burgundy">Membership options</h3>
                 <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-3">
-                  <div className="rounded-xl border border-amber-300 bg-white p-3">
-                    <p className="text-xs font-semibold text-buddhist-burgundy">Yearly</p>
-                    <p className="mt-1 text-xl font-bold text-buddhist-burgundy">$25<span className="text-xs font-medium text-stone-500"> / year</span></p>
-                    <p className="mt-1 text-xs font-semibold text-amber-800">New members: 2 years for $25</p>
-                  </div>
-                  <div className="rounded-xl border border-stone-200 bg-white p-3">
-                    <p className="text-xs font-semibold text-buddhist-burgundy">Benefactor</p>
-                    <p className="mt-1 text-xl font-bold text-buddhist-burgundy">$500<span className="text-xs font-medium text-stone-500"> / year</span></p>
-                  </div>
-                  <div className="rounded-xl border border-stone-200 bg-white p-3">
-                    <p className="text-xs font-semibold text-buddhist-burgundy">Lifetime</p>
-                    <p className="mt-1 text-xl font-bold text-buddhist-burgundy">$3,000</p>
-                    <p className="mt-1 text-xs text-stone-500">One-time</p>
-                  </div>
+                  <button type="button" onClick={() => setMembershipPlan('yearly')} aria-pressed={membershipPlan === 'yearly'} className={`rounded-xl border p-3 text-left transition ${membershipPlan === 'yearly' ? 'border-amber-500 bg-amber-100 ring-2 ring-amber-300' : 'border-stone-200 bg-white hover:border-amber-300'}`}>
+                    <p className="text-xs font-semibold text-buddhist-burgundy">Yearly</p><p className="mt-1 text-xl font-bold text-buddhist-burgundy">$25<span className="text-xs font-medium text-stone-500"> / year</span></p><p className="mt-1 text-xs font-semibold text-amber-800">New members: 2 years for $25</p>
+                  </button>
+                  <button type="button" onClick={() => setMembershipPlan('benefactor')} aria-pressed={membershipPlan === 'benefactor'} className={`rounded-xl border p-3 text-left transition ${membershipPlan === 'benefactor' ? 'border-amber-500 bg-amber-100 ring-2 ring-amber-300' : 'border-stone-200 bg-white hover:border-amber-300'}`}>
+                    <p className="text-xs font-semibold text-buddhist-burgundy">Benefactor</p><p className="mt-1 text-xl font-bold text-buddhist-burgundy">$500<span className="text-xs font-medium text-stone-500"> / year</span></p>
+                  </button>
+                  <button type="button" onClick={() => setMembershipPlan('lifetime')} aria-pressed={membershipPlan === 'lifetime'} className={`rounded-xl border p-3 text-left transition ${membershipPlan === 'lifetime' ? 'border-amber-500 bg-amber-100 ring-2 ring-amber-300' : 'border-stone-200 bg-white hover:border-amber-300'}`}>
+                    <p className="text-xs font-semibold text-buddhist-burgundy">Lifetime</p><p className="mt-1 text-xl font-bold text-buddhist-burgundy">$3,000</p><p className="mt-1 text-xs text-stone-500">One-time</p>
+                  </button>
                 </div>
+                <p className="mt-3 text-xs font-semibold text-buddhist-burgundy">Selected: {membershipPlan === 'yearly' ? 'Yearly Membership — $25 (2 years for $25 for new members)' : membershipPlan === 'benefactor' ? 'Benefactor Membership — $500/year' : 'Lifetime Membership — $3,000 one-time'}</p>
                 <h4 className="mt-4 text-sm font-bold text-buddhist-burgundy">Member benefits</h4>
                 <ul className="mt-2 space-y-1.5 text-xs leading-5 text-stone-700">
                   <li>• Access to 200+ free meditation sessions every Saturday and Sunday.</li>
