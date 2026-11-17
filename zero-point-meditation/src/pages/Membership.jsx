@@ -491,26 +491,85 @@ export default function Membership() {
           </p>
         </div>
 
+        {/* MEMBERSHIP OPTIONS */}
+
+        <section className="mb-8 rounded-2xl border border-amber-200 bg-white p-6 shadow-sm sm:p-8">
+          <div className="text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-buddhist-gold">
+              Membership Options
+            </p>
+            <h2 className="mt-2 font-serif text-2xl font-bold text-buddhist-burgundy">
+              Choose Your Membership
+            </h2>
+          </div>
+
+          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            <div className="rounded-xl border border-amber-300 bg-amber-50/70 p-5 text-center">
+              <h3 className="font-semibold text-buddhist-burgundy">Yearly Membership</h3>
+              <p className="mt-3 font-serif text-3xl font-bold text-buddhist-burgundy">$25</p>
+              <p className="mt-1 text-xs text-stone-600">Per year</p>
+              <p className="mt-3 text-sm font-semibold text-amber-800">
+                New-member offer: 2 years for $25
+              </p>
+              <p className="mt-1 text-xs text-stone-600">
+                Pay for one year and receive two years of membership.
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-stone-200 p-5 text-center">
+              <h3 className="font-semibold text-buddhist-burgundy">Benefactor Membership</h3>
+              <p className="mt-3 font-serif text-3xl font-bold text-buddhist-burgundy">$500</p>
+              <p className="mt-1 text-xs text-stone-600">Per year</p>
+            </div>
+
+            <div className="rounded-xl border border-stone-200 p-5 text-center">
+              <h3 className="font-semibold text-buddhist-burgundy">Lifetime Membership</h3>
+              <p className="mt-3 font-serif text-3xl font-bold text-buddhist-burgundy">$3,000</p>
+              <p className="mt-1 text-xs text-stone-600">One-time membership</p>
+            </div>
+          </div>
+
+          <p className="mt-5 text-center text-xs leading-relaxed text-stone-500">
+            This registration form creates your member account; payment is not collected online through this form.
+          </p>
+        </section>
+
         {/* MEMBERSHIP BENEFITS */}
 
         <div className="mb-8 grid gap-4 sm:grid-cols-2">
           <div className="rounded-xl border border-amber-200 bg-white p-5">
             <h2 className="font-semibold text-buddhist-burgundy">
-              Weekly Meditation
+              200+ Free Meditation Sessions
             </h2>
-
             <p className="mt-2 text-sm text-stone-600">
-              One free community meditation class each week.
+              Access more than 200 free meditation sessions held every Saturday and Sunday.
             </p>
           </div>
 
           <div className="rounded-xl border border-amber-200 bg-white p-5">
             <h2 className="font-semibold text-buddhist-burgundy">
-              Community Benefits
+              Free English Learning Camp in 2027
             </h2>
-
             <p className="mt-2 text-sm text-stone-600">
-              Member discounts on selected activities and early event updates.
+              Take part in a free English Learning Camp running for approximately 4–6 months in 2027.
+            </p>
+          </div>
+
+          <div className="rounded-xl border border-amber-200 bg-white p-5">
+            <h2 className="font-semibold text-buddhist-burgundy">
+              Butter Lamp Offering
+            </h2>
+            <p className="mt-2 text-sm text-stone-600">
+              One butter lamp offering will be made in each new member’s name.
+            </p>
+          </div>
+
+          <div className="rounded-xl border border-amber-200 bg-white p-5">
+            <h2 className="font-semibold text-buddhist-burgundy">
+              Join Our Community
+            </h2>
+            <p className="mt-2 text-sm text-stone-600">
+              Build a connection with the Zero Point Meditation Center community.
             </p>
           </div>
         </div>
@@ -657,15 +716,10 @@ export default function Membership() {
                     </h3>
 
                     <ul className="mt-3 space-y-2 text-sm text-stone-600">
-                      <li>
-                        • One free community meditation class each week
-                      </li>
-                      <li>
-                        • Discounts on selected ZPMC activities
-                      </li>
-                      <li>
-                        • Early notice of events and community activities
-                      </li>
+                      <li>• Access to 200+ free meditation sessions held every Saturday and Sunday</li>
+                      <li>• Free English Learning Camp in 2027, running for approximately 4–6 months</li>
+                      <li>• One butter lamp offering made in your name</li>
+                      <li>• Connection with the Zero Point Meditation Center community</li>
                     </ul>
                   </div>
 
@@ -982,7 +1036,8 @@ export default function Membership() {
 
                     <p className="text-xs leading-relaxed text-stone-500">
                       Fields marked * are required. By registering, you are
-                      requesting a free ZPMC Community Membership.
+                      creating your ZPMC membership account. Please contact the
+                      center for payment instructions.
                     </p>
 
                     <button
