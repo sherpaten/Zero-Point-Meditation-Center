@@ -51,8 +51,6 @@ import { Calendar, MapPin, ArrowRight, Sparkles, Compass, HeartHandshake, Shield
 
 // Assets (Convert heavy images to .webp in src/assets for maximum speed on Vercel)
 import buddhaLotus from "../assets/buddha-lotus-optimized.webp";
-import morningMeditationUsPoster from '../assets/Classes/poster-1-optimized.webp';
-import morningMeditationNepalPoster from '../assets/Classes/poster-2-optimized.webp';
 import introductionVideo from "../assets/Introduction.mp4"; 
 import rinpocheProfile from '../assets/profile.jpg';
 import worldPeacePrayerDay from '../assets/Events/2025/2025 World Peace Prayer Day.jpg';
@@ -323,93 +321,6 @@ export default function Home() {
           </Link>
         </section>
 
-
-        {/* Free Morning Meditation posters */}
-        <section
-          aria-labelledby="free-morning-meditation-heading"
-          className="space-y-8"
-        >
-          <div className="mx-auto max-w-3xl space-y-3 text-center">
-            <span className="text-buddhist-gold text-xs font-bold uppercase tracking-widest">
-              Open to Everyone
-            </span>
-            <h2 id="free-morning-meditation-heading" className="font-serif text-3xl font-bold text-buddhist-burgundy sm:text-4xl">
-              Free Morning Meditation
-            </h2>
-            <p className="text-sm leading-relaxed text-stone-600 sm:text-base">
-              Join our online morning meditation practice. The sessions are offered in two languages, and both schedules use US time.
-            </p>
-          </div>
-
-          <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2">
-            <figure className="overflow-hidden rounded-2xl border border-amber-200/70 bg-white p-3 shadow-sm">
-              <a
-                href="https://bit.ly/morningmeditation_zpmc"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Open registration for the Nepal-hosted morning meditation session"
-                className="block aspect-[4/5] overflow-hidden rounded-xl focus:outline-none focus:ring-4 focus:ring-amber-300"
-              >
-                <img
-                  src={morningMeditationUsPoster}
-                  alt="Morning Meditation weekly practice poster with registration QR code"
-                  loading="lazy"
-                  decoding="async"
-                  className="h-full w-full rounded-xl object-contain transition-opacity hover:opacity-90"
-                />
-              </a>
-              <a
-                href="https://bit.ly/morningmeditation_zpmc"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Register for the Nepali morning meditation session"
-                className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3 text-xs font-bold uppercase tracking-wider text-amber-50 transition-colors hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2"
-              >
-                Register for This Session <ArrowRight size={14} />
-              </a>
-              <figcaption className="px-2 pb-2 pt-3 text-center text-xs font-semibold uppercase tracking-wider text-stone-600">
-                Nepali language · US time
-              </figcaption>
-            </figure>
-            <figure className="overflow-hidden rounded-2xl border border-amber-200/70 bg-white p-3 shadow-sm">
-              <a
-                href="https://bit.ly/morningmeditation2_zpmc"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Register for the English morning meditation session"
-                aria-label="Open registration for the English morning meditation session"
-                className="block aspect-[4/5] overflow-hidden rounded-xl focus:outline-none focus:ring-4 focus:ring-amber-300"
-              >
-                <img
-                  src={morningMeditationNepalPoster}
-                  alt="English morning meditation weekly practice poster with registration QR code"
-                  loading="lazy"
-                  decoding="async"
-                  className="h-full w-full rounded-xl object-contain transition-opacity hover:opacity-90"
-                />
-              </a>
-              <a
-                href="https://bit.ly/morningmeditation2_zpmc"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3 text-xs font-bold uppercase tracking-wider text-amber-50 transition-colors hover:bg-red-900 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2"
-              >
-                Register for This Session <ArrowRight size={14} />
-              </a>
-              <figcaption className="px-2 pb-2 pt-3 text-center text-xs font-semibold uppercase tracking-wider text-stone-600">
-                English language · US time
-              </figcaption>
-            </figure>
-          </div>
-          <div className="text-center">
-            <Link
-              to="/home#home-calendar-heading"
-              className="inline-flex items-center gap-2 rounded-xl bg-buddhist-burgundy px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-amber-50 shadow-md transition-colors hover:bg-red-900"
-            >
-              View Schedule & Register <ArrowRight size={14} />
-            </Link>
-          </div>
-        </section>
 
         {/* Community reflections */}
         <section
