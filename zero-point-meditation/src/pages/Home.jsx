@@ -56,6 +56,10 @@ import rinpocheProfile from '../assets/profile.jpg';
 import worldPeacePrayerDay from '../assets/Events/2025/2025 World Peace Prayer Day.jpg';
 import weeklyMeditationMorning from '../assets/Events/2025/2025 Mindfulness Meditation.jpg';
 import currentEventImage from '../assets/Event 3.jpeg';
+import bardoPoster1 from '../assets/poster-1.jpg';
+import bardoPoster2 from '../assets/poster-2.jpg';
+import bardoPoster3 from '../assets/poster-3.jpg';
+import bardoPoster4 from '../assets/poster-4.jpg';
 import taraPrayerPoster from '../assets/poste/2026 the sacred Zabtik Dolma (Green Tara) Prayer.jpg';
 import caipaFoundationLogo from '../assets/Partners Logo/CAIPA-Foundation_fus.png';
 import chhayaLogo from '../assets/Partners Logo/Chhaya.png';
@@ -384,6 +388,55 @@ export default function Home() {
           >
             View Details & Tickets <ArrowRight size={14} />
           </a>
+        </section>
+
+        {/* Four individual Bardo teaching posters — also featured on the Events page */}
+        <section aria-labelledby="home-bardo-posters-heading" className="space-y-7">
+          <div className="mx-auto max-w-3xl space-y-3 text-center">
+            <span className="inline-flex items-center gap-2 text-buddhist-gold text-xs font-bold uppercase tracking-widest">
+              <Calendar size={14} /> November–December 2026
+            </span>
+            <h2 id="home-bardo-posters-heading" className="font-serif text-3xl font-bold text-buddhist-burgundy sm:text-4xl">
+              Bardo Teaching Series — Event Posters
+            </h2>
+            <p className="text-sm leading-relaxed text-stone-600 sm:text-base">
+              Explore each session in the four-part teaching series with Gegye Yongyal Rinpoche. Select a poster to view tickets and event details.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { image: bardoPoster1, title: 'Art of Dying & Reincarnation', date: 'November 20, 2026' },
+              { image: bardoPoster2, title: 'Bardo and Its Stages', date: 'December 4, 2026' },
+              { image: bardoPoster3, title: 'Understanding Phowa', date: 'December 11, 2026' },
+              { image: bardoPoster4, title: 'Butterlamp Offering', date: 'December 18, 2026' }
+            ].map((poster) => (
+              <a
+                key={poster.date}
+                href="https://shop.thus.org/products/bardo-after-life-reincarnation-with-gegye-yongyal-rinpoche"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`View tickets for ${poster.title} on ${poster.date}`}
+                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-amber-200/80 bg-white shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-buddhist-gold"
+              >
+                <div className="aspect-[3/4] overflow-hidden bg-stone-100">
+                  <img
+                    src={poster.image}
+                    alt={`${poster.title} event poster`}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-[1.02]"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col gap-2 p-4">
+                  <h3 className="font-serif text-base font-bold text-buddhist-burgundy">{poster.title}</h3>
+                  <p className="text-xs font-semibold text-stone-500">{poster.date}</p>
+                  <span className="mt-auto inline-flex items-center gap-2 pt-2 text-[10px] font-bold uppercase tracking-wider text-buddhist-gold">
+                    View Details & Tickets <ArrowRight size={13} />
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
         </section>
 
         <DeferredHomeEventsCalendar forceLoad={location.hash === '#home-calendar-heading'} />
