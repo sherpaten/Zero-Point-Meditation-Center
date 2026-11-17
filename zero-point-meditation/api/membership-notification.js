@@ -38,6 +38,8 @@ export default async function handler(req, res) {
   const email = clean(body.email, 254);
   const phone = clean(body.phone, 40);
   const country = clean(body.country, 100);
+  const planLabels = { yearly: 'Yearly Membership — $25/year (new-member offer: 2 years for $25)', benefactor: 'Benefactor Membership — $500/year', lifetime: 'Lifetime Membership — $3,000 one-time' };
+  const membershipPlan = typeof body.membershipPlan === 'string' && planLabels[body.membershipPlan] ? body.membershipPlan : 'yearly';
 
   if (name.length < 2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ error: 'A valid name and email are required.' });
@@ -59,6 +61,7 @@ export default async function handler(req, res) {
     'Applicant email: ' + email,
     'Phone: ' + (phone || 'Not provided'),
     'Country: ' + (country || 'Not provided'),
+    'Selected membership plan: ' + planLabels[membershipPlan],
     '',
     'Membership account verification is handled separately by Supabase.',
     'Review membership records in the authorized membership admin portal:',
