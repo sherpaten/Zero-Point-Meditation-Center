@@ -41,7 +41,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-stone-200 bg-white/95 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
+      <div className="mx-auto flex w-full max-w-[1720px] items-center justify-between gap-4 px-5 py-3 sm:px-8 lg:px-10">
         <Link
           to="/home"
           className="group flex min-w-0 items-center gap-2.5 rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-buddhist-gold sm:gap-3"
@@ -60,7 +60,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <nav aria-label="Main navigation" className="hidden items-center gap-5 text-xs uppercase tracking-wider md:flex lg:gap-7">
+        <nav aria-label="Main navigation" className="hidden items-center gap-4 text-[11px] uppercase tracking-wider lg:flex xl:gap-6">
           {navigation.map((item) => (
             item.children ? (
               <details key={item.label} className="group relative">
@@ -98,7 +98,7 @@ export default function Navbar() {
 
         <button
           type="button"
-          className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg border border-stone-200 text-buddhist-burgundy transition-colors hover:bg-amber-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-buddhist-gold md:hidden"
+          className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-lg border border-stone-200 text-buddhist-burgundy transition-colors hover:bg-amber-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-buddhist-gold lg:hidden"
           aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
           aria-controls="mobile-primary-navigation"
           aria-expanded={menuOpen}
@@ -112,7 +112,7 @@ export default function Navbar() {
         <nav
           id="mobile-primary-navigation"
           aria-label="Mobile navigation"
-          className="border-t border-stone-200 bg-white px-4 pb-4 pt-2 shadow-lg md:hidden sm:px-6"
+          className="border-t border-stone-200 bg-white px-4 pb-4 pt-2 shadow-lg lg:hidden sm:px-6"
         >
           <ul className="mx-auto max-w-6xl space-y-1">
             {navigation.map((item) => (
