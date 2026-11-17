@@ -455,6 +455,14 @@ export default function Events() {
     .slice()
     .sort(compareEventsNewestFirst);
 
+  const handleCardActivation = (item) => {
+    if (item.posterImage && item.ticketUrl) {
+      window.open(item.ticketUrl, '_blank', 'noopener,noreferrer');
+      return;
+    }
+    setSelectedMedia(item);
+  };
+
   const getBadgeIcon = (type) => {
     if (type === 'event') return <Calendar size={12} />;
     if (type === 'poster') return <FileText size={12} />;
@@ -526,9 +534,9 @@ export default function Events() {
           {filteredItems.map((item) => (
             <motion.article key={item.id} layout variants={cardVariants} initial="hidden" animate="visible" exit="exit"
               whileHover={{ y: -5, transition: { duration: 0.18 } }}
-              onClick={() => setSelectedMedia(item)}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setSelectedMedia(item); } }}
-              role="button" tabIndex={0} aria-label={`View details for ${item.title}`}
+              onClick={() => handleCardActivation(item)}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleCardActivation(item); } }}
+              role="button" tabIndex={0} aria-label={item.posterImage && item.ticketUrl ? `Open tickets for ${item.title}` : `View details for ${item.title}`}
               className={`bg-white rounded-2xl border overflow-hidden shadow-sm hover:shadow-lg transition-shadow cursor-pointer group flex flex-col ${item.featured ? 'border-amber-400 ring-2 ring-amber-200 shadow-md' : 'border-stone-200'}`}>
 {/* Posters are displayed as artwork only; event cards retain their details. */}
               <div className={`relative overflow-hidden bg-stone-100 ${item.type === 'poster' || item.posterImage ? 'aspect-[3/4]' : 'aspect-[4/3]'}`}>
