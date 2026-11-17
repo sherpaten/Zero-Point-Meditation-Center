@@ -112,11 +112,11 @@ const galleryItems = [
     ticketUrl: 'https://shop.thus.org/products/the-three-principle-stages-of-the-buddhist-path-lam-rim'
   },
   {
-    id: 48, group: 'Current', featured: true, title: 'Bardo: After Life & Reincarnation',
-    type: 'event', category: 'Upcoming Event', date: 'November 20; December 4, 11 & 18, 2026',
-    location: 'Tibet House US, New York & Online',
+    id: 48, group: 'Current', featured: true, title: 'The Art of Dying, Bardo, Phowa & Butterlamp Offering',
+    type: 'event', category: 'Four-Session Course & Offering', date: 'November 20; December 4, 11 & 18, 2026',
+    location: 'Tibet House US, New York & Online · Final offering at Boudhanath Stupa, Nepal',
     image: event3,
-    description: 'A four-session teaching series with Gegye Yongyal Rinpoche exploring the bardo, life after death, and reincarnation. The opening session begins November 20 at 6:00 PM Eastern Time. Check Tibet House US for the full schedule and current ticket options.',
+    description: 'Session 1 · November 20 — Art of Dying and the Reincarnation of Gegye Yongyal Tulku Rinpoche: understanding impermanence as preparation for life’s greatest transition. Session 2 · December 4 — Bardo and Its Stages: the intermediate state between death and rebirth. Session 3 · December 11 — Understanding Phowa: the Buddhist teaching on transference of consciousness at the time of death. Session 4 · December 18 — Butterlamp Offering by the Sangha of Boudha, Nepal: an aspiration to light 10,000 butter lamps at Boudhanath Stupa for flood victims and Prof. Bob Thurman, broadcast live from Kathmandu to Tibet House US by a ZPMC member. Sessions 1–3 are at 6:00 PM Eastern Time; the December 18 offering time will be announced.',
     ticketUrl: 'https://shop.thus.org/products/bardo-after-life-reincarnation-with-gegye-yongyal-rinpoche'
   },
   {
