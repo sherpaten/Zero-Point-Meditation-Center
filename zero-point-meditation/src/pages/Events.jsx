@@ -14,6 +14,10 @@ import event8 from '../assets/Event 8.jpeg';
 import event9 from '../assets/Event 9.jpeg';
 import event10 from '../assets/Event 10.webp';
 import event11 from '../assets/Event 11.jpeg';
+import bardoPosterNov20 from '../assets/Events/2026/Bardo Course - November 20.jpg';
+import bardoPosterDec04 from '../assets/Events/2026/Bardo Course - December 4.jpg';
+import bardoPosterDec11 from '../assets/Events/2026/Bardo Course - December 11.jpg';
+import bardoPosterDec18 from '../assets/Events/2026/Bardo Course - December 18.jpg';
 import news1 from '../assets/News 1.webp';
 import post3 from '../assets/Post 3.jpg';
 import poster1 from '../assets/Poste 1.webp';
@@ -111,11 +115,31 @@ const galleryItems = [
     ticketUrl: 'https://shop.thus.org/products/the-three-principle-stages-of-the-buddhist-path-lam-rim'
   },
   {
-    id: 48, group: 'Current', featured: true, title: 'The Art of Dying, Bardo, Phowa & Butterlamp Offering',
-    type: 'event', category: 'Four-Session Course & Offering', date: 'November 20; December 4, 11 & 18, 2026',
-    location: 'Tibet House US, New York & Online · Final offering at Boudhanath Stupa, Nepal',
-    image: event3,
-    description: 'Session 1 · November 20 — Art of Dying and the Reincarnation of Gegye Yongyal Tulku Rinpoche: understanding impermanence as preparation for life’s greatest transition. Session 2 · December 4 — Bardo and Its Stages: the intermediate state between death and rebirth. Session 3 · December 11 — Understanding Phowa: the Buddhist teaching on transference of consciousness at the time of death. Session 4 · December 18 — Butterlamp Offering by the Sangha of Boudha, Nepal: an aspiration to light 10,000 butter lamps at Boudhanath Stupa for flood victims and Prof. Bob Thurman, broadcast live from Kathmandu to Tibet House US by a ZPMC member. All four sessions run from 6:00–8:00 PM EST. Format: hybrid — in person and online.',
+    id: 48, group: 'Current', featured: true, title: 'Art of Dying and the Reincarnation of Gegye Yongyal Tulku Rinpoche',
+    type: 'event', category: 'Upcoming Event', date: 'November 20, 2026',
+    location: 'Tibet House US, New York & Online', image: bardoPosterNov20, posterImage: true,
+    description: 'Learning the art of dying begins with understanding the impermanent nature of reality. By recognizing impermanence in every moment, we begin to prepare ourselves for the greatest transition of all. 6:00–8:00 PM EST · Hybrid: in person and online.',
+    ticketUrl: 'https://shop.thus.org/products/bardo-after-life-reincarnation-with-gegye-yongyal-rinpoche'
+  },
+  {
+    id: 49, group: 'Current', featured: true, title: 'Bardo and Its Stages',
+    type: 'event', category: 'Upcoming Event', date: 'December 4, 2026',
+    location: 'Tibet House US, New York & Online', image: bardoPosterDec04, posterImage: true,
+    description: 'Explore the stages of Bardo, with particular focus on the intermediate state between death and rebirth. 6:00–8:00 PM EST · Hybrid: in person and online.',
+    ticketUrl: 'https://shop.thus.org/products/bardo-after-life-reincarnation-with-gegye-yongyal-rinpoche'
+  },
+  {
+    id: 50, group: 'Current', featured: true, title: 'Understanding Phowa',
+    type: 'event', category: 'Upcoming Event', date: 'December 11, 2026',
+    location: 'Tibet House US, New York & Online', image: bardoPosterDec11, posterImage: true,
+    description: 'Learn what Phowa means and what the transference of consciousness at the time of death means in the Buddhist context. 6:00–8:00 PM EST · Hybrid: in person and online.',
+    ticketUrl: 'https://shop.thus.org/products/bardo-after-life-reincarnation-with-gegye-yongyal-rinpoche'
+  },
+  {
+    id: 51, group: 'Current', featured: true, title: 'Butterlamp Offering by the Sangha of Boudha, Nepal',
+    type: 'event', category: 'Community Offering', date: 'December 18, 2026',
+    location: 'Boudhanath Stupa, Kathmandu, Nepal · Live broadcast to Tibet House US', image: bardoPosterDec18, posterImage: true,
+    description: 'The Sangha of Boudha aims to light 10,000 butter lamps at Boudhanath Stupa for lives lost to flooding and for Prof. Bob Thurman. A ZPMC member will livestream the event from Kathmandu to Tibet House US. 6:00–8:00 PM EST · Hybrid: in person and online.',
     ticketUrl: 'https://shop.thus.org/products/bardo-after-life-reincarnation-with-gegye-yongyal-rinpoche'
   },
   {
@@ -374,7 +398,7 @@ function EventPhotoSlider({ item, className = '' }) {
               src={src}
               alt={`${item.title} — photo ${photoIndex + 1} of ${photos.length}`}
               loading="lazy"
-              className={`block h-full w-full ${item.type === 'poster' ? 'object-contain' : 'object-cover'}`}
+              className={`block h-full w-full ${item.type === 'poster' || item.posterImage ? 'object-contain' : 'object-cover'}`}
               style={{ width: '100%', height: '100%', maxWidth: '100%', flexShrink: 0 }}
             />
           </div>
@@ -503,7 +527,7 @@ export default function Events() {
               role="button" tabIndex={0} aria-label={`View details for ${item.title}`}
               className={`bg-white rounded-2xl border overflow-hidden shadow-sm hover:shadow-lg transition-shadow cursor-pointer group flex flex-col ${item.featured ? 'border-amber-400 ring-2 ring-amber-200 shadow-md' : 'border-stone-200'}`}>
 {/* Posters are displayed as artwork only; event cards retain their details. */}
-              <div className={`relative overflow-hidden bg-stone-100 ${item.type === 'poster' ? 'aspect-[3/4]' : 'aspect-[4/3]'}`}>
+              <div className={`relative overflow-hidden bg-stone-100 ${item.type === 'poster' || item.posterImage ? 'aspect-[3/4]' : 'aspect-[4/3]'}`}>
                 <EventPhotoSlider item={item} />
                 {item.featured && <span className="absolute top-3 right-3 z-10 bg-amber-400 text-stone-950 text-[10px] font-extrabold px-3 py-1.5 rounded-full uppercase tracking-wider shadow">Featured Event</span>}
                 <div className="absolute inset-0 bg-stone-950/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
