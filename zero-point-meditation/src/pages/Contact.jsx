@@ -81,7 +81,7 @@ export default function Contact() {
                 <Phone className="text-buddhist-gold shrink-0" size={18} />
                 <div>
                   <p className="font-bold text-amber-50">Mimi</p>
-                  <a href="tel:+19295448252" className="hover:text-buddhist-gold transition-colors">929-544-8252</a>
+                  <a href="tel:+19295448252" className="hover:text-buddhist-gold transition-colors">+1 (929) 544-8252</a>
                 </div>
               </div>
               <div className="flex items-start gap-3">
