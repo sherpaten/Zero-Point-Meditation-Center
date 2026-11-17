@@ -161,6 +161,35 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
           </div>
         ) : (
           <form onSubmit={mode === 'signup' ? handleSignup : handleSignin} className="mt-6 space-y-4">
+            {mode === 'signup' && (
+              <section className="rounded-2xl border border-amber-200 bg-amber-50/70 p-4" aria-label="Membership prices and benefits">
+                <h3 className="font-serif text-lg font-bold text-buddhist-burgundy">Membership options</h3>
+                <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-3">
+                  <div className="rounded-xl border border-amber-300 bg-white p-3">
+                    <p className="text-xs font-semibold text-buddhist-burgundy">Yearly</p>
+                    <p className="mt-1 text-xl font-bold text-buddhist-burgundy">$25<span className="text-xs font-medium text-stone-500"> / year</span></p>
+                    <p className="mt-1 text-xs font-semibold text-amber-800">New members: 2 years for $25</p>
+                  </div>
+                  <div className="rounded-xl border border-stone-200 bg-white p-3">
+                    <p className="text-xs font-semibold text-buddhist-burgundy">Benefactor</p>
+                    <p className="mt-1 text-xl font-bold text-buddhist-burgundy">$500<span className="text-xs font-medium text-stone-500"> / year</span></p>
+                  </div>
+                  <div className="rounded-xl border border-stone-200 bg-white p-3">
+                    <p className="text-xs font-semibold text-buddhist-burgundy">Lifetime</p>
+                    <p className="mt-1 text-xl font-bold text-buddhist-burgundy">$3,000</p>
+                    <p className="mt-1 text-xs text-stone-500">One-time</p>
+                  </div>
+                </div>
+                <h4 className="mt-4 text-sm font-bold text-buddhist-burgundy">Member benefits</h4>
+                <ul className="mt-2 space-y-1.5 text-xs leading-5 text-stone-700">
+                  <li>• Access to 200+ free meditation sessions every Saturday and Sunday.</li>
+                  <li>• Free English Learning Camp in 2027 (approximately 4–6 months).</li>
+                  <li>• One butter lamp offering made in each new member’s name.</li>
+                  <li>• Connection with the ZPMC community.</li>
+                </ul>
+                <p className="mt-3 text-[11px] leading-4 text-stone-500">Registration creates your member account. Payment is arranged separately and is not collected in this form.</p>
+              </section>
+            )}
             {mode === 'signup' && <>
               <div><label className="mb-1 block text-sm font-medium text-stone-700" htmlFor="invite-name">Full name</label><input id="invite-name" value={name} onChange={e => setName(e.target.value)} required maxLength={120} autoComplete="name" className="w-full rounded-xl border border-stone-300 px-4 py-3 outline-none focus:border-amber-700"/></div>
               <div><label className="mb-1 block text-sm font-medium text-stone-700" htmlFor="invite-phone">Phone number (optional)</label><input id="invite-phone" value={phone} onChange={e => setPhone(e.target.value)} maxLength={40} autoComplete="tel" className="w-full rounded-xl border border-stone-300 px-4 py-3 outline-none focus:border-amber-700"/></div>
