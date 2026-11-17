@@ -4,6 +4,9 @@ import { Menu, X, Sparkles } from 'lucide-react';
 import logo from '../assets/LOGO.svg';
 
 const actionNavigation = [
+  { to: '/event-registration', label: 'Event Registration' },
+  { to: '/membership-registration', label: 'Member Registration' },
+  { to: '/contact', label: 'Contact' },
 ];
 
 const navigation = [
