@@ -360,6 +360,35 @@ export default function Home() {
 
         <DeferredHomeEventsCalendar forceLoad={location.hash === '#home-calendar-heading'} />
 
+        {/* Featured teaching promotion placed directly below the homepage calendar */}
+        <section
+          aria-labelledby="bardo-teaching-promo-heading"
+          className="mx-auto grid w-full max-w-5xl gap-4 rounded-2xl border border-amber-200/80 bg-amber-50/70 px-5 py-5 shadow-sm sm:px-7 md:grid-cols-[1fr_auto] md:items-center"
+        >
+          <div className="space-y-2">
+            <span className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-buddhist-gold">
+              <Calendar size={13} /> Featured Teaching Series
+            </span>
+            <h2 id="bardo-teaching-promo-heading" className="font-serif text-xl font-bold text-buddhist-burgundy sm:text-2xl">
+              Bardo: After Life & Reincarnation
+            </h2>
+            <p className="text-sm leading-relaxed text-stone-600">
+              Join Gegye Yongyal Rinpoche for a four-session exploration of the art of dying, the Bardo, Phowa, and the Butterlamp Offering.
+            </p>
+            <p className="text-xs font-semibold text-stone-500">
+              November 20, December 4, 11 & 18, 2026 · Tibet House US & Online
+            </p>
+          </div>
+          <a
+            href="https://shop.thus.org/products/bardo-after-life-reincarnation-with-gegye-yongyal-rinpoche"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3 text-xs font-bold uppercase tracking-wider text-amber-50 shadow-md transition-colors hover:bg-red-900"
+          >
+            View Details & Tickets <ArrowRight size={14} />
+          </a>
+        </section>
+
         {/* Event & Practice Gallery */}
         <div className="space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-2">
