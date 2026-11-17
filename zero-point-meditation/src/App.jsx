@@ -30,6 +30,7 @@ const Welcome = lazy(() => import('./pages/Welcome.jsx'));
 const Services = lazy(() => import('./pages/Services.jsx'));
 
 const Membership = lazy(() => import('./pages/Membership.jsx'));
+const MembershipRegistration = lazy(() => import('./pages/MembershipRegistration.jsx'));
 const MembershipCheckin = lazy(() => import('./pages/MembershipCheckin.jsx'));
 const MembershipAdmin = lazy(() => import('./pages/MembershipAdmin.jsx'));
 
@@ -76,6 +77,7 @@ function SiteLayout() {
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
             <Route path="/membership" element={<Membership />} />
+            <Route path="/membership-registration" element={<MembershipRegistration />} />
             <Route path="/membership-checkin" element={<MembershipCheckin />} />
             <Route path="/membership-admin" element={<MembershipAdmin />} />
             <Route path="/teachers" element={<Teachings />} />
