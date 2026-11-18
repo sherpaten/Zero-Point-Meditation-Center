@@ -374,15 +374,27 @@ export default function MembershipAdmin() {
         return;
       }
 
-      const { error: deleteError } = await supabase
+      // Request the deleted row back so a zero-row/RLS-filtered delete
+      // cannot be mistaken for a successful deletion.
+      const { data: deletedMember, error: deleteError } = await supabase
         .from('members')
         .delete()
-        .eq('id', member.id);
+        .eq('id', member.id)
+        .select('id')
+        .maybeSingle();
 
       if (deleteError) throw deleteError;
 
+      if (!deletedMember) {
+        showNotice(
+          'Supabase did not confirm deleting this member. No member was removed from the dashboard. Check the members table DELETE policy and whether this record still exists.',
+          'error'
+        );
+        return;
+      }
+
       setMembers((current) =>
-        current.filter((item) => item.id !== member.id)
+        current.filter((item) => item.id !== deletedMember.id)
       );
 
       if (selectedMember?.id === member.id) {
