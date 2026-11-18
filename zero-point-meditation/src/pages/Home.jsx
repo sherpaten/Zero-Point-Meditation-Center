@@ -353,7 +353,7 @@ export default function Home() {
                 <p className="flex-1 text-sm leading-relaxed text-stone-700">“{review.quote}”</p>
                 <div className="mt-5 border-t border-stone-100 pt-4">
                   <p className="font-serif text-base font-bold text-buddhist-burgundy">{review.name}</p>
-                  <p className="mt-1 text-[10px] font-semibold uppercase tracking-wider text-stone-400">Community reflection</p>
+                  <p className="mt-1 text-[10px] font-semibold uppercase tracking-wider text-stone-500">Community reflection</p>
                 </div>
               </article>
             ))}
