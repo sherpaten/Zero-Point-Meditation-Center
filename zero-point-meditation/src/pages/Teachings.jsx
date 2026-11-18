@@ -58,17 +58,17 @@ export default function Teachings() {
         <div className="grid gap-5 lg:grid-cols-3">
           <motion.article initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="flex flex-col overflow-hidden rounded-2xl border border-amber-100 bg-white shadow-sm">
             <div className="aspect-[4/3] overflow-hidden bg-stone-100">
-              <img src={karmaGyatsoPhoto} alt="Karma Gyatso Lopon La" className="h-full w-full object-cover object-top" loading="lazy" />
+              <img src={karmaGyatsoPhoto} alt="Venerable Karma Gyatso Lopon La" className="h-full w-full object-cover object-top" loading="lazy" />
             </div>
             <div className="flex flex-1 flex-col gap-3 p-5">
               <div className="space-y-1 text-center">
                 <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-buddhist-gold"><GraduationCap size={14} /> Teacher</span>
-                <h3 className="font-serif text-xl font-bold text-buddhist-burgundy">Karma Gyatso Lopon La</h3>
+                <h3 className="font-serif text-xl font-bold text-buddhist-burgundy">Venerable Karma Gyatso Lopon La</h3>
               </div>
               <p className="text-sm leading-relaxed text-stone-600">A Buddhist teacher and student researcher at Emory University, with more than ten years of study in the Buddhist sutra tradition.</p>
               <span className="inline-flex w-fit items-center gap-2 rounded-full bg-amber-50 px-3 py-2 text-xs font-medium text-buddhist-burgundy"><CalendarDays size={14} /> Future programs planned for 2027</span>
-              <button type="button" onClick={() => setSelectedBio({ name: 'Karma Gyatso Lopon La', image: karmaGyatsoPhoto, biography: 'Karma Gyatso Lopon La completed his Grade 12 education in India and spent more than ten years studying the Buddhist sutra tradition at Bokar Shedra. He is currently a student researcher at Emory University. At Zero Point Meditation Center, he will teach meditation and facilitate online Buddhist prayer programs planned for 2027. Program details and dates will be shared when they are confirmed.' })} className="w-fit text-sm font-semibold text-buddhist-burgundy underline decoration-amber-400 underline-offset-4 hover:text-amber-700">Read full bio</button>
-              <button type="button" onClick={() => { setSelectedTeacher('Karma Gyatso Lopon La'); setBookingOpen(true); }} className="mt-auto inline-flex w-fit items-center justify-center gap-2 rounded-full bg-buddhist-burgundy px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-buddhist-burgundy-hover">Book a lecture <ArrowRight size={16} /></button>
+              <button type="button" onClick={() => setSelectedBio({ name: 'Venerable Karma Gyatso Lopon La', image: karmaGyatsoPhoto, biography: 'Venerable Karma Gyatso Lopon La completed his Grade 12 education in India and spent more than ten years studying the Buddhist sutra tradition at Bokar Shedra. He is currently a student researcher at Emory University. At Zero Point Meditation Center, he will teach meditation and facilitate online Buddhist prayer programs planned for 2027. Program details and dates will be shared when they are confirmed.' })} className="w-fit text-sm font-semibold text-buddhist-burgundy underline decoration-amber-400 underline-offset-4 hover:text-amber-700">Read full bio</button>
+              <button type="button" onClick={() => { setSelectedTeacher('Venerable Karma Gyatso Lopon La'); setBookingOpen(true); }} className="mt-auto inline-flex w-fit items-center justify-center gap-2 rounded-full bg-buddhist-burgundy px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-buddhist-burgundy-hover">Book a lecture <ArrowRight size={16} /></button>
             </div>
           </motion.article>
 
