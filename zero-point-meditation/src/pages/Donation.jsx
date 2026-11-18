@@ -14,7 +14,7 @@ const amounts = ['25', '50', '100', '250', '500'];
 const zelleQrValue = 'https://enroll.zellepay.com/qr-codes?data=eyJuYW1lIjoiWkVSTyBQT0lOVCBNRURJVEFUSU9OIENFTlRFUiBJTkMuIiwiYWN0aW9uIjoicGF5bWVudCIsInRva2VuIjoiNjQ2NDU2MDg0MyJ9';
 
 export default function Donation() {
-  const [form, setForm] = useState({ name: '', email: '', amount: '50', customAmount: '', purpose: purposes[0], paymentMethod: 'bank_transfer', message: '', website: '' });
+  const [form, setForm] = useState({ name: '', email: '', amount: '50', customAmount: '', purpose: purposes[0], paymentMethod: 'zelle', message: '', website: '' });
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState('');
   const amount = form.amount === 'custom' ? form.customAmount : form.amount;
@@ -71,23 +71,6 @@ export default function Donation() {
             <form onSubmit={submit} className="space-y-5">
               <h2 className="font-serif text-2xl font-bold text-buddhist-burgundy">Donation details</h2>
               <div>
-                <label htmlFor="donation-method" className="mb-2 block text-sm font-semibold text-stone-700">Payment method</label>
-                <select id="donation-method" value={form.paymentMethod} onChange={(e)=>setForm({...form,paymentMethod:e.target.value})} className="w-full rounded-xl border border-stone-300 px-4 py-3 text-sm">
-                  <option value="bank_transfer">Bank transfer (ACH)</option>
-                  <option value="zelle">Zelle</option>
-                  <option value="international_usd">International wire (USD)</option>
-                  <option value="international_foreign">International wire (foreign currency)</option>
-                </select>
-              </div>
-              {form.paymentMethod === 'zelle' && (
-                <div className="rounded-2xl border border-purple-200 bg-purple-50 p-5 text-center">
-                  <h3 className="text-lg font-bold text-stone-900">Pay securely with Zelle</h3>
-                  <p className="mt-1 text-sm text-stone-600">Open your banking app, choose Zelle, and scan this QR code to pay Zero Point Meditation Center Inc.</p>
-                  <div className="mx-auto mt-4 flex w-full max-w-[320px] items-center justify-center rounded-xl bg-white p-4"><QRCodeSVG value={zelleQrValue} size={280} level="M" bgColor="#ffffff" fgColor="#000000" includeMargin /></div>
-                  <p className="mt-3 text-xs text-stone-600">Please confirm the recipient name is ZERO POINT MEDITATION CENTER INC. before sending.</p>
-                </div>
-              )}
-              <div>
                 <label className="mb-2 block text-sm font-semibold text-stone-700">Donation amount (USD)</label>
                 <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
                   {amounts.map((value) => <button key={value} type="button" onClick={() => setForm({...form, amount:value})} className={`rounded-xl border px-3 py-2.5 text-sm font-bold ${form.amount===value?'border-buddhist-burgundy bg-amber-50 text-buddhist-burgundy':'border-stone-200 text-stone-700 hover:border-amber-400'}`}>{'$'}{value}</button>)}
@@ -104,6 +87,22 @@ export default function Donation() {
                 <div><label htmlFor="donor-email" className="mb-2 block text-sm font-semibold text-stone-700">Email address</label><input id="donor-email" type="email" required maxLength="254" value={form.email} onChange={(e)=>setForm({...form,email:e.target.value})} className="w-full rounded-xl border border-stone-300 px-4 py-3 text-sm"/></div>
               </div>
               <div><label htmlFor="donation-message" className="mb-2 block text-sm font-semibold text-stone-700">Message (optional)</label><textarea id="donation-message" rows="3" maxLength="1500" value={form.message} onChange={(e)=>setForm({...form,message:e.target.value})} placeholder="Any note or dedication…" className="w-full rounded-xl border border-stone-300 px-4 py-3 text-sm"/></div>
+              <div className="space-y-3 border-t border-stone-200 pt-5">
+                <h3 className="text-lg font-bold text-buddhist-burgundy">Choose how you would like to donate</h3>
+                <label htmlFor="donation-method" className="mb-2 block text-sm font-semibold text-stone-700">Payment method</label>
+                <select id="donation-method" value={form.paymentMethod} onChange={(e)=>setForm({...form,paymentMethod:e.target.value})} className="w-full rounded-xl border border-stone-300 px-4 py-3 text-sm">
+                  <option value="zelle">Zelle (recommended)</option>
+                  <option value="bank_transfer">Bank transfer (ACH)</option>
+                </select>
+                {form.paymentMethod === 'zelle' && (
+                  <div className="rounded-2xl border border-purple-200 bg-purple-50 p-5 text-center">
+                    <h3 className="text-lg font-bold text-stone-900">Scan to donate with Zelle</h3>
+                    <p className="mt-1 text-sm text-stone-600">Open your banking app, choose Zelle, and scan this QR code to pay Zero Point Meditation Center Inc.</p>
+                    <div className="mx-auto mt-4 flex w-full max-w-[320px] items-center justify-center rounded-xl bg-white p-4"><QRCodeSVG value={zelleQrValue} size={280} level="H" bgColor="#ffffff" fgColor="#000000" includeMargin /></div>
+                    <p className="mt-3 text-xs text-stone-600">Please confirm the recipient name is ZERO POINT MEDITATION CENTER INC. before sending.</p>
+                  </div>
+                )}
+              </div>
               <input tabIndex="-1" autoComplete="off" aria-hidden="true" className="absolute -left-[9999px]" value={form.website} onChange={(e)=>setForm({...form,website:e.target.value})}/>
               {error && <p role="alert" className="rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</p>}
               <button disabled={status==='sending'} type="submit" className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3.5 text-sm font-bold text-white transition hover:bg-red-900 disabled:cursor-wait disabled:opacity-60">{status==='sending'?'Sending…':'Request donation instructions'} <ArrowRight size={16}/></button>
