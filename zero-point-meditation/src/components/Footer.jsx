@@ -40,6 +40,7 @@ export default function Footer() {
             <li><Link to="/about#team" className="hover:text-buddhist-gold transition-colors">Our Team</Link></li>
             <li><Link to="/about#members" className="hover:text-buddhist-gold transition-colors">Our Members</Link></li>
             <li><Link to="/events" className="hover:text-buddhist-gold transition-colors">Events & Programs</Link></li>
+            <li><Link to="/donate" className="font-bold text-buddhist-burgundy hover:text-buddhist-gold transition-colors">Donate / Support Us</Link></li>
             <li><Link to="/merchandise" className="hover:text-buddhist-gold transition-colors">Merchandise</Link></li>
             <li><Link to="/contact" className="hover:text-buddhist-gold transition-colors">Contact</Link></li>
             <li><Link to="/membership" className="text-stone-600 hover:text-buddhist-gold transition-colors">Member Login</Link></li>
