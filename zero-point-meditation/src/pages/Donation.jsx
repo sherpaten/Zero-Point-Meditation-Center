@@ -72,11 +72,38 @@ export default function Donation() {
           ) : (
             <form onSubmit={submit} className="space-y-5">
               <h2 className="font-serif text-2xl font-bold text-buddhist-burgundy">Donation details</h2>
-              <div><label htmlFor="donation-method" className="mb-2 block text-sm font-semibold text-stone-700">Payment method</label><select id="donation-method" value={form.paymentMethod} onChange={(e)=>setForm({...form,paymentMethod:e.target.value})} className="w-full rounded-xl border border-stone-300 px-4 py-3 text-sm"><option value="bank_transfer">Bank transfer (ACH)</option><option value="zelle">Zelle</option><option value="card" disabled>Credit/debit card (coming soon)</option></select></div>
+              <div><label htmlFor="donation-method" className="mb-2 block text-sm font-semibold text-stone-700">Payment method</label><select id="donation-method" value={form.paymentMethod} onChange={(e)=>setForm({...form,paymentMethod:e.target.value})} className="w-full rounded-xl border border-stone-300 px-4 py-3 text-sm"><option value="bank_transfer">Bank transfer (ACH)</option><option value="zelle">Zelle</option><option value="international_usd">International wire (USD)</option><option value="international_foreign">International wire (foreign currency)</option><option value="card" disabled>Credit/debit card (coming soon)</option></select></div>
               <div>
                 <label className="mb-2 block text-sm font-semibold text-stone-700">Donation amount (USD)</label>
                 <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
-                  {amounts.map((value) => <button key={value} type="button" onClick={() => setForm({...form, amount:value})} className={`rounded-xl border px-3 py-2.5 text-sm font-bold ${form.amount===value?'border-buddhist-burgundy bg-amber-50 text-buddhist-burgundy':'border-stone-200 text-stone-700 hover:border-amber-400'}`}>$${value}</button>)}
+                  {amounts.map((value) => <button key={value} type="button" onClick={() => setForm({...form, amount:value})} className={`rounded-xl border px-3 py-2.5 text-sm font-bold ${form.amount===value?'border-buddhist-burgundy bg-amber-50 text-buddhist-burgundy':'border-stone-200 text-stone-700 hover:border-amber-400'}`}>{')}
+                  <button type="button" onClick={() => setForm({...form, amount:'custom'})} className={`rounded-xl border px-3 py-2.5 text-sm font-bold ${form.amount==='custom'?'border-buddhist-burgundy bg-amber-50 text-buddhist-burgundy':'border-stone-200 text-stone-700 hover:border-amber-400'}`}>Other</button>
+                </div>
+                {form.amount === 'custom' && <input required type="number" min="1" step="0.01" value={form.customAmount} onChange={(e)=>setForm({...form,customAmount:e.target.value})} placeholder="Enter amount in USD" className="mt-3 w-full rounded-xl border border-stone-300 px-4 py-3 text-sm focus:border-buddhist-gold focus:outline-none"/>}
+              </div>
+              <div>
+                <label htmlFor="donation-purpose" className="mb-2 block text-sm font-semibold text-stone-700">Donation purpose</label>
+                <select id="donation-purpose" value={form.purpose} onChange={(e)=>setForm({...form,purpose:e.target.value})} className="w-full rounded-xl border border-stone-300 px-4 py-3 text-sm">
+                  {purposes.map((purpose)=><option key={purpose}>{purpose}</option>)}
+                </select>
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div><label htmlFor="donor-name" className="mb-2 block text-sm font-semibold text-stone-700">Full name</label><input id="donor-name" required maxLength="120" value={form.name} onChange={(e)=>setForm({...form,name:e.target.value})} className="w-full rounded-xl border border-stone-300 px-4 py-3 text-sm"/></div>
+                <div><label htmlFor="donor-email" className="mb-2 block text-sm font-semibold text-stone-700">Email address</label><input id="donor-email" type="email" required maxLength="254" value={form.email} onChange={(e)=>setForm({...form,email:e.target.value})} className="w-full rounded-xl border border-stone-300 px-4 py-3 text-sm"/></div>
+              </div>
+              <div><label htmlFor="donation-message" className="mb-2 block text-sm font-semibold text-stone-700">Message (optional)</label><textarea id="donation-message" rows="3" maxLength="1500" value={form.message} onChange={(e)=>setForm({...form,message:e.target.value})} placeholder="Any note or dedication…" className="w-full rounded-xl border border-stone-300 px-4 py-3 text-sm"/></div>
+              <input tabIndex="-1" autoComplete="off" aria-hidden="true" className="absolute -left-[9999px]" value={form.website} onChange={(e)=>setForm({...form,website:e.target.value})}/>
+              {error && <p role="alert" className="rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</p>}
+              <button disabled={status==='sending'} type="submit" className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3.5 text-sm font-bold text-white transition hover:bg-red-900 disabled:cursor-wait disabled:opacity-60">{status==='sending'?'Sending…':'Request donation instructions'} <ArrowRight size={16}/></button>
+              <p className="text-center text-xs text-stone-500">We will email your selected payment details and instructions to complete your donation.</p>
+            </form>
+          )}
+        </section>
+      </div>
+    </main>
+  );
+}
+}{value}</button>)}
                   <button type="button" onClick={() => setForm({...form, amount:'custom'})} className={`rounded-xl border px-3 py-2.5 text-sm font-bold ${form.amount==='custom'?'border-buddhist-burgundy bg-amber-50 text-buddhist-burgundy':'border-stone-200 text-stone-700 hover:border-amber-400'}`}>Other</button>
                 </div>
                 {form.amount === 'custom' && <input required type="number" min="1" step="0.01" value={form.customAmount} onChange={(e)=>setForm({...form,customAmount:e.target.value})} placeholder="Enter amount in USD" className="mt-3 w-full rounded-xl border border-stone-300 px-4 py-3 text-sm focus:border-buddhist-gold focus:outline-none"/>}
