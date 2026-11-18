@@ -29,6 +29,7 @@ const Contact = lazy(() => import('./pages/Contact.jsx'));
 const Welcome = lazy(() => import('./pages/Welcome.jsx'));
 const Services = lazy(() => import('./pages/Services.jsx'));
 
+const Donation = lazy(() => import('./pages/Donation.jsx'));
 const Membership = lazy(() => import('./pages/Membership.jsx'));
 const MembershipRegistration = lazy(() => import('./pages/MembershipRegistration.jsx'));
 const MembershipCheckin = lazy(() => import('./pages/MembershipCheckin.jsx'));
@@ -76,6 +77,7 @@ function SiteLayout() {
             <Route path="/home" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
+            <Route path="/donate" element={<Donation />} />
             <Route path="/membership" element={<Membership />} />
             <Route path="/membership-registration" element={<MembershipRegistration />} />
             <Route path="/membership-checkin" element={<MembershipCheckin />} />
