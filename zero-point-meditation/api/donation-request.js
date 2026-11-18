@@ -44,8 +44,9 @@ export default async function handler(req, res) {
   const email = clean(body.email, 254);
   const amount = clean(body.amount, 20);
   const purpose = clean(body.purpose, 100);
+  const paymentMethod = clean(body.paymentMethod, 30);
   const message = clean(body.message, 1500);
-  if (name.length < 2 || !validEmail(email) || !/^\d{1,8}(\.\d{1,2})?$/.test(amount) || Number(amount) <= 0 || !purposes.has(purpose)) {
+  if (name.length < 2 || !validEmail(email) || !/^\d{1,8}(\.\d{1,2})?$/.test(amount) || Number(amount) <= 0 || !purposes.has(purpose) || !['bank_transfer', 'zelle'].includes(paymentMethod)) {
     return res.status(400).json({ error: 'Please provide a valid name, email, amount, and donation purpose.' });
   }
 
@@ -54,8 +55,11 @@ export default async function handler(req, res) {
   const teamEmails = (process.env.DONATION_TO_EMAILS || 'bookings@zeropointmeditationcenter.org,admin@zeropointmeditationcenter.org').split(',').map(x=>x.trim()).filter(Boolean);
   if (!apiKey || !fromEmail) return res.status(503).json({ error: 'Donation email service is not configured. Please contact info@zeropointmeditationcenter.org.' });
 
-  const paymentDetails = clean(process.env.DONATION_PAYMENT_DETAILS, 5000);
-  const instructions = paymentDetails || 'Our team will follow up by email with the bank transfer details and instructions to complete your donation.';
+  const bankDetails = clean(process.env.DONATION_BANK_DETAILS, 5000);
+  const zelleDetails = clean(process.env.DONATION_ZELLE_DETAILS, 2000);
+  const paymentDetails = paymentMethod === 'zelle' ? zelleDetails : bankDetails;
+  const paymentLabel = paymentMethod === 'zelle' ? 'Zelle' : 'Bank transfer (ACH)';
+  const instructions = paymentDetails || 'Our team will follow up by email with payment details and instructions to complete your donation.';
   const donorText = [
     'Dear ' + name + ',',
     '',
@@ -63,7 +67,7 @@ export default async function handler(req, res) {
     'Donation amount: USD ' + amount,
     'Purpose: ' + purpose,
     '',
-    'Bank transfer instructions:',
+    paymentLabel + ' instructions:',
     instructions,
     '',
     'If you have any questions, reply to this email or contact info@zeropointmeditationcenter.org.',
@@ -78,8 +82,10 @@ export default async function handler(req, res) {
     'Email: ' + email,
     'Requested amount: USD ' + amount,
     'Purpose: ' + purpose,
+    'Payment method: ' + paymentLabel,
     'Message: ' + (message || 'Not provided'),
     '',
+    'Payment method: ' + paymentLabel,
     'Payment instructions configured: ' + (paymentDetails ? 'Yes' : 'No — follow up with donor'),
     '',
     'Zero Point Meditation Center'
