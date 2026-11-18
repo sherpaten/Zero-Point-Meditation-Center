@@ -348,7 +348,7 @@ export default function MembershipAdmin() {
     if (!supabase || !member?.id) return;
 
     const confirmed = window.confirm(
-      `Permanently remove the membership record for ${member.full_name} (Member #${member.member_number})? This does not delete their Supabase login or attendance history. This action cannot be undone.`
+      `Permanently remove the membership profile for ${member.full_name} (Member #${member.member_number})? Their Supabase login will not be deleted. Linked attendance records may be affected by the database's foreign-key rules. This action cannot be undone.`
     );
 
     if (!confirmed) return;
@@ -391,7 +391,7 @@ export default function MembershipAdmin() {
       }
 
       showNotice(
-        `Membership record for ${member.full_name} (Member #${member.member_number}) was removed. Their Supabase login and attendance history were not intentionally deleted.`
+        `Membership profile for ${member.full_name} (Member #${member.member_number}) was removed. Their Supabase login was not deleted.`
       );
     } catch (error) {
       showNotice(
