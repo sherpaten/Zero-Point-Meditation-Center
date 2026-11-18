@@ -39,19 +39,19 @@ export default function Donation() {
   };
 
   return (
-    <main className="mx-auto max-w-5xl px-5 py-12 sm:px-8">
+    <main className="mx-auto w-full max-w-5xl min-w-0 px-4 py-8 sm:px-6 sm:py-12">
       <Helmet>
         <title>Donate & Support | Zero Point Meditation Center</title>
         <meta name="description" content="Support Zero Point Meditation Center's teachings, meditation programs, community events, sangha and future activities." />
         <link rel="canonical" href="https://www.zeropointmeditationcenter.org/donate" />
       </Helmet>
-      <section className="mx-auto max-w-3xl text-center">
+      <section className="mx-auto w-full max-w-3xl min-w-0 text-center">
         <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-buddhist-gold"><Sparkles size={15}/> Generosity & Compassion</span>
-        <h1 className="mt-3 font-serif text-4xl font-bold text-buddhist-burgundy sm:text-5xl">Support Our Mission</h1>
-        <p className="mt-5 text-base leading-relaxed text-stone-600">Your generosity helps Zero Point Meditation Center share Buddhist teachings, offer free meditation programs, support the sangha, and bring future events and community activities to life.</p>
+        <h1 className="mt-3 break-words font-serif text-3xl font-bold leading-tight text-buddhist-burgundy sm:text-5xl">Support Our Mission</h1>
+        <p className="mx-auto mt-5 max-w-2xl break-words text-sm leading-relaxed text-stone-600 sm:text-base">Your generosity helps Zero Point Meditation Center share Buddhist teachings, offer free meditation programs, support the sangha, and bring future events and community activities to life.</p>
       </section>
-      <div className="mt-10 grid gap-8 md:grid-cols-[1fr_1.15fr]">
-        <aside className="rounded-3xl border border-amber-200 bg-amber-50 p-7 sm:p-8">
+      <div className="mt-8 grid min-w-0 grid-cols-1 gap-5 sm:mt-10 sm:gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
+        <aside className="min-w-0 rounded-3xl border border-amber-200 bg-amber-50 p-5 sm:p-8">
           <Heart size={30} className="text-buddhist-burgundy" />
           <h2 className="mt-4 font-serif text-2xl font-bold text-buddhist-burgundy">Every contribution makes a difference</h2>
           <p className="mt-3 text-sm leading-relaxed text-stone-700">Donations may support any of our current or future events and programs, including teachings, meditation classes, monastery and sangha activities, or the center's general mission.</p>
@@ -60,7 +60,7 @@ export default function Donation() {
           </ul>
           <p className="mt-6 rounded-xl bg-white/80 p-4 text-xs leading-relaxed text-stone-600">Choose one of the available transfer methods. This form does not collect payment or financial account information.</p>
         </aside>
-        <section className="rounded-3xl border border-stone-200 bg-white p-6 shadow-sm sm:p-8">
+        <section className="min-w-0 rounded-3xl border border-stone-200 bg-white p-4 shadow-sm sm:p-8">
           {status === 'success' ? (
             <div className="flex min-h-80 flex-col items-center justify-center text-center">
               <CheckCircle2 size={48} className="text-emerald-600"/>
@@ -68,11 +68,11 @@ export default function Donation() {
               <p className="mt-3 max-w-sm text-sm leading-relaxed text-stone-600">Your donation request has been received. We will email the payment instructions for your selected method to complete your contribution.</p>
             </div>
           ) : (
-            <form onSubmit={submit} className="space-y-5">
+            <form onSubmit={submit} className="min-w-0 space-y-5">
               <h2 className="font-serif text-2xl font-bold text-buddhist-burgundy">Donation details</h2>
               <div>
                 <label className="mb-2 block text-sm font-semibold text-stone-700">Donation amount (USD)</label>
-                <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
+                <div className="grid grid-cols-2 gap-2 min-[380px]:grid-cols-3 sm:grid-cols-5">
                   {amounts.map((value) => <button key={value} type="button" onClick={() => setForm({...form, amount:value})} className={`rounded-xl border px-3 py-2.5 text-sm font-bold ${form.amount===value?'border-buddhist-burgundy bg-amber-50 text-buddhist-burgundy':'border-stone-200 text-stone-700 hover:border-amber-400'}`}>{'$'}{value}</button>)}
                   <button type="button" onClick={() => setForm({...form, amount:'custom'})} className={`rounded-xl border px-3 py-2.5 text-sm font-bold ${form.amount==='custom'?'border-buddhist-burgundy bg-amber-50 text-buddhist-burgundy':'border-stone-200 text-stone-700 hover:border-amber-400'}`}>Other</button>
                 </div>
@@ -82,7 +82,7 @@ export default function Donation() {
                 <label htmlFor="donation-purpose" className="mb-2 block text-sm font-semibold text-stone-700">Donation purpose</label>
                 <select id="donation-purpose" value={form.purpose} onChange={(e)=>setForm({...form,purpose:e.target.value})} className="w-full rounded-xl border border-stone-300 px-4 py-3 text-sm">{purposes.map((purpose)=><option key={purpose}>{purpose}</option>)}</select>
               </div>
-              <div className="grid gap-4 sm:grid-cols-2">
+              <div className="grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2">
                 <div><label htmlFor="donor-name" className="mb-2 block text-sm font-semibold text-stone-700">Full name</label><input id="donor-name" required maxLength="120" value={form.name} onChange={(e)=>setForm({...form,name:e.target.value})} className="w-full rounded-xl border border-stone-300 px-4 py-3 text-sm"/></div>
                 <div><label htmlFor="donor-email" className="mb-2 block text-sm font-semibold text-stone-700">Email address</label><input id="donor-email" type="email" required maxLength="254" value={form.email} onChange={(e)=>setForm({...form,email:e.target.value})} className="w-full rounded-xl border border-stone-300 px-4 py-3 text-sm"/></div>
               </div>
@@ -95,10 +95,10 @@ export default function Donation() {
                   <option value="bank_transfer">Bank transfer (ACH)</option>
                 </select>
                 {form.paymentMethod === 'zelle' && (
-                  <div className="rounded-2xl border border-purple-200 bg-purple-50 p-5 text-center">
+                  <div className="min-w-0 overflow-hidden rounded-2xl border border-purple-200 bg-purple-50 p-3 text-center sm:p-5">
                     <h3 className="text-lg font-bold text-stone-900">Scan to donate with Zelle</h3>
                     <p className="mt-1 text-sm text-stone-600">Open your banking app, choose Zelle, and scan this QR code to pay Zero Point Meditation Center Inc.</p>
-                    <div className="mx-auto mt-4 flex w-full max-w-[320px] items-center justify-center rounded-xl bg-white p-4"><QRCodeSVG value={zelleQrValue} size={280} level="H" bgColor="#ffffff" fgColor="#000000" includeMargin /></div>
+                    <div className="mx-auto mt-4 flex w-full max-w-[320px] items-center justify-center overflow-hidden rounded-xl bg-white p-2 sm:p-4"><QRCodeSVG className="h-auto w-full max-w-[280px]" value={zelleQrValue} size={280} level="H" bgColor="#ffffff" fgColor="#000000" includeMargin /></div>
                     <p className="mt-3 text-xs text-stone-600">Please confirm the recipient name is ZERO POINT MEDITATION CENTER INC. before sending.</p>
                   </div>
                 )}
@@ -106,7 +106,7 @@ export default function Donation() {
               <input tabIndex="-1" autoComplete="off" aria-hidden="true" className="absolute -left-[9999px]" value={form.website} onChange={(e)=>setForm({...form,website:e.target.value})}/>
               {error && <p role="alert" className="rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</p>}
               <button disabled={status==='sending'} type="submit" className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3.5 text-sm font-bold text-white transition hover:bg-red-900 disabled:cursor-wait disabled:opacity-60">{status==='sending'?'Sending…':'Request donation instructions'} <ArrowRight size={16}/></button>
-              <p className="text-center text-xs text-stone-500">We will email your selected payment details and instructions to complete your donation.</p>
+              <p className="break-words text-center text-xs leading-relaxed text-stone-500">We will email your selected payment details and instructions to complete your donation.</p>
             </form>
           )}
         </section>
