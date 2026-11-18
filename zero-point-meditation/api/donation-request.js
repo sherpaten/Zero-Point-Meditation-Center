@@ -98,11 +98,8 @@ export default async function handler(req, res) {
       from: fromEmail,
       to: [email],
       subject: 'Thank you for supporting Zero Point Meditation Center',
-      text: paymentMethod === 'zelle' ? donorText + '\\n\\nA copy of the Zelle QR code is attached to this email.' : donorText
+      text: donorText
     };
-    if (paymentMethod === 'zelle') {
-      donorEmail.attachments = [{ filename: 'zpmc-zelle-qr.png', content: zelleQrBase64 }];
-    }
     await sendEmail(apiKey, donorEmail);
     return res.status(200).json({ ok: true });
   } catch (error) {
