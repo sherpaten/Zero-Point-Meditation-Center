@@ -47,7 +47,7 @@ export default async function handler(req, res) {
   const purpose = clean(body.purpose, 100);
   const paymentMethod = clean(body.paymentMethod, 30);
   const message = clean(body.message, 1500);
-  if (name.length < 2 || !validEmail(email) || !/^\d{1,8}(\.\d{1,2})?$/.test(amount) || Number(amount) <= 0 || !purposes.has(purpose) || !['bank_transfer', 'zelle', 'international_usd', 'international_foreign'].includes(paymentMethod)) {
+  if (name.length < 2 || !validEmail(email) || !/^\d{1,8}(\.\d{1,2})?$/.test(amount) || Number(amount) <= 0 || !purposes.has(purpose) || !['bank_transfer', 'zelle'].includes(paymentMethod)) {
     return res.status(400).json({ error: 'Please provide a valid name, email, amount, and donation purpose.' });
   }
 
@@ -58,10 +58,8 @@ export default async function handler(req, res) {
 
   const bankDetails = clean(process.env.DONATION_BANK_DETAILS, 5000);
   const zelleDetails = clean(process.env.DONATION_ZELLE_DETAILS, 2000);
-  const internationalUsdDetails = clean(process.env.DONATION_INTERNATIONAL_USD_DETAILS, 3000);
-  const internationalForeignDetails = clean(process.env.DONATION_INTERNATIONAL_FOREIGN_DETAILS, 3000);
-  const paymentDetails = paymentMethod === 'zelle' ? zelleDetails : paymentMethod === 'international_usd' ? internationalUsdDetails : paymentMethod === 'international_foreign' ? internationalForeignDetails : bankDetails;
-  const paymentLabel = paymentMethod === 'zelle' ? 'Zelle' : paymentMethod === 'international_usd' ? 'International wire (USD)' : paymentMethod === 'international_foreign' ? 'International wire (foreign currency)' : 'Bank transfer (ACH)';
+  const paymentDetails = paymentMethod === 'zelle' ? zelleDetails : bankDetails;
+  const paymentLabel = paymentMethod === 'zelle' ? 'Zelle' : 'Bank transfer (ACH)';
   const instructions = paymentDetails || 'Our team will follow up by email with payment details and instructions to complete your donation.';
   const donorText = [
     'Dear ' + name + ',',
