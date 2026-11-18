@@ -17,6 +17,7 @@ export default function Donation() {
   const [form, setForm] = useState({ name: '', email: '', amount: '50', customAmount: '', purpose: purposes[0], paymentMethod: 'zelle', message: '', website: '' });
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState('');
+  const [zelleQrOpen, setZelleQrOpen] = useState(false);
   const amount = form.amount === 'custom' ? form.customAmount : form.amount;
 
   const submit = async (event) => {
@@ -95,11 +96,21 @@ export default function Donation() {
                   <option value="bank_transfer">Bank transfer (ACH)</option>
                 </select>
                 {form.paymentMethod === 'zelle' && (
-                  <div className="min-w-0 overflow-hidden rounded-2xl border border-purple-200 bg-purple-50 p-3 text-center sm:p-5">
-                    <h3 className="text-lg font-bold text-stone-900">Scan to donate with Zelle</h3>
-                    <p className="mt-1 text-sm text-stone-600">Open your banking app, choose Zelle, and scan this QR code to pay Zero Point Meditation Center Inc.</p>
-                    <div className="mx-auto mt-4 flex w-full max-w-[320px] items-center justify-center overflow-hidden rounded-xl bg-white p-2 sm:p-4"><QRCodeSVG className="h-auto w-full max-w-[280px]" value={zelleQrValue} size={280} level="H" bgColor="#ffffff" fgColor="#000000" includeMargin /></div>
-                    <p className="mt-3 text-xs text-stone-600">Please confirm the recipient name is ZERO POINT MEDITATION CENTER INC. before sending.</p>
+                  <div className="rounded-2xl border border-purple-200 bg-purple-50 p-4 text-center">
+                    <p className="text-sm text-stone-700">Pay securely using Zelle. Open the QR code only when you are ready to scan.</p>
+                    <button type="button" onClick={() => setZelleQrOpen(true)} className="mt-3 inline-flex items-center justify-center rounded-xl border border-purple-300 bg-white px-5 py-3 text-sm font-bold text-purple-900 shadow-sm transition hover:bg-purple-100 focus:outline-none focus:ring-2 focus:ring-purple-500">Pay Using Zelle QR</button>
+                  </div>
+                )}
+                {zelleQrOpen && (
+                  <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 p-4" role="presentation" onClick={() => setZelleQrOpen(false)}>
+                    <div role="dialog" aria-modal="true" aria-labelledby="zelle-qr-title" className="relative w-full max-w-md rounded-2xl bg-white p-5 text-center shadow-2xl sm:p-7" onClick={(event) => event.stopPropagation()}>
+                      <button type="button" onClick={() => setZelleQrOpen(false)} aria-label="Close Zelle QR popup" className="absolute right-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-full text-2xl text-stone-600 hover:bg-stone-100 focus:outline-none focus:ring-2 focus:ring-purple-500">&times;</button>
+                      <h3 id="zelle-qr-title" className="pr-8 text-lg font-bold text-stone-900">Donate with Zelle</h3>
+                      <p className="mt-2 text-sm text-stone-600">Scan this QR code using your banking app.</p>
+                      <div className="mx-auto mt-4 inline-flex max-w-full items-center justify-center rounded-xl bg-white p-3"><QRCodeSVG value={zelleQrValue} size={260} level="H" bgColor="#ffffff" fgColor="#000000" includeMargin /></div>
+                      <p className="mt-3 text-sm font-semibold text-stone-800">Recipient: ZERO POINT MEDITATION CENTER INC.</p>
+                      <p className="mt-2 text-xs text-stone-600">Please verify the recipient name before sending your payment.</p>
+                    </div>
                   </div>
                 )}
               </div>
