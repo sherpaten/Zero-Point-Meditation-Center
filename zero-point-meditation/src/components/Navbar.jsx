@@ -7,6 +7,7 @@ const actionNavigation = [
   { to: '/event-registration', label: 'Event Registration' },
   { to: '/membership-registration', label: 'Member Registration' },
   { to: '/contact', label: 'Contact' },
+  { to: '/donate', label: 'Donate' },
 ];
 
 const navigation = [

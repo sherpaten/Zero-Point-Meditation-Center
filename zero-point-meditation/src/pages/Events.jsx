@@ -575,6 +575,14 @@ export default function Events() {
         )}
       </motion.section>
 
+      {/* Donation invitation on the Events page */}
+      <section aria-labelledby="events-donate-heading" className="mx-auto mt-12 max-w-5xl rounded-3xl border border-amber-200 bg-gradient-to-br from-amber-50 to-white px-6 py-10 text-center shadow-sm sm:px-10 sm:py-12">
+        <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-buddhist-gold"><Handshake size={16} /> Support Our Programs</span>
+        <h2 id="events-donate-heading" className="mt-3 font-serif text-3xl font-bold text-buddhist-burgundy sm:text-4xl">Help Make Our Events Possible</h2>
+        <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-stone-600 sm:text-base">Your contribution helps support teachings, meditation sessions, prayer gatherings, and community programs. Thank you for helping us share wisdom, peace, and compassion.</p>
+        <a href="/donate" className="mt-6 inline-flex items-center gap-2 rounded-xl bg-buddhist-burgundy px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-amber-50 shadow-md transition-all hover:scale-105 hover:bg-red-900">Donate to Support Events <ChevronRight size={15} /></a>
+      </section>
+
       <AnimatePresence>
         {selectedMedia && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
