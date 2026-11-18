@@ -76,7 +76,7 @@ export default function Donation() {
               <div>
                 <label className="mb-2 block text-sm font-semibold text-stone-700">Donation amount (USD)</label>
                 <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
-                  {amounts.map((value) => <button key={value} type="button" onClick={() => setForm({...form, amount:value})} className={`rounded-xl border px-3 py-2.5 text-sm font-bold ${form.amount===value?'border-buddhist-burgundy bg-amber-50 text-buddhist-burgundy':'border-stone-200 text-stone-700 hover:border-amber-400'}`}>{value}</button>)}
+                  {amounts.map((value) => <button key={value} type="button" onClick={() => setForm({...form, amount:value})} className={`rounded-xl border px-3 py-2.5 text-sm font-bold ${form.amount===value?'border-buddhist-burgundy bg-amber-50 text-buddhist-burgundy':'border-stone-200 text-stone-700 hover:border-amber-400'}`}>{'</button>)}
                   <button type="button" onClick={() => setForm({...form, amount:'custom'})} className={`rounded-xl border px-3 py-2.5 text-sm font-bold ${form.amount==='custom'?'border-buddhist-burgundy bg-amber-50 text-buddhist-burgundy':'border-stone-200 text-stone-700 hover:border-amber-400'}`}>Other</button>
                 </div>
                 {form.amount === 'custom' && <input required type="number" min="1" step="0.01" value={form.customAmount} onChange={(e)=>setForm({...form,customAmount:e.target.value})} placeholder="Enter amount in USD" className="mt-3 w-full rounded-xl border border-stone-300 px-4 py-3 text-sm focus:border-buddhist-gold focus:outline-none"/>}
