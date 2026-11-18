@@ -65,7 +65,7 @@ export default function Donation() {
             <div className="flex min-h-80 flex-col items-center justify-center text-center">
               <CheckCircle2 size={48} className="text-emerald-600"/>
               <h2 className="mt-4 font-serif text-2xl font-bold text-buddhist-burgundy">Thank you for your generosity</h2>
-              <p className="mt-3 max-w-sm text-sm leading-relaxed text-stone-600">Your donation request has been received. We will email the payment instructions for your selected method to complete your contribution.</p>
+              <p className="mt-3 max-w-sm text-sm leading-relaxed text-stone-600">{form.paymentMethod === 'zelle' ? 'Thank you for your generosity. Your donation submission has been received. We are grateful for your support of Zero Point Meditation Center.' : 'Your donation request has been received. We will email the bank transfer instructions so you can complete your contribution.'}</p>
             </div>
           ) : (
             <form onSubmit={submit} className="min-w-0 space-y-5">
