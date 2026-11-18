@@ -591,6 +591,14 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Donation invitation — final section of the homepage */}
+        <section aria-labelledby="home-donate-heading" className="rounded-3xl border border-amber-200 bg-gradient-to-br from-amber-50 to-white px-6 py-10 text-center shadow-sm sm:px-10 sm:py-12">
+          <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-buddhist-gold"><HeartHandshake size={16} /> Support Our Mission</span>
+          <h2 id="home-donate-heading" className="mt-3 font-serif text-3xl font-bold text-buddhist-burgundy sm:text-4xl">Help Us Share Peace and Compassion</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-stone-600 sm:text-base">Your generosity supports meditation programs, Buddhist teachings, community gatherings, and compassionate service. Every contribution helps us make these offerings accessible to more people.</p>
+          <Link to="/donate" className="mt-6 inline-flex items-center gap-2 rounded-xl bg-buddhist-burgundy px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-amber-50 shadow-md transition-all hover:scale-105 hover:bg-red-900">Donate / Support Us <ArrowRight size={15} /></Link>
+        </section>
+
       </div>
 
       </div>
