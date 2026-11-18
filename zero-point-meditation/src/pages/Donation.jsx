@@ -105,8 +105,12 @@ export default function Donation() {
               </div>
               <input tabIndex="-1" autoComplete="off" aria-hidden="true" className="absolute -left-[9999px]" value={form.website} onChange={(e)=>setForm({...form,website:e.target.value})}/>
               {error && <p role="alert" className="rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</p>}
-              <button disabled={status==='sending'} type="submit" className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3.5 text-sm font-bold text-white transition hover:bg-red-900 disabled:cursor-wait disabled:opacity-60">{status==='sending'?'Sending…':'Request donation instructions'} <ArrowRight size={16}/></button>
-              <p className="break-words text-center text-xs leading-relaxed text-stone-500">We will email your selected payment details and instructions to complete your donation.</p>
+              <button disabled={status==='sending'} type="submit" className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3.5 text-sm font-bold text-white transition hover:bg-red-900 disabled:cursor-wait disabled:opacity-60">{status==='sending'?'Submitting…':form.paymentMethod==='bank_transfer'?'Request bank transfer instructions':"I've paid with Zelle — Submit donation"} <ArrowRight size={16}/></button>
+              {form.paymentMethod === 'zelle' ? (
+                <p className="break-words text-center text-xs leading-relaxed text-stone-600">Please scan the QR code and complete your Zelle payment first. After your payment is sent, click the button above to submit your donation details. Please submit only after paying.</p>
+              ) : (
+                <p className="break-words text-center text-xs leading-relaxed text-stone-600">Click above to request the bank transfer instructions. We will email the ACH details so you can complete your donation.</p>
+              )}
             </form>
           )}
         </section>
