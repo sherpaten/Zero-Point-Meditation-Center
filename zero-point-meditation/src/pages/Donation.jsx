@@ -109,7 +109,10 @@ export default function Donation() {
                       <p className="mt-2 text-sm text-stone-600">Scan this QR code using your banking app.</p>
                       <div className="mx-auto mt-4 inline-flex max-w-full items-center justify-center rounded-xl bg-white p-3"><QRCodeSVG value={zelleQrValue} size={260} level="H" bgColor="#ffffff" fgColor="#000000" includeMargin /></div>
                       <p className="mt-3 text-sm font-semibold text-stone-800">Recipient: ZERO POINT MEDITATION CENTER INC.</p>
-                      <p className="mt-2 text-xs text-stone-600">Please verify the recipient name before sending your payment.</p>
+                      <div role="alert" className="mt-4 rounded-xl border border-amber-300 bg-amber-50 p-4 text-left text-sm leading-relaxed text-amber-950">
+                        <p className="font-bold">Important — Verify Before Sending</p>
+                        <p className="mt-1">Carefully check the recipient name and all payment details before sending money. Confirm the recipient is <strong>ZERO POINT MEDITATION CENTER INC.</strong> before completing your Zelle payment. If anything looks incorrect, do not proceed.</p>
+                      </div>
                     </div>
                   </div>
                 )}
