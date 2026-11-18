@@ -42,6 +42,7 @@ export default function MembershipAdmin() {
   const [settingsSaving, setSettingsSaving] = useState(false);
 
   const [statusSaving, setStatusSaving] = useState(false);
+  const [deletingMemberId, setDeletingMemberId] = useState(null);
   const [notice, setNotice] = useState('');
   const [noticeType, setNoticeType] = useState('');
 
@@ -337,6 +338,69 @@ export default function MembershipAdmin() {
     }
 
     setStatusSaving(false);
+  }
+
+  // ========================================
+  // DELETE MEMBER PROFILE (NEVER DELETE AUTH USERS)
+  // ========================================
+
+  async function handleDeleteMember(member) {
+    if (!supabase || !member?.id) return;
+
+    const confirmed = window.confirm(
+      `Permanently remove the membership profile for ${member.full_name} (Member #${member.member_number})? Their Supabase login will not be deleted. Linked attendance records may be affected by the database's foreign-key rules. This action cannot be undone.`
+    );
+
+    if (!confirmed) return;
+
+    setDeletingMemberId(member.id);
+    setNotice('');
+
+    try {
+      // A member linked to the administrator allowlist must never be deleted.
+      const { data: protectedAdmin, error: adminCheckError } = await supabase
+        .from('admin_users')
+        .select('user_id')
+        .eq('user_id', member.id)
+        .maybeSingle();
+
+      if (adminCheckError) throw adminCheckError;
+
+      if (protectedAdmin) {
+        showNotice(
+          'This account is registered as a ZPMC administrator and cannot be deleted here.',
+          'error'
+        );
+        return;
+      }
+
+      const { error: deleteError } = await supabase
+        .from('members')
+        .delete()
+        .eq('id', member.id);
+
+      if (deleteError) throw deleteError;
+
+      setMembers((current) =>
+        current.filter((item) => item.id !== member.id)
+      );
+
+      if (selectedMember?.id === member.id) {
+        setSelectedMember(null);
+        setAttendance([]);
+      }
+
+      showNotice(
+        `Membership profile for ${member.full_name} (Member #${member.member_number}) was removed. Their Supabase login was not deleted.`
+      );
+    } catch (error) {
+      showNotice(
+        `Could not delete member: ${error.message}. If this member has attendance records, the database may require those records to be retained or handled separately.`,
+        'error'
+      );
+    } finally {
+      setDeletingMemberId(null);
+    }
   }
 
   // ========================================
@@ -676,17 +740,27 @@ export default function MembershipAdmin() {
                     </td>
 
                     <td className="px-4 py-4">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setSelectedMember(member);
-                          setAttendance([]);
-                          setNotice('');
-                        }}
-                        className="font-semibold text-amber-800 underline"
-                      >
-                        View
-                      </button>
+                      <div className="flex items-center gap-4">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSelectedMember(member);
+                            setAttendance([]);
+                            setNotice('');
+                          }}
+                          className="font-semibold text-amber-800 underline"
+                        >
+                          View
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteMember(member)}
+                          disabled={deletingMemberId === member.id}
+                          className="font-semibold text-red-700 underline disabled:opacity-50"
+                        >
+                          {deletingMemberId === member.id ? 'Deleting...' : 'Delete'}
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
