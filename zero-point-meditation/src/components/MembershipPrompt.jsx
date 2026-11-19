@@ -243,7 +243,7 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
                   <li>• One butter lamp offering made in each new member’s name.</li>
                   <li>• Connection with the ZPMC community.</li>
                 </ul>
-                <p className="mt-3 text-[11px] leading-4 text-stone-500">Registration creates your member account. Payment is arranged separately and is not collected in this form.</p>
+                <p className="mt-3 text-[11px] leading-4 text-stone-500">To complete registration, pay the selected membership fee using the Zelle QR and upload your payment receipt below. Your account is created after the receipt uploads successfully.</p>
               </section>
             )}
             {mode === 'signup' && <>
