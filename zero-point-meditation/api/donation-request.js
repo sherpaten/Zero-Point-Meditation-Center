@@ -49,7 +49,7 @@ export default async function handler(req, res) {
   const paymentMethod = clean(body.paymentMethod, 30);
   const message = clean(body.message, 1500);
   const paymentProofPath = clean(body.paymentProofPath, 300);
-  if (name.length < 2 || !validEmail(email) || !/^\d{1,8}(\.\d{1,2})?$/.test(amount) || Number(amount) <= 0 || !purposes.has(purpose) || !['bank_transfer', 'zelle'].includes(paymentMethod)) {
+  if (name.length < 2 || !validEmail(email) || !/^\d{1,8}(\.\d{1,2})?$/.test(amount) || Number(amount) <= 0 || !purposes.has(purpose) || !['bank_transfer', 'zelle'].includes(paymentMethod) || (paymentMethod === 'zelle' && (!paymentProofPath.startsWith('donations/') || paymentProofPath.includes('..')))) {
     return res.status(400).json({ error: 'Please provide a valid name, email, amount, and donation purpose.' });
   }
 
