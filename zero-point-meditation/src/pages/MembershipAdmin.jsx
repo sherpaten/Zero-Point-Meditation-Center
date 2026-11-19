@@ -28,6 +28,8 @@ export default function MembershipAdmin() {
 
   const [members, setMembers] = useState([]);
   const [membersLoading, setMembersLoading] = useState(false);
+  const [memberEmailAvailable, setMemberEmailAvailable] = useState(true);
+  const [otpSendingMemberId, setOtpSendingMemberId] = useState(null);
   const [search, setSearch] = useState('');
   const [selectedMember, setSelectedMember] = useState(null);
 
@@ -151,12 +153,27 @@ export default function MembershipAdmin() {
 
     setMembersLoading(true);
 
-    const { data, error } = await supabase
+    let { data, error } = await supabase
       .from('members')
       .select(
-        'id, member_number, full_name, phone, country, status, created_at'
+        'id, member_number, full_name, email, phone, country, status, created_at'
       )
       .order('member_number', { ascending: true });
+
+    if (error && (error.code === '42703' || /column .*email.* does not exist/i.test(error.message || ''))) {
+      setMemberEmailAvailable(false);
+      const fallback = await supabase
+        .from('members')
+        .select('id, member_number, full_name, phone, country, status, created_at')
+        .order('member_number', { ascending: true });
+      data = fallback.data;
+      error = fallback.error;
+      if (!error) {
+        showNotice('Member email display and one-time codes need the Supabase email migration. See docs/membership-admin-email-and-otp-setup.md.', 'error');
+      }
+    } else if (!error) {
+      setMemberEmailAvailable(true);
+    }
 
     if (error) {
       showNotice(`Could not load members: ${error.message}`, 'error');
@@ -269,6 +286,7 @@ export default function MembershipAdmin() {
       return (
         String(member.member_number).includes(term) ||
         (member.full_name || '').toLowerCase().includes(term) ||
+        (member.email || '').toLowerCase().includes(term) ||
         (member.phone || '').toLowerCase().includes(term) ||
         (member.country || '').toLowerCase().includes(term)
       );
@@ -314,7 +332,9 @@ export default function MembershipAdmin() {
       .update({ status: newStatus })
       .eq('id', selectedMember.id)
       .select(
-        'id, member_number, full_name, phone, country, status, created_at'
+        memberEmailAvailable
+          ? 'id, member_number, full_name, email, phone, country, status, created_at'
+          : 'id, member_number, full_name, phone, country, status, created_at'
       )
       .single();
 
@@ -338,6 +358,45 @@ export default function MembershipAdmin() {
     }
 
     setStatusSaving(false);
+  }
+
+  // ========================================
+  // SEND MEMBER ONE-TIME LOGIN CODE
+  // ========================================
+
+  async function handleSendMemberOtp(member) {
+    if (!supabase || !member?.id || !member?.email || !memberEmailAvailable) {
+      showNotice('A registered member email is not available. Run the Supabase email migration first.', 'error');
+      return;
+    }
+
+    setOtpSendingMemberId(member.id);
+    setNotice('');
+
+    try {
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError) throw sessionError;
+      const accessToken = sessionData?.session?.access_token;
+      if (!accessToken) throw new Error('Your administrator session has expired. Please sign in again.');
+
+      const response = await fetch('/api/admin-send-member-otp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({ memberId: member.id }),
+      });
+
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(result.error || 'Could not send the one-time login code.');
+
+      showNotice(`A one-time login code has been sent to the registered email for ${member.full_name}.`);
+    } catch (error) {
+      showNotice(error.message || 'Could not send the one-time login code.', 'error');
+    } finally {
+      setOtpSendingMemberId(null);
+    }
   }
 
   // ========================================
@@ -699,11 +758,12 @@ export default function MembershipAdmin() {
           </p>
         ) : (
           <div className="mt-5 overflow-x-auto">
-            <table className="w-full min-w-[650px] text-left text-sm">
+            <table className="w-full min-w-[850px] text-left text-sm">
               <thead>
                 <tr className="border-b bg-gray-50 text-gray-600">
                   <th className="px-4 py-3">Member No.</th>
                   <th className="px-4 py-3">Name</th>
+                  <th className="px-4 py-3">Registered Email</th>
                   <th className="px-4 py-3">Phone</th>
                   <th className="px-4 py-3">Status</th>
                   <th className="px-4 py-3">Member Since</th>
@@ -727,6 +787,10 @@ export default function MembershipAdmin() {
 
                     <td className="px-4 py-4">
                       {member.full_name}
+                    </td>
+
+                    <td className="px-4 py-4">
+                      {member.email || 'Not available'}
                     </td>
 
                     <td className="px-4 py-4">
@@ -833,6 +897,13 @@ export default function MembershipAdmin() {
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <div className="rounded-lg bg-gray-50 p-4">
+              <p className="text-xs text-gray-500">Registered Email</p>
+              <p className="mt-1 break-all font-medium">
+                {selectedMember.email || 'Not available — run the Supabase email migration'}
+              </p>
+            </div>
+
+            <div className="rounded-lg bg-gray-50 p-4">
               <p className="text-xs text-gray-500">Phone</p>
               <p className="mt-1 font-medium">
                 {selectedMember.phone || 'Not provided'}
@@ -852,6 +923,22 @@ export default function MembershipAdmin() {
                 {formatDate(selectedMember.created_at)}
               </p>
             </div>
+          </div>
+
+          <div className="mt-5">
+            <button
+              type="button"
+              onClick={() => handleSendMemberOtp(selectedMember)}
+              disabled={!memberEmailAvailable || !selectedMember.email || otpSendingMemberId === selectedMember.id}
+              className={buttonClass}
+            >
+              {otpSendingMemberId === selectedMember.id
+                ? 'Sending One-Time Code...'
+                : 'Send One-Time Login Code'}
+            </button>
+            <p className="mt-2 text-xs text-gray-500">
+              Sends a sign-in code directly to this member's registered email. The code is never shown in the admin dashboard.
+            </p>
           </div>
 
           {/* STATUS MANAGEMENT */}
