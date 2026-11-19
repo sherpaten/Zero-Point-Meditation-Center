@@ -29,6 +29,8 @@ export default function MembershipAdmin() {
   const [members, setMembers] = useState([]);
   const [membersLoading, setMembersLoading] = useState(false);
   const [memberEmailAvailable, setMemberEmailAvailable] = useState(true);
+  const [emailVerificationAvailable, setEmailVerificationAvailable] = useState(true);
+  const [verificationSendingMemberId, setVerificationSendingMemberId] = useState(null);
   const [otpSendingMemberId, setOtpSendingMemberId] = useState(null);
   const [search, setSearch] = useState('');
   const [selectedMember, setSelectedMember] = useState(null);
@@ -156,23 +158,38 @@ export default function MembershipAdmin() {
     let { data, error } = await supabase
       .from('members')
       .select(
-        'id, member_number, full_name, email, phone, country, status, created_at'
+        'id, member_number, full_name, email, email_confirmed_at, phone, country, status, created_at'
       )
       .order('member_number', { ascending: true });
 
-    if (error && (error.code === '42703' || /column .*email.* does not exist/i.test(error.message || ''))) {
-      setMemberEmailAvailable(false);
-      const fallback = await supabase
+    if (error && (error.code === '42703' || /column .*email_confirmed_at.* does not exist/i.test(error.message || ''))) {
+      setEmailVerificationAvailable(false);
+      const emailFallback = await supabase
         .from('members')
-        .select('id, member_number, full_name, phone, country, status, created_at')
+        .select('id, member_number, full_name, email, phone, country, status, created_at')
         .order('member_number', { ascending: true });
-      data = fallback.data;
-      error = fallback.error;
-      if (!error) {
-        showNotice('Member email display and one-time codes need the Supabase email migration. See docs/membership-admin-email-and-otp-setup.md.', 'error');
+
+      data = emailFallback.data;
+      error = emailFallback.error;
+
+      if (error && (error.code === '42703' || /column .*email.* does not exist/i.test(error.message || ''))) {
+        setMemberEmailAvailable(false);
+        const basicFallback = await supabase
+          .from('members')
+          .select('id, member_number, full_name, phone, country, status, created_at')
+          .order('member_number', { ascending: true });
+        data = basicFallback.data;
+        error = basicFallback.error;
+        if (!error) {
+          showNotice('Member email and verification tracking need the Supabase membership email migration.', 'error');
+        }
+      } else if (!error) {
+        setMemberEmailAvailable(true);
+        showNotice('Email verification tracking needs the new Supabase verification migration. Member emails are still available.', 'error');
       }
     } else if (!error) {
       setMemberEmailAvailable(true);
+      setEmailVerificationAvailable(true);
     }
 
     if (error) {
@@ -296,6 +313,7 @@ export default function MembershipAdmin() {
   const memberCounts = useMemo(() => {
     return {
       total: members.length,
+      pendingVerification: members.filter((member) => !member.email_confirmed_at).length,
       active: members.filter((member) => member.status === 'active').length,
       suspended: members.filter(
         (member) => member.status === 'suspended'
@@ -331,11 +349,7 @@ export default function MembershipAdmin() {
       .from('members')
       .update({ status: newStatus })
       .eq('id', selectedMember.id)
-      .select(
-        memberEmailAvailable
-          ? 'id, member_number, full_name, email, phone, country, status, created_at'
-          : 'id, member_number, full_name, phone, country, status, created_at'
-      )
+      .select('*')
       .single();
 
     if (error) {
@@ -396,6 +410,50 @@ export default function MembershipAdmin() {
       showNotice(error.message || 'Could not send the one-time login code.', 'error');
     } finally {
       setOtpSendingMemberId(null);
+    }
+  }
+
+  // ========================================
+  // RESEND MEMBER EMAIL VERIFICATION LINK
+  // ========================================
+
+  async function handleResendVerification(member) {
+    if (!supabase || !member?.id || !member?.email || !emailVerificationAvailable) {
+      showNotice('Email verification tracking is not available. Run the ZPMC verification migration first.', 'error');
+      return;
+    }
+
+    if (member.email_confirmed_at) {
+      showNotice('This member has already verified their email address.', 'error');
+      return;
+    }
+
+    setVerificationSendingMemberId(member.id);
+    setNotice('');
+
+    try {
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError) throw sessionError;
+      const accessToken = sessionData?.session?.access_token;
+      if (!accessToken) throw new Error('Your administrator session has expired. Please sign in again.');
+
+      const response = await fetch('/api/admin-resend-member-verification', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({ memberId: member.id }),
+      });
+
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(result.error || 'Could not resend the verification email.');
+
+      showNotice(`A new verification link has been sent to ${member.email}.`);
+    } catch (error) {
+      showNotice(error.message || 'Could not resend the verification email.', 'error');
+    } finally {
+      setVerificationSendingMemberId(null);
     }
   }
 
@@ -697,9 +755,10 @@ export default function MembershipAdmin() {
 
       {/* MEMBER SUMMARY */}
 
-      <section className="mb-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <section className="mb-8 grid grid-cols-2 gap-4 lg:grid-cols-5">
         {[
           ['Total Members', memberCounts.total],
+          ['Pending Email', memberCounts.pendingVerification],
           ['Active', memberCounts.active],
           ['Suspended', memberCounts.suspended],
           ['Expired', memberCounts.expired],
@@ -764,6 +823,7 @@ export default function MembershipAdmin() {
                   <th className="px-4 py-3">Member No.</th>
                   <th className="px-4 py-3">Name</th>
                   <th className="px-4 py-3">Registered Email</th>
+                  <th className="px-4 py-3">Email Verification</th>
                   <th className="px-4 py-3">Phone</th>
                   <th className="px-4 py-3">Status</th>
                   <th className="px-4 py-3">Member Since</th>
@@ -791,6 +851,14 @@ export default function MembershipAdmin() {
 
                     <td className="px-4 py-4">
                       {member.email || 'Not available'}
+                    </td>
+
+                    <td className="px-4 py-4">
+                      {emailVerificationAvailable ? (
+                        <span className={`rounded-full px-3 py-1 text-xs font-semibold ${member.email_confirmed_at ? 'bg-green-100 text-green-800' : 'bg-amber-100 text-amber-900'}`}>
+                          {member.email_confirmed_at ? 'Verified' : 'Pending'}
+                        </span>
+                      ) : 'Run migration'}
                     </td>
 
                     <td className="px-4 py-4">
@@ -901,6 +969,11 @@ export default function MembershipAdmin() {
               <p className="mt-1 break-all font-medium">
                 {selectedMember.email || 'Not available — run the Supabase email migration'}
               </p>
+              <p className={`mt-2 text-xs font-semibold ${selectedMember.email_confirmed_at ? 'text-green-700' : 'text-amber-700'}`}>
+                {emailVerificationAvailable
+                  ? (selectedMember.email_confirmed_at ? 'Email verified' : 'Email verification pending')
+                  : 'Run the verification migration to see status'}
+              </p>
             </div>
 
             <div className="rounded-lg bg-gray-50 p-4">
@@ -924,6 +997,22 @@ export default function MembershipAdmin() {
               </p>
             </div>
           </div>
+
+          <div className="mt-5 flex flex-wrap gap-3">
+            <button
+              type="button"
+              onClick={() => handleResendVerification(selectedMember)}
+              disabled={!emailVerificationAvailable || !memberEmailAvailable || !selectedMember.email || Boolean(selectedMember.email_confirmed_at) || verificationSendingMemberId === selectedMember.id}
+              className={buttonClass}
+            >
+              {verificationSendingMemberId === selectedMember.id
+                ? 'Sending Verification Link...'
+                : 'Resend Verification Email'}
+            </button>
+          </div>
+          <p className="mt-2 text-xs text-gray-500">
+            Sends a fresh account-confirmation link to a member whose email is still unverified. A link cannot be retrieved from Supabase after it has been sent.
+          </p>
 
           <div className="mt-5">
             <button
