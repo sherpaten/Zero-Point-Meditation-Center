@@ -46,6 +46,7 @@ export default function Membership() {
   });
 
   const [resetEmail, setResetEmail] = useState('');
+  const [otpCode, setOtpCode] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
 
@@ -336,6 +337,81 @@ export default function Membership() {
       setLoginForm({ email: '', password: '' });
     } catch (err) {
       setError(err.message || 'Sign in failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ========================================
+  // ONE-TIME EMAIL CODE SIGN-IN
+  // ========================================
+
+  const handleSendLoginCode = async () => {
+    setError('');
+    setMessage('');
+
+    const email = loginForm.email.trim();
+    if (!email) {
+      setError('Please enter your registered email address first.');
+      return;
+    }
+
+    if (!isSupabaseConfigured) {
+      setError('Email-code sign-in is not configured yet.');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const { error: otpError } = await supabase.auth.signInWithOtp({
+        email,
+        options: { shouldCreateUser: false },
+      });
+
+      if (otpError) throw otpError;
+
+      setOtpCode('');
+      setMode('otp');
+      setMessage('If this email belongs to a ZPMC member, a one-time sign-in code has been sent. Please check your inbox and spam folder.');
+    } catch (err) {
+      setError(err.message || 'Could not send a one-time sign-in code.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleVerifyLoginCode = async (event) => {
+    event.preventDefault();
+    setError('');
+    setMessage('');
+
+    const email = loginForm.email.trim();
+    const token = otpCode.trim();
+
+    if (!email || !/^\\d{6,8}$/.test(token)) {
+      setError('Enter the registered email address and the 6–8 digit code from your email.');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const { data, error: verifyError } = await supabase.auth.verifyOtp({
+        email,
+        token,
+        type: 'email',
+      });
+
+      if (verifyError) throw verifyError;
+
+      setUser(data.user);
+      setLoginForm({ email: '', password: '' });
+      setOtpCode('');
+      setMode('signin');
+      setMessage('You are now signed in to your ZPMC membership.');
+    } catch (err) {
+      setError(err.message || 'The code is invalid or has expired. Request a new code and try again.');
     } finally {
       setLoading(false);
     }
@@ -1123,7 +1199,25 @@ export default function Membership() {
                     </button>
                   </form>
 
-                  <div className="mt-5 text-center">
+                  <div className="mt-5 flex flex-wrap justify-center gap-x-5 gap-y-2 text-center">
+                    <button
+                      type="button"
+                      onClick={handleSendLoginCode}
+                      disabled={loading}
+                      className="text-sm font-medium text-buddhist-burgundy underline disabled:opacity-60"
+                    >
+                      Email me a one-time code
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => switchMode('otp')}
+                      className="text-sm font-medium text-buddhist-burgundy underline"
+                    >
+                      I already have a code
+                    </button>
+                  </div>
+
+                  <div className="mt-4 text-center">
                     <button
                       type="button"
                       onClick={() => {
@@ -1147,6 +1241,89 @@ export default function Membership() {
                       Join the community
                     </button>
                   </p>
+                </>
+              )}
+
+              {/* ONE-TIME EMAIL CODE SIGN-IN */}
+
+              {mode === 'otp' && (
+                <>
+                  <h2 className="mb-3 font-serif text-2xl font-bold text-buddhist-burgundy">
+                    Sign In with One-Time Code
+                  </h2>
+
+                  <p className="mb-6 text-sm text-stone-600">
+                    Enter the registered email address and the one-time code sent by ZPMC. Codes expire for your security.
+                  </p>
+
+                  <form onSubmit={handleVerifyLoginCode} className="space-y-5">
+                    <div>
+                      <label
+                        htmlFor="otp-login-email"
+                        className="mb-1 block text-sm font-medium text-stone-700"
+                      >
+                        Registered Email Address
+                      </label>
+                      <input
+                        id="otp-login-email"
+                        type="email"
+                        value={loginForm.email}
+                        onChange={(event) => setLoginForm((previous) => ({ ...previous, email: event.target.value }))}
+                        required
+                        autoComplete="email"
+                        className="w-full rounded-lg border border-stone-300 px-4 py-3 outline-none focus:border-buddhist-gold focus:ring-2 focus:ring-amber-100"
+                        placeholder="Enter your registered email"
+                      />
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="otp-login-code"
+                        className="mb-1 block text-sm font-medium text-stone-700"
+                      >
+                        One-Time Code
+                      </label>
+                      <input
+                        id="otp-login-code"
+                        type="text"
+                        inputMode="numeric"
+                        autoComplete="one-time-code"
+                        value={otpCode}
+                        onChange={(event) => setOtpCode(event.target.value.replace(/\\D/g, '').slice(0, 8))}
+                        required
+                        minLength={6}
+                        maxLength={8}
+                        className="w-full rounded-lg border border-stone-300 px-4 py-3 tracking-[0.25em] outline-none focus:border-buddhist-gold focus:ring-2 focus:ring-amber-100"
+                        placeholder="Enter email code"
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className="w-full rounded-lg bg-buddhist-burgundy px-6 py-3.5 font-semibold text-white transition hover:bg-buddhist-burgundy/90 disabled:opacity-60"
+                    >
+                      {loading ? 'Verifying…' : 'Verify Code & Sign In'}
+                    </button>
+                  </form>
+
+                  <div className="mt-5 flex flex-wrap justify-center gap-5 text-center">
+                    <button
+                      type="button"
+                      onClick={handleSendLoginCode}
+                      disabled={loading}
+                      className="text-sm font-medium text-buddhist-burgundy underline disabled:opacity-60"
+                    >
+                      Send a new code
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => switchMode('signin')}
+                      className="text-sm font-medium text-buddhist-burgundy underline"
+                    >
+                      Back to password sign in
+                    </button>
+                  </div>
                 </>
               )}
 
