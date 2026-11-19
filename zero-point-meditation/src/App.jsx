@@ -34,6 +34,7 @@ const Membership = lazy(() => import('./pages/Membership.jsx'));
 const MembershipRegistration = lazy(() => import('./pages/MembershipRegistration.jsx'));
 const MembershipCheckin = lazy(() => import('./pages/MembershipCheckin.jsx'));
 const MembershipAdmin = lazy(() => import('./pages/MembershipAdmin.jsx'));
+const AdminLogin = lazy(() => import('./pages/AdminLogin.jsx'));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -46,6 +47,7 @@ function ScrollToTop() {
 function SiteLayout() {
   const { pathname } = useLocation();
   const isWelcome = pathname === '/';
+  const isAdminLogin = pathname === '/admin-login';
 
   return (
     <div
@@ -55,7 +57,7 @@ function SiteLayout() {
           : 'relative z-10 flex min-h-screen flex-col justify-between bg-buddhist-bg font-sans text-buddhist-charcoal selection:bg-buddhist-gold-light selection:text-buddhist-burgundy'
       }
     >
-      {!isWelcome && (
+      {!isWelcome && !isAdminLogin && (
         <Suspense fallback={null}>
           <Navbar />
         </Suspense>
@@ -81,6 +83,7 @@ function SiteLayout() {
             <Route path="/membership" element={<Membership />} />
             <Route path="/membership-registration" element={<MembershipRegistration />} />
             <Route path="/membership-checkin" element={<MembershipCheckin />} />
+            <Route path="/admin-login" element={<AdminLogin />} />
             <Route path="/membership-admin" element={<MembershipAdmin />} />
             <Route path="/teachers" element={<Teachings />} />
             <Route path="/teachings" element={<Navigate to="/teachers" replace />} />
@@ -93,9 +96,9 @@ function SiteLayout() {
         </Suspense>
       </main>
 
-      {!isWelcome && <Footer />}
+      {!isWelcome && !isAdminLogin && <Footer />}
 
-      {!isWelcome && (
+      {!isWelcome && !isAdminLogin && (
         <Suspense fallback={null}>
           <FloatingAssistant />
         </Suspense>
