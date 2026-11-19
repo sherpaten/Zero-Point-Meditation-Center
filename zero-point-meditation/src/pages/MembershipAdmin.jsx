@@ -34,6 +34,8 @@ export default function MembershipAdmin() {
   const [otpSendingMemberId, setOtpSendingMemberId] = useState(null);
   const [search, setSearch] = useState('');
   const [selectedMember, setSelectedMember] = useState(null);
+  const [paymentProofUrl, setPaymentProofUrl] = useState('');
+  const [paymentProofLoading, setPaymentProofLoading] = useState(false);
 
   const [attendance, setAttendance] = useState([]);
   const [attendanceLoading, setAttendanceLoading] = useState(false);
@@ -425,6 +427,34 @@ export default function MembershipAdmin() {
       showNotice(error.message || 'Could not send the one-time login code.', 'error');
     } finally {
       setOtpSendingMemberId(null);
+    }
+  }
+
+  async function handleViewPaymentProof(member) {
+    if (!supabase || !member?.id) return;
+    setPaymentProofLoading(true);
+    setPaymentProofUrl('');
+    setNotice('');
+    try {
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError) throw sessionError;
+      const accessToken = sessionData?.session?.access_token;
+      if (!accessToken) throw new Error('Your administrator session has expired. Please sign in again.');
+      const response = await fetch('/api/admin-membership-proof', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({ memberId: member.id }),
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(result.error || 'Could not open the payment proof.');
+      setPaymentProofUrl(result.signedUrl);
+    } catch (error) {
+      showNotice(error.message || 'Could not open the payment proof.', 'error');
+    } finally {
+      setPaymentProofLoading(false);
     }
   }
 
@@ -1011,6 +1041,26 @@ export default function MembershipAdmin() {
                 {formatDate(selectedMember.created_at)}
               </p>
             </div>
+          </div>
+
+          <div className="mt-5 rounded-xl border border-amber-200 bg-amber-50/60 p-4">
+            <h3 className="font-semibold text-gray-900">Membership Payment Proof</h3>
+            <p className="mt-1 text-sm text-gray-600">The uploaded receipt is stored privately. Only authorized ZPMC administrators can generate a temporary viewing link.</p>
+            <button
+              type="button"
+              onClick={() => handleViewPaymentProof(selectedMember)}
+              disabled={paymentProofLoading}
+              className={`${buttonClass} mt-3`}
+            >
+              {paymentProofLoading ? 'Preparing Secure Link…' : 'View Uploaded Payment Proof'}
+            </button>
+            {paymentProofUrl && (
+              <p className="mt-3 text-sm">
+                <a href={paymentProofUrl} target="_blank" rel="noreferrer" className="font-semibold text-amber-800 underline">
+                  Open receipt (link expires in 60 seconds)
+                </a>
+              </p>
+            )}
           </div>
 
           <div className="mt-5 flex flex-wrap gap-3">
