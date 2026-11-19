@@ -131,7 +131,7 @@ export default function Membership() {
         const { data, error: fetchError } = await supabase
           .from('members')
           .select(
-            'id, member_number, full_name, phone, country, status, created_at'
+            'id, member_number, display_member_number, full_name, phone, country, status, created_at'
           )
           .eq('id', user.id)
           .maybeSingle();
@@ -732,7 +732,7 @@ export default function Membership() {
                       </p>
 
                       <p className="mt-2 font-serif text-5xl font-bold tracking-wider text-buddhist-burgundy">
-                        {memberProfile.member_number ?? 'Pending'}
+                        {memberProfile.display_member_number ?? 'Pending'}
                       </p>
 
                       <p className="mt-2 text-xs text-stone-500">
