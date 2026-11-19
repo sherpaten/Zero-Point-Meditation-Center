@@ -89,7 +89,7 @@ export default async function handler(req, res) {
     if (!member) {
       return res.status(404).json({ error: 'The selected member record was not found.' });
     }
-    if (!member.email || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(member.email)) {
+    if (!member.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(member.email)) {
       return res.status(409).json({ error: 'This member does not have a valid registered email address.' });
     }
     if (member.email_confirmed_at) {
