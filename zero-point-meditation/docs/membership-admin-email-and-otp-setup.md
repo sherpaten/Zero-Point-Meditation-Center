@@ -47,3 +47,13 @@ Members can also request their own code using **Email me a one-time code**.
 - The API uses the public Supabase Auth API; it does not require or expose a Supabase service-role key.
 - Supabase Auth's configured email rate limits still apply.
 - The admin dashboard reads member email addresses under the existing member/admin Row Level Security policies.
+
+## 5. Track email verification and resend confirmation links
+
+Run `membership-email-verification-tracking.sql` in the Supabase SQL Editor after the email migration. This adds and backfills `members.email_confirmed_at`, then keeps it synchronized with Supabase Auth.
+
+In the admin dashboard, the Member Directory shows **Verified** or **Pending** beside each registered email. The summary also shows how many members are pending email verification. Open **View** for a pending member and choose **Resend Verification Email** to send a fresh confirmation link to the address used at registration.
+
+Supabase does not let the dashboard retrieve an already-issued confirmation link. The safe supported action is to send a fresh link. The action is available only for pending, unverified accounts. Once verified, the status updates from Supabase Auth through the database trigger.
+
+If a member clicked an older link and then received a browser security error, resend a fresh link after confirming the account still shows **Pending**. They should open the newest email and use the latest link only.
