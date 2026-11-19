@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CheckCircle2, Users, X } from 'lucide-react';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { QRCodeSVG } from 'qrcode.react';
 
 export default function MembershipPrompt({ open, onClose, initialName = '', initialEmail = '', initialPhone = '', source = 'booking' }) {
   const [mode, setMode] = useState('choice');
@@ -9,6 +10,11 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
   const [phone, setPhone] = useState(initialPhone);
   const [country, setCountry] = useState('');
   const [membershipPlan, setMembershipPlan] = useState('yearly');
+  const [paymentProof, setPaymentProof] = useState(null);
+  const [paymentProofPath, setPaymentProofPath] = useState('');
+  const [proofUploading, setProofUploading] = useState(false);
+  const [zelleQrOpen, setZelleQrOpen] = useState(false);
+  const zelleQrValue = 'https://enroll.zellepay.com/qr-codes?data=eyJuYW1lIjoiWkVSTyBQT0lOVCBNRURJVEFUSU9OIENFTlRFUiBJTkMuIiwiYWN0aW9uIjoicGF5bWVudCIsInRva2VuIjoiNjQ2NDU2MDg0MyJ9';
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -24,6 +30,10 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
     setPhone(initialPhone);
     setCountry('');
     setMembershipPlan('yearly');
+    setPaymentProof(null);
+    setPaymentProofPath('');
+    setProofUploading(false);
+    setZelleQrOpen(false);
     setPassword('');
     setConfirmPassword('');
     setLoading(false);
@@ -52,12 +62,58 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
     setMember(data);
   };
 
+  const handlePaymentProofSelection = (event) => {
+    const file = event.target.files?.[0] || null;
+    setPaymentProof(file);
+    setPaymentProofPath('');
+    setError('');
+    setMessage('');
+  };
+
+  const handleUploadPaymentProof = async () => {
+    setError('');
+    setMessage('');
+    if (!paymentProof) return setError('Please choose your payment receipt first.');
+    if (!['image/jpeg', 'image/png', 'image/webp', 'application/pdf'].includes(paymentProof.type)) return setError('Upload a JPG, PNG, WebP, or PDF receipt.');
+    if (paymentProof.size <= 0 || paymentProof.size > 10 * 1024 * 1024) return setError('Your payment proof must be smaller than 10 MB.');
+    if (!isSupabaseConfigured) return setError('Secure payment upload is not configured yet.');
+
+    setProofUploading(true);
+    try {
+      const urlResponse = await fetch('/api/membership-proof-upload-url', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contentType: paymentProof.type, size: paymentProof.size }),
+      });
+      const uploadDetails = await urlResponse.json().catch(() => ({}));
+      if (!urlResponse.ok) throw new Error(uploadDetails.error || 'Could not prepare the secure upload.');
+      const { error: uploadError } = await supabase.storage
+        .from('membership-payment-proofs')
+        .uploadToSignedUrl(uploadDetails.path, uploadDetails.token, paymentProof, {
+          contentType: paymentProof.type,
+          upsert: false,
+        });
+      if (uploadError) throw uploadError;
+      setPaymentProofPath(uploadDetails.path);
+      setMessage('Payment proof uploaded securely. You can now create your membership.');
+    } catch (uploadError) {
+      setPaymentProofPath('');
+      setError(uploadError.message || 'Payment proof upload failed. Please try again.');
+    } finally {
+      setProofUploading(false);
+    }
+  };
+
   const handleSignup = async (event) => {
     event.preventDefault();
     setError('');
     setMessage('');
     if (!isSupabaseConfigured) {
       setError('Membership registration is temporarily unavailable. You can continue as a guest.');
+      return;
+    }
+    if (!paymentProofPath) {
+      setError('Please upload your payment proof before creating your membership.');
       return;
     }
     if (password.length < 8) {
@@ -75,7 +131,7 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
         password,
         options: {
           emailRedirectTo: `${window.location.origin}/membership`,
-          data: { full_name: name.trim(), phone: phone.trim(), country: country.trim(), membership_plan: membershipPlan },
+          data: { full_name: name.trim(), phone: phone.trim(), country: country.trim(), membership_plan: membershipPlan, payment_proof_path: paymentProofPath },
         },
       });
       if (signupError) throw signupError;
@@ -89,6 +145,7 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
             phone: phone.trim(),
             country: country.trim(),
             membershipPlan,
+            paymentProofUploaded: true,
           }),
         });
         if (!notificationResponse.ok) {
@@ -197,9 +254,18 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
             <div><label className="mb-1 block text-sm font-medium text-stone-700" htmlFor="invite-email">Email address</label><input id="invite-email" type="email" value={email} onChange={e => setEmail(e.target.value)} required maxLength={254} autoComplete="email" className="w-full rounded-xl border border-stone-300 px-4 py-3 outline-none focus:border-amber-700"/></div>
             <div><label className="mb-1 block text-sm font-medium text-stone-700" htmlFor="invite-password">Password</label><input id="invite-password" type="password" value={password} onChange={e => setPassword(e.target.value)} required minLength={8} autoComplete={mode === 'signup' ? 'new-password' : 'current-password'} className="w-full rounded-xl border border-stone-300 px-4 py-3 outline-none focus:border-amber-700"/></div>
             {mode === 'signup' && <div><label className="mb-1 block text-sm font-medium text-stone-700" htmlFor="invite-confirm-password">Confirm password</label><input id="invite-confirm-password" type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required minLength={8} autoComplete="new-password" className="w-full rounded-xl border border-stone-300 px-4 py-3 outline-none focus:border-amber-700"/></div>}
+            {mode === 'signup' && <section className="space-y-3 rounded-2xl border border-amber-200 bg-amber-50/70 p-4" aria-label="Zelle payment and receipt upload">
+              <h4 className="font-semibold text-buddhist-burgundy">Payment and proof of payment</h4>
+              <p className="text-xs leading-5 text-stone-600">Please pay the selected membership fee using Zelle, then upload your receipt. Your payment proof is stored privately and can only be viewed by authorised ZPMC administrators.</p>
+              <button type="button" onClick={() => setZelleQrOpen(true)} className="w-full rounded-xl border border-buddhist-burgundy bg-white px-4 py-3 font-semibold text-buddhist-burgundy hover:bg-amber-50">View Zelle Payment QR</button>
+              <div><label className="mb-1 block text-sm font-medium text-stone-700" htmlFor="invite-payment-proof">Upload payment proof (JPG, PNG, WebP, or PDF · max 10 MB)</label><input id="invite-payment-proof" type="file" accept="image/jpeg,image/png,image/webp,application/pdf" onChange={handlePaymentProofSelection} className="w-full rounded-xl border border-stone-300 bg-white px-3 py-3 text-sm" /></div>
+              {paymentProof && <p className="text-xs text-stone-600">Selected: {paymentProof.name}</p>}
+              <button type="button" onClick={handleUploadPaymentProof} disabled={!paymentProof || proofUploading || Boolean(paymentProofPath)} className="w-full rounded-xl border border-amber-700 px-4 py-3 font-semibold text-amber-900 disabled:cursor-not-allowed disabled:opacity-50">{proofUploading ? 'Uploading receipt…' : paymentProofPath ? 'Payment proof uploaded' : 'Upload Payment Proof'}</button>
+              {paymentProofPath && <p role="status" className="text-xs font-medium text-emerald-800">Payment proof uploaded successfully.</p>}
+            </section>}
             {error && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">{error}</p>}
             {message && <p role="status" className="rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-900">{message}</p>}
-            <button type="submit" disabled={loading} className="w-full rounded-xl bg-buddhist-burgundy px-5 py-3.5 font-semibold text-white hover:bg-red-900 disabled:opacity-60">{loading ? 'Please wait…' : mode === 'signup' ? 'Create membership' : 'Sign in'}</button>
+            <button type="submit" disabled={loading || (mode === 'signup' && !paymentProofPath)} className="w-full rounded-xl bg-buddhist-burgundy px-5 py-3.5 font-semibold text-white hover:bg-red-900 disabled:opacity-60">{loading ? 'Please wait…' : mode === 'signup' ? 'Create membership' : 'Sign in'}</button>
             <button type="button" onClick={() => showMode(mode === 'signup' ? 'signin' : 'signup')} className="w-full text-sm font-medium text-buddhist-burgundy underline">{mode === 'signup' ? 'Already a member? Sign in' : 'New to ZPMC? Create membership'}</button>
             <button type="button" onClick={() => showMode('choice')} className="w-full text-xs text-stone-500 underline">Back to options</button>
           </form>
@@ -208,6 +274,16 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
         {message && mode === 'choice' && <p role="status" className="mt-4 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-900">{message}</p>}
         {mode !== 'choice' && !member && <p className="mt-4 text-center text-xs text-stone-500">{source === 'booking' ? 'Membership is optional. You may close this window and keep your booking as a guest.' : 'Your ZPMC membership account gives you access to your member information and community updates.'}</p>}
       </section>
+      {zelleQrOpen && <div className="fixed inset-0 z-[140] flex items-center justify-center bg-stone-950/80 p-4" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setZelleQrOpen(false); }}>
+        <section role="dialog" aria-modal="true" aria-labelledby="zelle-qr-title" className="w-full max-w-sm rounded-2xl bg-white p-6 text-center shadow-2xl">
+          <button type="button" onClick={() => setZelleQrOpen(false)} aria-label="Close Zelle QR" className="float-right rounded-full p-2 text-stone-500 hover:bg-stone-100"><X size={19}/></button>
+          <h3 id="zelle-qr-title" className="font-serif text-xl font-bold text-buddhist-burgundy">Zelle Payment QR</h3>
+          <p className="mt-2 text-sm text-stone-600">Scan to pay Zero Point Meditation Center.</p>
+          <div className="mx-auto mt-4 flex justify-center rounded-xl border border-stone-200 bg-white p-4"><QRCodeSVG value={zelleQrValue} size={220} level="H" includeMargin /></div>
+          <p className="mt-3 text-xs text-stone-500">After payment, close this window and upload your receipt.</p>
+          <button type="button" onClick={() => setZelleQrOpen(false)} className="mt-4 w-full rounded-xl bg-buddhist-burgundy px-4 py-3 font-semibold text-white">Close</button>
+        </section>
+      </div>}
     </div>
   );
 }
