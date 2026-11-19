@@ -758,7 +758,7 @@ export default function MembershipAdmin() {
       <section className="mb-8 grid grid-cols-2 gap-4 lg:grid-cols-5">
         {[
           ['Total Members', memberCounts.total],
-          ['Pending Email', memberCounts.pendingVerification],
+          ['Pending Email', emailVerificationAvailable ? memberCounts.pendingVerification : '—'],
           ['Active', memberCounts.active],
           ['Suspended', memberCounts.suspended],
           ['Expired', memberCounts.expired],
