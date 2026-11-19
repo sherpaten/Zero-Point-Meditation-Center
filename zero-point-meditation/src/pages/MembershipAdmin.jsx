@@ -172,16 +172,16 @@ export default function MembershipAdmin() {
     let { data, error } = await supabase
       .from('members')
       .select(
-        'id, member_number, full_name, email, email_confirmed_at, phone, country, status, created_at'
+        'id, member_number, display_member_number, full_name, email, email_confirmed_at, phone, country, status, created_at'
       )
-      .order('member_number', { ascending: true });
+      .order('display_member_number', { ascending: true });
 
     if (error && (error.code === '42703' || /column .*email_confirmed_at.* does not exist/i.test(error.message || ''))) {
       setEmailVerificationAvailable(false);
       const emailFallback = await supabase
         .from('members')
-        .select('id, member_number, full_name, email, phone, country, status, created_at')
-        .order('member_number', { ascending: true });
+        .select('id, member_number, display_member_number, full_name, email, phone, country, status, created_at')
+        .order('display_member_number', { ascending: true });
 
       data = emailFallback.data;
       error = emailFallback.error;
@@ -190,8 +190,8 @@ export default function MembershipAdmin() {
         setMemberEmailAvailable(false);
         const basicFallback = await supabase
           .from('members')
-          .select('id, member_number, full_name, phone, country, status, created_at')
-          .order('member_number', { ascending: true });
+          .select('id, member_number, display_member_number, full_name, phone, country, status, created_at')
+          .order('display_member_number', { ascending: true });
         data = basicFallback.data;
         error = basicFallback.error;
         if (!error) {
@@ -316,7 +316,7 @@ export default function MembershipAdmin() {
 
     return members.filter((member) => {
       return (
-        String(member.member_number).includes(term) ||
+        String(member.display_member_number).includes(term) ||
         (member.full_name || '').toLowerCase().includes(term) ||
         (member.email || '').toLowerCase().includes(term) ||
         (member.phone || '').toLowerCase().includes(term) ||
@@ -480,7 +480,7 @@ export default function MembershipAdmin() {
     if (!supabase || !member?.id) return;
 
     const confirmed = window.confirm(
-      `Permanently remove the membership profile for ${member.full_name} (Member #${member.member_number})? Their Supabase login will not be deleted. Linked attendance records may be affected by the database's foreign-key rules. This action cannot be undone.`
+      `Permanently remove the membership profile for ${member.full_name} (Member #${member.display_member_number})? Their Supabase login will not be deleted. Linked attendance records may be affected by the database's foreign-key rules. This action cannot be undone.`
     );
 
     if (!confirmed) return;
@@ -535,7 +535,7 @@ export default function MembershipAdmin() {
       }
 
       showNotice(
-        `Membership profile for ${member.full_name} (Member #${member.member_number}) was removed. Their Supabase login was not deleted.`
+        `Membership profile for ${member.full_name} (Member #${member.display_member_number}) was removed. Their Supabase login was not deleted.`
       );
     } catch (error) {
       showNotice(
@@ -857,7 +857,7 @@ export default function MembershipAdmin() {
                     }`}
                   >
                     <td className="px-4 py-4 font-semibold">
-                      {member.member_number}
+                      {member.display_member_number}
                     </td>
 
                     <td className="px-4 py-4">
@@ -962,7 +962,7 @@ export default function MembershipAdmin() {
               </h2>
 
               <p className="mt-1 text-sm text-gray-500">
-                Membership Number: {selectedMember.member_number}
+                Membership Number: {selectedMember.display_member_number}
               </p>
             </div>
 
