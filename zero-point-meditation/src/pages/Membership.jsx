@@ -389,7 +389,7 @@ export default function Membership() {
     const email = loginForm.email.trim();
     const token = otpCode.trim();
 
-    if (!email || !/^\\d{6,8}$/.test(token)) {
+    if (!email || !/^\d{6,8}$/.test(token)) {
       setError('Enter the registered email address and the 6–8 digit code from your email.');
       return;
     }
@@ -1289,7 +1289,7 @@ export default function Membership() {
                         inputMode="numeric"
                         autoComplete="one-time-code"
                         value={otpCode}
-                        onChange={(event) => setOtpCode(event.target.value.replace(/\\D/g, '').slice(0, 8))}
+                        onChange={(event) => setOtpCode(event.target.value.replace(/\D/g, '').slice(0, 8))}
                         required
                         minLength={6}
                         maxLength={8}
