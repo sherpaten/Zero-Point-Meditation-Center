@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { supabase, isSupabaseConfigured } from '../lib/supabase';
+import { QRCodeSVG } from 'qrcode.react';
 
 // ========================================
 // DATE HELPERS
@@ -30,6 +31,11 @@ const getWeekStart = () => {
 export default function Membership() {
   const [mode, setMode] = useState('signup');
   const [membershipPlan, setMembershipPlan] = useState('yearly');
+  const [paymentProof, setPaymentProof] = useState(null);
+  const [paymentProofPath, setPaymentProofPath] = useState('');
+  const [proofUploading, setProofUploading] = useState(false);
+  const [zelleQrOpen, setZelleQrOpen] = useState(false);
+  const zelleQrValue = 'https://enroll.zellepay.com/qr-codes?data=eyJuYW1lIjoiWkVSTyBQT0lOVCBNRURJVEFUSU9OIENFTlRFUiBJTkMuIiwiYWN0aW9uIjoicGF5bWVudCIsInRva2VuIjoiNjQ2NDU2MDg0MyJ9';
 
   const [form, setForm] = useState({
     full_name: '',
@@ -229,6 +235,48 @@ export default function Membership() {
     }));
   };
 
+  const handlePaymentProofSelection = (event) => {
+    const file = event.target.files?.[0] || null;
+    setPaymentProof(file);
+    setPaymentProofPath('');
+    setError('');
+    setMessage('');
+  };
+
+  const handleUploadPaymentProof = async () => {
+    setError('');
+    setMessage('');
+    if (!paymentProof) return setError('Please choose your payment receipt first.');
+    if (!['image/jpeg', 'image/png', 'image/webp', 'application/pdf'].includes(paymentProof.type)) return setError('Upload a JPG, PNG, WebP, or PDF receipt.');
+    if (paymentProof.size <= 0 || paymentProof.size > 10 * 1024 * 1024) return setError('Your payment proof must be smaller than 10 MB.');
+    if (!isSupabaseConfigured) return setError('Secure payment upload is not configured yet.');
+
+    setProofUploading(true);
+    try {
+      const urlResponse = await fetch('/api/membership-proof-upload-url', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contentType: paymentProof.type, size: paymentProof.size }),
+      });
+      const uploadDetails = await urlResponse.json().catch(() => ({}));
+      if (!urlResponse.ok) throw new Error(uploadDetails.error || 'Could not prepare the secure upload.');
+      const { error: uploadError } = await supabase.storage
+        .from('membership-payment-proofs')
+        .uploadToSignedUrl(uploadDetails.path, uploadDetails.token, paymentProof, {
+          contentType: paymentProof.type,
+          upsert: false,
+        });
+      if (uploadError) throw uploadError;
+      setPaymentProofPath(uploadDetails.path);
+      setMessage('Payment proof uploaded securely. You can now create your membership.');
+    } catch (uploadError) {
+      setPaymentProofPath('');
+      setError(uploadError.message || 'Payment proof upload failed. Please try again.');
+    } finally {
+      setProofUploading(false);
+    }
+  };
+
   // ========================================
   // MEMBER REGISTRATION
   // ========================================
@@ -240,6 +288,11 @@ export default function Membership() {
 
     if (!isSupabaseConfigured) {
       setError('Membership registration is not configured yet.');
+      return;
+    }
+
+    if (!paymentProofPath) {
+      setError('Please upload your payment proof before creating your membership.');
       return;
     }
 
@@ -266,6 +319,7 @@ export default function Membership() {
             phone: form.phone.trim(),
             country: form.country.trim(),
             membership_plan: membershipPlan,
+            payment_proof_path: paymentProofPath,
           },
         },
       });
@@ -282,6 +336,7 @@ export default function Membership() {
             phone: form.phone.trim(),
             country: form.country.trim(),
             membershipPlan,
+            paymentProofUploaded: true,
           }),
         });
         if (!notificationResponse.ok) {
@@ -295,6 +350,8 @@ export default function Membership() {
         'Thank you for joining us! Please check your email for a verification link to activate your account.'
       );
 
+      setPaymentProof(null);
+      setPaymentProofPath('');
       setForm({
         full_name: '',
         email: '',
@@ -992,7 +1049,8 @@ export default function Membership() {
                         <option value="benefactor">Benefactor Membership — $500/year</option>
                         <option value="lifetime">Lifetime Membership — $3,000 one-time</option>
                       </select>
-                      <p className="mt-2 text-xs text-stone-600">Your selected plan will be included with your registration. Payment is arranged separately.</p>
+                      <p className="mt-2 text-xs text-stone-600">Pay using Zelle, then upload your receipt before creating your membership.</p>
+                      <button type="button" onClick={() => setZelleQrOpen(true)} className="mt-4 rounded-lg border border-buddhist-burgundy px-4 py-2.5 text-sm font-semibold text-buddhist-burgundy transition hover:bg-buddhist-burgundy hover:text-white">View Zelle Payment QR</button>
                     </div>
                     <div>
                       <label
@@ -1122,18 +1180,27 @@ export default function Membership() {
                       />
                     </div>
 
+                    <div className="rounded-xl border border-amber-200 bg-amber-50/60 p-4">
+                      <h3 className="font-semibold text-buddhist-burgundy">Upload Payment Proof *</h3>
+                      <p className="mt-1 text-sm text-stone-600">Upload a screenshot, receipt photo, or bank statement. Accepted: JPG, PNG, WebP, or PDF. Maximum size: 10 MB.</p>
+                      <input id="membership-payment-proof" type="file" accept="image/jpeg,image/png,image/webp,application/pdf" onChange={handlePaymentProofSelection} className="mt-3 block w-full text-sm text-stone-700 file:mr-3 file:rounded-lg file:border-0 file:bg-white file:px-4 file:py-2 file:font-semibold file:text-buddhist-burgundy" required />
+                      {paymentProof && <p className="mt-2 break-all text-xs text-stone-600">Selected: {paymentProof.name}</p>}
+                      <button type="button" onClick={handleUploadPaymentProof} disabled={!paymentProof || proofUploading || Boolean(paymentProofPath)} className="mt-3 rounded-lg border border-buddhist-burgundy px-4 py-2.5 text-sm font-semibold text-buddhist-burgundy disabled:cursor-not-allowed disabled:opacity-50">
+                        {proofUploading ? 'Uploading Receipt…' : paymentProofPath ? 'Payment Proof Uploaded' : 'Upload Payment Proof'}
+                      </button>
+                      {paymentProofPath && <p className="mt-2 text-sm font-semibold text-green-700">Your receipt is securely uploaded.</p>}
+                    </div>
+
                     <p className="text-xs leading-relaxed text-stone-500">
-                      Fields marked * are required. By registering, you are
-                      creating your ZPMC membership account. Please contact the
-                      center for payment instructions.
+                      Fields marked * are required. Your membership account will be created after your payment proof has uploaded successfully. You will then receive an email verification link.
                     </p>
 
                     <button
                       type="submit"
-                      disabled={loading}
+                      disabled={loading || !paymentProofPath || proofUploading}
                       className="w-full rounded-lg bg-buddhist-burgundy px-6 py-3.5 font-semibold text-white transition hover:bg-buddhist-burgundy/90 disabled:cursor-not-allowed disabled:opacity-60"
                     >
-                      {loading ? 'Registering…' : 'Join the Community'}
+                      {loading ? 'Creating Membership…' : 'Create Membership'}
                     </button>
                   </form>
                 </>
@@ -1453,6 +1520,21 @@ export default function Membership() {
           )}
         </div>
       </div>
+
+      {zelleQrOpen && (
+        <div className="fixed inset-0 z-[120] flex items-center justify-center bg-black/70 p-4" onClick={(event) => { if (event.target === event.currentTarget) setZelleQrOpen(false); }}>
+          <div role="dialog" aria-modal="true" aria-labelledby="membership-zelle-title" className="w-full max-w-sm rounded-2xl bg-white p-6 text-center shadow-2xl">
+            <h2 id="membership-zelle-title" className="font-serif text-xl font-bold text-buddhist-burgundy">ZPMC Zelle Payment</h2>
+            <p className="mt-2 text-sm text-stone-600">ZERO POINT MEDITATION CENTER INC.</p>
+            <div className="my-5 flex justify-center rounded-xl bg-white p-3">
+              <QRCodeSVG value={zelleQrValue} size={260} level="H" bgColor="#ffffff" fgColor="#000000" includeMargin />
+            </div>
+            <p className="text-xs text-stone-500">Scan this QR code with your Zelle app to make your membership payment.</p>
+            <button type="button" onClick={() => setZelleQrOpen(false)} className="mt-5 w-full rounded-lg bg-buddhist-burgundy px-5 py-3 font-semibold text-white">Close</button>
+          </div>
+        </div>
+      )}
+
     </section>
   );
 }
