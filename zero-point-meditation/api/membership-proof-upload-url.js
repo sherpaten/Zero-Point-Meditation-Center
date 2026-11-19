@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { randomUUID } from 'node:crypto';
 
 const BUCKET = 'membership-payment-proofs';
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
@@ -58,7 +59,7 @@ export default async function handler(req, res) {
       'image/webp': 'webp',
       'application/pdf': 'pdf',
     })[contentType];
-    const path = `applications/${crypto.randomUUID()}.${extension}`;
+    const path = `applications/${randomUUID()}.${extension}`;
     const { data, error } = await supabase.storage
       .from(BUCKET)
       .createSignedUploadUrl(path, { upsert: false });
