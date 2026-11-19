@@ -279,6 +279,7 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
           <button type="button" onClick={() => setZelleQrOpen(false)} aria-label="Close Zelle QR" className="float-right rounded-full p-2 text-stone-500 hover:bg-stone-100"><X size={19}/></button>
           <h3 id="zelle-qr-title" className="font-serif text-xl font-bold text-buddhist-burgundy">Zelle Payment QR</h3>
           <p className="mt-2 text-sm text-stone-600">Scan to pay Zero Point Meditation Center.</p>
+          <div role="alert" className="mt-4 rounded-xl border border-red-300 bg-red-50 p-3 text-left text-sm text-red-900"><p className="font-bold">Important — Verify Before Sending</p><p className="mt-1">Carefully check the recipient name and all payment details before sending money. Confirm the recipient is <strong>ZERO POINT MEDITATION CENTER INC.</strong> before completing your Zelle payment. If anything looks incorrect, do not proceed.</p></div>
           <div className="mx-auto mt-4 flex justify-center rounded-xl border border-stone-200 bg-white p-4"><QRCodeSVG value={zelleQrValue} size={220} level="H" includeMargin /></div>
           <p className="mt-3 text-xs text-stone-500">After payment, close this window and upload your receipt.</p>
           <button type="button" onClick={() => setZelleQrOpen(false)} className="mt-4 w-full rounded-xl bg-buddhist-burgundy px-4 py-3 font-semibold text-white">Close</button>
