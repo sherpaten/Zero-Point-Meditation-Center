@@ -154,8 +154,8 @@ export default function MembershipCheckin() {
     try {
       const { data: memberData, error: memberError } = await supabase
         .from('members')
-        .select('id, member_number, full_name, status')
-        .eq('member_number', Number(number))
+        .select('id, member_number, display_member_number, full_name, status')
+        .eq('display_member_number', Number(number))
         .maybeSingle();
 
       if (memberError) throw memberError;
@@ -421,7 +421,7 @@ export default function MembershipCheckin() {
               </p>
 
               <p>
-                <strong>Membership Number:</strong> {member.member_number}
+                <strong>Membership Number:</strong> {member.display_member_number}
               </p>
 
               <p>
