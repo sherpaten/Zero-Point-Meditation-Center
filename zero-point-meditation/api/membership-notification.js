@@ -62,6 +62,7 @@ export default async function handler(req, res) {
     'Phone: ' + (phone || 'Not provided'),
     'Country: ' + (country || 'Not provided'),
     'Selected membership plan: ' + planLabels[membershipPlan],
+    'Payment proof uploaded: ' + (body.paymentProofUploaded === true ? 'Yes — view it in the secure membership admin portal.' : 'Not confirmed'),
     '',
     'Membership account verification is handled separately by Supabase.',
     'Review membership records in the authorized membership admin portal:',
