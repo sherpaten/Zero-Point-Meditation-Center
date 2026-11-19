@@ -1,3 +1,4 @@
+import { createClient } from '@supabase/supabase-js';
 const allowedOrigins = new Set([
   'https://www.zeropointmeditationcenter.org',
   'https://zeropointmeditationcenter.org',
@@ -47,6 +48,7 @@ export default async function handler(req, res) {
   const purpose = clean(body.purpose, 100);
   const paymentMethod = clean(body.paymentMethod, 30);
   const message = clean(body.message, 1500);
+  const paymentProofPath = clean(body.paymentProofPath, 300);
   if (name.length < 2 || !validEmail(email) || !/^\d{1,8}(\.\d{1,2})?$/.test(amount) || Number(amount) <= 0 || !purposes.has(purpose) || !['bank_transfer', 'zelle'].includes(paymentMethod)) {
     return res.status(400).json({ error: 'Please provide a valid name, email, amount, and donation purpose.' });
   }
@@ -93,7 +95,18 @@ export default async function handler(req, res) {
   ].join('\n');
 
   try {
-    await sendEmail(apiKey, { from: fromEmail, to: teamEmails, reply_to: email, subject: 'Donation request — USD ' + amount + ' — ' + name, text: teamText });
+    let paymentProofLink = '';
+    if (paymentMethod === 'zelle') {
+      const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
+      const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+      if (!supabaseUrl || !serviceKey) throw new Error('Secure donation proof access is not configured.');
+      const supabase = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false } });
+      const { data: proofData, error: proofError } = await supabase.storage.from('membership-payment-proofs').createSignedUrl(paymentProofPath, 7 * 24 * 60 * 60);
+      if (proofError || !proofData?.signedUrl) throw proofError || new Error('Could not create donation proof link.');
+      paymentProofLink = proofData.signedUrl;
+    }
+    const teamEmailText = teamText + (paymentProofLink ? '\\nPayment proof (private link, expires in 7 days): ' + paymentProofLink : '\\nPayment proof: Not applicable — bank transfer instructions requested.');
+    await sendEmail(apiKey, { from: fromEmail, to: teamEmails, reply_to: email, subject: 'Donation request — USD ' + amount + ' — ' + name, text: teamEmailText });
     const donorEmail = {
       from: fromEmail,
       to: [email],
