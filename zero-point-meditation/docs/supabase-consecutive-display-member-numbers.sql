@@ -38,8 +38,12 @@ where members.id = numbered.id;
 -- this migration. A sequence is intentionally not reset when members are deleted.
 select setval(
   'public.zpmc_display_member_number_seq',
-  greatest(coalesce((select max(display_member_number) from public.members), 0), 1),
-  coalesce((select max(display_member_number) from public.members), 0) > 0
+  greatest(
+    coalesce((select max(display_member_number) from public.members), 0),
+    (select last_value from public.zpmc_display_member_number_seq)
+  ),
+  (select is_called from public.zpmc_display_member_number_seq)
+    or coalesce((select max(display_member_number) from public.members), 0) > 0
 );
 
 create unique index if not exists members_display_member_number_key
