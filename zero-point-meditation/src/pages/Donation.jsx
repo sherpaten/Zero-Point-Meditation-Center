@@ -130,6 +130,10 @@ export default function Donation() {
                       <button type="button" onClick={() => setZelleQrOpen(false)} aria-label="Close Zelle QR popup" className="absolute right-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-full text-2xl text-stone-600 hover:bg-stone-100 focus:outline-none focus:ring-2 focus:ring-purple-500">&times;</button>
                       <h3 id="zelle-qr-title" className="pr-8 text-lg font-bold text-stone-900">Donate with Zelle</h3>
                       <p className="mt-2 text-sm text-stone-600">Scan this QR code using your banking app.</p>
+                      <div role="alert" className="mt-4 rounded-xl border border-amber-300 bg-amber-50 p-4 text-left text-sm leading-relaxed text-amber-950">
+                        <p className="font-bold">Important — Verify Before Sending</p>
+                        <p className="mt-1">Carefully check the recipient name and all payment details before sending money. Confirm the recipient is <strong>ZERO POINT MEDITATION CENTER INC.</strong> before completing your Zelle payment. If anything looks incorrect, do not proceed.</p>
+                      </div>
                       <div className="mx-auto mt-4 inline-flex max-w-full items-center justify-center rounded-xl bg-white p-3"><QRCodeSVG value={zelleQrValue} size={260} level="H" bgColor="#ffffff" fgColor="#000000" includeMargin /></div>
                       <p className="mt-3 text-sm font-semibold text-stone-800">Recipient: ZERO POINT MEDITATION CENTER INC.</p>
                       <div role="alert" className="mt-4 rounded-xl border border-amber-300 bg-amber-50 p-4 text-left text-sm leading-relaxed text-amber-950">
