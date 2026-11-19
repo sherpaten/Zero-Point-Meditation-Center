@@ -681,10 +681,10 @@ export default function MembershipAdmin() {
         </p>
 
         <a
-          href="/membership"
+          href="/admin-login"
           className="mt-6 inline-block rounded-lg bg-amber-800 px-6 py-3 text-white"
         >
-          Go to Membership Login
+          Go to Administrator Sign In
         </a>
       </main>
     );
