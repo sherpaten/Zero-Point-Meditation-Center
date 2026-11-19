@@ -155,6 +155,20 @@ export default function MembershipAdmin() {
 
     setMembersLoading(true);
 
+    // Keep administrator accounts out of the member directory without
+    // deleting their member profile or any linked attendance history.
+    const { data: adminRows, error: adminRowsError } = await supabase
+      .from('admin_users')
+      .select('user_id');
+
+    if (adminRowsError) {
+      showNotice(`Could not identify administrator accounts: ${adminRowsError.message}`, 'error');
+      setMembersLoading(false);
+      return;
+    }
+
+    const administratorIds = new Set((adminRows || []).map((row) => row.user_id));
+
     let { data, error } = await supabase
       .from('members')
       .select(
@@ -195,7 +209,8 @@ export default function MembershipAdmin() {
     if (error) {
       showNotice(`Could not load members: ${error.message}`, 'error');
     } else {
-      setMembers(data || []);
+      // Administrators are not counted or shown as community members.
+      setMembers((data || []).filter((member) => !administratorIds.has(member.id)));
     }
 
     setMembersLoading(false);
