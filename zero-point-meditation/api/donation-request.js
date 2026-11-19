@@ -105,7 +105,7 @@ export default async function handler(req, res) {
       if (proofError || !proofData?.signedUrl) throw proofError || new Error('Could not create donation proof link.');
       paymentProofLink = proofData.signedUrl;
     }
-    const teamEmailText = teamText + (paymentProofLink ? '\\nPayment proof (private link, expires in 7 days): ' + paymentProofLink : '\\nPayment proof: Not applicable — bank transfer instructions requested.');
+    const teamEmailText = teamText + (paymentProofLink ? '\nPayment proof (private link, expires in 7 days): ' + paymentProofLink : '\nPayment proof: Not applicable — bank transfer instructions requested.');
     await sendEmail(apiKey, { from: fromEmail, to: teamEmails, reply_to: email, subject: 'Donation request — USD ' + amount + ' — ' + name, text: teamEmailText });
     const donorEmail = {
       from: fromEmail,
