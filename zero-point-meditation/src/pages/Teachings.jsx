@@ -140,7 +140,6 @@ export default function Teachings() {
           {[
             { name: 'Maya Karma Jinpa', image: mayaKarmaJinpaPhoto },
             { name: 'Shirley Huang', image: shirleyHuangPhoto },
-            { name: 'Zoe Liang', image: zoeLiangPhoto, role: 'Advisor & Teacher' },
             { name: 'Ugen Sherpa', image: ugenSherpaPhoto },
             { name: 'Gyan Bahadur Lama', image: gyanBahadurLamaPhoto },
           ].map((advisor) => (
@@ -172,7 +171,7 @@ export default function Teachings() {
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {[
-            { name: 'Tenzing Norkay Sherpa', role: 'IT Head (Nepal Team)', image: tenzingNorkaySherpa },
+            { name: 'Tenzing Norkay Sherpa', role: 'IT Head', image: tenzingNorkaySherpa },
             { name: 'Smirti Pradhan', role: 'Analytics and Development Manager', image: smrityPhoto },
             { name: 'Mimi Lama', role: 'Secretary of ZPMC', image: mimiLamaPhoto },
           ].map((person) => (
