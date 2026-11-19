@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Heart, Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
+import { supabase } from '../lib/supabase';
 
 const purposes = [
   'General support for ZPMC',
@@ -18,7 +19,29 @@ export default function Donation() {
   const [status, setStatus] = useState('idle');
   const [error, setError] = useState('');
   const [zelleQrOpen, setZelleQrOpen] = useState(false);
+  const [proofFile, setProofFile] = useState(null);
+  const [proofPath, setProofPath] = useState('');
+  const [proofStatus, setProofStatus] = useState('idle');
+  const [proofError, setProofError] = useState('');
   const amount = form.amount === 'custom' ? form.customAmount : form.amount;
+
+  const uploadDonationProof = async (file) => {
+    setProofFile(file || null); setProofPath(''); setProofError('');
+    if (!file) { setProofStatus('idle'); return; }
+    if (!['image/jpeg', 'image/png', 'image/webp', 'application/pdf'].includes(file.type)) { setProofStatus('idle'); setProofError('Upload a JPG, PNG, WebP, or PDF receipt.'); return; }
+    if (file.size <= 0 || file.size > 10 * 1024 * 1024) { setProofStatus('idle'); setProofError('The payment proof must be no larger than 10 MB.'); return; }
+    if (!supabase) { setProofStatus('idle'); setProofError('Secure upload is unavailable. Please contact ZPMC.'); return; }
+    setProofStatus('uploading');
+    try {
+      const prepared = await fetch('/api/donation-proof-upload-url', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ contentType: file.type, size: file.size }) });
+      const upload = await prepared.json();
+      if (!prepared.ok) throw new Error(upload.error || 'Could not prepare the upload.');
+      const { error: uploadError } = await supabase.storage.from('membership-payment-proofs').uploadToSignedUrl(upload.path, upload.token, file, { contentType: file.type, upsert: false });
+      if (uploadError) throw uploadError;
+      setProofPath(upload.path); setProofStatus('success');
+    } catch (err) { setProofStatus('idle'); setProofError(err.message || 'Upload failed. Please try again.'); }
+  };
+
 
   const submit = async (event) => {
     event.preventDefault();
@@ -28,7 +51,7 @@ export default function Donation() {
       const response = await fetch('/api/donation-request', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, amount })
+        body: JSON.stringify({ ...form, amount, paymentProofPath: proofPath })
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || 'Unable to submit your donation request.');
@@ -117,11 +140,22 @@ export default function Donation() {
                   </div>
                 )}
               </div>
+              {form.paymentMethod === 'zelle' && (
+                <div className="space-y-2 rounded-xl border border-amber-200 bg-amber-50 p-4">
+                  <label htmlFor="donation-proof" className="block text-sm font-semibold text-stone-800">Upload payment proof (JPG, PNG, WebP, or PDF · max 10 MB)</label>
+                  <input id="donation-proof" type="file" accept="image/jpeg,image/png,image/webp,application/pdf" onChange={(e) => uploadDonationProof(e.target.files?.[0])} className="block w-full text-sm text-stone-700" />
+                  {proofFile && <p className="break-all text-xs text-stone-600">{proofFile.name}</p>}
+                  {proofStatus === 'uploading' && <p role="status" className="text-sm text-stone-600">Uploading securely…</p>}
+                  {proofStatus === 'success' && <p role="status" className="text-sm font-semibold text-emerald-700">Payment proof uploaded successfully.</p>}
+                  {proofError && <p role="alert" className="text-sm text-red-700">{proofError}</p>}
+                  <p className="text-xs leading-relaxed text-stone-600">Complete your Zelle payment and upload the receipt before submitting your donation.</p>
+                </div>
+              )}
               <input tabIndex="-1" autoComplete="off" aria-hidden="true" className="absolute -left-[9999px]" value={form.website} onChange={(e)=>setForm({...form,website:e.target.value})}/>
               {error && <p role="alert" className="rounded-xl bg-red-50 p-3 text-sm text-red-700">{error}</p>}
-              <button disabled={status==='sending'} type="submit" className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3.5 text-sm font-bold text-white transition hover:bg-red-900 disabled:cursor-wait disabled:opacity-60">{status==='sending'?'Submitting…':form.paymentMethod==='bank_transfer'?'Request bank transfer instructions':"I've paid with Zelle — Submit donation"} <ArrowRight size={16}/></button>
+              <button disabled={status==='sending' || (form.paymentMethod==='zelle' && proofStatus!=='success')} type="submit" className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-buddhist-burgundy px-5 py-3.5 text-sm font-bold text-white transition hover:bg-red-900 disabled:cursor-wait disabled:opacity-60">{status==='sending'?'Submitting…':form.paymentMethod==='bank_transfer'?'Request bank transfer instructions':"I've paid with Zelle — Submit donation"} <ArrowRight size={16}/></button>
               {form.paymentMethod === 'zelle' ? (
-                <p className="break-words text-center text-xs leading-relaxed text-stone-600">Please scan the QR code and complete your Zelle payment first. After your payment is sent, click the button above to submit your donation details. Please submit only after paying.</p>
+                <p className="break-words text-center text-xs leading-relaxed text-stone-600">Please scan the QR code, complete your Zelle payment, upload your receipt, and then submit your donation.</p>
               ) : (
                 <p className="break-words text-center text-xs leading-relaxed text-stone-600">Click above to request the bank transfer instructions. We will email the ACH details so you can complete your donation.</p>
               )}
