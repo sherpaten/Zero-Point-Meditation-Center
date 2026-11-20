@@ -49,6 +49,12 @@ export default async function handler(req, res) {
   const authorization = req.headers.authorization || '';
   const accessToken = authorization.startsWith('Bearer ') ? authorization.slice(7) : '';
   if (!accessToken) return res.status(401).json({ error:'Administrator sign-in is required.' });
+  // Never pass malformed or non-ASCII text into the Authorization header
+  // used by Supabase fetch; valid Supabase access tokens are three-part JWTs.
+  if (!/^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$/.test(accessToken)) {
+    console.error('Payment receipts received a malformed administrator JWT.');
+    return res.status(401).json({ error:'Your administrator session token is damaged. Please sign out and sign in again.' });
+  }
   // Match the working membership-proof admin API: verify the supplied user
   // access token with the server-side Supabase client, then check admin_users.
   // The service-role key stays server-side and is never returned to the browser.
