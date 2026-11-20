@@ -146,6 +146,7 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
             country: country.trim(),
             membershipPlan,
             paymentProofUploaded: true,
+            memberId: data?.user?.id,
           }),
         });
         if (!notificationResponse.ok) {
