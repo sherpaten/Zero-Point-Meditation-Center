@@ -139,8 +139,10 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
         },
       });
       if (signupError) throw signupError;
+      let notificationResult = {};
+      let notificationResponse;
       try {
-        const notificationResponse = await fetch('/api/membership-notification', {
+        notificationResponse = await fetch('/api/membership-notification', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -153,13 +155,25 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
             memberId: data?.user?.id,
           }),
         });
-        if (!notificationResponse.ok) {
-          console.error('Membership was created, but the team notification email could not be sent.');
-        }
+        notificationResult = await notificationResponse.json().catch(() => ({}));
       } catch (notificationError) {
-        console.error('Membership was created, but the team notification request failed:', notificationError);
+        console.error('Membership payment notification request failed:', notificationError);
+        setError('Your member account may have been created, but we could not confirm that your payment record was saved. Please do not register again. Contact ZPMC so the team can check your application.');
+        setMode('record-error');
+        return;
       }
-      setMessage('Your membership application has been received! Thank you for applying to Zero Point Meditation Center. Your application and payment proof have been submitted successfully. Your membership is pending payment verification. The ZPMC team will review your payment and approve your membership once it is confirmed. Please verify your email address to secure your account. We will notify you by email when your membership is approved.');
+
+      if (!notificationResponse.ok && notificationResult.recordSaved !== true) {
+        console.error('Membership payment record was not confirmed:', notificationResult);
+        setError(notificationResult.error || 'Your member account was created, but your payment record was not saved. Please do not register again. Contact ZPMC for assistance.');
+        setMode('record-error');
+        return;
+      }
+
+      const emailWarning = !notificationResponse.ok
+        ? ' Your payment record was saved, but the team notification email could not be sent. ZPMC can still review your application.'
+        : '';
+      setMessage('Your membership application and payment proof have been recorded successfully. Your membership is pending payment verification. The ZPMC team will review your payment and approve your membership once it is confirmed. Please verify your email address to secure your account. We will notify you by email when your membership is approved.' + emailWarning);
       setMode('confirmation');
     } catch (err) {
       setError(err.message || 'Registration could not be completed. Please try again.');
@@ -218,6 +232,14 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
             <button type="button" onClick={() => showMode('signup')} className="w-full rounded-xl bg-buddhist-burgundy px-5 py-3.5 font-semibold text-white hover:bg-red-900">Join the community</button>
             <button type="button" onClick={() => showMode('signin')} className="w-full rounded-xl border border-buddhist-burgundy px-5 py-3.5 font-semibold text-buddhist-burgundy hover:bg-amber-50">Already a member? Sign in</button>
             <button type="button" onClick={onClose} className="w-full px-5 py-3 text-sm font-medium text-stone-500 underline underline-offset-4">Continue as guest</button>
+          </div>
+        ) : mode === 'record-error' ? (
+          <div className="mt-6 rounded-2xl border-2 border-red-200 bg-red-50/70 p-6 text-center">
+            <h3 className="mt-2 font-serif text-xl font-bold text-buddhist-burgundy">Payment record not confirmed</h3>
+            <p role="alert" className="mt-3 text-sm leading-6 text-stone-700">{error}</p>
+            <p className="mt-3 text-sm leading-6 text-stone-700">Your account may already exist. Please do not submit another registration with a different email until the ZPMC team has checked this application.</p>
+            <button type="button" onClick={() => { setMode('signin'); setError(''); setPassword(''); }} className="mt-5 w-full rounded-xl border border-buddhist-burgundy px-5 py-3 font-semibold text-buddhist-burgundy hover:bg-amber-50">Go to Member Sign In</button>
+            <button type="button" onClick={onClose} className="mt-3 w-full px-5 py-3 text-sm font-medium text-stone-500 underline">Close</button>
           </div>
         ) : mode === 'confirmation' ? (
           <div className="mt-6 rounded-2xl border-2 border-amber-200 bg-amber-50/60 p-6 text-center">
