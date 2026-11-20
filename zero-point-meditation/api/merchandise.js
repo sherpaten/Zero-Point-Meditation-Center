@@ -43,7 +43,7 @@ async function findPublicOrder(supabase, id, token) {
 export default async function handler(req, res) {
   res.setHeader('Cache-Control','no-store');
   if (!['GET','POST'].includes(req.method)) { res.setHeader('Allow','GET, POST'); return res.status(405).json({error:'Method not allowed.'}); }
-  if (!originAllowed(req.headers.origin)) return res.status(403).json({error:'Request origin is not allowed.'});
+  if (req.method === 'POST' && !originAllowed(req.headers.origin)) return res.status(403).json({error:'Request origin is not allowed.'});
   try {
     const supabase = supabaseClient();
     if (req.method === 'GET') {
