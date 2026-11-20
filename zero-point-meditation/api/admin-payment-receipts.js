@@ -70,7 +70,17 @@ export default async function handler(req, res) {
       return res.status(401).json({ error:'Your administrator session is invalid or expired.' });
     }
     const { data: admin, error: adminError } = await supabase.from('admin_users').select('user_id').eq('user_id', authData.user.id).maybeSingle();
-    if (adminError || !admin) return res.status(403).json({ error:'Administrator access is required.' });
+    if (adminError || !admin) {
+      // Diagnostic only: log the lookup outcome server-side without exposing
+      // tokens, keys, email addresses, or database details to the browser.
+      console.error('Payment receipts admin lookup failed:', {
+        code: adminError?.code || null,
+        message: adminError?.message || null,
+        userId: authData.user.id,
+        adminRecordFound: Boolean(admin)
+      });
+      return res.status(403).json({ error:'Administrator access is required.' });
+    }
 
     if (req.method === 'GET') {
       const { data, error } = await supabase.from('payment_records').select('id, source_ref, payment_type, payer_name, payer_email, amount, currency, payment_method, purpose, membership_plan, member_id, payment_proof_path, status, receipt_number, admin_notes, created_at, verified_at, receipt_email_sent_at').order('created_at', { ascending:false }).limit(250);
