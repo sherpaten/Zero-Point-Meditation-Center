@@ -1,3 +1,5 @@
+BEGIN;
+
 -- New member applications must remain pending until ZPMC verifies payment.
 -- Existing member rows are intentionally not updated by this migration.
 
@@ -60,3 +62,5 @@ BEGIN
   RETURN new;
 END;
 $function$;
+
+COMMIT;
