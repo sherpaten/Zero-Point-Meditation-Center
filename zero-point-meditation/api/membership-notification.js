@@ -26,6 +26,7 @@ export default async function handler(req,res) {
   const supabaseUrl=process.env.SUPABASE_URL||process.env.VITE_SUPABASE_URL, serviceKey=process.env.SUPABASE_SERVICE_ROLE_KEY;
   if(!apiKey||!fromEmail||!supabaseUrl||!serviceKey) return res.status(503).json({error:'Membership payment records or email are not configured.'});
 
+  let recordSaved = false;
   try{
     const supabase=createClient(supabaseUrl,serviceKey,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}});
     const {data:authData,error:authError}=await supabase.auth.admin.getUserById(memberId);
@@ -41,6 +42,7 @@ export default async function handler(req,res) {
       membership_plan:plan.label,member_id:memberId,payment_proof_path:proofPath,status:'pending'
     },{onConflict:'source_ref',ignoreDuplicates:true});
     if(recordError){ console.error('Membership payment ledger insert failed:',recordError.message); return res.status(503).json({ok:false,recordSaved:false,error:'Your member account was created, but the payment record could not be saved. Please do not register again. Contact ZPMC before submitting another application.'}); }
+    recordSaved = true;
 
     const text=[
       'New ZPMC community membership application','','Applicant name: '+name,'Applicant email: '+email,
@@ -52,5 +54,5 @@ export default async function handler(req,res) {
     const response=await fetch('https://api.resend.com/emails',{method:'POST',headers:{Authorization:'Bearer '+apiKey,'Content-Type':'application/json'},body:JSON.stringify({from:fromEmail,to:recipients,reply_to:email,subject:'New ZPMC membership application: '+name,text})});
     if(!response.ok){const detail=await response.text();console.error('Resend membership notification failed:',response.status,detail.slice(0,300));return res.status(502).json({ok:false,recordSaved:true,error:'Payment record saved, but the team notification email could not be sent.'});}
     return res.status(200).json({ok:true});
-  }catch(error){console.error('Membership payment record or notification failed:',error);return res.status(502).json({ok:false,recordSaved:false,error:'Could not confirm that the payment record was saved. Please do not register again. Contact ZPMC so the team can check your application.'});}
+  }catch(error){console.error('Membership payment record or notification failed:',error);return res.status(502).json({ok:false,recordSaved,error:recordSaved ? 'Payment record saved, but the team notification could not be completed.' : 'Could not confirm that the payment record was saved. Please do not register again. Contact ZPMC so the team can check your application.'});}
 }
