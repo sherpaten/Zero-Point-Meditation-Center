@@ -291,6 +291,11 @@ export default function Membership() {
       return;
     }
 
+    if (!form.phone.trim() || !form.country.trim()) {
+      setError('Please enter your phone number and country to continue.');
+      return;
+    }
+
     if (!paymentProofPath) {
       setError('Please upload your payment proof before creating your membership.');
       return;
@@ -1137,6 +1142,7 @@ export default function Membership() {
                           autoComplete="tel"
                           className="w-full rounded-lg border border-stone-300 px-4 py-3 outline-none focus:border-buddhist-gold focus:ring-2 focus:ring-amber-100"
                           placeholder="Phone number"
+                          required
                         />
                       </div>
 
@@ -1156,6 +1162,7 @@ export default function Membership() {
                           autoComplete="country-name"
                           className="w-full rounded-lg border border-stone-300 px-4 py-3 outline-none focus:border-buddhist-gold focus:ring-2 focus:ring-amber-100"
                           placeholder="Your country"
+                          required
                         />
                       </div>
                     </div>
