@@ -138,7 +138,7 @@ export default async function handler(req, res) {
       return res.status(200).json({
         ok: true,
         emailSent: false,
-        emailWarning: 'Membership is active, but the confirmation email could not be sent. Please retry the approval email or contact the site administrator.',
+        emailWarning: 'Membership is active, but the confirmation email could not be sent. Please contact the site administrator to arrange delivery.',
         member: approvedMember,
       });
     }
