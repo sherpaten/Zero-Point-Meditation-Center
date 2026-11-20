@@ -331,6 +331,7 @@ export default function MembershipAdmin() {
     return {
       total: members.length,
       pendingVerification: members.filter((member) => !member.email_confirmed_at).length,
+      pending: members.filter((member) => member.status === 'pending').length,
       active: members.filter((member) => member.status === 'active').length,
       suspended: members.filter(
         (member) => member.status === 'suspended'
@@ -345,50 +346,55 @@ export default function MembershipAdmin() {
 
   async function handleStatusChange(newStatus) {
     if (!selectedMember || !supabase) return;
-
-    if (!['active', 'suspended', 'expired'].includes(newStatus)) {
+    if (!['pending', 'active', 'suspended', 'expired'].includes(newStatus)) {
       showNotice('Invalid membership status.', 'error');
       return;
     }
-
     if (selectedMember.status === newStatus) return;
 
+    const isApproval = newStatus === 'active' && selectedMember.status === 'pending';
     const confirmed = window.confirm(
-      `Change ${selectedMember.full_name}'s membership status to ${newStatus}?`
+      isApproval
+        ? `Have you independently verified ${selectedMember.full_name}'s payment? Approving will activate membership and send a confirmation email.`
+        : `Change ${selectedMember.full_name}'s membership status to ${newStatus}?`
     );
-
     if (!confirmed) return;
 
     setStatusSaving(true);
     setNotice('');
-
-    const { data, error } = await supabase
-      .from('members')
-      .update({ status: newStatus })
-      .eq('id', selectedMember.id)
-      .select('*')
-      .single();
-
-    if (error) {
-      showNotice(
-        `Could not update membership status: ${error.message}`,
-        'error'
-      );
-    } else {
-      setSelectedMember(data);
-      setMembers((current) =>
-        current.map((member) =>
-          member.id === data.id ? data : member
-        )
-      );
-
-      showNotice(
-        `Membership status updated to ${newStatus}.`,
-        'success'
-      );
+    try {
+      let updatedMember;
+      let emailWarning = '';
+      if (isApproval) {
+        const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+        if (sessionError) throw sessionError;
+        const accessToken = sessionData?.session?.access_token;
+        if (!accessToken) throw new Error('Your administrator session has expired. Please sign in again.');
+        const response = await fetch('/api/admin-membership-approval', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${accessToken}` },
+          body: JSON.stringify({ memberId: selectedMember.id }),
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(result.error || 'Could not approve this membership.');
+        updatedMember = result.member;
+        if (!result.emailSent) emailWarning = result.emailWarning || 'Membership was approved, but the confirmation email could not be sent.';
+      } else {
+        const { data, error } = await supabase.from('members').update({ status: newStatus }).eq('id', selectedMember.id).select('*').single();
+        if (error) throw error;
+        updatedMember = data;
+      }
+      if (!updatedMember) throw new Error('The server did not return the updated member record.');
+      setSelectedMember(updatedMember);
+      setMembers((current) => current.map((member) => member.id === updatedMember.id ? updatedMember : member));
+      showNotice(emailWarning || (isApproval
+        ? 'Payment approval recorded. Membership is active and the confirmation email was sent.'
+        : `Membership status updated to ${newStatus}.`), emailWarning ? 'error' : 'success');
+    } catch (error) {
+      showNotice(error.message || 'Could not update membership status.', 'error');
+    } finally {
+      setStatusSaving(false);
     }
-
-    setStatusSaving(false);
   }
 
   // ========================================
@@ -801,9 +807,10 @@ export default function MembershipAdmin() {
 
       {/* MEMBER SUMMARY */}
 
-      <section className="mb-8 grid grid-cols-2 gap-4 lg:grid-cols-5">
+      <section className="mb-8 grid grid-cols-2 gap-4 lg:grid-cols-6">
         {[
           ['Total Members', memberCounts.total],
+          ['Pending Payment', memberCounts.pending],
           ['Pending Email', emailVerificationAvailable ? memberCounts.pendingVerification : '—'],
           ['Active', memberCounts.active],
           ['Suspended', memberCounts.suspended],
@@ -1104,7 +1111,7 @@ export default function MembershipAdmin() {
             </h3>
 
             <p className="mt-1 text-sm text-gray-500">
-              Suspended and expired members cannot use the active-member check-in process.
+              Approve a pending application only after independently confirming the payment. Approval activates membership and sends the member a confirmation email.
             </p>
 
             <div className="mt-4 flex flex-wrap items-center gap-3">
@@ -1117,7 +1124,8 @@ export default function MembershipAdmin() {
                 }
                 className="rounded-lg border border-gray-300 px-4 py-3"
               >
-                <option value="active">Active</option>
+                <option value="pending">Pending payment</option>
+                <option value="active">Active (approve)</option>
                 <option value="suspended">Suspended</option>
                 <option value="expired">Expired</option>
               </select>
