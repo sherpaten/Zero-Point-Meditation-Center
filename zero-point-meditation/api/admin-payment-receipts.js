@@ -68,10 +68,18 @@ export default async function handler(req, res) {
     const body = typeof req.body === 'string' ? (() => { try { return JSON.parse(req.body); } catch { return {}; } })() : (req.body || {});
     const id = clean(body.id, 50);
     const action = clean(body.action, 20);
-    if (!/^[0-9a-f-]{36}$/i.test(id) || !['issue','reject','resend'].includes(action)) return res.status(400).json({ error:'A valid payment and action are required.' });
+    if (!/^[0-9a-f-]{36}$/i.test(id) || !['issue','reject','resend','proof'].includes(action)) return res.status(400).json({ error:'A valid payment and action are required.' });
     const { data: current, error: findError } = await supabase.from('payment_records').select('*').eq('id',id).maybeSingle();
     if (findError) throw findError;
     if (!current) return res.status(404).json({ error:'Payment record not found.' });
+
+    if (action === 'proof') {
+      const path = current.payment_proof_path;
+      if (typeof path !== 'string' || !path || path.includes('..')) return res.status(404).json({ error:'No payment proof is attached to this record.' });
+      const { data: signed, error: signedError } = await supabase.storage.from(BUCKET).createSignedUrl(path, 60);
+      if (signedError) throw signedError;
+      return res.status(200).json({ signedUrl:signed.signedUrl });
+    }
 
     if (action === 'reject') {
       if (current.status === 'paid') return res.status(409).json({ error:'A paid receipt cannot be rejected. Contact the administrator responsible for financial records.' });
