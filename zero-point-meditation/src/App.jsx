@@ -36,6 +36,8 @@ const MembershipCheckin = lazy(() => import('./pages/MembershipCheckin.jsx'));
 const MembershipAdmin = lazy(() => import('./pages/MembershipAdmin.jsx'));
 const PaymentReceiptsAdmin = lazy(() => import('./pages/PaymentReceiptsAdmin.jsx'));
 const DonationAdmin = lazy(() => import('./pages/DonationAdmin.jsx'));
+const MerchandiseAdmin = lazy(() => import('./pages/MerchandiseAdmin.jsx'));
+const MerchandisePayment = lazy(() => import('./pages/MerchandisePayment.jsx'));
 const AdminLogin = lazy(() => import('./pages/AdminLogin.jsx'));
 
 function ScrollToTop() {
@@ -89,6 +91,9 @@ function SiteLayout() {
             <Route path="/membership-admin" element={<MembershipAdmin />} />
             <Route path="/payment-receipts-admin" element={<PaymentReceiptsAdmin paymentType="membership" />} />
             <Route path="/donation-admin" element={<DonationAdmin />} />
+            <Route path="/merchandise-admin" element={<MerchandiseAdmin />} />
+            <Route path="/merchandise-payment-receipts" element={<PaymentReceiptsAdmin paymentType="merchandise" />} />
+            <Route path="/merchandise-payment" element={<MerchandisePayment />} />
             <Route path="/teachers" element={<Teachings />} />
             <Route path="/teachings" element={<Navigate to="/teachers" replace />} />
             <Route path="/events" element={<Events />} />
