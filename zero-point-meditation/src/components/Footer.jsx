@@ -66,6 +66,12 @@ export default function Footer() {
               </a>
             ))}
           </div>
+          <div className="space-y-2 pt-3">
+            <h5 className="font-serif font-bold text-sm text-buddhist-burgundy">Policies</h5>
+            <ul className="space-y-2 text-sm text-stone-800 font-medium">
+              <li><Link to="/merchandise-policy" className="hover:text-buddhist-gold transition-colors">Merchandise Policy</Link></li>
+            </ul>
+          </div>
         </div>
       </div>
 
