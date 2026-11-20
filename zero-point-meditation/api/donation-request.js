@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+import { randomUUID } from 'node:crypto';
 const allowedOrigins = new Set([
   'https://www.zeropointmeditationcenter.org',
   'https://zeropointmeditationcenter.org',
@@ -95,12 +96,26 @@ export default async function handler(req, res) {
   ].join('\n');
 
   try {
+    const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
+    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!supabaseUrl || !serviceKey) throw new Error('Secure payment record storage is not configured.');
+    const supabase = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false } });
+    const donationId = randomUUID();
+    const { error: recordError } = await supabase.from('payment_records').insert({
+      source_ref: 'donation:' + donationId,
+      payment_type: 'donation',
+      payer_name: name,
+      payer_email: email,
+      amount: Number(amount),
+      currency: 'USD',
+      payment_method: paymentLabel,
+      purpose,
+      payment_proof_path: paymentMethod === 'zelle' ? paymentProofPath : null,
+      status: 'pending'
+    });
+    if (recordError) throw recordError;
     let paymentProofLink = '';
     if (paymentMethod === 'zelle') {
-      const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
-      const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-      if (!supabaseUrl || !serviceKey) throw new Error('Secure donation proof access is not configured.');
-      const supabase = createClient(supabaseUrl, serviceKey, { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false } });
       const { data: proofData, error: proofError } = await supabase.storage.from('membership-payment-proofs').createSignedUrl(paymentProofPath, 7 * 24 * 60 * 60);
       if (proofError || !proofData?.signedUrl) throw proofError || new Error('Could not create donation proof link.');
       paymentProofLink = proofData.signedUrl;
@@ -114,7 +129,7 @@ export default async function handler(req, res) {
       text: donorText
     };
     await sendEmail(apiKey, donorEmail);
-    return res.status(200).json({ ok: true });
+    return res.status(200).json({ ok: true, donationId });
   } catch (error) {
     console.error('Donation email send failed:', error.message);
     return res.status(502).json({ error: 'We could not send your donation email right now. Please try again or contact info@zeropointmeditationcenter.org.' });
