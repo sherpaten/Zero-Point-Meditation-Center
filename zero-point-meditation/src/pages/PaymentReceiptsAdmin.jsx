@@ -83,7 +83,7 @@ export default function PaymentReceiptsAdmin() {
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <style>{'@media print { body * { visibility:hidden !important; } #zpmc-print-receipt, #zpmc-print-receipt * { visibility:visible !important; } #zpmc-print-receipt { position:absolute; inset:0; width:100%; margin:0; padding:24px; } .no-print { display:none !important; } }'}</style>
+      <style>{'@media print { body * { visibility:hidden !important; } #zpmc-print-receipt, #zpmc-print-receipt * { visibility:visible !important; } .receipt-overlay { position:static !important; display:block !important; inset:auto !important; padding:0 !important; background:#fff !important; } .receipt-dialog { max-height:none !important; overflow:visible !important; width:100% !important; max-width:none !important; margin:0 !important; padding:0 !important; border:0 !important; box-shadow:none !important; } #zpmc-print-receipt { position:absolute; inset:0; width:100%; margin:0; padding:24px; } .no-print { display:none !important; } }'}</style>
       <header className="no-print mb-8 flex flex-wrap items-center justify-between gap-4">
         <div><p className="text-sm font-semibold tracking-widest text-amber-800">ZERO POINT MEDITATION CENTER</p><h1 className="mt-2 font-serif text-3xl font-bold text-buddhist-burgundy">Donations & Payment Receipts</h1><p className="mt-2 text-sm text-gray-600">Review payments, verify funds received, and issue official receipts to clients.</p></div>
         <div className="flex flex-wrap gap-2"><a href="/membership-admin" className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold">Membership Admin</a><button onClick={() => loadRecords()} className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold">Refresh</button><button onClick={signOut} className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold">Sign Out</button></div>
@@ -107,8 +107,8 @@ export default function PaymentReceiptsAdmin() {
           </article>)}</div>
         )}
       </section>
-      {selected && <div className="fixed inset-0 z-[120] flex items-center justify-center bg-black/60 p-3 sm:p-6 no-print" onClick={(event) => { if (event.target === event.currentTarget) setSelected(null); }}>
-        <section className="max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white p-5 shadow-2xl sm:p-8">
+      {selected && <div className="receipt-overlay fixed inset-0 z-[120] flex items-center justify-center bg-black/60 p-3 sm:p-6" onClick={(event) => { if (event.target === event.currentTarget) setSelected(null); }}>
+        <section className="receipt-dialog max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white p-5 shadow-2xl sm:p-8">
           <div id="zpmc-print-receipt" className="border border-gray-200 p-5 sm:p-8">
             <p className="text-xs font-bold tracking-widest text-amber-800">ZERO POINT MEDITATION CENTER INC.</p><h2 className="mt-2 font-serif text-3xl font-bold text-buddhist-burgundy">Official Payment Receipt</h2>
             <div className="mt-6 grid gap-3 border-y py-4 sm:grid-cols-2"><div><p className="text-xs text-gray-500">Receipt number</p><p className="font-bold">{selected.receipt_number}</p></div><div><p className="text-xs text-gray-500">Payment date</p><p className="font-semibold">{dateLabel(selected.verified_at)}</p></div></div>
@@ -116,7 +116,7 @@ export default function PaymentReceiptsAdmin() {
             <div className="mt-7 rounded-xl bg-amber-50 p-5"><p className="text-sm text-gray-600">Amount received</p><p className="mt-1 text-3xl font-bold text-buddhist-burgundy">{amountLabel(selected)}</p></div>
             <p className="mt-7 text-sm leading-6">This receipt confirms that Zero Point Meditation Center Inc. has recorded the payment above as received.</p><p className="mt-6 text-sm">With gratitude,<br/><strong>Zero Point Meditation Center Inc.</strong><br/>www.zeropointmeditationcenter.org</p>
           </div>
-          <div className="mt-5 flex flex-wrap justify-end gap-2"><button onClick={() => setSelected(null)} className="rounded-lg border px-4 py-2 text-sm font-semibold">Close</button><button onClick={() => window.print()} className="rounded-lg bg-amber-800 px-4 py-2 text-sm font-semibold text-white">Print / Save as PDF</button></div>
+          <div className="no-print mt-5 flex flex-wrap justify-end gap-2"><button onClick={() => setSelected(null)} className="rounded-lg border px-4 py-2 text-sm font-semibold">Close</button><button onClick={() => window.print()} className="rounded-lg bg-amber-800 px-4 py-2 text-sm font-semibold text-white">Print / Save as PDF</button></div>
         </section>
       </div>}
     </main>
