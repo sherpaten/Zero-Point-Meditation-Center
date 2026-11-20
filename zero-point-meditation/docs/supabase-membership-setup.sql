@@ -7,7 +7,7 @@ create table if not exists public.members (
   full_name text not null check (char_length(trim(full_name)) between 2 and 120),
   phone text,
   country text,
-  status text not null default 'active' check (status in ('active', 'suspended', 'expired')),
+  status text not null default 'pending' check (status in ('pending', 'active', 'suspended', 'expired')),
   created_at timestamptz not null default now()
 );
 
@@ -86,11 +86,6 @@ create policy "Members can view their own record or admins can view all"
 on public.members for select to authenticated
 using (id = (select auth.uid()) or (select public.is_zpmc_admin()));
 
-drop policy if exists "Users can create their own member record" on public.members;
-create policy "Users can create their own member record"
-on public.members for insert to authenticated
-with check (id = (select auth.uid()) and status = 'active');
-
 drop policy if exists "Members can update their own contact details or admins can update all" on public.members;
 create policy "Members can update their own contact details or admins can update all"
 on public.members for update to authenticated
@@ -130,7 +125,7 @@ using ((select public.is_zpmc_admin()))
 with check ((select public.is_zpmc_admin()));
 
 grant usage on schema public to authenticated;
-grant select, insert, update on public.members to authenticated;
+grant select, update on public.members to authenticated;
 grant select on public.admin_users to authenticated;
 grant select, insert, update on public.weekly_attendance to authenticated;
 grant select, update on public.membership_settings to authenticated;
