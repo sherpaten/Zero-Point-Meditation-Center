@@ -96,7 +96,16 @@ export default function PaymentReceiptsAdmin() {
     finally { setWorkingId(''); }
   }
 
-  async function signOut() { if (supabase) await supabase.auth.signOut(); }
+  async function signOut() {
+    if (!supabase) return;
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+    } catch (error) {
+      setNotice(error.message || 'Could not sign out. Please try again.');
+      setNoticeError(true);
+    }
+  }
 
   const visible = records.filter((record) => filter === 'all' || record.status === filter);
   const pendingCount = records.filter((record) => record.status === 'pending').length;
@@ -108,9 +117,9 @@ export default function PaymentReceiptsAdmin() {
   return (
     <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <style>{'@media print { body * { visibility:hidden !important; } #zpmc-print-receipt, #zpmc-print-receipt * { visibility:visible !important; } .receipt-overlay { position:static !important; display:block !important; inset:auto !important; padding:0 !important; background:#fff !important; } .receipt-dialog { max-height:none !important; overflow:visible !important; width:100% !important; max-width:none !important; margin:0 !important; padding:0 !important; border:0 !important; box-shadow:none !important; } #zpmc-print-receipt { position:absolute; inset:0; width:100%; margin:0; padding:24px; } .no-print { display:none !important; } }'}</style>
-      <header className="no-print mb-8 flex flex-wrap items-center justify-between gap-4">
+      <header className="no-print relative z-[60] pointer-events-auto mb-8 flex flex-wrap items-center justify-between gap-4">
         <div><p className="text-sm font-semibold tracking-widest text-amber-800">ZERO POINT MEDITATION CENTER</p><h1 className="mt-2 font-serif text-3xl font-bold text-buddhist-burgundy">Donations & Payment Receipts</h1><p className="mt-2 text-sm text-gray-600">Review payments, verify funds received, and issue official receipts to clients.</p></div>
-        <div className="flex flex-wrap gap-2"><a href="/membership-admin" className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold">Membership Admin</a><button onClick={() => loadRecords()} className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold">Refresh</button><button onClick={signOut} className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold">Sign Out</button></div>
+        <div className="flex flex-wrap gap-2"><a href="/membership-admin" className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold">Membership Admin</a><button type="button" onClick={() => loadRecords()} disabled={loading} className="pointer-events-auto relative z-[61] cursor-pointer rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold hover:bg-gray-50 disabled:cursor-wait disabled:opacity-60">{loading ? 'Refreshing…' : 'Refresh'}</button><button type="button" onClick={signOut} className="pointer-events-auto relative z-[61] cursor-pointer rounded-lg border border-gray-300 px-4 py-2 text-sm font-semibold hover:bg-gray-50">Sign Out</button></div>
       </header>
       <div className="no-print mb-6 rounded-xl border bg-white p-4"><p className="text-xs text-gray-500">Signed in as</p><p className="font-semibold">{session.user?.email}</p></div>
       {notice && <div role="status" className={`no-print mb-5 rounded-lg p-4 text-sm ${noticeError ? 'bg-red-50 text-red-800' : 'bg-green-50 text-green-800'}`}>{notice}</div>}
