@@ -53,12 +53,32 @@ export default async function handler(req,res) {
     const proofPath=clean(metadata.payment_proof_path,300);
     if(!proofPath.startsWith('applications/')||proofPath.includes('..')) return res.status(400).json({error:'The membership payment proof is missing.'});
 
+    const sourceRef='membership:'+memberId;
     const {error:recordError}=await supabase.from('payment_records').upsert({
-      source_ref:'membership:'+memberId,payment_type:'membership',payer_name:clean(metadata.full_name,120)||name,
+      source_ref:sourceRef,payment_type:'membership',payer_name:clean(metadata.full_name,120)||name,
       payer_email:email,amount:plan.amount,currency:'USD',payment_method:'Zelle',purpose:'Community membership payment',
       membership_plan:plan.label,member_id:memberId,payment_proof_path:proofPath,status:'pending'
     },{onConflict:'source_ref',ignoreDuplicates:true});
     if(recordError){ console.error('Membership payment ledger insert failed:',recordError.message); return res.status(503).json({ok:false,recordSaved:false,error:'Your member account was created, but the payment record could not be saved. Please do not register again. Contact ZPMC before submitting another application.'}); }
+
+    // ignoreDuplicates can succeed without inserting a row. Read the ledger
+    // back before telling the applicant that this application is pending.
+    const {data:paymentRecord,error:verifyRecordError}=await supabase
+      .from('payment_records')
+      .select('id,status')
+      .eq('source_ref',sourceRef)
+      .maybeSingle();
+    if(verifyRecordError || !paymentRecord){
+      console.error('Membership payment ledger verification failed:',verifyRecordError?.message||'Record not found');
+      return res.status(503).json({ok:false,recordSaved:false,error:'Your member account was created, but ZPMC could not confirm its payment record. Please do not register again. Contact ZPMC.'});
+    }
+    if(paymentRecord.status!=='pending'){
+      recordSaved = true;
+      const message=paymentRecord.status==='rejected'
+        ? 'A previous payment application for this account was rejected. Please contact ZPMC before submitting another application.'
+        : 'A payment application for this account has already been processed. Please contact ZPMC if you need assistance.';
+      return res.status(409).json({ok:false,recordSaved:true,error:message});
+    }
     recordSaved = true;
 
     const text=[
