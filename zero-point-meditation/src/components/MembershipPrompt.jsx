@@ -112,6 +112,10 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
       setError('Membership registration is temporarily unavailable. You can continue as a guest.');
       return;
     }
+    if (!phone.trim() || !country.trim()) {
+      setError('Please enter your phone number and country to continue.');
+      return;
+    }
     if (!paymentProofPath) {
       setError('Please upload your payment proof before creating your membership.');
       return;
@@ -254,8 +258,8 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
             )}
             {mode === 'signup' && <>
               <div><label className="mb-1 block text-sm font-medium text-stone-700" htmlFor="invite-name">Full name</label><input id="invite-name" value={name} onChange={e => setName(e.target.value)} required maxLength={120} autoComplete="name" className="w-full rounded-xl border border-stone-300 px-4 py-3 outline-none focus:border-amber-700"/></div>
-              <div><label className="mb-1 block text-sm font-medium text-stone-700" htmlFor="invite-phone">Phone number (optional)</label><input id="invite-phone" value={phone} onChange={e => setPhone(e.target.value)} maxLength={40} autoComplete="tel" className="w-full rounded-xl border border-stone-300 px-4 py-3 outline-none focus:border-amber-700"/></div>
-              <div><label className="mb-1 block text-sm font-medium text-stone-700" htmlFor="invite-country">Country (optional)</label><input id="invite-country" value={country} onChange={e => setCountry(e.target.value)} maxLength={100} autoComplete="country-name" className="w-full rounded-xl border border-stone-300 px-4 py-3 outline-none focus:border-amber-700"/></div>
+              <div><label className="mb-1 block text-sm font-medium text-stone-700" htmlFor="invite-phone">Phone number *</label><input id="invite-phone" value={phone} onChange={e => setPhone(e.target.value)} required maxLength={40} autoComplete="tel" className="w-full rounded-xl border border-stone-300 px-4 py-3 outline-none focus:border-amber-700"/></div>
+              <div><label className="mb-1 block text-sm font-medium text-stone-700" htmlFor="invite-country">Country *</label><input id="invite-country" value={country} onChange={e => setCountry(e.target.value)} required maxLength={100} autoComplete="country-name" className="w-full rounded-xl border border-stone-300 px-4 py-3 outline-none focus:border-amber-700"/></div>
             </>}
             <div><label className="mb-1 block text-sm font-medium text-stone-700" htmlFor="invite-email">Email address</label><input id="invite-email" type="email" value={email} onChange={e => setEmail(e.target.value)} required maxLength={254} autoComplete="email" className="w-full rounded-xl border border-stone-300 px-4 py-3 outline-none focus:border-amber-700"/></div>
             <div><label className="mb-1 block text-sm font-medium text-stone-700" htmlFor="invite-password">Password</label><input id="invite-password" type="password" value={password} onChange={e => setPassword(e.target.value)} required minLength={8} autoComplete={mode === 'signup' ? 'new-password' : 'current-password'} className="w-full rounded-xl border border-stone-300 px-4 py-3 outline-none focus:border-amber-700"/></div>
