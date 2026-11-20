@@ -40,7 +40,7 @@ export default async function handler(req,res) {
       payer_email:email,amount:plan.amount,currency:'USD',payment_method:'Zelle',purpose:'Community membership payment',
       membership_plan:plan.label,member_id:memberId,payment_proof_path:proofPath,status:'pending'
     },{onConflict:'source_ref',ignoreDuplicates:true});
-    if(recordError) console.error('Membership signup received, but the payment ledger is not ready. Apply the payment receipt migration:',recordError.message);
+    if(recordError){ console.error('Membership payment ledger insert failed:',recordError.message); return res.status(503).json({error:'Your member account was created, but the payment record could not be saved. Please contact ZPMC before submitting another application.'}); }
 
     const text=[
       'New ZPMC community membership application','','Applicant name: '+name,'Applicant email: '+email,
