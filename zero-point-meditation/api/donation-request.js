@@ -113,7 +113,7 @@ export default async function handler(req, res) {
       payment_proof_path: paymentMethod === 'zelle' ? paymentProofPath : null,
       status: 'pending'
     });
-    if (recordError) throw recordError;
+    if (recordError) console.error('Donation request received, but the payment ledger is not ready. Apply the payment receipt migration:', recordError.message);
     let paymentProofLink = '';
     if (paymentMethod === 'zelle') {
       const { data: proofData, error: proofError } = await supabase.storage.from('membership-payment-proofs').createSignedUrl(paymentProofPath, 7 * 24 * 60 * 60);
