@@ -370,10 +370,10 @@ export default function MembershipAdmin() {
         if (sessionError) throw sessionError;
         const accessToken = sessionData?.session?.access_token;
         if (!accessToken) throw new Error('Your administrator session has expired. Please sign in again.');
-        const response = await fetch('/api/admin-membership-approval', {
+        const response = await fetch('/api/admin-resend-member-verification', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${accessToken}` },
-          body: JSON.stringify({ memberId: selectedMember.id }),
+          body: JSON.stringify({ memberId: selectedMember.id, action: 'approve-membership' }),
         });
         const result = await response.json().catch(() => ({}));
         if (!response.ok) throw new Error(result.error || 'Could not approve this membership.');
