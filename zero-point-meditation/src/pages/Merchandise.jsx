@@ -431,6 +431,10 @@ export default function Merchandise() {
                     <p className="text-xs text-stone-700 leading-relaxed">ZPMC will first confirm availability, the final item price and shipping. If you accept the total, we’ll email you a private Zelle payment link with the official payment QR code. No payment is due when submitting this enquiry.</p>
                   </div>
                   {orderError && <p role="alert" className="rounded-xl bg-red-50 border border-red-200 p-3 text-sm text-red-800">{orderError}</p>}
+                  <label className="flex items-start gap-2 text-xs leading-relaxed text-stone-600">
+                    <input required type="checkbox" className="mt-0.5 accent-buddhist-burgundy" />
+                    <span>I have read and agree to the <a href="/merchandise-policy" target="_blank" rel="noopener noreferrer" className="font-semibold text-buddhist-burgundy underline">ZPMC Merchandise Sales, Payment, Refund &amp; Delivery Policy</a>.</span>
+                  </label>
                   <button type="submit" disabled={orderSubmitting} className="w-full py-3.5 bg-buddhist-burgundy hover:opacity-90 disabled:opacity-60 text-white font-bold rounded-xl text-sm">{orderSubmitting ? 'Sending order…' : 'Submit order enquiry'}</button>
                   <p className="text-[11px] text-stone-500 text-center">This submits an order request only. No payment is collected until ZPMC confirms availability, the final item price and shipping.</p>
                 </form>
