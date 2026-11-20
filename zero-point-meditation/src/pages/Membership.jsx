@@ -172,7 +172,7 @@ export default function Membership() {
   // ========================================
 
   useEffect(() => {
-    if (!memberProfile || !supabase) {
+    if (!memberProfile || memberProfile.status !== 'active' || !supabase) {
       setAttendance([]);
       setAttendanceError('');
       setAttendanceLoading(false);
@@ -353,7 +353,7 @@ export default function Membership() {
       setMessage(
         notificationWarning
           ? notificationWarning
-          : 'Thank you for joining us! Please check your email for a verification link to activate your account.'
+          : 'Your application and payment proof have been received. Your membership is pending payment verification by the ZPMC team. We will email you after your payment has been reviewed and your membership is approved. Please also check your email for the account verification link.'
       );
 
       setPaymentProof(null);
@@ -759,7 +759,18 @@ export default function Membership() {
                     record. Please contact the ZPMC team.
                   </p>
                 </div>
-              ) : (
+              ) : memberProfile.status === 'pending' ? (
+                <div className="rounded-2xl border border-amber-200 bg-amber-50 p-6 text-center">
+                  <p className="text-sm font-semibold uppercase tracking-widest text-amber-800">Application received</p>
+                  <h3 className="mt-2 font-serif text-2xl font-bold text-buddhist-burgundy">Payment verification pending</h3>
+                  <p className="mt-3 text-sm leading-6 text-stone-700">
+                    Thank you for submitting your membership application and payment proof. The ZPMC team will review your payment independently. Your membership card, benefits, and class check-in access will become available only after approval.
+                  </p>
+                  <p className="mt-3 text-sm font-semibold text-buddhist-burgundy">
+                    We will send your membership confirmation to {user.email} after your application is approved.
+                  </p>
+                </div>
+              ) : memberProfile.status === 'active' ? (
                 <>
                   {/* DIGITAL MEMBERSHIP CARD */}
 
@@ -973,6 +984,13 @@ export default function Membership() {
 
                   </div>
                 </>
+              ) : (
+                <div className="rounded-2xl border border-stone-200 bg-stone-50 p-6 text-center">
+                  <h3 className="font-serif text-xl font-bold capitalize text-buddhist-burgundy">Membership {memberProfile.status}</h3>
+                  <p className="mt-3 text-sm text-stone-600">
+                    Your membership is not currently active. Please contact the ZPMC team if you need assistance.
+                  </p>
+                </div>
               )}
 
               {/* SIGN OUT */}
