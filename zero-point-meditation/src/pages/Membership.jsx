@@ -326,6 +326,7 @@ export default function Membership() {
 
       if (signupError) throw signupError;
 
+      let notificationWarning = '';
       try {
         const notificationResponse = await fetch('/api/membership-notification', {
           method: 'POST',
@@ -340,15 +341,19 @@ export default function Membership() {
             memberId: signupData?.user?.id,
           }),
         });
+        const notificationResult = await notificationResponse.json().catch(() => ({}));
         if (!notificationResponse.ok) {
-          console.error('Membership was created, but the team notification email could not be sent.');
+          notificationWarning = notificationResult.error || 'The ZPMC team could not confirm your payment application.';
         }
       } catch (notificationError) {
-        console.error('Membership was created, but the team notification request failed:', notificationError);
+        console.error('Membership notification request failed:', notificationError);
+        notificationWarning = 'The ZPMC team could not confirm your payment application.';
       }
 
       setMessage(
-        'Thank you for joining us! Please check your email for a verification link to activate your account.'
+        notificationWarning
+          ? notificationWarning
+          : 'Thank you for joining us! Please check your email for a verification link to activate your account.'
       );
 
       setPaymentProof(null);
