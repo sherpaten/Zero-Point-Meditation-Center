@@ -427,8 +427,8 @@ export default function Merchandise() {
                     <label className="text-xs font-bold text-stone-700">Country *<input required maxLength="100" autoComplete="country-name" value={orderForm.country} onChange={e=>setOrderForm(v=>({...v,country:e.target.value}))} className="mt-1 w-full p-3 rounded-xl border border-stone-300 font-normal"/></label>
                   </div>
                   <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 space-y-2">
-                    <div className="flex items-center gap-2 text-buddhist-burgundy font-bold text-sm"><ShieldCheck size={17}/> Payment method: Zelle</div>
-                    <p className="text-xs text-stone-700 leading-relaxed">After we receive your order, the centre will confirm availability, final price and shipping, then email you the authorised Zelle payment details. Please do not send payment before receiving that email.</p>
+                    <div className="flex items-center gap-2 text-buddhist-burgundy font-bold text-sm"><ShieldCheck size={17}/> Payment happens after confirmation</div>
+                    <p className="text-xs text-stone-700 leading-relaxed">ZPMC will first confirm availability, the final item price and shipping. If you accept the total, we’ll email you a private Zelle payment link with the official payment QR code. No payment is due when submitting this enquiry.</p>
                   </div>
                   {orderError && <p role="alert" className="rounded-xl bg-red-50 border border-red-200 p-3 text-sm text-red-800">{orderError}</p>}
                   <button type="submit" disabled={orderSubmitting} className="w-full py-3.5 bg-buddhist-burgundy hover:opacity-90 disabled:opacity-60 text-white font-bold rounded-xl text-sm">{orderSubmitting ? 'Sending order…' : 'Submit order enquiry'}</button>
