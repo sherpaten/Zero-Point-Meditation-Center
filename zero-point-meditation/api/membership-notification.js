@@ -31,7 +31,24 @@ export default async function handler(req,res) {
     const supabase=createClient(supabaseUrl,serviceKey,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}});
     const {data:authData,error:authError}=await supabase.auth.admin.getUserById(memberId);
     const authUser=authData?.user;
-    if(authError||!authUser||authUser.email?.toLowerCase()!==email) return res.status(403).json({error:'The membership account could not be verified.'});
+    if(authError){
+      console.error('Membership Auth lookup failed:', {
+        status: authError.status || null,
+        code: authError.code || null,
+        name: authError.name || null,
+        message: authError.message || null,
+        userFound: Boolean(authUser)
+      });
+      return res.status(502).json({error:'ZPMC could not verify the new Supabase account (AUTH_LOOKUP_FAILED). Your account may already exist; please do not register again.'});
+    }
+    if(!authUser){
+      console.error('Membership Auth lookup returned no user for the supplied member ID.');
+      return res.status(404).json({error:'The new Supabase account was not found during verification (AUTH_USER_NOT_FOUND). Please do not register again.'});
+    }
+    if(authUser.email?.toLowerCase()!==email){
+      console.error('Membership Auth email did not match the submitted application email.');
+      return res.status(403).json({error:'The Supabase account email did not match this application (AUTH_EMAIL_MISMATCH). Please contact ZPMC.'});
+    }
     const metadata=authUser.user_metadata||{};
     const proofPath=clean(metadata.payment_proof_path,300);
     if(!proofPath.startsWith('applications/')||proofPath.includes('..')) return res.status(400).json({error:'The membership payment proof is missing.'});
