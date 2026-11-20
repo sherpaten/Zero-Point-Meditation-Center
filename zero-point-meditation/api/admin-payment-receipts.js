@@ -120,10 +120,10 @@ export default async function handler(req, res) {
         const link = 'https://www.zeropointmeditationcenter.org/merchandise-payment?orderId='+encodeURIComponent(order.id)+'&token='+encodeURIComponent(order.public_token);
         const textBody = ['Hello '+order.payer_name+',','','ZPMC has confirmed your merchandise order.','Order: '+order.product_name,'Quantity: '+order.quantity,'Item amount: USD '+itemAmount.toFixed(2),'Shipping: USD '+shippingAmount.toFixed(2),'Total due: USD '+totalAmount.toFixed(2),'','Use your secure order link to view the Zelle QR code and submit your payment proof: '+link,'','Please verify the recipient is ZERO POINT MEDITATION CENTER INC. before sending payment.'].join('\n');
         const apiKey = process.env.RESEND_API_KEY, from = process.env.BOOKING_FROM_EMAIL;
-        if (apiKey && from) {
-          const mail = await fetch('https://api.resend.com/emails',{method:'POST',headers:{Authorization:'Bearer '+apiKey,'Content-Type':'application/json'},body:JSON.stringify({from,to:[order.payer_email],subject:'Your ZPMC merchandise order is ready for payment',text:textBody})});
-          if(!mail.ok) return res.status(200).json({order:updated,emailSent:false,warning:'Order pricing was saved, but the customer email failed. Copy the secure payment link from the order record and contact the customer.'});
-        }
+        if (!apiKey || !from) return res.status(200).json({order:updated,emailSent:false,paymentLink:link,warning:'Final pricing was saved, but receipt email is not configured. Share the private payment link with the customer.'});
+        const mail = await fetch('https://api.resend.com/emails',{method:'POST',headers:{Authorization:'Bearer '+apiKey,'Content-Type':'application/json'},body:JSON.stringify({from,to:[order.payer_email],subject:'Your ZPMC merchandise order is ready for payment',text:textBody})});
+        if(!mail.ok) return res.status(200).json({order:updated,emailSent:false,paymentLink:link,warning:'Order pricing was saved, but the customer email failed. Share the private payment link with the customer.'});
+        return res.status(200).json({order:updated,emailSent:true});
       }
       return res.status(200).json({order:updated,emailSent:true});
     }
