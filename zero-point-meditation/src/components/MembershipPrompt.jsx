@@ -155,13 +155,8 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
       } catch (notificationError) {
         console.error('Membership was created, but the team notification request failed:', notificationError);
       }
-      if (data.session && data.user) {
-        await loadMember(data.user.id);
-        setMessage('Welcome to the ZPMC community. Your membership has been created.');
-      } else {
-        setMessage('Your registration has been received. Please check your email and verify your address. After verification, sign in to view your membership number.');
-        setMode('signin');
-      }
+      setMessage('Your membership application has been received! Thank you for applying to Zero Point Meditation Center. Your application and payment proof have been submitted successfully. Your membership is pending payment verification. The ZPMC team will review your payment and approve your membership once it is confirmed. Please verify your email address to secure your account. We will notify you by email when your membership is approved.');
+      setMode('confirmation');
     } catch (err) {
       setError(err.message || 'Registration could not be completed. Please try again.');
     } finally {
@@ -219,6 +214,16 @@ export default function MembershipPrompt({ open, onClose, initialName = '', init
             <button type="button" onClick={() => showMode('signup')} className="w-full rounded-xl bg-buddhist-burgundy px-5 py-3.5 font-semibold text-white hover:bg-red-900">Join the community</button>
             <button type="button" onClick={() => showMode('signin')} className="w-full rounded-xl border border-buddhist-burgundy px-5 py-3.5 font-semibold text-buddhist-burgundy hover:bg-amber-50">Already a member? Sign in</button>
             <button type="button" onClick={onClose} className="w-full px-5 py-3 text-sm font-medium text-stone-500 underline underline-offset-4">Continue as guest</button>
+          </div>
+        ) : mode === 'confirmation' ? (
+          <div className="mt-6 rounded-2xl border-2 border-amber-200 bg-amber-50/60 p-6 text-center">
+            <CheckCircle2 className="mx-auto text-emerald-700" size={32}/>
+            <h3 className="mt-3 font-serif text-xl font-bold text-buddhist-burgundy">Your membership application has been received!</h3>
+            <p className="mt-3 text-sm leading-6 text-stone-700">Thank you for applying to Zero Point Meditation Center. Your application and payment proof have been submitted successfully.</p>
+            <p className="mt-3 text-sm font-semibold leading-6 text-buddhist-burgundy">Your membership is pending payment verification.</p>
+            <p className="mt-2 text-sm leading-6 text-stone-700">The ZPMC team will review your payment and approve your membership once it is confirmed.</p>
+            <p className="mt-3 text-xs leading-5 text-stone-500">Please verify your email address to secure your account. We will notify you by email when your membership is approved.</p>
+            <button type="button" onClick={onClose} className="mt-5 w-full rounded-xl bg-buddhist-burgundy px-5 py-3 font-semibold text-white hover:bg-red-900">Close</button>
           </div>
         ) : (
           <form onSubmit={mode === 'signup' ? handleSignup : handleSignin} className="mt-6 space-y-4">
