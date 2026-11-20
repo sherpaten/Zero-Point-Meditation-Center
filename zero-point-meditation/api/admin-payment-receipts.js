@@ -49,18 +49,16 @@ export default async function handler(req, res) {
   const authorization = req.headers.authorization || '';
   const accessToken = authorization.startsWith('Bearer ') ? authorization.slice(7) : '';
   if (!accessToken) return res.status(401).json({ error:'Administrator sign-in is required.' });
-  // Use the exact same Supabase project URL and public key as the browser
-  // session for Auth verification. Keep the service-role client separate and
-  // use it only for server-side admin/database/storage operations.
-  const url = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
-  const anonKey = process.env.VITE_SUPABASE_ANON_KEY;
+  // Match the working membership-proof admin API: verify the supplied user
+  // access token with the server-side Supabase client, then check admin_users.
+  // The service-role key stays server-side and is never returned to the browser.
+  const url = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !anonKey || !serviceRoleKey) return res.status(503).json({ error:'Payment administration is not configured.' });
+  if (!url || !serviceRoleKey) return res.status(503).json({ error:'Payment administration is not configured.' });
 
   try {
-    const authClient = createClient(url, anonKey, { auth: { persistSession:false, autoRefreshToken:false, detectSessionInUrl:false } });
     const supabase = createClient(url, serviceRoleKey, { auth: { persistSession:false, autoRefreshToken:false, detectSessionInUrl:false } });
-    const { data: authData, error: authError } = await authClient.auth.getUser(accessToken);
+    const { data: authData, error: authError } = await supabase.auth.getUser(accessToken);
     if (authError || !authData?.user) {
       console.error('Payment receipts Auth verification failed:', authError?.status, authError?.name, authError?.message);
       return res.status(401).json({ error:'Your administrator session is invalid or expired.' });
