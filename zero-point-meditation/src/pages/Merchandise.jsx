@@ -157,6 +157,8 @@ export default function Merchandise() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [orderSent, setOrderSent] = useState(false);
   const [orderQuantity, setOrderQuantity] = useState('1');
+  const [orderNotice, setOrderNotice] = useState('');
+  const [orderPaymentLink, setOrderPaymentLink] = useState('');
   const [orderSubmitting, setOrderSubmitting] = useState(false);
   const [orderError, setOrderError] = useState('');
   const [orderForm, setOrderForm] = useState({ name: '', email: '', phone: '', address: '', city: '', region: '', postalCode: '', country: '' });
@@ -225,7 +227,7 @@ export default function Merchandise() {
               transition={{ duration: 0.4, delay: index * 0.08 }}
               whileHover={{ y: -6 }}
               key={item.id}
-              onClick={() => { setSelectedItem(item); setOrderSent(false); setOrderError(''); }}
+              onClick={() => { setSelectedItem(item); setOrderSent(false); setOrderError(''); setOrderNotice(''); setOrderPaymentLink(''); }}
               className={`bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm hover:shadow-xl transition-all group flex flex-col cursor-pointer`}
             >
 
@@ -405,6 +407,8 @@ export default function Merchandise() {
                     const result = await response.json().catch(() => ({}));
                     if (!response.ok) throw new Error(result.error || 'We could not send your order enquiry. Please try again.');
                     setOrderSent(true);
+                    setOrderNotice(result.warning || '');
+                    setOrderPaymentLink(result.orderId && result.token ? '/merchandise-payment?orderId=' + encodeURIComponent(result.orderId) + '&token=' + encodeURIComponent(result.token) : '');
                     setOrderQuantity('1');
                     setOrderForm({ name: '', email: '', phone: '', address: '', city: '', region: '', postalCode: '', country: '' });
                   } catch (err) { setOrderError(err.message || 'Unable to submit your order. Please try again.'); }
@@ -433,6 +437,8 @@ export default function Merchandise() {
               </> : <div className="py-10 text-center space-y-4">
                 <CheckCircle size={42} className="mx-auto text-emerald-600"/>
                 <h3 className="font-serif text-2xl font-bold text-stone-900">Order request received</h3>
+                {orderNotice && <p role="alert" className="mx-auto max-w-md rounded-lg border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">{orderNotice}</p>}
+                {orderPaymentLink && orderNotice && <a href={orderPaymentLink} className="inline-block text-sm font-semibold text-amber-800 underline">Open your private order link</a>}
                 <p className="text-stone-600 text-sm max-w-md mx-auto">Thank you. The centre has received your order details. We’ll confirm availability, final item price and shipping, then email you a private payment link with the official ZPMC Zelle QR code. Please do not pay until you receive that confirmation.</p>
                 <p className="text-stone-600 text-sm">You can also contact the centre on WhatsApp if you have questions about your order.</p>
                 <a href="https://wa.me/16464560843" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-emerald-600 text-emerald-800 hover:bg-emerald-50 font-semibold">Contact us on WhatsApp</a>
