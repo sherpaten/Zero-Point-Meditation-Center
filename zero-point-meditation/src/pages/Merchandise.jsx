@@ -156,6 +156,7 @@ const reviews = [
 export default function Merchandise() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [orderSent, setOrderSent] = useState(false);
+  const [orderQuantity, setOrderQuantity] = useState('1');
   const [orderSubmitting, setOrderSubmitting] = useState(false);
   const [orderError, setOrderError] = useState('');
   const [orderForm, setOrderForm] = useState({ name: '', email: '', phone: '', address: '', city: '', region: '', postalCode: '', country: '' });
@@ -400,15 +401,17 @@ export default function Merchandise() {
                   e.preventDefault(); setOrderSubmitting(true); setOrderError('');
                   try {
                     const response = await fetch('/api/merchandise', { method: 'POST', headers: { 'Content-Type': 'application/json' },
-                      body: JSON.stringify({ product: selectedItem.name, price: selectedItem.price, name: orderForm.name, email: orderForm.email, phone: orderForm.phone, address: orderForm.address, city: orderForm.city, region: orderForm.region, postalCode: orderForm.postalCode, country: orderForm.country, paymentMethod: 'zelle' }) });
+                      body: JSON.stringify({ action: 'create_order', product: selectedItem.name, price: selectedItem.price, quantity: Number(orderQuantity), name: orderForm.name, email: orderForm.email, phone: orderForm.phone, address: orderForm.address, city: orderForm.city, region: orderForm.region, postalCode: orderForm.postalCode, country: orderForm.country, paymentMethod: 'zelle' }) });
                     const result = await response.json().catch(() => ({}));
                     if (!response.ok) throw new Error(result.error || 'We could not send your order enquiry. Please try again.');
                     setOrderSent(true);
+                    setOrderQuantity('1');
                     setOrderForm({ name: '', email: '', phone: '', address: '', city: '', region: '', postalCode: '', country: '' });
                   } catch (err) { setOrderError(err.message || 'Unable to submit your order. Please try again.'); }
                   finally { setOrderSubmitting(false); }
                 }}>
                   <h4 className="font-serif text-lg font-bold text-stone-900">Your details & delivery address</h4>
+                  <label className="block text-xs font-bold text-stone-700">Quantity<input required type="number" min="1" max="99" value={orderQuantity} onChange={e=>setOrderQuantity(e.target.value)} className="mt-1 w-full p-3 rounded-xl border border-stone-300 font-normal"/></label>
                   <div className="grid sm:grid-cols-2 gap-3">
                     <label className="text-xs font-bold text-stone-700">Full name *<input required maxLength="120" autoComplete="name" value={orderForm.name} onChange={e=>setOrderForm(v=>({...v,name:e.target.value}))} className="mt-1 w-full p-3 rounded-xl border border-stone-300 font-normal"/></label>
                     <label className="text-xs font-bold text-stone-700">Email address *<input required type="email" maxLength="254" autoComplete="email" value={orderForm.email} onChange={e=>setOrderForm(v=>({...v,email:e.target.value}))} className="mt-1 w-full p-3 rounded-xl border border-stone-300 font-normal"/></label>
@@ -425,12 +428,12 @@ export default function Merchandise() {
                   </div>
                   {orderError && <p role="alert" className="rounded-xl bg-red-50 border border-red-200 p-3 text-sm text-red-800">{orderError}</p>}
                   <button type="submit" disabled={orderSubmitting} className="w-full py-3.5 bg-buddhist-burgundy hover:opacity-90 disabled:opacity-60 text-white font-bold rounded-xl text-sm">{orderSubmitting ? 'Sending order…' : 'Submit order enquiry'}</button>
-                  <p className="text-[11px] text-stone-500 text-center">This submits an order enquiry only. No payment is collected and your order is not confirmed until the centre contacts you.</p>
+                  <p className="text-[11px] text-stone-500 text-center">This submits an order request only. No payment is collected until ZPMC confirms availability, the final item price and shipping.</p>
                 </form>
               </> : <div className="py-10 text-center space-y-4">
                 <CheckCircle size={42} className="mx-auto text-emerald-600"/>
-                <h3 className="font-serif text-2xl font-bold text-stone-900">Order enquiry received</h3>
-                <p className="text-stone-600 text-sm max-w-md mx-auto">Thank you. The centre has received your order details. We’ll email you to confirm availability, shipping and the Zelle payment instructions. No payment has been taken.</p>
+                <h3 className="font-serif text-2xl font-bold text-stone-900">Order request received</h3>
+                <p className="text-stone-600 text-sm max-w-md mx-auto">Thank you. The centre has received your order details. We’ll confirm availability, final item price and shipping, then email you a private payment link with the official ZPMC Zelle QR code. Please do not pay until you receive that confirmation.</p>
                 <p className="text-stone-600 text-sm">You can also contact the centre on WhatsApp if you have questions about your order.</p>
                 <a href="https://wa.me/16464560843" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-emerald-600 text-emerald-800 hover:bg-emerald-50 font-semibold">Contact us on WhatsApp</a>
                 <button type="button" onClick={()=>{setSelectedItem(null);setOrderSent(false);}} className="px-6 py-3 rounded-xl bg-buddhist-burgundy text-white font-semibold">Close</button>
