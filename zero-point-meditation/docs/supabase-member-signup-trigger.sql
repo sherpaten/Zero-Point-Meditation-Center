@@ -1,7 +1,6 @@
--- ZPMC Community Membership — verified-signup profile trigger
--- Run this once in Supabase SQL Editor after the four membership tables exist.
--- This creates a member profile when Supabase Auth creates an account,
--- including accounts awaiting email verification.
+-- ZPMC Community Membership — pending application profile trigger
+-- New member profiles begin as pending and require independent payment review.
+-- Existing profiles are not changed by this trigger.
 
 create or replace function public.handle_new_zpmc_member()
 returns trigger
@@ -18,14 +17,21 @@ begin
     candidate_name := 'New member';
   end if;
 
-  insert into public.members (id, full_name, phone, country)
+  insert into public.members (
+    id, full_name, email, email_confirmed_at, phone, country, status
+  )
   values (
     new.id,
     left(candidate_name, 120),
+    new.email,
+    new.email_confirmed_at,
     nullif(trim(new.raw_user_meta_data ->> 'phone'), ''),
-    nullif(trim(new.raw_user_meta_data ->> 'country'), '')
+    nullif(trim(new.raw_user_meta_data ->> 'country'), ''),
+    'pending'
   )
-  on conflict (id) do nothing;
+  on conflict (id) do update
+  set email = excluded.email,
+      email_confirmed_at = excluded.email_confirmed_at;
 
   return new;
 end;
