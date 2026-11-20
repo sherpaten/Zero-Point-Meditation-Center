@@ -17,11 +17,32 @@ export default function PaymentReceiptsAdmin() {
   const [selected, setSelected] = useState(null);
   const [proofLinks, setProofLinks] = useState({});
 
-  const loadRecords = useCallback(async (activeSession = session) => {
-    if (!activeSession?.access_token) return;
+  const getFreshAccessToken = useCallback(async () => {
+    if (!supabase) throw new Error('Administrator sign-in is unavailable.');
+    const { data, error } = await supabase.auth.getSession();
+    if (error) throw error;
+    let activeSession = data?.session || null;
+    const isValidJwt = (value) => typeof value === 'string' && /^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$/.test(value);
+
+    // A corrupted/stale browser token can contain non-JWT characters. Refresh
+    // it once before sending anything in an HTTP Authorization header.
+    if (!isValidJwt(activeSession?.access_token)) {
+      const { data: refreshed, error: refreshError } = await supabase.auth.refreshSession();
+      if (refreshError) throw new Error('Your saved administrator session could not be refreshed. Please sign out and sign in again.');
+      activeSession = refreshed?.session || null;
+    }
+    if (!isValidJwt(activeSession?.access_token)) {
+      throw new Error('Your administrator session token is damaged. Please sign out, sign in again, and reload this page.');
+    }
+    setSession(activeSession);
+    return activeSession.access_token;
+  }, []);
+
+  const loadRecords = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await fetch('/api/admin-payment-receipts', { headers: { Authorization: `Bearer ${activeSession.access_token}` } });
+      const accessToken = await getFreshAccessToken();
+      const response = await fetch('/api/admin-payment-receipts', { headers: { Authorization: `Bearer ${accessToken}` } });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || 'Could not load payment records.');
       setRecords(result.records || []);
@@ -29,7 +50,7 @@ export default function PaymentReceiptsAdmin() {
       setNotice(error.message || 'Could not load payment records.');
       setNoticeError(true);
     } finally { setLoading(false); }
-  }, [session]);
+  }, [getFreshAccessToken]);
 
   useEffect(() => {
     if (!supabase) { setAuthLoading(false); return undefined; }
@@ -52,9 +73,10 @@ export default function PaymentReceiptsAdmin() {
     if (action === 'reject' && !window.confirm('Reject this payment record? No paid receipt will be issued.')) return;
     setWorkingId(record.id); setNotice(''); setNoticeError(false);
     try {
+      const accessToken = await getFreshAccessToken();
       const response = await fetch('/api/admin-payment-receipts', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${session.access_token}` },
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${accessToken}` },
         body: JSON.stringify({ id: record.id, action }),
       });
       const result = await response.json();
