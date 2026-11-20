@@ -16,6 +16,10 @@ ALTER TABLE public.members
 DROP POLICY IF EXISTS "Users can create their own member record"
   ON public.members;
 
+-- Remove the direct client insert privilege as well; the auth trigger is the
+-- only supported path for creating a member profile.
+REVOKE INSERT ON TABLE public.members FROM authenticated;
+
 CREATE OR REPLACE FUNCTION public.handle_new_zpmc_member()
 RETURNS trigger
 LANGUAGE plpgsql
