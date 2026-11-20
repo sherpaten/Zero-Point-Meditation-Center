@@ -309,7 +309,7 @@ export default function Membership() {
     setLoading(true);
 
     try {
-      const { error: signupError } = await supabase.auth.signUp({
+      const { data: signupData, error: signupError } = await supabase.auth.signUp({
         email: form.email.trim(),
         password: form.password,
         options: {
@@ -337,6 +337,7 @@ export default function Membership() {
             country: form.country.trim(),
             membershipPlan,
             paymentProofUploaded: true,
+            memberId: signupData?.user?.id,
           }),
         });
         if (!notificationResponse.ok) {
