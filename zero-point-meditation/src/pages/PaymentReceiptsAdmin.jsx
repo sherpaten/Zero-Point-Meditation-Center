@@ -11,7 +11,7 @@ export default function PaymentReceiptsAdmin() {
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(false);
   const [workingId, setWorkingId] = useState('');
-  const [filter, setFilter] = useState('pending');
+  const [filter, setFilter] = useState('all');
   const [notice, setNotice] = useState('');
   const [noticeError, setNoticeError] = useState(false);
   const [selected, setSelected] = useState(null);
