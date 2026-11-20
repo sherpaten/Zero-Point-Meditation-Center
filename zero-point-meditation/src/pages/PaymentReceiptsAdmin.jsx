@@ -22,7 +22,7 @@ export default function PaymentReceiptsAdmin() {
     const { data, error } = await supabase.auth.getSession();
     if (error) throw error;
     let activeSession = data?.session || null;
-    const isValidJwt = (value) => typeof value === 'string' && /^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$/.test(value);
+    const isValidJwt = (value) => typeof value === 'string' && /^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(value);
 
     // A corrupted/stale browser token can contain non-JWT characters. Refresh
     // it once before sending anything in an HTTP Authorization header.
