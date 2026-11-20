@@ -99,6 +99,7 @@ export default function MerchandisePayment() {
       {order.status === 'rejected' && <div className="rounded-xl border border-red-200 bg-red-50 p-5 text-sm text-red-900">ZPMC could not verify the submitted payment. Please contact the centre before sending another payment.</div>}
       {notice && order.status !== 'awaiting_payment' && <p role="status" className="text-sm text-emerald-700">{notice}</p>}
       {error && order.status === 'awaiting_payment' && <p role="alert" className="text-sm text-red-700">{error}</p>}
+      <p className="pt-2 text-center text-xs text-stone-500">Please review the <a href="/merchandise-policy" target="_blank" rel="noopener noreferrer" className="font-semibold text-buddhist-burgundy underline">ZPMC Merchandise Policy</a> for order, payment, cancellation, refund and delivery terms.</p>
     </div>}
   </main>;
 }
