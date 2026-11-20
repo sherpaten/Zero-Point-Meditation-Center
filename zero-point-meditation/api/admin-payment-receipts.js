@@ -44,7 +44,8 @@ async function sendReceipt(record) {
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   if (!['GET','POST'].includes(req.method)) { res.setHeader('Allow','GET, POST'); return res.status(405).json({ error:'Method not allowed.' }); }
-  if (!isAllowedOrigin(req.headers.origin)) return res.status(403).json({ error:'Request origin is not allowed.' });
+  const origin = req.headers.origin;
+  if ((origin && !isAllowedOrigin(origin)) || (req.method === 'POST' && !origin)) return res.status(403).json({ error:'Request origin is not allowed.' });
   const authorization = req.headers.authorization || '';
   const accessToken = authorization.startsWith('Bearer ') ? authorization.slice(7) : '';
   if (!accessToken) return res.status(401).json({ error:'Administrator sign-in is required.' });
