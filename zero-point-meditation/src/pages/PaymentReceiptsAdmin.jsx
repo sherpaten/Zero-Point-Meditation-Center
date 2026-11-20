@@ -34,7 +34,9 @@ export default function PaymentReceiptsAdmin() {
     if (!isValidJwt(activeSession?.access_token)) {
       throw new Error('Your administrator session token is damaged. Please sign out, sign in again, and reload this page.');
     }
-    setSession(activeSession);
+    // Do not write this session back into React state here. This function is
+    // called by loadRecords(), which is triggered by the session state effect.
+    // Updating session on every load would retrigger that effect indefinitely.
     return activeSession.access_token;
   }, []);
 
@@ -66,7 +68,7 @@ export default function PaymentReceiptsAdmin() {
     return () => { mounted = false; subscription.unsubscribe(); };
   }, []);
 
-  useEffect(() => { if (session) loadRecords(session); }, [session, loadRecords]);
+  useEffect(() => { if (session) loadRecords(); }, [session, loadRecords]);
 
   async function act(record, action) {
     if (!session?.access_token) return;
