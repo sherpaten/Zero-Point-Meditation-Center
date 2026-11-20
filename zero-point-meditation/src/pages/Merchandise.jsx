@@ -388,16 +388,24 @@ export default function Merchandise() {
             <motion.section role="dialog" aria-modal="true" aria-labelledby="merch-order-title"
               initial={{ scale: 0.96, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.96, opacity: 0 }}
               onClick={e => e.stopPropagation()}
-              className="bg-white rounded-3xl max-w-2xl w-full max-h-[94vh] overflow-y-auto p-5 sm:p-8 space-y-5 shadow-2xl relative">
+              className="bg-[#FFFEFC] rounded-[28px] max-w-3xl w-full max-h-[94vh] overflow-y-auto p-4 sm:p-7 shadow-2xl relative border border-amber-100">
               <button type="button" onClick={() => setSelectedItem(null)} aria-label="Close order form"
                 className="absolute top-4 right-4 bg-stone-100 hover:bg-stone-200 p-2 rounded-full text-stone-600"><X size={18}/></button>
               {!orderSent ? <>
-                <div className="space-y-3 pr-10">
-                  <span className="text-buddhist-gold font-bold text-xs uppercase tracking-widest">Zero Point Meditation Center · Merchandise order</span>
-                  <h3 id="merch-order-title" className="font-serif text-2xl font-bold text-buddhist-burgundy">{selectedItem.name}</h3>
-                  <img src={selectedItem.image} alt={selectedItem.name} className="w-full max-h-52 object-contain rounded-2xl bg-stone-50"/>
-                  <p className="text-sm text-stone-600">{selectedItem.description}</p>
-                  <p className="text-sm font-bold text-buddhist-burgundy">{selectedItem.price}</p>
+                <div className="mb-6 border-b border-stone-200 pb-5">
+                  <div className="flex items-center gap-2 text-[10px] sm:text-xs font-bold uppercase tracking-[0.16em] text-buddhist-gold mb-4">
+                    <ShoppingBag size={14}/> Zero Point Meditation Center <span className="text-stone-300">/</span> Order enquiry
+                  </div>
+                  <div className="grid sm:grid-cols-[190px_1fr] gap-4 sm:gap-6 items-center">
+                    <div className="rounded-2xl bg-[#F6F1E8] border border-stone-100 p-3">
+                      <img src={selectedItem.image} alt={selectedItem.name} className="w-full h-36 sm:h-40 object-contain"/>
+                    </div>
+                    <div className="space-y-2 pr-8 sm:pr-10">
+                      <h3 id="merch-order-title" className="font-serif text-2xl sm:text-3xl font-bold leading-tight text-buddhist-burgundy">{selectedItem.name}</h3>
+                      <p className="text-sm text-stone-600 leading-relaxed">{selectedItem.description}</p>
+                      <div className="inline-flex items-center rounded-full bg-amber-50 border border-amber-200 px-3 py-1.5 text-sm font-bold text-buddhist-burgundy">{selectedItem.price}</div>
+                    </div>
+                  </div>
                 </div>
                 <form className="space-y-4" onSubmit={async e => {
                   e.preventDefault(); setOrderSubmitting(true); setOrderError('');
@@ -414,29 +422,41 @@ export default function Merchandise() {
                   } catch (err) { setOrderError(err.message || 'Unable to submit your order. Please try again.'); }
                   finally { setOrderSubmitting(false); }
                 }}>
-                  <h4 className="font-serif text-lg font-bold text-stone-900">Your details & delivery address</h4>
-                  <label className="block text-xs font-bold text-stone-700">Quantity<input required type="number" min="1" max="99" value={orderQuantity} onChange={e=>setOrderQuantity(e.target.value)} className="mt-1 w-full p-3 rounded-xl border border-stone-300 font-normal"/></label>
-                  <div className="grid sm:grid-cols-2 gap-3">
-                    <label className="text-xs font-bold text-stone-700">Full name *<input required maxLength="120" autoComplete="name" value={orderForm.name} onChange={e=>setOrderForm(v=>({...v,name:e.target.value}))} className="mt-1 w-full p-3 rounded-xl border border-stone-300 font-normal"/></label>
-                    <label className="text-xs font-bold text-stone-700">Email address *<input required type="email" maxLength="254" autoComplete="email" value={orderForm.email} onChange={e=>setOrderForm(v=>({...v,email:e.target.value}))} className="mt-1 w-full p-3 rounded-xl border border-stone-300 font-normal"/></label>
-                    <label className="text-xs font-bold text-stone-700">Phone number *<input required type="tel" maxLength="40" autoComplete="tel" value={orderForm.phone} onChange={e=>setOrderForm(v=>({...v,phone:e.target.value}))} className="mt-1 w-full p-3 rounded-xl border border-stone-300 font-normal"/></label>
-                    <label className="text-xs font-bold text-stone-700 sm:col-span-2">Street address *<input required maxLength="180" autoComplete="street-address" value={orderForm.address} onChange={e=>setOrderForm(v=>({...v,address:e.target.value}))} className="mt-1 w-full p-3 rounded-xl border border-stone-300 font-normal"/></label>
-                    <label className="text-xs font-bold text-stone-700">City *<input required maxLength="100" autoComplete="address-level2" value={orderForm.city} onChange={e=>setOrderForm(v=>({...v,city:e.target.value}))} className="mt-1 w-full p-3 rounded-xl border border-stone-300 font-normal"/></label>
-                    <label className="text-xs font-bold text-stone-700">State / Province<input maxLength="100" autoComplete="address-level1" value={orderForm.region} onChange={e=>setOrderForm(v=>({...v,region:e.target.value}))} className="mt-1 w-full p-3 rounded-xl border border-stone-300 font-normal"/></label>
-                    <label className="text-xs font-bold text-stone-700">Postal code<input maxLength="30" autoComplete="postal-code" value={orderForm.postalCode} onChange={e=>setOrderForm(v=>({...v,postalCode:e.target.value}))} className="mt-1 w-full p-3 rounded-xl border border-stone-300 font-normal"/></label>
-                    <label className="text-xs font-bold text-stone-700">Country *<input required maxLength="100" autoComplete="country-name" value={orderForm.country} onChange={e=>setOrderForm(v=>({...v,country:e.target.value}))} className="mt-1 w-full p-3 rounded-xl border border-stone-300 font-normal"/></label>
+                  <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+                    <div>
+                      <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-buddhist-gold mb-1">Delivery information</p>
+                      <h4 className="font-serif text-xl sm:text-2xl font-bold text-stone-900">Your details & delivery address</h4>
+                    </div>
+                    <label className="block text-xs font-semibold text-stone-700 sm:w-32">Quantity<input required type="number" min="1" max="99" value={orderQuantity} onChange={e=>setOrderQuantity(e.target.value)} className="mt-1.5 w-full p-2.5 rounded-xl border border-stone-200 bg-white text-sm font-medium text-stone-900 outline-none transition focus:border-buddhist-gold focus:ring-2 focus:ring-amber-100"/></label>
                   </div>
-                  <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 space-y-2">
-                    <div className="flex items-center gap-2 text-buddhist-burgundy font-bold text-sm"><ShieldCheck size={17}/> Payment happens after confirmation</div>
-                    <p className="text-xs text-stone-700 leading-relaxed">ZPMC will first confirm availability, the final item price and shipping. If you accept the total, we’ll email you a private Zelle payment link with the official payment QR code. No payment is due when submitting this enquiry.</p>
+                  <div className="grid sm:grid-cols-2 gap-x-4 gap-y-3.5">
+                    <label className="block text-xs font-semibold text-stone-700">Full name *<input required maxLength="120" autoComplete="name" value={orderForm.name} onChange={e=>setOrderForm(v=>({...v,name:e.target.value}))} className="mt-1.5 w-full p-3 rounded-xl border border-stone-200 bg-white text-sm font-normal text-stone-900 outline-none transition placeholder:text-stone-400 focus:border-buddhist-gold focus:ring-2 focus:ring-amber-100"/></label>
+                    <label className="block text-xs font-semibold text-stone-700">Email address *<input required type="email" maxLength="254" autoComplete="email" value={orderForm.email} onChange={e=>setOrderForm(v=>({...v,email:e.target.value}))} className="mt-1.5 w-full p-3 rounded-xl border border-stone-200 bg-white text-sm font-normal text-stone-900 outline-none transition placeholder:text-stone-400 focus:border-buddhist-gold focus:ring-2 focus:ring-amber-100"/></label>
+                    <label className="block text-xs font-semibold text-stone-700">Phone number *<input required type="tel" maxLength="40" autoComplete="tel" value={orderForm.phone} onChange={e=>setOrderForm(v=>({...v,phone:e.target.value}))} className="mt-1.5 w-full p-3 rounded-xl border border-stone-200 bg-white text-sm font-normal text-stone-900 outline-none transition placeholder:text-stone-400 focus:border-buddhist-gold focus:ring-2 focus:ring-amber-100"/></label>
+                    <label className="block text-xs font-semibold text-stone-700 sm:col-span-2">Street address *<input required maxLength="180" autoComplete="street-address" value={orderForm.address} onChange={e=>setOrderForm(v=>({...v,address:e.target.value}))} className="mt-1.5 w-full p-3 rounded-xl border border-stone-200 bg-white text-sm font-normal text-stone-900 outline-none transition placeholder:text-stone-400 focus:border-buddhist-gold focus:ring-2 focus:ring-amber-100"/></label>
+                    <label className="block text-xs font-semibold text-stone-700">City *<input required maxLength="100" autoComplete="address-level2" value={orderForm.city} onChange={e=>setOrderForm(v=>({...v,city:e.target.value}))} className="mt-1.5 w-full p-3 rounded-xl border border-stone-200 bg-white text-sm font-normal text-stone-900 outline-none transition placeholder:text-stone-400 focus:border-buddhist-gold focus:ring-2 focus:ring-amber-100"/></label>
+                    <label className="block text-xs font-semibold text-stone-700">State / Province<input maxLength="100" autoComplete="address-level1" value={orderForm.region} onChange={e=>setOrderForm(v=>({...v,region:e.target.value}))} className="mt-1.5 w-full p-3 rounded-xl border border-stone-200 bg-white text-sm font-normal text-stone-900 outline-none transition placeholder:text-stone-400 focus:border-buddhist-gold focus:ring-2 focus:ring-amber-100"/></label>
+                    <label className="block text-xs font-semibold text-stone-700">Postal code<input maxLength="30" autoComplete="postal-code" value={orderForm.postalCode} onChange={e=>setOrderForm(v=>({...v,postalCode:e.target.value}))} className="mt-1.5 w-full p-3 rounded-xl border border-stone-200 bg-white text-sm font-normal text-stone-900 outline-none transition placeholder:text-stone-400 focus:border-buddhist-gold focus:ring-2 focus:ring-amber-100"/></label>
+                    <label className="block text-xs font-semibold text-stone-700">Country *<input required maxLength="100" autoComplete="country-name" value={orderForm.country} onChange={e=>setOrderForm(v=>({...v,country:e.target.value}))} className="mt-1.5 w-full p-3 rounded-xl border border-stone-200 bg-white text-sm font-normal text-stone-900 outline-none transition placeholder:text-stone-400 focus:border-buddhist-gold focus:ring-2 focus:ring-amber-100"/></label>
+                  </div>
+                  <div className="rounded-2xl border border-amber-200/90 bg-gradient-to-br from-amber-50 to-[#FFFDF8] p-4 sm:p-5">
+                    <div className="flex items-start gap-3">
+                      <div className="shrink-0 rounded-xl bg-white border border-amber-200 p-2 text-buddhist-burgundy"><ShieldCheck size={19}/></div>
+                      <div className="space-y-1.5">
+                        <h5 className="font-serif text-lg font-bold text-buddhist-burgundy">Payment is requested only after confirmation</h5>
+                        <p className="text-xs sm:text-sm text-stone-700 leading-relaxed">We’ll first confirm availability, the final item price and shipping. If you accept the total, we’ll email you a private Zelle payment link with the official payment QR code. <strong className="text-stone-900">No payment is due today.</strong></p>
+                      </div>
+                    </div>
                   </div>
                   {orderError && <p role="alert" className="rounded-xl bg-red-50 border border-red-200 p-3 text-sm text-red-800">{orderError}</p>}
-                  <label className="flex items-start gap-2 text-xs leading-relaxed text-stone-600">
-                    <input required type="checkbox" className="mt-0.5 accent-buddhist-burgundy" />
-                    <span>I have read and agree to the <a href="/merchandise-policy" target="_blank" rel="noopener noreferrer" className="font-semibold text-buddhist-burgundy underline">ZPMC Merchandise Sales, Payment, Refund &amp; Delivery Policy</a>.</span>
-                  </label>
-                  <button type="submit" disabled={orderSubmitting} className="w-full py-3.5 bg-buddhist-burgundy hover:opacity-90 disabled:opacity-60 text-white font-bold rounded-xl text-sm">{orderSubmitting ? 'Sending order…' : 'Submit order enquiry'}</button>
-                  <p className="text-[11px] text-stone-500 text-center">This submits an order request only. No payment is collected until ZPMC confirms availability, the final item price and shipping.</p>
+                  <div className="rounded-xl border border-stone-200 bg-stone-50/80 p-3.5">
+                    <label className="flex items-start gap-2.5 text-xs leading-relaxed text-stone-600">
+                      <input required type="checkbox" className="mt-0.5 h-4 w-4 shrink-0 accent-buddhist-burgundy" />
+                      <span>I have read and agree to the <a href="/merchandise-policy" target="_blank" rel="noopener noreferrer" className="font-semibold text-buddhist-burgundy underline underline-offset-2">ZPMC Merchandise Sales, Payment, Refund &amp; Delivery Policy</a>.</span>
+                    </label>
+                  </div>
+                  <button type="submit" disabled={orderSubmitting} className="w-full py-3.5 bg-buddhist-burgundy hover:bg-[#53151B] disabled:opacity-60 text-white font-bold rounded-xl text-sm sm:text-base shadow-md shadow-burgundy-900/10 transition-colors">{orderSubmitting ? 'Sending order…' : 'Submit order enquiry'}</button>
+                  <p className="text-[11px] text-stone-500 text-center leading-relaxed">This is an order request only. You will not be charged when submitting this form.</p>
                 </form>
               </> : <div className="py-10 text-center space-y-4">
                 <CheckCircle size={42} className="mx-auto text-emerald-600"/>
