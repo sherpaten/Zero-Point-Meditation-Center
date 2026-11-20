@@ -765,7 +765,8 @@ export default function MembershipAdmin() {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
+          <a href="/payment-receipts-admin" className="rounded-lg border border-amber-700 px-4 py-2 text-sm font-semibold text-amber-900 hover:bg-amber-50">Donations & Payment Receipts</a>
           <span className="rounded-full bg-green-100 px-3 py-2 text-sm font-medium text-green-800">
             Administrator
           </span>
