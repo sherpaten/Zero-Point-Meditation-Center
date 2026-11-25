@@ -89,9 +89,9 @@ const eventGallery = [
     category: 'Meditation Practice',
     title: 'Weekly Morning Meditation',
     location: 'Zero Point Meditation Center',
-    date: 'Nov 14–15',
+    date: 'Launching January 2027',
     image: weeklyMeditationMorning,
-    description: 'Free online sessions this weekend: Nepali on Saturday and English on Sunday, 6:30–7:15 AM Eastern Time.'
+    description: 'Free online sessions launching January 2027: Nepali on Saturday and English on Sunday, 6:30–7:15 AM Eastern Time. Exact starting dates will be announced soon.'
   },
   {
     id: 3,
