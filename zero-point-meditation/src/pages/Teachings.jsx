@@ -16,6 +16,8 @@ import smrityPhoto from '../assets/Teams/Smty.jpeg';
 import mimiLamaPhoto from '../assets/Teams/Mimi Lama.jpeg';
 import zoeLiangPhoto from '../assets/Teams/Zoe Liang.jpeg';
 import shirleyHuangPhoto from '../assets/Teams/Shirley Huang.jpeg';
+import tashiLhamoPhoto from '../assets/Teams/Tashi Lhamo.jpeg';
+import joselynChenPhoto from '../assets/Teams/JOSELYN.CHEN.jpeg';
 
 export default function Teachings() {
   const [bookingOpen, setBookingOpen] = useState(false);
@@ -197,11 +199,21 @@ export default function Teachings() {
           {[
             { name: 'Jessica' },
             { name: 'Dawa Dorje Sherpa' },
+            { name: 'Tashi Lhamo', image: tashiLhamoPhoto },
+            { name: 'JOSELYN.CHEN', image: joselynChenPhoto },
           ].map((member) => (
-            <article key={member.name} className="flex min-h-44 flex-col items-center justify-center rounded-2xl border border-amber-100 bg-white p-6 text-center shadow-sm">
-              <Users size={36} strokeWidth={1.4} className="text-buddhist-burgundy/70" />
-              <h3 className="mt-3 font-serif text-lg font-bold text-buddhist-burgundy">{member.name}</h3>
-              <span className="mt-1 text-xs font-bold uppercase tracking-widest text-buddhist-gold">Member</span>
+            <article key={member.name} className="overflow-hidden rounded-2xl border border-amber-100 bg-white shadow-sm">
+              <div className="flex min-h-44 items-center justify-center overflow-hidden bg-stone-100">
+                {member.image ? (
+                  <img src={member.image} alt={member.name} loading="lazy" className="block max-h-[420px] w-full object-contain object-center" />
+                ) : (
+                  <Users size={36} strokeWidth={1.4} className="text-buddhist-burgundy/70" />
+                )}
+              </div>
+              <div className="p-5 text-center">
+                <h3 className="font-serif text-lg font-bold text-buddhist-burgundy">{member.name}</h3>
+                <span className="mt-1 block text-xs font-bold uppercase tracking-widest text-buddhist-gold">Member</span>
+              </div>
             </article>
           ))}
         </div>
