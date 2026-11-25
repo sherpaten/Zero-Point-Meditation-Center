@@ -3,12 +3,8 @@ import { createPortal } from 'react-dom';
 import { X, CalendarDays, CreditCard, ShieldCheck, CheckCircle2, LoaderCircle } from 'lucide-react';
 import MembershipPrompt from './MembershipPrompt.jsx';
 
-const announcedMorningMeditationDates = [
-  { value: '2026-11-07', label: 'Saturday, November 7, 2026 · Nepali' },
-  { value: '2026-11-08', label: 'Sunday, November 8, 2026 · English' },
-  { value: '2026-11-14', label: 'Saturday, November 14, 2026 · Nepali' },
-  { value: '2026-11-15', label: 'Sunday, November 15, 2026 · English' },
-];
+// January 2027 launch dates are not confirmed yet. Keep booking closed until dates are announced.
+const announcedMorningMeditationDates = [];
 function dateValue(d = new Date()) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
 function weekendSessions() {
  const out=[], now=new Date(), d=new Date(now.getFullYear(),now.getMonth(),now.getDate()), end=new Date(2026,11,31);
@@ -208,11 +204,11 @@ export default function BookingModal({ open, onClose, initialType = 'event', ini
           </div>}
           {requiresDate && <div className="rounded-xl bg-amber-50 p-4 text-sm text-stone-700">
             <p className="flex items-center gap-2 font-semibold text-buddhist-burgundy"><CalendarDays size={17}/> {['Free Morning Meditation', 'Free Meditation Class'].includes(service) ? 'Free Meditation Class · 6:30–7:15 AM' : 'Free Weekend Community Classes'}</p>
-            <p className="mt-1">{['Free Morning Meditation', 'Free Meditation Class'].includes(service) ? 'Saturday sessions are in Nepali and Sunday sessions are in English. All sessions run from 6:30–7:15 AM US Eastern Time. Your confirmation email includes the correct Zoom link and meeting ID for your selected date.' : 'Community classes are scheduled for Saturdays and Sundays through December 31, 2026. The center will confirm session details.'}</p>
+            <p className="mt-1">{['Free Morning Meditation', 'Free Meditation Class'].includes(service) ? 'Weekly Morning Meditation launches in January 2027: Nepali on Saturday and English on Sunday, both 6:30–7:15 AM Eastern Time. Exact starting dates will be announced soon.' : 'Community class dates will be confirmed by the center.'}</p>
             {dateSessions.length ? <>
               <label htmlFor="booking-date" className="mt-3 block font-semibold">Choose a date</label>
               <select id="booking-date" value={date} onChange={event => setDate(event.target.value)} className={fieldClass} required>{dateSessions.map(session => <option key={session.value} value={session.value}>{session.label}</option>)}</select>
-            </> : <p className="mt-3 font-semibold text-amber-900">No upcoming dates are currently announced. Please contact the center for the next session.</p>}
+            </> : <p className="mt-3 font-semibold text-amber-900">January 2027 launch dates are coming soon. Registration will open after the exact starting dates are announced.</p>}
           </div>}
           <div className="grid gap-4 sm:grid-cols-2">
             <div><label htmlFor="booking-name" className="text-sm font-semibold text-stone-800">Full name *</label><input id="booking-name" className={fieldClass} name="name" autoComplete="name" value={form.name} onChange={update} maxLength={120} required /></div>
