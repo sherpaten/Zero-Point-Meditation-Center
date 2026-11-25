@@ -90,28 +90,8 @@ export default async function handler(req, res) {
   ]);
   const autoConfirm = type === 'event' && autoConfirmedFreeEvents.has(service);
   const externalEventLinkSent = Boolean(selectedExternalEvent);
-  const morningMeditationSessions = {
-    '2026-11-07': {
-      language: 'Nepali',
-      url: 'https://us06web.zoom.us/j/88470677871',
-      meetingId: '884 7067 7871'
-    },
-    '2026-11-08': {
-      language: 'English',
-      url: 'https://us06web.zoom.us/j/84582891079',
-      meetingId: '845 8289 1079'
-    },
-    '2026-11-14': {
-      language: 'Nepali',
-      url: 'https://us06web.zoom.us/j/88470677871',
-      meetingId: '884 7067 7871'
-    },
-    '2026-11-15': {
-      language: 'English',
-      url: 'https://us06web.zoom.us/j/84582891079',
-      meetingId: '845 8289 1079'
-    }
-  };
+  // January 2027 launch dates and Zoom links will be added once officially confirmed.
+  const morningMeditationSessions = {};
   const morningMeditationSession = autoConfirm
     && ['Free Morning Meditation', 'Free Meditation Class', 'Free Weekend Community Classes'].includes(service)
     ? morningMeditationSessions[date]
@@ -120,7 +100,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Please choose an available class date.' });
   }
   if (type === 'event' && ['Free Morning Meditation', 'Free Meditation Class'].includes(service) && !morningMeditationSessions[date]) {
-    return res.status(400).json({ error: 'Please choose an available Morning Meditation date.' });
+    return res.status(400).json({ error: 'January 2027 Morning Meditation dates have not been announced yet. Please check back soon.' });
   }
 
   const requiresApproval = !autoConfirm && !externalEventLinkSent && intent !== 'inquiry';
